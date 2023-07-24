@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 import SubmissionComponent from './SubmissionComponent';
 import SubmitButton from '../SharedComponents/SubmitButton';
 
@@ -128,9 +129,9 @@ export default class AddDataContent extends React.Component {
                             {actionArea}
                             {
                                 this.state.submissionID !== 0 ?
-                                    <a className="usa-da-submit-review" href={subLink}>
+                                    <Link className="usa-da-submit-review" to={subLink}>
                                         {subID}
-                                    </a>
+                                    </Link>
                                     : null
                             }
                         </div>

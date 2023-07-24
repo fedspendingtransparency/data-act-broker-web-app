@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as AgencyHelper from 'helpers/agencyHelper';
@@ -273,7 +273,7 @@ export default class AddDataMeta extends React.Component {
                                 </TransitionGroup>
                             </div>
                             <div className="usa-da-guide-link">
-                                <a href="submissionGuide?force=true">View Submission Guide</a>
+                                <Link to="/submissionGuide?force=true">View Submission Guide</Link>
                             </div>
                         </div>
                     </div>

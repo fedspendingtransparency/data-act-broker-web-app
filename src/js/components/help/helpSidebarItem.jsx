@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
+
 const propTypes = {
     sectionId: PropTypes.string,
     sectionName: PropTypes.string,
@@ -23,9 +25,9 @@ export default class HelpSidebarItem extends React.Component {
         const help = this.props.type === 'fabs' ? '/FABShelp' : '/help';
         return (
             <li>
-                <a href={`${help}?section=${this.props.sectionId}`}>
+                <Link to={`${help}?section=${this.props.sectionId}`}>
                     {this.props.sectionName}
-                </a>
+                </Link>
             </li>
         );
     }

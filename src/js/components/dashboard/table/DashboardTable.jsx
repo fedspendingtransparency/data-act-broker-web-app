@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
@@ -117,11 +118,11 @@ export default class DashboardTable extends React.Component {
                     return (
                         <tr key={`dashboard-table-row-${row.submissionId}-${row.ruleLabel}`}>
                             <td>
-                                <a
-                                    href={`submission/${row.submissionId}`}
+                                <Link
+                                    to={`/submission/${row.submissionId}`}
                                     className="date-link">
                                     {row.submissionId}
-                                </a>
+                                </Link>
                             </td>
                             <td>
                                 {row.period}

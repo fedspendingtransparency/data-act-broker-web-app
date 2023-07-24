@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 
 const propTypes = {
@@ -24,7 +26,7 @@ export default class ErrorPage extends React.Component {
                                 <div className="col-md-7 mt-50 mb-50">
                                     <div className="display-2">Page Not Found</div>
                                     <p>No page exists at this address.</p>
-                                    <p><a href="/">Click here</a> to return home.</p>
+                                    <p><Link to="/">Click here</Link> to return home.</p>
                                 </div>
                             </div>
                         </div>
