@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import LoginMaxErrorMessage from './LoginMaxErrorMessage';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
@@ -47,7 +49,7 @@ export default class LoginMaxLoading extends React.Component {
                     <div className="col-md-12">
                         {errorMessageComponent}
                         <div className="back-link">
-                            <a href="/">Back to login page</a>
+                            <Link to="/">Back to login page</Link>
                         </div>
                     </div>
                 </div>

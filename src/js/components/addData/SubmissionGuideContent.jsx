@@ -5,8 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Banner from '../SharedComponents/Banner';
+import { Link } from 'react-router-dom';
 
+import Banner from '../SharedComponents/Banner';
 import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
@@ -177,9 +178,9 @@ export default class SubmissionGuideContent extends React.Component {
                                             All files must be present to perform cross-file validations.
                                         </p>
                                         <p>
-                                            <a href="#/validations">
+                                            <Link to="validations">
                                                 Find out what validations are currently implemented
-                                            </a>
+                                            </Link>
                                         </p>
                                     </div>
                                 </div>

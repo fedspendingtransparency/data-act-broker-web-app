@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HashRouter as Router, Switch } from 'react-router-dom';
-import { createHashHistory } from 'history';
+import { Router, Switch } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
@@ -37,7 +37,7 @@ const defaultProps = {
 };
 
 const Routes = new RouterRoutes();
-const history = createHashHistory();
+const history = createBrowserHistory();
 
 class RouterContainer extends React.Component {
     componentDidMount() {
@@ -52,7 +52,7 @@ class RouterContainer extends React.Component {
 
     render() {
         return (
-            <Router>
+            <Router history={history}>
                 <Switch>
                     {[
                         ...Routes.getRoutes().map((route) => (

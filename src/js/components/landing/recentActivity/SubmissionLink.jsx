@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
+
 const propTypes = {
     submissionId: PropTypes.oneOfType([
         PropTypes.string,
@@ -35,9 +37,9 @@ export default class SubmissionLink extends React.Component {
             link = 'N/A';
         }
 
-        let content = <a href={`#/submission/${this.props.submissionId}`} className="date-link">{link}</a>;
+        let content = <Link to={`submission/${this.props.submissionId}`} className="date-link">{link}</Link>;
         if (this.props.type === 'fabs') {
-            content = <a href={`#/FABSAddData/${this.props.submissionId}`} className="date-link">{link}</a>;
+            content = <Link to={`FABSAddData/${this.props.submissionId}`} className="date-link">{link}</Link>;
         }
 
         if (this.props.disabled) {
