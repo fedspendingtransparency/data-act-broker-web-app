@@ -1,5 +1,7 @@
-#### July 18, 2023{section=changelog}
+#### August 8, 2023{section=changelog}
 In this release of the Broker, we:
 
-* Implemented DAIMS 2.2.2 changes. Please refer to the official DAIMS 2.2.2 release for details and effective dates.
-* Backfilled several Broker data elements to provide for better results in current Congressional District derivations going forward.
+* Removed previously deprecated no longer used max login API endpoints.
+* Added Common Approach to Identity Assurance (CAIA) login button to broker login screen, and added banner to alert users to CAIA migration:
+
+"To meet new security mandates the Broker will no longer use MAX.gov for user authentication and permissions as of 09/30/2023. The ability to sign in using MAX.gov will be removed on that date and Fiscal Service’s Common Approach to Identity Assurance (CAIA) will be the only option for Broker access. Until then, it is imperative that all users begin logging in via CAIA to ensure they have the appropriate access and permission levels before 09/30/2023. Please contact usaspending.help@fiscal.treasury.gov if you need assistance."
