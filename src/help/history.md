@@ -1,4 +1,28 @@
-#### April 26, 2023{section=changelog}
+#### July 18, 2023{section=changelog}
+In this release of the Broker, we:
+
+* Implemented DAIMS 2.2.2 changes. Please refer to the official DAIMS 2.2.2 release for details and effective dates.
+* Backfilled several Broker data elements to provide for better results in current Congressional District derivations going forward.
+
+#### June 27, 2023
+In this release of the Broker, we:
+
+* Fixed a bug with uploading a new Broker file from the cross file validation page after validations are run.
+* Back-end work to prepare for conversion to CAIA user authentication.
+
+#### June 6, 2023
+In this release of the Broker, we:
+
+* Updated logic used in FABS location derivation for improved accuracy.
+* Minor bug fixes.
+
+#### May 16, 2023
+In this release of the Broker, we:
+
+* Backfilled Congressional Districts that were not deriving while derivations were paused.
+* Minor bug fixes and package updates.
+
+#### April 26, 2023
 In this release of the Broker, we:
 
 * Resumed deriving Congressional Districts in FABS with updated district changes resulting from the 2020 census.
