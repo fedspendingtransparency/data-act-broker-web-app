@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import HelpSidebarItem from './helpSidebarItem';
 
 const propTypes = {
@@ -41,15 +43,15 @@ export default class HelpSidebar extends React.Component {
         if (this.props.helpOnly) {
             membership = (
                 <li>
-                    <a href="/#/help?section=agencyAccess">Request Agency Access</a>
+                    <Link to="/help?section=agencyAccess">Request Agency Access</Link>
                 </li>
             );
         }
 
-        const help = this.props.type === 'fabs' ? "/#/FABSHelp" : '/#/help';
-        const history = this.props.type === 'fabs' ? "/#/FABSHistory" : '/#/history';
-        const technicalHistory = this.props.type === 'fabs' ? "/#/FABSTechnicalHistory" : '/#/technicalHistory';
-        const resources = this.props.type === 'fabs' ? "/#/FABSResources" : '/#/resources';
+        const help = this.props.type === 'fabs' ? "/FABSHelp" : '/help';
+        const history = this.props.type === 'fabs' ? "/#ABSHistory" : '/history';
+        const technicalHistory = this.props.type === 'fabs' ? "/FABSTechnicalHistory" : '/technicalHistory';
+        const resources = this.props.type === 'fabs' ? "/FABSResources" : '/resources';
         let schedule = null;
         if (this.props.type === 'dabs') {
             schedule = (
@@ -77,24 +79,24 @@ export default class HelpSidebar extends React.Component {
                 <ul>
                     {clSectionList}
                     <li>
-                        <a href={history}>Release Notes Archive</a>
+                        <Link to={history}>Release Notes Archive</Link>
                     </li>
                 </ul>
                 <h6>This Release&rsquo;s Technical Notes</h6>
                 <ul>
                     {tSectionList}
                     <li>
-                        <a href={technicalHistory}>Technical Notes Archive</a>
+                        <Link to={technicalHistory}>Technical Notes Archive</Link>
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>
                 <ul>
                     {membership}
                     <li>
-                        <a href={`${help}?section=membership`}>Contact the Service Desk</a>
+                        <Link to={`${help}?section=membership`}>Contact the Service Desk</Link>
                     </li>
                     <li>
-                        <a href={resources}>Resources - DAIMS</a>
+                        <Link to={resources}>Resources - DAIMS</Link>
                     </li>
                 </ul>
                 <div className="usa-da-help-sidebar__signup">

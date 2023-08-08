@@ -5,6 +5,8 @@
 
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 export default class ValidateCancellation extends React.Component {
     render() {
         return (
@@ -13,11 +15,11 @@ export default class ValidateCancellation extends React.Component {
                 role="alert">
                 Your submission has been stuck in validation for a while. Would you like to cancel and try again?
                 &nbsp;&nbsp;&nbsp;
-                <a
-                    href="#/addData"
+                <Link
+                    to="/addData"
                     className="usa-da-button btn-danger">
                     Cancel Submission
-                </a>
+                </Link>
             </div>
         );
     }

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { clearSettings } from 'redux/actions/settingsActions';
 import * as PermissionHelper from 'helpers/permissionsHelper';
@@ -172,7 +173,7 @@ export class Navbar extends React.Component {
                                 <span className="icon-bar" />
                                 <span className="icon-bar" />
                             </button>
-                            <a className="navbar-brand usa-da-header-brand" href="#/">DATA Act Broker</a>
+                            <Link className="navbar-brand usa-da-header-brand" to="/">DATA Act Broker</Link>
                         </div>
 
                         <div className="collapse navbar-collapse usa-da-header-links" id="bs-example-navbar-collapse-1">

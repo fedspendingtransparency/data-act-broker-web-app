@@ -118,7 +118,7 @@ export default class ReviewDataNotifyModal extends React.Component {
         const subject = 'DATA Act Broker - Submission Ready for Review';
         const revUser = this.props.fromUser.toUpperCase();
         const revAgecny = this.props.submittingAgency.toUpperCase();
-        const revLink = `https://broker.usaspending.gov/#/submission/${this.props.submissionID}/reviewData`;
+        const revLink = `https://broker.usaspending.gov/submission/${this.props.submissionID}/reviewData`;
         const body = [
             `${revUser} has shared a DATA Act broker submission with you from ${revAgecny}. `,
             `Follow this link (${revLink}) to review their submission. `,
