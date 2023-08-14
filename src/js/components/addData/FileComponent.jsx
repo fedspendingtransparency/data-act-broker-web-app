@@ -9,7 +9,12 @@ import DropZoneContainer from '../../containers/addData/DropZoneContainer';
 
 const propTypes = {
     fileTitle: PropTypes.string.isRequired,
-    requestName: PropTypes.string.isRequired
+    requestName: PropTypes.string.isRequired,
+    interactive: PropTypes.bool,
+};
+
+const defaultProps = {
+    interactive: true
 };
 
 export default class FileComponent extends React.Component {
@@ -19,7 +24,10 @@ export default class FileComponent extends React.Component {
                 <div className="center-block">
                     <div className="usa-da-submission-vertical-center">
                         <div className="usa-da-submission-item-drop-wrapper">
-                            <DropZoneContainer requestName={this.props.requestName} fileTitle={this.props.fileTitle} />
+                            <DropZoneContainer
+                                requestName={this.props.requestName}
+                                fileTitle={this.props.fileTitle}
+                                interactive={this.props.interactive} />
                         </div>
                     </div>
                 </div>
@@ -29,3 +37,4 @@ export default class FileComponent extends React.Component {
 }
 
 FileComponent.propTypes = propTypes;
+FileComponent.defaultProps = defaultProps;

@@ -10,16 +10,19 @@ import { connect } from 'react-redux';
 
 import * as uploadActions from '../../redux/actions/uploadActions';
 
-import DropZone from '../../components/addData/DropZone';
+import DropZone from 'components/addData/DropZone';
+import DropZoneGenerated from 'components/addData/DropZoneGenerated';
 
 const propTypes = {
     setUploadItem: PropTypes.func,
-    requestName: PropTypes.string
+    requestName: PropTypes.string,
+    interactive: PropTypes.bool
 };
 
 const defaultProps = {
     setUploadItem: () => {},
-    requestName: ""
+    requestName: "",
+    interactive: true
 };
 
 class DropZoneContainer extends React.Component {
@@ -34,9 +37,13 @@ class DropZoneContainer extends React.Component {
     }
 
     render() {
+        let zoneType = <DropZone {...this.props} onDrop={this.onDrop.bind(this)} />;
+        if (!this.props.interactive) {
+            zoneType = <DropZoneGenerated {...this.props} />;
+        }
         return (
             <div>
-                <DropZone {...this.props} onDrop={this.onDrop.bind(this)} />
+                {zoneType}
             </div>
         );
     }

@@ -21,7 +21,8 @@ export default class SubmissionComponent extends React.Component {
             submissionItems.push(<FileComponent
                 key={i}
                 fileTitle={fileVars.fileTitle}
-                requestName={fileVars.requestName} />);
+                requestName={fileVars.requestName}
+                interactive={fileVars.requestName !== 'appropriations'} />);
         }
 
         return (
