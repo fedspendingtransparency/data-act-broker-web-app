@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
-
 import DropZone from 'components/addData/DropZone';
 import DropZoneGenerated from 'components/addData/DropZoneGenerated';
+
+import * as uploadActions from '../../redux/actions/uploadActions';
 
 const propTypes = {
     setUploadItem: PropTypes.func,

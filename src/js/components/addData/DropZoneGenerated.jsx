@@ -11,15 +11,12 @@ import * as UtilHelper from 'helpers/util';
 import DropZoneDisplay from './DropZoneDisplay';
 
 const propTypes = {
-    onDrop: PropTypes.func,
     resetSubmission: PropTypes.func,
     submission: PropTypes.object,
-    fileTitle: PropTypes.string,
-    requestName: PropTypes.string.isRequired
+    fileTitle: PropTypes.string
 };
 
 const defaultProps = {
-    onDrop: null,
     resetSubmission: null,
     submission: null,
     fileTitle: ''
@@ -33,7 +30,7 @@ export default class DropZone extends React.Component {
     render() {
         // Need to use charAt because we have a : at the end of the letter
         const fileLetter = this.props.fileTitle.split(' ')[1].charAt(0);
-        let fyDate = UtilHelper.getYearAndPeriod(this.props.submission.meta.endDate);
+        const fyDate = UtilHelper.getYearAndPeriod(this.props.submission.meta.endDate);
         let periodQuarter = `P${fyDate.period.toString().padStart(2, '0')}`;
         const fy = fyDate.year.toString().slice(-2);
         // if quarterly, adjust to show quarter to be generated
@@ -47,7 +44,7 @@ export default class DropZone extends React.Component {
         return (
             <div className="usa-da-dropzone text-center non-interactive">
                 <DropZoneDisplay
-                    displayMode='ready'
+                    displayMode="ready"
                     displayString={dropzoneString}
                     progress={progress} />
             </div>
