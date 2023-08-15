@@ -31,7 +31,6 @@ export default class DropZone extends React.Component {
     }
 
     render() {
-        console.log(this.props.submission.meta);
         // Need to use charAt because we have a : at the end of the letter
         const fileLetter = this.props.fileTitle.split(' ')[1].charAt(0);
         let fyDate = UtilHelper.getYearAndPeriod(this.props.submission.meta.endDate);
