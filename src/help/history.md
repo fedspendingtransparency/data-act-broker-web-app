@@ -1,4 +1,9 @@
-#### August 8, 2023{section=changelog}
+#### August 29, 2023{section=changelog}
+In this release of the Broker, we:
+
+* Added a link to the FY24 DABS Reporting Window Schedule to the Broker Help page.
+
+#### August 8, 2023
 In this release of the Broker, we:
 
 * Added Common Approach to Identity Assurance (CAIA) login button to broker login screen, and added banner to alert users to CAIA migration:
