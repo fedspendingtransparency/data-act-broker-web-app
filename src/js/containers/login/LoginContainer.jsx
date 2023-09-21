@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import LoginPanel from 'components/login/LoginPanel';
-import LoginMax from 'components/login/LoginMax';
+import LoginCaia from 'components/login/LoginCaia';
 import Banner from 'components/SharedComponents/Banner';
 import * as LoginHelper from 'helpers/loginHelper';
 import * as sessionActions from 'redux/actions/sessionActions';
@@ -58,7 +58,7 @@ class LoginContainer extends React.Component {
     }
 
     render() {
-        let login = <LoginMax {...this.props} />;
+        let login = <LoginCaia {...this.props} />;
 
         if (kGlobalConstants.LOCAL) {
             login = (<LoginPanel

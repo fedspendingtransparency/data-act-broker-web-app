@@ -28,9 +28,9 @@ export default class BlockContent extends React.Component {
         let firstBlock = (<LandingBlock
             type={this.props.type}
             icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
-            text="In order to upload and validate your agency's files, please follow the link below to request access"
+            text="In order to upload and validate your agency's files, please request access in CAIA."
             buttonText="Request Access"
-            url="https://community.max.gov/x/fJwuRQ" />);
+            url="https://iiq.fiscal.treasury.gov/identityiq/home.jsf" />);
         let secondBlock = (<LandingBlock
             type={this.props.type}
             icon={<FontAwesomeIcon icon={['far', 'save']} />}
