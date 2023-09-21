@@ -1,5 +1,5 @@
 /**
-  * LoginMax.jsx
+  * LoginCaia.jsx
   * Createdd by Kevin Li 10/13/16
   */
 
@@ -18,14 +18,13 @@ const defaultProps = {
     location: null
 };
 
-export default class LoginMax extends React.Component {
+export default class LoginCaia extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             redirect: ''
         };
-        this.handleClick = this.handleMaxClick.bind(this);
-        this.handleClick = this.handleCaiaClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -60,15 +59,7 @@ export default class LoginMax extends React.Component {
         }
     }
 
-    handleMaxClick(e) {
-        if (e.keyCode === '13' || !e.keyCode) {
-            const url = `${kGlobalConstants.CAS_ROOT}/cas/login?` +
-                `service=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`;
-            window.location.assign(url);
-        }
-    }
-
-    handleCaiaClick(e) {
+    handleClick(e) {
         if (e.keyCode === '13' || !e.keyCode) {
             const scope = "openid email profile address phone";
             const url = `${kGlobalConstants.CAIA_ROOT}/as/authorization.oauth2?`
@@ -85,22 +76,14 @@ export default class LoginMax extends React.Component {
             <div className="row">
                 <div className="col-xs-12">
                     <p className="instructions">
-                        Sign in or register for the DATA Act Broker using your MAX ID or CAIA login.
+                        Sign in or register for the DATA Act Broker using your CAIA login.
                     </p>
-                    <button
-                        className="usa-da-button btn-primary btn-lg btn-full"
-                        tabIndex="0"
-                        role="link"
-                        onKeyDown={this.handleMaxClick}
-                        onClick={this.handleMaxClick}>
-                        Sign In Using MAX
-                    </button>
                     <button
                         className="usa-da-button btn-primary btn-lg btn-full bottom-login-button"
                         tabIndex="0"
                         role="link"
-                        onKeyDown={this.handleCaiaClick}
-                        onClick={this.handleCaiaClick}>
+                        onKeyDown={this.handleClick}
+                        onClick={this.handleClick}>
                         Sign In Using CAIA
                     </button>
                 </div>
@@ -109,5 +92,5 @@ export default class LoginMax extends React.Component {
     }
 }
 
-LoginMax.propTypes = propTypes;
-LoginMax.defaultProps = defaultProps;
+LoginCaia.propTypes = propTypes;
+LoginCaia.defaultProps = defaultProps;
