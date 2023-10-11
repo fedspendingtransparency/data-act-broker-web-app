@@ -49,7 +49,7 @@ export default class HelpSidebar extends React.Component {
         }
 
         const help = this.props.type === 'fabs' ? "/FABSHelp" : '/help';
-        const history = this.props.type === 'fabs' ? "/#ABSHistory" : '/history';
+        const history = this.props.type === 'fabs' ? "/#FABSHistory" : '/history';
         const technicalHistory = this.props.type === 'fabs' ? "/FABSTechnicalHistory" : '/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/FABSResources" : '/resources';
         let schedule = null;
