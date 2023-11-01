@@ -1,4 +1,26 @@
-#### July 18, 2023{section=technical}
+#### September 19, 2023{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Reworked the subaward loader's performance as well as added 8 new county columns based on the zip code.
+* Added new Funding Opportunity Number loader and table to be utilized in future DAIMS updates.
+
+#### August 29, 2023
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Updated developer documentation to include a guide on deprecating endpoints.
+* Updated the submission window schedule to include FY24.
+
+#### August 8, 2023
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Added support to login into the Broker via CAIA. Note that you will no longer be able to login using MAX on October 1, 2023.
+* `/v1/max_login` will no longer be supported on October 1st, 2023. Instead, CAIA login is supported now (via `/v1/caia_login`) and will be the only option then. 
+* Finally removed previously deprecated `/v1/get_certified_file`. Please use `/v1/get_published_file` instead.
+
+#### July 18, 2023
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
@@ -6,7 +28,7 @@ In this release, here is a list of technical changes that may require infrastruc
 * Updated the DAIMS link on the help page to refer to DAIMS 2.2.2.
 * Updated File A column `DeobligationsRecoveriesRefundsByTAS_CPE` to `DeobligationsRecoveriesRefundsOfPriorYearByTAS_CPE`.
 
-#### April 26, 2023{section=technical}
+#### April 26, 2023
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 

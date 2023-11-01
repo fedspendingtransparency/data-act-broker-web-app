@@ -49,7 +49,7 @@ export default class HelpSidebar extends React.Component {
         }
 
         const help = this.props.type === 'fabs' ? "/FABSHelp" : '/help';
-        const history = this.props.type === 'fabs' ? "/#ABSHistory" : '/history';
+        const history = this.props.type === 'fabs' ? "/#FABSHistory" : '/history';
         const technicalHistory = this.props.type === 'fabs' ? "/FABSTechnicalHistory" : '/technicalHistory';
         const resources = this.props.type === 'fabs' ? "/FABSResources" : '/resources';
         let schedule = null;
@@ -65,6 +65,15 @@ export default class HelpSidebar extends React.Component {
                                 href={"https://fiscal.treasury.gov/files/data-transparency/" +
                                         "fy23-dabs-reporting-window-schedule.xlsx"}>
                             Fiscal Year 2023 DABS Reporting Schedule
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={"https://fiscal.treasury.gov/files/data-transparency/" +
+                                        "fy24-dabs-reporting-window-schedule.xlsx"}>
+                            Fiscal Year 2024 DABS Reporting Schedule
                             </a>
                         </li>
                     </ul>
