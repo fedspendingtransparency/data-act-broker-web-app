@@ -131,10 +131,13 @@ export const checkValidFileList = (fileList) => {
 
 export const earliestFileAYear = 2017;
 
-export const convertDateToQuarter = (date) => {
+export const convertDateToQuarter = (date, format = null) => {
     // Returns the fiscal quarter that the date falls in
     let quarter = 0;
-    const month = moment(date).month();
+    let month = moment(date).month();
+    if (format) {
+        month = moment(date, format).month();
+    }
 
     if (month >= 9 && month <= 11) {
         quarter = 1;

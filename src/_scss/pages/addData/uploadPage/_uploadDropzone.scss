@@ -61,4 +61,16 @@
     .progress {
         margin-top: 10px;
     }
+
+    &.non-interactive {
+        cursor: not-allowed;
+
+        svg {
+            color: $color-gray;
+        }
+
+        &:hover {
+            border-color: #c8cfd7;
+        }
+    }
 }
