@@ -105,7 +105,7 @@ export default class HelpSidebar extends React.Component {
                         <Link to={`${help}?section=membership`}>Contact the Service Desk</Link>
                     </li>
                     <li>
-                        <Link to={resources}>Resources - DAIMS</Link>
+                        <Link to={resources}>Resources - GSDM</Link>
                     </li>
                 </ul>
                 <div className="usa-da-help-sidebar__signup">
