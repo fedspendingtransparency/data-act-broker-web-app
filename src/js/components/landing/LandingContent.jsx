@@ -76,7 +76,7 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
-        let header = "Welcome to the DATA Act Broker";
+        let header = "Welcome to the DATA Broker";
         let headerBody = <div />;
         let headerClass = 'dark';
         if (this.props.type === 'fabs') {
@@ -113,8 +113,8 @@ export default class LandingContent extends React.Component {
                 <div>
                     <p>Upload, validate, and publish your agency’s federal spending transparency data.</p>
                     <p>
-                        Details on how to format your data against the latest version of the DATA Act
-                        Information Model Schema (DAIMS) can be found on
+                        Details on how to format your data against the latest version of the Governmentwide Spending
+                        Data Model (GSDM) can be found on
                         the <a href="/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
                     </p>
                 </div>);
