@@ -96,7 +96,7 @@ export default class LandingContent extends React.Component {
                 </div>);
         }
         else if (this.props.type === 'dabs') {
-            header = "DATA Act Broker Submission (DABS)";
+            header = "DATA Broker Submission (DABS)";
             headerBody = (
                 <div>
                     <p>

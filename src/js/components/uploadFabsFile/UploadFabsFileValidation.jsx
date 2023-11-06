@@ -439,7 +439,7 @@ export class UploadFabsFileValidation extends React.Component {
                                             </span>
                                             <span>
                                                     1) It contains derivations based on agency data, as described in the
-                                                    DAIMS Practices and Procedures document;
+                                                    GSDM Practices and Procedures document;
                                             </span>
 
                                             <span>
@@ -448,7 +448,7 @@ export class UploadFabsFileValidation extends React.Component {
                                             </span>
 
                                             <span>
-                                                    3) Its order matches the header order in DAIMS-IDD-D2, rather than
+                                                    3) Its order matches the header order in GSDM-IDD-D2, rather than
                                                     that in the submitted file.
                                             </span>
 
@@ -482,7 +482,7 @@ export class UploadFabsFileValidation extends React.Component {
                                             </span>
                                             <span>
                                                     1) It contains derivations based on agency data, as described in the
-                                                    DAIMS Practices and Procedures document;
+                                                    GSDM Practices and Procedures document;
                                             </span>
 
                                             <span>
@@ -491,7 +491,7 @@ export class UploadFabsFileValidation extends React.Component {
                                             </span>
 
                                             <span>
-                                                    3) Its order matches the header order in DAIMS-IDD-D2, rather than
+                                                    3) Its order matches the header order in GSDM-IDD-D2, rather than
                                                     that in the submitted file.
                                             </span>
 
