@@ -139,7 +139,7 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>
                                 The set of congressional districts is automatically updated based on data from
-                                USPS's Postal Pro products that we purchase (see 'Zip Code' entry for more information).
+                                USPS’s Postal Pro products that we purchase (see ’Zip Code’ entry for more information).
                                 In practice, the list of congressional districts only change every ten years on the
                                 first election after a new census. Our table also includes historical congressional
                                 districts from the 2000 census that no longer exist but that are still relevant to open
