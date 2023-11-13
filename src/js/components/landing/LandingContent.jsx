@@ -85,7 +85,7 @@ export default class LandingContent extends React.Component {
             headerBody = (
                 <div>
                     <p>
-                        Upload your agency's fiancial assistance data and validate it against the latest version
+                        Upload your agency&#39;s fiancial assistance data and validate it against the latest version
                         of the Governmentwide Spending Data Model (GSDM), formerly known as the DATA Act Information
                         Model Schema (DAIMS).
                     </p>
@@ -100,7 +100,7 @@ export default class LandingContent extends React.Component {
             headerBody = (
                 <div>
                     <p>
-                        Upload your agency's financial data and validate it against the latest version of the
+                        Upload your agency&#39;s financial data and validate it against the latest version of the
                         Governmentwide Spending Data Model (GSDM), formerly known as the DATA Act Information Model
                         Schema (DAIMS).
                     </p>
@@ -113,7 +113,7 @@ export default class LandingContent extends React.Component {
         else if (this.props.type === 'home') {
             headerBody = (
                 <div>
-                    <p>Upload, validate, and publish your agency's federal spending transparency data.</p>
+                    <p>Upload, validate, and publish your agency&#39;s federal spending transparency data.</p>
                     <p>
                         Details on how to format your data against the latest version of the Governmentwide Spending
                         Data Model (GSDM) can be found on

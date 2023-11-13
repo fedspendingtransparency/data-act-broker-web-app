@@ -69,7 +69,7 @@ export default class SubmissionGuideContent extends React.Component {
                                     <div className="col-md-11 usa-da-reg-wrapper">
                                         <h4>Submission Info</h4>
                                         <p>
-                                            Provide the DATA Broker with information about the submission you'll be
+                                            Provide the DATA Broker with information about the submission you&#39;ll be
                                             creating. This information includes the name of your agency and the
                                             reporting period.
                                         </p>

@@ -21,7 +21,7 @@ export default class ResourcesContent extends React.Component {
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
                     <p className="resources-page-content">
-                        As part of Fiscal Service's efforts to provide GSDM documents in a single location we have
+                        As part of Fiscal Service&#39;s efforts to provide GSDM documents in a single location we have
                         created a single GSDM Resource page on the Broker. This page provides links to agency-only
                         documents (validation rules and SQL validation rules) and a link to the public site for all
                         other GSDM documents. This will ensure that links always point to the latest GSDM documents.
@@ -33,12 +33,12 @@ export default class ResourcesContent extends React.Component {
                         guidance for federal agencies about what data to report to Treasury including the authoritative
                         sources of the data elements and the submission format. GSDM information is available on
                         the&nbsp;
-                            <a
-                                href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                GSDM page
-                            </a>
+                        <a
+                            href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            GSDM page
+                        </a>
                         &nbsp;of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
                     <h5>Additional Broker Resources</h5>
