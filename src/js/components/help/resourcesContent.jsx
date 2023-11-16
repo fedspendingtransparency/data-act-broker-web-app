@@ -67,8 +67,8 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={`https://community.max.gov/download/attachments/754091528/` +
-                                    `Practices-and-Procedures-v2.2.2.pdf?api=v2`}
+                                href={`https://fiscalservice.force.com/usaagencyresources/` +
+                                    `GSDM-Practices-and-Procedures-v1.0.pdf`}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 GSDM Practices & Procedures
