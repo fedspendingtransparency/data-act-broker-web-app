@@ -38,7 +38,7 @@ export default class LoginCaiaLoading extends React.Component {
                             <LoadingBauble />
                         </div>
                         <div className="loading-text">
-                            Signing into the DATA Act Broker...
+                            Signing into the DATA Broker...
                         </div>
                     </div>
                 </div>

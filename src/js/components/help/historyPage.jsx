@@ -55,7 +55,7 @@ export default class HistoryPage extends React.Component {
                             <div className="row">
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
-                                        Help | DATA Act Broker
+                                        Help | DATA Broker
                                         <HelpNav selected="Help" type={this.props.type} />
                                     </div>
                                 </div>
