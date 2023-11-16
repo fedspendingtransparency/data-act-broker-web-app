@@ -73,7 +73,7 @@ export default class RulesFilter extends React.Component {
                     toggleTooltip={this.toggleTooltip} />
                 {this.state.showTooltip &&
                 <WarningTooltip message={`You have not selected a file. Please select a file before identifying a ` +
-                    `DAIMS rule(s).`} />}
+                    `GSDM rule(s).`} />}
                 {selectedRules}
             </div>
         );

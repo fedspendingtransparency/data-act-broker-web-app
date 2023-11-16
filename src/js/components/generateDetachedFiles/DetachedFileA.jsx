@@ -183,7 +183,7 @@ export default class DetachedFileA extends React.Component {
                                                     automatically attach it to any submission.
                                                 </p>
                                                 <p>
-                                                    Consistent with DATA Act Broker Quarterly Submissions (DABS)
+                                                    Consistent with DATA Broker Quarterly Submissions (DABS)
                                                     guidelines, generated files are at the &apos;agency-wide level&apos;
                                                     the goal is to include all accounts for a given agency that are
                                                     appropriate for DATA Act submissions. Financing accounts are
@@ -199,8 +199,8 @@ export default class DetachedFileA extends React.Component {
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         href={"https://fiscal.treasury.gov/data-transparency/" +
-                                                            "DAIMS-current.html"}>
-                                                        DAIMS
+                                                            "GSDM-current.html"}>
+                                                        GSDM
                                                     </a>
                                                     &nbsp;page of the Data Transparency site of the
                                                     Bureau of the Fiscal Service.
@@ -221,7 +221,7 @@ export default class DetachedFileA extends React.Component {
                                                 <p>
                                                     Note: The generated file A column GTASStatus contains the status of
                                                     each TAS in the GTAS system. This data element is for information
-                                                    only. It is not a DAIMS data element, and is not required for any
+                                                    only. It is not a GSDM data element, and is not required for any
                                                     File A submissions.
                                                 </p>
                                             </div>

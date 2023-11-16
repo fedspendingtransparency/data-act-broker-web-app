@@ -24,6 +24,7 @@
 
 	h5 {
 		margin-bottom: 1rem;
+		margin-top: 1rem;
 		font-size: 1.8rem;
 		font-weight: normal;
 	}
@@ -33,7 +34,7 @@
 		margin-bottom: .5rem;
 	}
 
-	p + h5, p + h6 {
+	p + h6 {
 		margin-top: 4rem;
 	}
 

@@ -45,7 +45,8 @@ class AddDataContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.submission.files !== this.props.submission.files) {
-            if (Object.keys(this.props.submission.files).length === fileTypes.length) {
+            // We're checking for length - 1 because file A cannot be uploaded so we'll only ever have 2 files uploaded
+            if (Object.keys(this.props.submission.files).length === (fileTypes.length - 1)) {
                 if (!checkValidFileList(this.props.submission.files)) {
                     this.props.setSubmissionState('empty');
                 }

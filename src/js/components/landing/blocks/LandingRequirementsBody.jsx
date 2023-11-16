@@ -74,10 +74,10 @@ export default class LandingRequirementsBody extends React.Component {
                 <p>
                     Submission information is available on the&nbsp;
                     <a
-                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                        href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
                         target="_blank"
                         rel="noopener noreferrer">
-                        DAIMS
+                        GSDM
                     </a>
                     &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                 </p>
@@ -96,8 +96,8 @@ export default class LandingRequirementsBody extends React.Component {
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">
-                            DAIMS
+                            href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html">
+                            GSDM
                         </a>
                         &nbsp;page of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
