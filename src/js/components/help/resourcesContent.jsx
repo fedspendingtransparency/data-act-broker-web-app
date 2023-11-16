@@ -21,10 +21,11 @@ export default class ResourcesContent extends React.Component {
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
                     <p className="resources-page-content">
-                        As part of Fiscal Service&#39;s efforts to provide GSDM documents in a single location we have
-                        created a single GSDM Resource page on the Broker. This page provides links to agency-only
-                        documents (validation rules and SQL validation rules) and a link to the public site for all
-                        other GSDM documents. This will ensure that links always point to the latest GSDM documents.
+                        As part of Fiscal Service&#39;s efforts to provide GSDM and DAIMS documents in a single location
+                        we have created a single GSDM/DAIMS Resource page on the Broker. This page provides links to
+                        agency-only documents (validation rules and SQL validation rules) and a link to the public site
+                        for all other GSDM/DAIMS documents. This will ensure that links always point to the latest GSDM
+                        documents.
                     </p>
                     <p className="resources-page-content">
                         The Governmentwide Spending Data Model (GSDM), formerly known as the DATA Act Information Model
