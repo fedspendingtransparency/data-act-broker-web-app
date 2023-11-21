@@ -1,10 +1,10 @@
-# DATA Act Broker Web App
+# DATA Broker Web App
 
-The DATA Act broker website is the front-end to the [DATA Act broker backend](https://github.com/fedspendingtransparency/data-act-broker-backend "DATA Act broker backend").
+The DATA Broker website is the front-end to the [DATA Broker backend](https://github.com/fedspendingtransparency/data-act-broker-backend "DATA Broker backend").
 
 ## Development Set Up
 
-To stand up a local copy of the DATA Act broker website, follow the directions below.
+To stand up a local copy of the DATA Broker website, follow the directions below.
 
 Assumptions:
 
@@ -24,7 +24,7 @@ Assumptions:
 
         $ git checkout master
 
-    **Note:** If you'd rather use the latest, work-in-progress features of the DATA Act broker, replace the above command with `git checkout staging`.
+    **Note:** If you'd rather use the latest, work-in-progress features of the DATA Broker, replace the above command with `git checkout staging`.
 
 4. Change to the `data-act-broker-web-app` directory that was created when you cloned the DATA Act web repository.
 
@@ -88,6 +88,6 @@ To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a s
 
 To run the unit test suite, run `npm run test`.
 
-## Full DATA Act Broker Setup
+## Full DATA Broker Setup
 
-For instructions on contributing to this project or installing the DATA Act broker backend, please refer to the [documentation in the DATA Act core repository](https://github.com/fedspendingtransparency/data-act-core/blob/master/doc/INSTALL.md "DATA Act broker installation guide").
+For instructions on contributing to this project or installing the DATA Broker backend, please refer to the [documentation in the DATA Act core repository](https://github.com/fedspendingtransparency/data-act-core/blob/master/doc/INSTALL.md "DATA Broker installation guide").

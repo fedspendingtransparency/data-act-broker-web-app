@@ -43,7 +43,7 @@ class LoginContainer extends React.Component {
                 if (err === "cookie") {
                     this.setState({
                         loading: false,
-                        errorMessage: 'Your browser does not support cookies, which the DATA Act Broker requires ' +
+                        errorMessage: 'Your browser does not support cookies, which the DATA Broker requires ' +
                             'to function correctly. Try changing your browser settings to enable cookies or use a ' +
                             'different browser.'
                     });

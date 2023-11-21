@@ -16,82 +16,70 @@ const defaultProps = {
 
 export default class ResourcesContent extends React.Component {
     render() {
-        const content = (
-            <div>
-                <h5>Additional Broker Resources</h5>
-                <ul>
-                    <li>
-                        <a
-                            href={`https://fiscal.treasury.gov/files/data-transparency/` +
-                                `DAIMS-Validation-Rules-v2.2.2.xlsx`}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                  DAIMS Validation Rules
-                        </a>
-                : documents the business rules employed by the DATA Act
-                Broker for field and cross-file validations.
-                    </li>
-                    <li>
-                        <a
-                            href={`https://github.com/fedspendingtransparency/data-act-broker-backend/tree/master/` +
-                                `dataactvalidator/config/sqlrules`}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                  Broker SQL Validation Rules
-                        </a>
-                : the actual machine logic used in FABS validations.
-                These SQL statements are based directly on the FABS
-                validation rules.
-                    </li>
-                    <li>
-                        <a
-                            href={`https://community.max.gov/download/attachments/754091528/` +
-                                `Practices-and-Procedures-v2.2.2.pdf?api=v2`}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                  DAIMS Practices &#38; Procedures
-                        </a>
-                : contains file-wide practices, explanations of how elements are derived based on FABS data, and
-                information on the submission process (including corrections and deletions), validation rule source
-                data, user management, technical procedures for formatting submission files, etc. This page is only
-                accessible by government users.
-                    </li>
-                </ul>
-            </div>
-        );
-
         return (
             <div className="usa-da-help-content">
                 <div className="resources-page">
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
                     <p className="resources-page-content">
-                As part of Fiscal Service&#8217;s efforts to provide
-                DAIMS documents in a single location we have created a
-                single DAIMS Resource page on the Broker. This page
-                provides links to agency-only documents (validation
-                rules and SQL validation rules) and a link to the public
-                site for all other DAIMS documents. This will ensure
-                that links always point to the latest DAIMS documents.
+                        As part of Fiscal Service&#39;s efforts to provide GSDM and DAIMS documents in a single location
+                        we have created a single GSDM/DAIMS Resource page on the Broker. This page provides links to
+                        agency-only documents (validation rules and SQL validation rules) and a link to the public site
+                        for all other GSDM/DAIMS documents. This will ensure that links always point to the latest GSDM
+                        documents.
                     </p>
                     <p className="resources-page-content">
-                The DATA Act information Model Schema (DAIMS) gives an
-                overall view of the hundreds of distinct data elements
-                used to tell the story of how federal dollars are spent.
-                It includes artifacts that provide technical guidance
-                for federal agencies about what data to report to
-                Treasury including the authoritative sources of the data
-                elements and the submission format. DAIMS information is
-                available on the&nbsp;
+                        The Governmentwide Spending Data Model (GSDM), formerly known as the DATA Act Information Model
+                        Schema (DAIMS), gives an overall view of the hundreds of distinct data elements used to tell
+                        the story of how federal dollars are spent. It includes artifacts that provide technical
+                        guidance for federal agencies about what data to report to Treasury including the authoritative
+                        sources of the data elements and the submission format. GSDM information is available on
+                        the&nbsp;
                         <a
-                            href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                            href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
                             target="_blank"
                             rel="noopener noreferrer">
-                  DAIMS page
+                            GSDM page
                         </a>
-                &nbsp;of the Data Transparency site for the Bureau of
-                the Fiscal Service.
+                        &nbsp;of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
-                    {content}
+                    <h5>Additional Broker Resources</h5>
+                    <ul>
+                        <li>
+                            <a
+                                href={`https://fiscal.treasury.gov/files/data-transparency/` +
+                                    `GSDM-Validation-Rules-v1.0.xlsx`}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                GSDM Validation Rules
+                            </a>
+                            : documents the business rules employed by the DATA Broker for field and cross-file
+                            validations.
+                        </li>
+                        <li>
+                            <a
+                                href={`https://github.com/fedspendingtransparency/data-act-broker-backend/tree/` +
+                                    `master/dataactvalidator/config/sqlrules`}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                Broker SQL Validation Rules
+                            </a>
+                            : the actual machine logic used in FABS validations. These SQL statements are based directly
+                            on the FABS validation rules.
+                        </li>
+                        <li>
+                            <a
+                                href={`https://fiscalservice.force.com/usaagencyresources/` +
+                                    `GSDM-Practices-and-Procedures-v1.0.pdf`}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                GSDM Practices & Procedures
+                            </a>
+                            : contains file-wide practices, explanations of how elements are derived based on FABS data,
+                            and information on the submission process (including corrections and deletions), validation
+                            rule source data, user management, technical procedures for formatting submission files,
+                            etc. This page is only accessible by government users.
+                        </li>
+                    </ul>
                 </div>
             </div>
         );

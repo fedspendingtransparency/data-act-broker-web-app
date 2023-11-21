@@ -34,8 +34,8 @@ export default class RawFilesPage extends React.Component {
             year: { id: null, label: '' },
             period: { id: null, label: '' },
             currentList: [
-                { id: 'dabs', label: 'Raw DATA Act Files' },
-                { id: 'fabs', label: 'Raw Financial Assistance Files' }
+                { id: 'dabs', label: 'Raw Data Broker (DABS) Files' },
+                { id: 'fabs', label: 'Raw Financial Assistance (FABS) Files' }
             ]
         };
 
@@ -83,8 +83,8 @@ export default class RawFilesPage extends React.Component {
         if (newState.fileType.id === null) {
             const tmpState = newState;
             tmpState.currentList = [
-                { id: 'dabs', label: 'Raw DATA Act Files' },
-                { id: 'fabs', label: 'Raw Financial Assistance Files' }
+                { id: 'dabs', label: 'Raw Data Broker (DABS) Files' },
+                { id: 'fabs', label: 'Raw Financial Assistance (FABS) Files' }
             ];
             this.setState({ ...tmpState });
         }

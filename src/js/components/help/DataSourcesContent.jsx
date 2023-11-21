@@ -31,6 +31,8 @@ export default class DataSourcesContent extends React.Component {
         const cityTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/NationalFedCodes.txt`;
         const countyURL = 'https://geonames.usgs.gov/docs/stategaz/GOVT_UNITS.zip';
         const countyTxtURL = `https://${fileLoc}.usaspending.gov/reference_data/GOVT_UNITS.txt`;
+        const countryURL = 'https://nsgreg.nga.mil/registries/browse/results.jsp?registryType=genc&' +
+            'registerField=IE4&browseType=genc';
         return (
             <div className="usa-da-help-content">
                 <div className="data-sources-page">
@@ -137,7 +139,7 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>
                                 The set of congressional districts is automatically updated based on data from
-                                USPS’s Postal Pro products that we purchase (see ‘Zip Code’ entry for more information).
+                                USPS’s Postal Pro products that we purchase (see ’Zip Code’ entry for more information).
                                 In practice, the list of congressional districts only change every ten years on the
                                 first election after a new census. Our table also includes historical congressional
                                 districts from the 2000 census that no longer exist but that are still relevant to open
@@ -160,12 +162,13 @@ export default class DataSourcesContent extends React.Component {
                             " two- and three-character abbreviations."}
                         source={
                             <p>
-                                A manually compiled CSV sourced from this URL that is updated as needed:&nbsp;
+                                Gathered weekly from the NSG Standards Registry API. The data is only updated if changes
+                                have occurred and reflects the following table:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href="https://nsgreg.nga.mil/genc/discovery">
-                                    https://nsgreg.nga.mil/genc/discovery
+                                    href={countryURL}>
+                                    {countryURL}
                                 </a>
                                 . The latest Broker file can be downloaded at&nbsp;
                                 <a
