@@ -1,7 +1,8 @@
-#### October 12, 2023{section=technical}
+#### November 21, 2023{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Added various columns to the FPDS contract data that may be used for future validations and USAspending.
-* Updated documentation of the API Submission Guide and the permissions to reflect the CAIA changes.
-* Updated the Broker application to run on Python 3.8.
+* The [API Submission Guide](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/master/APISubmissionGuide.md) has been updated to reflect the new DABS API submission process to accommodate the automatically generated File A.
+* Updated the Broker backend code to use Python 3.9 as well as updated various dependent libraries.
+* Updated the country code loader to scrape from the NSG Standards Registry API instead of using an internal list.
+* Updated grants.gov URL used to load Funding Opportunity Number.
