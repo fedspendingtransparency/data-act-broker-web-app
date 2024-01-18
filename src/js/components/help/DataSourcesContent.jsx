@@ -137,22 +137,32 @@ export default class DataSourcesContent extends React.Component {
                         description={"A two digit code indicating the congressional district along with associated" +
                             " metadata including the state it is tied to."}
                         source={
-                            <p>
-                                The set of congressional districts is automatically updated based on data from
-                                USPS’s Postal Pro products that we purchase (see ’Zip Code’ entry for more information).
-                                In practice, the list of congressional districts only change every ten years on the
-                                first election after a new census. Our table also includes historical congressional
-                                districts from the 2000 census that no longer exist but that are still relevant to open
-                                awards. The latest Broker file can be downloaded at&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href={`https://${fileLoc}.usaspending.gov/reference_data/` +
-                                        `state_congressional.csv`}>
-                                    https://{fileLoc}.usaspending.gov/reference_data/state_congressional.csv
-                                </a>
-                                .
-                            </p>}
+                            <div>
+                                <p>
+                                    The set of congressional districts is automatically updated based on data from
+                                    USPS’s Postal Pro products that we purchase (see ’Zip Code’ entry for more information).
+                                    In practice, the list of congressional districts only change every ten years on the
+                                    first election after a new census. Our table also includes historical congressional
+                                    districts from the 2000 census that no longer exist but that are still relevant to open
+                                    awards. The latest Broker file can be downloaded at&nbsp;
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={`https://${fileLoc}.usaspending.gov/reference_data/` +
+                                            `state_congressional.csv`}>
+                                        https://{fileLoc}.usaspending.gov/reference_data/state_congressional.csv
+                                    </a>
+                                    .
+                                </p>
+                                <p>
+                                    It includes the code, state code, and the "census_year" column. If the "census_year" column is:
+                                    <ul>
+                                        <li>blank, that CD has existed since a previous census and is still active.</li>
+                                        <li>before the most recent census (ex. 2000 or 2010), those CDs are no longer active but maintained in the file for older validations.</li>
+                                        <li>the most recent census (ex. 2020), these CDs were added based on the most recent census.</li>
+                                    </ul>
+                                </p>
+                            </div>}
                         updatedAt={this.props.updateDates.congressional_district} />
 
                     <DataSourcesItem
