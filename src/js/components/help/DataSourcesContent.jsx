@@ -53,8 +53,8 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href={`https://${fileLoc}.usaspending.gov/reference_data/cfda.csv`}>
-                                    https://{fileLoc}.usaspending.gov/reference_data/cfda.csv
+                                    href={`https://${fileLoc}.usaspending.gov/reference_data/assistance_listing.csv`}>
+                                    https://{fileLoc}.usaspending.gov/reference_data/assistance_listing.csv
                                 </a>
                                 .
                             </p>}
