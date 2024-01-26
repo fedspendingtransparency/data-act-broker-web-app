@@ -38,7 +38,7 @@ export default class DataSourcesContent extends React.Component {
                 <div className="data-sources-page">
                     <h2>Data Sources</h2>
                     <DataSourcesItem
-                        title="Assistance Listings (CFDA)"
+                        title="Assistance Listings"
                         uses="FABS validations and derivations"
                         description={"A list of current and past financial assistance programs broken up by agency" +
                             " and with associated metadata. Program data is  updated as needed (e.g., when new" +
