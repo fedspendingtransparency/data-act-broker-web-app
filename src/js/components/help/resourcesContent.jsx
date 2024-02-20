@@ -68,16 +68,17 @@ export default class ResourcesContent extends React.Component {
                         </li>
                         <li>
                             <a
-                                href={`https://fiscalservice.force.com/usaagencyresources/` +
-                                    `GSDM-Practices-and-Procedures-v1.0.pdf`}
+                                href={`https://onevoicecrm.my.site.com/usaagencyresources/s/` +
+                                    `GSDM-practices-and-procedures/gsdm-practices-and-procedures-v1-0-` +
+                                    `MCPYTHEAMIKZCCRLQUZA7N4TKNZU`}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                GSDM Practices & Procedures
+                                The GSDM Practices & Procedures
                             </a>
-                            : contains file-wide practices, explanations of how elements are derived based on FABS data,
+                            &nbsp;contains file-wide practices, explanations of how elements are derived based on FABS data,
                             and information on the submission process (including corrections and deletions), validation
                             rule source data, user management, technical procedures for formatting submission files,
-                            etc. This page is only accessible by government users.
+                            etc.
                         </li>
                     </ul>
                 </div>
