@@ -169,11 +169,18 @@ export default class DataSourcesContent extends React.Component {
                                             `state_congressional.csv`}>
                                         https://{fileLoc}.usaspending.gov/reference_data/state_congressional.csv
                                     </a>
-                                    . It includes the code, state code, and the &#34;census_year&#34; column. If the &#34;census_year&#34; column is:
+                                    . It includes the code, state code, and the &#34;census_year&#34; column. If
+                                    the &#34;census_year&#34; column is:
                                     <ul>
                                         <li>blank, that CD has existed since a previous census and is still active.</li>
-                                        <li>before the most recent census (ex. 2000 or 2010), those CDs are no longer active but maintained in the file for older validations.</li>
-                                        <li>the most recent census (ex. 2020), these CDs were added based on the most recent census.</li>
+                                        <li>
+                                            before the most recent census (ex. 2000 or 2010), those CDs are no longer
+                                            active but maintained in the file for older validations.
+                                        </li>
+                                        <li>
+                                            the most recent census (ex. 2020), these CDs were added based on the most
+                                            recent census.
+                                        </li>
                                     </ul>
                                 </p>
                             </div>}
@@ -295,7 +302,7 @@ export default class DataSourcesContent extends React.Component {
                                 USAspending or in D1 file generation elsewhere on the Broker.
                             </p>}
                         updatedAt={this.props.updateDates.fpds} />
-                    
+
                     <DataSourcesItem
                         title="Funding Opportunity Number"
                         uses="FABS Validations"
