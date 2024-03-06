@@ -322,8 +322,8 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href="https://files.usaspending.gov/reference_data/funding_opportunity_numbers.csv">
-                                    https://files.usaspending.gov/reference_data/funding_opportunity_numbers.csv
+                                    href={`https://${fileLoc}.usaspending.gov/reference_data/funding_opportunity_numbers.csv`}>
+                                    https://{fileLoc}.usaspending.gov/reference_data/funding_opportunity_numbers.csv
                                 </a>.
                             </p>}
                         updatedAt={this.props.updateDates.funding_opportunity_number} />
