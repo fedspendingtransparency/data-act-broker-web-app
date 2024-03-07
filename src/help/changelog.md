@@ -1,6 +1,5 @@
-#### February 20, 2024{section=changelog}
+#### March 12, 2024{section=changelog}
 In this release of the Broker, we:
 
-* Continued to implement GSDM 1.0:
-    * Updated Files D, F, and FABS to use Assistance Listing number and title. CFDA Number/Title are still accepted.
-    * Removed the spaces in various D1 headers.
+* Updated the DEFC loader to load from a file provided by OMB and table to include more derived fields to be shared with USAspending. It will also generate the list of DEFC data available to the public (as seen on the Data Sources page).
+* Updated the Data Sources page content to include further details about each source, namely the Zips Postal-Pro data from USPS and Funding Opportunity Number sections.
