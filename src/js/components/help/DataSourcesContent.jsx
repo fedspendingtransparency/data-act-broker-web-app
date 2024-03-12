@@ -139,12 +139,26 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <div>
                                 <p>
-                                    The set of congressional districts is automatically updated based on data from
-                                    USPS’s Postal Pro products that we purchase (see ’Zip Code’ entry for more information).
-                                    In practice, the list of congressional districts only change every ten years on the
-                                    first election after a new census. Our table also includes historical congressional
-                                    districts from the 2000 census that no longer exist but that are still relevant to open
-                                    awards.
+                                    The set of congressional districts is automatically updated based on data from the
+                                    USPS Postal Pro City State Product (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://postalpro.usps.com/address-quality/city-state-product">
+                                        https://postalpro.usps.com/address-quality/city-state-product
+                                    </a>
+                                    ). Data Broker uses the City State Product — Detail Record. The layout for this
+                                    file is defined in the Address Information System Products Technical Guide (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href="https://postalpro.usps.com/address-quality/AIS_Products_Technical_Guide">
+                                        https://postalpro.usps.com/address-quality/AIS_Products_Technical_Guide
+                                    </a>
+                                    ). In practice, the list of congressional districts only change every ten years on
+                                    the first election after a new census. Our table also includes historical
+                                    congressional districts from the 2000 census that no longer exist but that are still
+                                    relevant to open awards.
                                 </p>
                                 <p>
                                     The latest Broker file can be downloaded at&nbsp;
@@ -155,11 +169,18 @@ export default class DataSourcesContent extends React.Component {
                                             `state_congressional.csv`}>
                                         https://{fileLoc}.usaspending.gov/reference_data/state_congressional.csv
                                     </a>
-                                    . It includes the code, state code, and the &#34;census_year&#34; column. If the &#34;census_year&#34; column is:
+                                    . It includes the code, state code, and the &#34;census_year&#34; column. If
+                                    the &#34;census_year&#34; column is:
                                     <ul>
                                         <li>blank, that CD has existed since a previous census and is still active.</li>
-                                        <li>before the most recent census (ex. 2000 or 2010), those CDs are no longer active but maintained in the file for older validations.</li>
-                                        <li>the most recent census (ex. 2020), these CDs were added based on the most recent census.</li>
+                                        <li>
+                                            before the most recent census (ex. 2000 or 2010), those CDs are no longer
+                                            active but maintained in the file for older validations.
+                                        </li>
+                                        <li>
+                                            the most recent census (ex. 2020), these CDs were added based on the most
+                                            recent census.
+                                        </li>
                                     </ul>
                                 </p>
                             </div>}
@@ -229,18 +250,15 @@ export default class DataSourcesContent extends React.Component {
                             " GTAS and USAspending reporting."}
                         source={
                             <p>
-                                The DEFC table is manually maintained and updated any time OMB issues a new Disaster
-                                Emergency Fund Code. The authoritative list of OMB codes is&nbsp;
+                                The DEFC table is updated any time OMB issues a new Disaster Emergency Fund Code.
+                                The authoritative list of OMB codes is&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     href="https://community.max.gov/x/cYW9V">
                                     here
                                 </a>
-                                . There is sometimes a bit of lag between when the code is issued and its
-                                integration into the Broker, but the codes will always be added before the relevant
-                                DABS window when they can first be used. The complete table currently in use by the
-                                Broker can be downloaded here:&nbsp;
+                                . The complete table currently in use by the Broker can be downloaded here:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -268,15 +286,47 @@ export default class DataSourcesContent extends React.Component {
                         description="All transactions for IDV and Contract Awards."
                         source={
                             <p>
-                                The daily FPDS update/delete Atom feeds, which contain updates made during the
+                                The daily FPDS update/delete ATOM feeds, which contain updates made during the
                                 previous day in FPDS. Specific entries can be searched for on their website at&nbsp;
                                 <a target="_blank" rel="noopener noreferrer" href="https://fpds.gov">
                                     https://fpds.gov
+                                </a>
+                                . More information about the ATOM feed is available online:&nbsp;
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://www.fpds.gov/fpdsng_cms/index.php/en/worksite.html">
+                                    https://www.fpds.gov/fpdsng_cms/index.php/en/worksite.html
                                 </a>
                                 . Data is not available for download on this page, but the data can be found on
                                 USAspending or in D1 file generation elsewhere on the Broker.
                             </p>}
                         updatedAt={this.props.updateDates.fpds} />
+
+                    <DataSourcesItem
+                        title="Funding Opportunity Number"
+                        uses="FABS Validations"
+                        description={"A number created by a federal agency to identify a grant opportunity within" +
+                            " the Grants.gov system."}
+                        source={
+                            <p>
+                                <a target="_blank" rel="noopener noreferrer" href="http://grants.gov/">
+                                    Grants.gov
+                                </a>
+                                &nbsp;publishes FONs on&nbsp;
+                                <a target="_blank" rel="noopener noreferrer" href="https://grants.gov/search-grants">
+                                    https://grants.gov/search-grants
+                                </a>
+                                . Data Broker uses an API exposed on this page to download all FONs daily. The latest
+                                list of all FON values used by Data Broker can be downloaded:&nbsp;
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href={`https://${fileLoc}.usaspending.gov/reference_data/funding_opportunity_numbers.csv`}>
+                                    https://{fileLoc}.usaspending.gov/reference_data/funding_opportunity_numbers.csv
+                                </a>.
+                            </p>}
+                        updatedAt={this.props.updateDates.funding_opportunity_number} />
 
                     <DataSourcesItem
                         title="GTAS/SF-133"
@@ -315,8 +365,28 @@ export default class DataSourcesContent extends React.Component {
                         description={"The offices listed under each agency and subtier agency and associated metadata" +
                             " including  code, name, office type, hierarchy, etc."}
                         source={
-                            <p>The Federal Hierarchy FOUO API maintained by GSA. Data is FOUO so is not available
-                                for download.
+                            <p>
+                                Data Broker uses the&nbsp;
+                                <a target="_blank" rel="noopener noreferrer" href="http://sam.gov/">
+                                    SAM.gov
+                                </a>
+                                &nbsp;FH FOUO API (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://open.gsa.gov/api/fh-fouo-api/">
+                                    https://open.gsa.gov/api/fh-fouo-api/
+                                </a>
+                                ) to load office data nightly. More information about the elements in this API is
+                                available in the SAM Functional Data Dictionary (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf">
+                                    https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf
+                                </a>
+                                ). This data is For Official Use Only (FOUO) and is thus not available for download on
+                                this page.
                             </p>}
                         updatedAt={this.props.updateDates.office} />
 
@@ -379,14 +449,37 @@ export default class DataSourcesContent extends React.Component {
                         updatedAt={this.props.updateDates.subaward} />
 
                     <DataSourcesItem
-                        title="UEI"
+                        title="Unique Entity Identifier (UEI) and Business Name"
                         uses="FABS validations and derivations"
                         description={"The unique identification number for an awardee or recipient and associated" +
                             " metadata, including any parent organization. The identifier is the 12 character" +
                             " government-owned Unique Entity Identifier (UEI)."}
                         source={
-                            <p>SAM.gov monthly and daily files from their site. Daily files contain actions from the
-                                previous day in SAM. File is FOUO so is not available for download.
+                            <p>
+                                Data Broker uses the&nbsp;
+                                <a target="_blank" rel="noopener noreferrer" href="http://sam.gov/">
+                                    SAM.gov
+                                </a>
+                                &nbsp;Entity/Exclusions Extracts Download APIs (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://open.gsa.gov/api/sam-entity-extracts-api/">
+                                    https://open.gsa.gov/api/sam-entity-extracts-api/
+                                </a>
+                                ) to load UEI and business name data nightly. More information about the elements in
+                                this API is available in the SAM Functional Data Dictionary (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf">
+                                    https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf
+                                </a>
+                                ). Data is FOUO so is not available for download.<br /><br />
+
+                                Data Broker loads SAM.gov monthly and daily files from their site. Daily files contain
+                                actions from the previous day in SAM. This data is For Official Use Only (FOUO) and is
+                                thus not available for download on this page.
                             </p>}
                         updatedAt={this.props.updateDates.recipient} />
 
@@ -396,8 +489,31 @@ export default class DataSourcesContent extends React.Component {
                         description={"Five or nine digit zip codes issued by the US Postal Service, and associated" +
                             " metadata such as the congressional district, city, and county tied to the zip code."}
                         source={
-                            <p>Set of zip code data files purchased from USPS via their Postal Pro Product. Data is
-                                proprietary so is not available for download on this page.
+                            <p>
+                                Zip codes are automatically updated based on data from the USPS Postal Pro City State
+                                Product (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://postalpro.usps.com/address-quality/city-state-product">
+                                    https://postalpro.usps.com/address-quality/city-state-product
+                                </a>
+                                ) and ZIP + 4&reg; Product (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://postalpro.usps.com/address-quality-solutions/zip-4-product">
+                                    https://postalpro.usps.com/address-quality-solutions/zip-4-product
+                                </a>
+                                ). Data Broker uses the City State Product — Detail Record and the ZIP + 4 Product —
+                                Detail Record. The layout for these files is defined in the Address Information System
+                                Products Technical Guide (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://postalpro.usps.com/address-quality/AIS_Products_Technical_Guide">
+                                    https://postalpro.usps.com/address-quality/AIS_Products_Technical_Guide
+                                </a>). This data is proprietary and is thus not available for download on this page.
                             </p>}
                         updatedAt={this.props.updateDates.zip_code} />
                 </div>
