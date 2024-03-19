@@ -6,6 +6,7 @@ describe('parseRecentActivity', () => {
         statusMap: {},
         status,
         agency: 'test',
+        files: ['test-file/test.txt'],
         last_modified: '01-01-2001',
         reporting_start_date: '01-01-2001',
         user: {
