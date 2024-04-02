@@ -44,6 +44,7 @@ export const parseRecentActivity = (submissions) => {
 
         // creating sortable agency to be consistent with other sortable keys
         tmpItem.sortableAgency = tmpItem.agency;
+        tmpItem.sortableFileName = tmpItem.files[0].split('/').pop().replace(/^[0-9]*_/, '');
         // sortable date parses the date into unix time stamp for simple sortablity
         tmpItem.sortableDate = moment(tmpItem.last_modified).unix();
         // sortable reporting date parses the date into unix time stamp for simple sortablity

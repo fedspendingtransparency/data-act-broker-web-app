@@ -188,6 +188,10 @@ export default class RecentActivityTable extends React.Component {
             'sortableName',
             'sortableDate'
         ];
+        // When sorting the FABS recent activity table, we need two values to sort by the agency/filename column
+        if (this.props.type === 'fabs') {
+            orderKeys[0] = ['sortableAgency', 'sortableFileName'];
+        }
         const data = _.orderBy(
             this.state.cachedResponse,
             orderKeys[this.state.sortColumn - 1],
@@ -288,9 +292,14 @@ export default class RecentActivityTable extends React.Component {
 
     sortTable(direction, column) {
         // the table sorting changed
+        let dir = direction;
+        // When sorting by agency/filename in FABS, we need two directions
+        if (this.props.type === 'fabs' && column === 1) {
+            dir = [direction, direction];
+        }
         this.setState(
             {
-                sortDirection: direction,
+                sortDirection: dir,
                 sortColumn: column
             },
             () => {

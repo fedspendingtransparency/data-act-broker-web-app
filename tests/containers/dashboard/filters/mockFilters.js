@@ -32,7 +32,10 @@ export const mockActiveRedux = {
     appliedFilters: {
         filters: {
             active: {
-                agency: '123',
+                agency: {
+                    code: '123',
+                    name: 'test agency'
+                },
                 file: 'A'
             }
         }

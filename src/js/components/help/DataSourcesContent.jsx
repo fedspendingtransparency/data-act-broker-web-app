@@ -258,6 +258,13 @@ export default class DataSourcesContent extends React.Component {
                                     href="https://community.max.gov/x/cYW9V">
                                     here
                                 </a>
+                                . The authoritative OMB list is augmented with information from&nbsp;
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://www.govinfo.gov/app/collection/plaw">
+                                    https://www.govinfo.gov/app/collection/plaw
+                                </a>
                                 . The complete table currently in use by the Broker can be downloaded here:&nbsp;
                                 <a
                                     target="_blank"
