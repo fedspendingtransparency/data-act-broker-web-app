@@ -95,9 +95,7 @@ export default class FiscalYear extends React.Component {
                 </li>
             );
         }
-        return (
-            <div>{ yearOption }</div>
-        );
+        return yearOption;
     }
 }
 FiscalYear.propTypes = propTypes;

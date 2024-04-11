@@ -110,14 +110,20 @@ export default class FiscalYearFilter extends React.Component {
                         saveAllYears={this.saveAllYears}
                         toggleTooltip={this.toggleTooltip}
                         disabled={disableAllFy} />
-                    <span className="fiscal-years__wrapper">
-                        <div className="fiscal-years__left">
-                            {leftFY}
-                        </div>
-                        <div className="fiscal-years__right">
-                            {rightFY}
-                        </div>
-                    </span>
+                    <li key="individual-fiscal-years">
+                        <span className="fiscal-years__wrapper">
+                            <div className="fiscal-years__left">
+                                <ul>
+                                {leftFY}
+                                </ul>
+                            </div>
+                            <div className="fiscal-years__right">
+                                <ul>
+                                {rightFY}
+                                </ul>
+                            </div>
+                        </span>
+                    </li>
                 </ul>
                 {this.state.showTooltip && <WarningTooltip message={message} />}
             </div>
