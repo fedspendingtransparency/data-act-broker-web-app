@@ -8,7 +8,7 @@ import React from 'react';
 export default class PublishDisclaimer extends React.Component {
     render() {
         return (
-            <div className="disclaimer-text">
+            <div className="disclaimer-text" tabIndex={0}>
                 <p>
                     I attest that the monthly data being submitted to Treasury in Files A-C meets the reporting
                     requirements under the DATA Act and OMB M-20-21, and that the reported data was produced following
