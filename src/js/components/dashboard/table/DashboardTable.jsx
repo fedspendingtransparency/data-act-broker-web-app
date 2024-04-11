@@ -137,7 +137,7 @@ export default class DashboardTable extends React.Component {
                                 {row.instanceCount}
                             </td>
                             <td>
-                                <div className="scroll-box">
+                                <div className="scroll-box" tabIndex={0}>
                                     {row.ruleDescription}
                                 </div>
                             </td>
