@@ -124,24 +124,26 @@ export default class CalendarRangeDatePicker extends React.Component {
                     Last Modified
                     <span className="caret" />
                 </button>
-                <ul
+                <div
                     className="dropdown-menu calendar-range-datepicker"
                     style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
                     aria-labelledby="createdbydropdown">
-                    <li>
-                        <div className="RangeCalendarRangeDatePicker">
-                            {this.drawDatePicker()}
-                        </div>
-                        <div className="button-bar">
-                            <button
-                                className="btn btn-primary"
-                                disabled={!this.state.to}
-                                onClick={this.sendToFilters}>
-                                Add Filter
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <div className="RangeCalendarRangeDatePicker">
+                                {this.drawDatePicker()}
+                            </div>
+                            <div className="button-bar">
+                                <button
+                                    className="btn btn-primary"
+                                    disabled={!this.state.to}
+                                    onClick={this.sendToFilters}>
+                                    Add Filter
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
         );

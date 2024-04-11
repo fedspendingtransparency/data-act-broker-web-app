@@ -357,26 +357,29 @@ export default class DropdownTypeahead extends React.Component {
                 Created By
                     <span className="caret" />
                 </button>
-                <ul
+                <div
                     className="dropdown-menu"
                     style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
                     aria-labelledby="createdbydropdown">
-                    <li className={`usa-da-typeahead${disabledClass}`}>
-                        <input
-                            className={this.props.customClass}
-                            ref={(c) => {
-                                this.awesomplete = c;
-                            }}
-                            type="text"
-                            placeholder={placeholder}
-                            value={this.state.value}
-                            onChange={this.changedText.bind(this)}
-                            tabIndex={this.props.tabIndex}
-                            disabled={disabled}
-                            aria-required={this.props.isRequired} />
-                        {warning}
-                    </li>
+                    <ul>
+                        <li className={`usa-da-typeahead${disabledClass}`}>
+                            <input
+                                className={this.props.customClass}
+                                ref={(c) => {
+                                    this.awesomplete = c;
+                                }}
+                                type="text"
+                                placeholder={placeholder}
+                                value={this.state.value}
+                                onChange={this.changedText.bind(this)}
+                                tabIndex={this.props.tabIndex}
+                                disabled={disabled}
+                                aria-required={this.props.isRequired} />
+                            {warning}
+                        </li>
+                    </ul>
 
+                    <ul>
                     {
                         this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
                             (
@@ -387,11 +390,13 @@ export default class DropdownTypeahead extends React.Component {
                                     fieldValue={value} />
                             )) : ''
                     }
+                    </ul>
 
                     {
-                        this.state.selectedValues.length > 0 ? <li role="separator" className="divider" /> : ''
+                        this.state.selectedValues.length > 0 ? <span role="separator" className="divider" /> : ''
                     }
 
+                    <ul>
                     {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
                         (
                             <DropdownTypeaheadCheckbox
@@ -400,8 +405,9 @@ export default class DropdownTypeahead extends React.Component {
                                 fieldValue={value} />
                         )) : ''
                     }
+                    </ul>
 
-                </ul>
+                </div>
             </div>
 
         );
