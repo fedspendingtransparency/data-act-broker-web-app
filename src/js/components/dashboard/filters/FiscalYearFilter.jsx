@@ -114,12 +114,12 @@ export default class FiscalYearFilter extends React.Component {
                         <span className="fiscal-years__wrapper">
                             <div className="fiscal-years__left">
                                 <ul>
-                                {leftFY}
+                                    {leftFY}
                                 </ul>
                             </div>
                             <div className="fiscal-years__right">
                                 <ul>
-                                {rightFY}
+                                    {rightFY}
                                 </ul>
                             </div>
                         </span>

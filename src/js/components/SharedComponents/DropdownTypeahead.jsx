@@ -380,16 +380,16 @@ export default class DropdownTypeahead extends React.Component {
                     </ul>
 
                     <ul>
-                    {
-                        this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
-                            (
-                                <DropdownTypeaheadCheckbox
-                                    checkCheckbox
-                                    key={value}
-                                    passSelectedNameFunc={this.passSelectedName}
-                                    fieldValue={value} />
-                            )) : ''
-                    }
+                        {
+                            this.state.selectedValues.length > 0 ? this.state.selectedValues.map((value) =>
+                                (
+                                    <DropdownTypeaheadCheckbox
+                                        checkCheckbox
+                                        key={value}
+                                        passSelectedNameFunc={this.passSelectedName}
+                                        fieldValue={value} />
+                                )) : ''
+                        }
                     </ul>
 
                     {
@@ -397,14 +397,14 @@ export default class DropdownTypeahead extends React.Component {
                     }
 
                     <ul>
-                    {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
-                        (
-                            <DropdownTypeaheadCheckbox
-                                key={value}
-                                passSelectedNameFunc={this.passSelectedName}
-                                fieldValue={value} />
-                        )) : ''
-                    }
+                        {this.state.unselectedValues.length > 0 ? this.state.unselectedValues.map((value) =>
+                            (
+                                <DropdownTypeaheadCheckbox
+                                    key={value}
+                                    passSelectedNameFunc={this.passSelectedName}
+                                    fieldValue={value} />
+                            )) : ''
+                        }
                     </ul>
 
                 </div>
