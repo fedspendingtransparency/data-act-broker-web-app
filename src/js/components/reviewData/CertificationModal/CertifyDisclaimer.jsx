@@ -8,6 +8,7 @@ import React from 'react';
 export default class CertifyDisclaimer extends React.Component {
     render() {
         return (
+            // eslint-disable-next-line
             <div className="disclaimer-text" tabIndex={0}>
                 <p>
                     MPM 2016-03 requires the DATA Act SAO to provide, on a quarterly basis,
