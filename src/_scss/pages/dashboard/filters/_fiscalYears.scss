@@ -7,6 +7,9 @@
         .fiscal-years__wrapper {
             @include display(flex);
         }
+        .fiscal-years__wrapper ul {
+            margin: rem(0);
+        }
         .fiscal-years__left {
             @include display(flex);
             @include flex(1 1 auto);
