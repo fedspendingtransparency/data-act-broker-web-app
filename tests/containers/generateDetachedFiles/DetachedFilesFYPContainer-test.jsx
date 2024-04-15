@@ -1,11 +1,11 @@
 /**
- * DetachedFileAContainer-test.jsx
+ * DetachedFilesFYPContainer-test.jsx
  * Created by Lizzie Salita 10/29/18
  */
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { DetachedFileAContainer } from 'containers/generateDetachedFiles/DetachedFileAContainer';
+import { DetachedFilesFYPContainer } from 'containers/generateDetachedFiles/DetachedFilesFYPContainer';
 
 // mock the submission list helper
 jest.mock('helpers/generateFilesHelper', () => require('./mockGenerateFilesHelper'));
@@ -13,10 +13,10 @@ jest.mock('helpers/generateFilesHelper', () => require('./mockGenerateFilesHelpe
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/generateDetachedFiles/DetachedFileA', () => jest.fn(() => null));
 
-describe('DetachedFileAContainer', () => {
+describe('DetachedFilesFYPContainer', () => {
     describe('generateFileA', () => {
         it('should update the status to generating', () => {
-            const container = shallow(<DetachedFileAContainer />);
+            const container = shallow(<DetachedFilesFYPContainer />);
 
             container.instance().generateFileA('123', 'cgac_code', 4, '2018');
 
@@ -25,7 +25,7 @@ describe('DetachedFileAContainer', () => {
     });
     describe('parseFileState', () => {
         it('should set a permission error if the httpStatus is 401', () => {
-            const container = shallow(<DetachedFileAContainer />);
+            const container = shallow(<DetachedFilesFYPContainer />);
 
             container.instance().parseFileState({
                 httpStatus: 401
@@ -34,7 +34,7 @@ describe('DetachedFileAContainer', () => {
             expect(container.state().errorType).toEqual('Permission Error');
         });
         it('should set a File A error if the status is failed or invalid', () => {
-            const container = shallow(<DetachedFileAContainer />);
+            const container = shallow(<DetachedFilesFYPContainer />);
 
             container.instance().parseFileState({
                 job_id: 1234,
@@ -50,7 +50,7 @@ describe('DetachedFileAContainer', () => {
             expect(container.state().errorType).toEqual('File A Error');
         });
         it('should set showDownload if the status is finished', () => {
-            const container = shallow(<DetachedFileAContainer />);
+            const container = shallow(<DetachedFilesFYPContainer />);
 
             container.instance().parseFileState({
                 job_id: 1234,
@@ -66,7 +66,7 @@ describe('DetachedFileAContainer', () => {
             expect(container.state().showDownload).toEqual(true);
         });
         it('should call checkFileStatus after 10 seconds if status is waiting', () => {
-            const container = shallow(<DetachedFileAContainer />);
+            const container = shallow(<DetachedFilesFYPContainer />);
 
             const checkFileStatus = jest.fn();
             container.instance().checkFileStatus = checkFileStatus;
