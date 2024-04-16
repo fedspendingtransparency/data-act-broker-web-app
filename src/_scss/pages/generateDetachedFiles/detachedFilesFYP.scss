@@ -45,9 +45,11 @@
         @include contentBlockWrapper;
 
         .usa-da-select-agency-label {
-            margin: 15px 0 10px;
+            margin: rem(30) 0 rem(10);
             text-align: left;
             font-size: 1.6rem;
+            padding-top: rem(30);
+            border-top: 1px dashed #d6d7d9;
         }
 
         .usa-da-select-file-type-label {
