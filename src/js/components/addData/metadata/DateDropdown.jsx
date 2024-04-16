@@ -150,6 +150,7 @@ export default class DateDropdown extends React.Component {
         return (
             <select
                 className={`usa-da-date-dropdown${errorClass}`}
+                aria-label={`Select date: ${this.props.label}`}
                 onChange={this.dateChanged.bind(this)}
                 value={value}>
                 {dates}
