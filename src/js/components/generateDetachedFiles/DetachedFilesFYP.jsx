@@ -138,7 +138,7 @@ export default class DetachedFilesFYP extends React.Component {
         }
 
         return (
-            <div className="usa-da-detached-file-a-page">
+            <div className="usa-da-detached-files-fyp-page">
                 <div className="usa-da-site_wrap">
                     <div className="usa-da-page-content">
                         <Navbar activeTab="submissionGuide" type={this.props.type} />
@@ -189,12 +189,12 @@ export default class DetachedFilesFYP extends React.Component {
                                                 {this.props.description}
                                             </div>
                                         </div>
-                                        <div className="file-a-section">
-                                            <div className="file-a-section__label">
+                                        <div className="files-fyp-section">
+                                            <div className="files-fyp-section__label">
                                                 {this.props.fileTitle}
                                             </div>
 
-                                            <div className="file-a-section__date">
+                                            <div className="files-fyp-section__date">
                                                 <FYPicker
                                                     fy={`${this.state.fy}`}
                                                     pickedYear={this.pickedYear} />

@@ -1,4 +1,4 @@
-.usa-da-detached-file-a-page {
+.usa-da-detached-files-fyp-page {
     @import "../../layouts/content/content";
     @include contentLayout;
 
@@ -77,9 +77,9 @@
         }
     }
 
-    .file-a-section {
+    .files-fyp-section {
         @include display(flex);
-        .file-a-section__label {
+        .files-fyp-section__label {
             @include display(flex);
             @include justify-content(center);
             @include flex(0 0 33%);
@@ -87,7 +87,7 @@
             font-weight: $font-semibold;
             border: solid rem(1) $color-gray-lighter;
         }
-        .file-a-section__date {
+        .files-fyp-section__date {
             @include display(flex);
             @include flex(1 1 67%);
             @include justify-content(center);
