@@ -24,7 +24,6 @@ export default class FileTypeSelect extends React.Component {
     }
 
     render() {
-        const certifiableCSS = '';
         return (
             <div className="row">
                 <div className="col-sm-12 text-left usa-da-file-generation-type">
@@ -52,7 +51,7 @@ export default class FileTypeSelect extends React.Component {
                             value="BOC"
                             onChange={this.pickedTypeBOC}
                             checked={this.props.fileType === 'BOC'} />
-                        <label htmlFor="detached-generation-file-type-boc" className={certifiableCSS}>
+                        <label htmlFor="detached-generation-file-type-boc">
                             BOC Comparison Report
                             <div className="subtype-description">
                                 BOC Comparison Report against a published submission
