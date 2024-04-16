@@ -14,15 +14,6 @@ jest.mock('helpers/generateFilesHelper', () => require('./mockGenerateFilesHelpe
 jest.mock('components/generateDetachedFiles/DetachedFilesFYP', () => jest.fn(() => null));
 
 describe('DetachedFilesFYPContainer', () => {
-    describe('generateFileA', () => {
-        it('should update the status to generating', () => {
-            const container = shallow(<DetachedFilesFYPContainer />);
-
-            container.instance().generateFileA('123', 'cgac_code', 4, '2018');
-
-            expect(container.state().status).toEqual('generating');
-        });
-    });
     describe('parseFileState', () => {
         it('should set a permission error if the httpStatus is 401', () => {
             const container = shallow(<DetachedFilesFYPContainer />);

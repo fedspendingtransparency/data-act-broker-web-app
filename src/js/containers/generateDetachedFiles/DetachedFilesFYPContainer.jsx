@@ -97,7 +97,7 @@ export class DetachedFilesFYPContainer extends React.Component {
             status: '',
             showDownload: false,
             jobId: null
-        })
+        });
     }
 
     checkFileStatus(jobId) {
