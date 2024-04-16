@@ -54,7 +54,9 @@ export class DetachedFilesFYPContainer extends React.Component {
 
     generateFYPFile(agency, codeType, period, fy) {
         this.setState({
-            status: 'generating'
+            status: 'generating',
+            errorType: '',
+            errorMessage: ''
         });
 
         const params = {
@@ -68,6 +70,10 @@ export class DetachedFilesFYPContainer extends React.Component {
         GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
                 this.parseFileState(response);
+            })
+            .catch((err) => {
+                console.error(err);
+                this.parseFileState(err);
             });
     }
 
@@ -103,6 +109,10 @@ export class DetachedFilesFYPContainer extends React.Component {
                 }
 
                 this.parseFileState(response);
+            })
+            .catch((err) => {
+                console.error(err);
+                this.parseFileState(err);
             });
     }
 
@@ -115,7 +125,18 @@ export class DetachedFilesFYPContainer extends React.Component {
 
             this.setState({
                 errorType: 'Permission Error',
-                errorMessage: data.message
+                errorMessage: data.message,
+                status: ''
+            });
+        }
+        else if (data.httpStatus === 400) {
+            // don't run the check again if it failed
+            runCheck = false;
+
+            this.setState({
+                errorType: 'Generation Error',
+                errorMessage: data.message,
+                status: ''
             });
         }
         else if (data.status === 'failed' || data.status === 'invalid') {
