@@ -35,7 +35,11 @@ export default class DropdownTypeaheadCheckbox extends React.Component {
     render() {
         return (
             <li>
-                <input type="checkbox" defaultChecked={this.props.checkCheckbox} onChange={this.handleChecked} />
+                <input
+                    title={this.props.fieldValue}
+                    type="checkbox"
+                    defaultChecked={this.props.checkCheckbox}
+                    onChange={this.handleChecked} />
                 {this.props.fieldValue}
             </li>
         );

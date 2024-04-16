@@ -364,6 +364,7 @@ export default class DropdownTypeahead extends React.Component {
                     <ul>
                         <li className={`usa-da-typeahead${disabledClass}`}>
                             <input
+                                title={this.state.value}
                                 className={this.props.customClass}
                                 ref={(c) => {
                                     this.awesomplete = c;
