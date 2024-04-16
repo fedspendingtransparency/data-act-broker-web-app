@@ -39,6 +39,7 @@ export class DetachedFilesFYPContainer extends React.Component {
         };
 
         this.generateFYPFile = this.generateFYPFile.bind(this);
+        this.fileTypeChanged = this.fileTypeChanged.bind(this);
     }
 
     clickedDownload() {
@@ -68,6 +69,29 @@ export class DetachedFilesFYPContainer extends React.Component {
             .then((response) => {
                 this.parseFileState(response);
             });
+    }
+
+    fileTypeChanged(fileType) {
+        let fileLabel = '';
+        let fileTitle = '';
+        if (fileType === 'A') {
+            fileLabel = 'File A';
+            fileTitle = 'File A: Appropriations Accounts';
+        }
+        else if (fileType === 'BOC') {
+            fileLabel = 'BOC Comparison Report';
+            fileTitle = 'BOC Comparison Report';
+        }
+        this.setState({
+            fileType,
+            fileLabel,
+            fileTitle,
+            errorType: '',
+            errorMessage: '',
+            status: '',
+            showDownload: false,
+            jobId: null
+        })
     }
 
     checkFileStatus(jobId) {
@@ -206,6 +230,7 @@ export class DetachedFilesFYPContainer extends React.Component {
                 {...this.state}
                 generateFYPFile={this.generateFYPFile}
                 clickedDownload={this.clickedDownload.bind(this)}
+                fileTypeChanged={this.fileTypeChanged}
                 description={description} />
         );
     }

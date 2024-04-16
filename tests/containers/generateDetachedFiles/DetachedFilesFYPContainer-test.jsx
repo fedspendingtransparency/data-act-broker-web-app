@@ -11,7 +11,7 @@ import { DetachedFilesFYPContainer } from 'containers/generateDetachedFiles/Deta
 jest.mock('helpers/generateFilesHelper', () => require('./mockGenerateFilesHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/generateDetachedFiles/DetachedFileA', () => jest.fn(() => null));
+jest.mock('components/generateDetachedFiles/DetachedFilesFYP', () => jest.fn(() => null));
 
 describe('DetachedFilesFYPContainer', () => {
     describe('generateFileA', () => {

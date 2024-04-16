@@ -18,12 +18,40 @@
         color: $color-gray;
     }
 
+    .usa-da-file-generation-type {
+        .usa-da-file-generation-type-group {
+            input {
+                float: left;
+                margin: rem(4) rem(8) 0 0;
+            }
+            margin-top: rem(10);
+
+            .subtype-description {
+                font-style: italic;
+            }
+
+            label {
+                font-weight: bold;
+                line-height: rem(18);
+                .subtype-description {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
         @include contentBlockWrapper;
 
         .usa-da-select-agency-label {
             margin: 15px 0 10px;
+            text-align: left;
+            font-size: 1.6rem;
+        }
+
+        .usa-da-select-file-type-label {
+            margin: rem(15) 0 0;
             text-align: left;
             font-size: 1.6rem;
         }

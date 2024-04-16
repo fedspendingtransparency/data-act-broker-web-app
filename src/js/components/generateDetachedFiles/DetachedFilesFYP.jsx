@@ -1,5 +1,5 @@
 /**
- * DetachedFileA.jsx
+ * DetachedFilesFYP.jsx
  * Created by Lizzie Salita 11/5/18
  */
 
@@ -16,6 +16,7 @@ import { defaultPeriods, availablePeriodsInFY } from '../../helpers/periodPicker
 
 import * as utils from '../../helpers/util';
 import GenerateButton from './GenerateButton';
+import FileTypeSelect from './FileTypeSelect';
 import DownloadFile from './DownloadFile';
 import FYPicker from './FYPicker';
 import PeriodPicker from './PeriodPicker';
@@ -26,6 +27,7 @@ const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs']),
     clickedDownload: PropTypes.func,
     generateFYPFile: PropTypes.func,
+    fileTypeChanged: PropTypes.func,
     status: PropTypes.string,
     errorType: PropTypes.string,
     errorMessage: PropTypes.string,
@@ -39,6 +41,7 @@ const propTypes = {
 const defaultProps = {
     clickedDownload: null,
     generateFYPFile: () => { },
+    fileTypeChanged: () => { },
     status: '',
     errorType: '',
     errorMessage: '',
@@ -157,6 +160,14 @@ export default class DetachedFilesFYP extends React.Component {
                                         Please begin by telling us about the file you would like to generate.
                                     </div>
                                     <div className="select-agency-holder">
+                                        <div className="row usa-da-select-file-type-label">
+                                            Select the type of file you would like to generate.
+                                        </div>
+                                        <div className="row">
+                                            <FileTypeSelect
+                                                fileType={this.props.fileType}
+                                                onChange={this.props.fileTypeChanged} />
+                                        </div>
                                         <div className="row usa-da-select-agency-label">
                                             The generated file will be used when submitting data for...
                                         </div>
