@@ -6,7 +6,7 @@ import AuthPage from 'components/login/AuthPage';
 import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContainer';
 import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
 import SubmissionsTablePage from 'components/submissionsTable/SubmissionsTablePage';
-import DetachedFileAContainer from 'containers/generateDetachedFiles/DetachedFileAContainer';
+import DetachedFilesFYPContainer from 'containers/generateDetachedFiles/DetachedFilesFYPContainer';
 import SubmissionContainer from 'containers/submission/SubmissionContainer';
 import SubmissionStepsContainer from 'containers/submission/SubmissionStepsContainer';
 import HistoryContainer from 'containers/history/HistoryContainer';
@@ -134,7 +134,7 @@ const getRoutes = () => {
         {
             path: '/generateDetachedFileA',
             authFn: checkUserPermissions,
-            component: DetachedFileAContainer,
+            component: DetachedFilesFYPContainer,
             type: 'dabs'
         },
         {
