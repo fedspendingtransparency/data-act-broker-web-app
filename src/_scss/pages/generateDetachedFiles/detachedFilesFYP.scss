@@ -1,4 +1,4 @@
-.usa-da-detached-file-a-page {
+.usa-da-detached-files-fyp-page {
     @import "../../layouts/content/content";
     @include contentLayout;
 
@@ -18,12 +18,42 @@
         color: $color-gray;
     }
 
+    .usa-da-file-generation-type {
+        .usa-da-file-generation-type-group {
+            input {
+                float: left;
+                margin: rem(4) rem(8) 0 0;
+            }
+            margin-top: rem(10);
+
+            .subtype-description {
+                font-style: italic;
+            }
+
+            label {
+                font-weight: bold;
+                line-height: rem(18);
+                .subtype-description {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+
     .select-agency-holder {
         padding: 15px 30px 30px 30px;
         @include contentBlockWrapper;
 
         .usa-da-select-agency-label {
-            margin: 15px 0 10px;
+            margin: rem(30) 0 rem(10);
+            text-align: left;
+            font-size: 1.6rem;
+            padding-top: rem(30);
+            border-top: 1px dashed #d6d7d9;
+        }
+
+        .usa-da-select-file-type-label {
+            margin: rem(15) 0 0;
             text-align: left;
             font-size: 1.6rem;
         }
@@ -49,9 +79,9 @@
         }
     }
 
-    .file-a-section {
+    .files-fyp-section {
         @include display(flex);
-        .file-a-section__label {
+        .files-fyp-section__label {
             @include display(flex);
             @include justify-content(center);
             @include flex(0 0 33%);
@@ -59,7 +89,7 @@
             font-weight: $font-semibold;
             border: solid rem(1) $color-gray-lighter;
         }
-        .file-a-section__date {
+        .files-fyp-section__date {
             @include display(flex);
             @include flex(1 1 67%);
             @include justify-content(center);

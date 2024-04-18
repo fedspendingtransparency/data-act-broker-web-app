@@ -187,16 +187,17 @@ export default class HistoryTable extends React.Component {
                 const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.setActiveSubmission,
                     [i, 'publication']);
                 list.push(
-                    <button
-                        className="submission"
-                        tabIndex={0}
-                        onKeyDown={onKeyDownHandler}
-                        onClick={this.handlePublishedSelect}
-                        value={i}
-                        key={i}>
-                        Published by {publications[i].publishing_user.name} on&nbsp;
-                        {UtilHelper.convertToLocalDate(publications[i].publish_date, true)}
-                    </button>);
+                    <li key={i}>
+                        <button
+                            className="submission"
+                            tabIndex={0}
+                            onKeyDown={onKeyDownHandler}
+                            onClick={this.handlePublishedSelect}
+                            value={i}>
+                            Published by {publications[i].publishing_user.name} on&nbsp;
+                            {UtilHelper.convertToLocalDate(publications[i].publish_date, true)}
+                        </button>
+                    </li>);
             }
         }
         return list;
@@ -219,16 +220,17 @@ export default class HistoryTable extends React.Component {
                 const onKeyDownHandler = UtilHelper.createOnKeyDownHandler(this.setActiveSubmission,
                     [i, 'certification']);
                 list.push(
-                    <button
-                        className="submission"
-                        tabIndex={0}
-                        onKeyDown={onKeyDownHandler}
-                        onClick={this.handleCertifiedSelect}
-                        value={i}
-                        key={i}>
-                        Certified by {certifications[i].certifying_user.name} on&nbsp;
-                        {UtilHelper.convertToLocalDate(certifications[i].certify_date, true)}
-                    </button>);
+                    <li key={i}>
+                        <button
+                            className="submission"
+                            tabIndex={0}
+                            onKeyDown={onKeyDownHandler}
+                            onClick={this.handleCertifiedSelect}
+                            value={i}>
+                            Certified by {certifications[i].certifying_user.name} on&nbsp;
+                            {UtilHelper.convertToLocalDate(certifications[i].certify_date, true)}
+                        </button>
+                    </li>);
             }
         }
         return list;

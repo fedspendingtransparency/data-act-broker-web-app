@@ -10,19 +10,20 @@ import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 const propTypes = {
     agency: PropTypes.string.isRequired,
     generate: PropTypes.func.isRequired,
-    status: PropTypes.string.isRequired
+    status: PropTypes.string.isRequired,
+    fileLabel: PropTypes.string.isRequired
 };
 
 export default class GenerateButton extends React.Component {
     render() {
-        let message = 'Generate File A';
+        let message = `Generate ${this.props.fileLabel}`;
         let loadingMessage = '';
         if (this.props.status === 'generating') {
             message = 'Generating';
             loadingMessage = <LoadingBauble />;
         }
         else if (this.props.status === 'done') {
-            message = 'Regenerate File A';
+            message = `Regenerate ${this.props.fileLabel}`;
         }
 
         const disabled = (this.props.status === 'generating') || !this.props.agency;

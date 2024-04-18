@@ -84,17 +84,19 @@ export default class SubmissionTypeFilterDropdown extends React.Component {
                 Submission Type
                     <span className="caret" />
                 </button>
-                <ul
+                <div
                     className="dropdown-menu submission-type-dropdown"
                     style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
                     aria-labelledby="submissiontypedropdown">
-                    <li>
-                        <button onClick={this.testButtonClicked}>Test Submissions</button>
-                    </li>
-                    <li>
-                        <button onClick={this.certifiableButtonClicked}>Certifiable Submissions</button>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <button onClick={this.testButtonClicked}>Test Submissions</button>
+                        </li>
+                        <li>
+                            <button onClick={this.certifiableButtonClicked}>Certifiable Submissions</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
         );
