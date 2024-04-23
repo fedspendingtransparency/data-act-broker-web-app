@@ -149,6 +149,7 @@ export default class DateDropdown extends React.Component {
 
         return (
             <select
+                title="date-select"
                 className={`usa-da-date-dropdown${errorClass}`}
                 onChange={this.dateChanged.bind(this)}
                 value={value}>

@@ -306,6 +306,7 @@ export default class Autocomplete extends React.Component {
                     <p className="usa-da-autocomplete__label">{this.props.label}</p>
                     <div className="usa-da-autocomplete__input">
                         <input
+                            title={`autocomplete-${this.props.label}`}
                             ref={(t) => {
                                 this.autocompleteInput = t;
                             }}

@@ -86,7 +86,14 @@
             padding: rem(12.5) rem(10) rem(5) rem(10);
             margin-top: rem(14);
             border-radius: 0;
+            width: auto;
+            ul {
+                margin: 0;
+                width: 100%;
+                padding: 0;
+            }
             li {
+                margin-top: rem(0);
                 display: block;
             }
             li:after {
@@ -96,10 +103,10 @@
                 display: none;
             }
             .divider {
+                display: block;
                 width: 100%;
-                &:after {
-                    margin-bottom: 0;
-                }
+                margin-top: rem(0);
+                margin-bottom: rem(10);
             }
             input {
                 display: inline;
