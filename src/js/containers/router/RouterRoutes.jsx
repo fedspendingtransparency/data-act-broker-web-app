@@ -132,7 +132,7 @@ const getRoutes = () => {
             type: 'dabs'
         },
         {
-            path: '/generateDetachedFileA',
+            path: '/generateDetachedFYPFiles',
             authFn: checkUserPermissions,
             component: DetachedFilesFYPContainer,
             type: 'dabs'
