@@ -85,8 +85,8 @@ export class DetachedFilesFYPContainer extends React.Component {
             fileTitle = 'File A: Appropriations Accounts';
         }
         else if (fileType === 'BOC') {
-            fileLabel = 'BOC Comparison Report';
-            fileTitle = 'BOC Comparison Report';
+            fileLabel = 'GTAS Comparison Report';
+            fileTitle = 'GTAS Comparison Report';
         }
         this.setState({
             fileType,
@@ -237,10 +237,29 @@ export class DetachedFilesFYPContainer extends React.Component {
             description = (
                 <div>
                     <p>
-                        This is the BOC Comparison Report Description.
+                        This resource can be used to help ensure federal spending transparency data aligns with
+                        accounting data by comparing GTAS published data with File B published data. Agencies are
+                        encouraged to examine non-zero values in the column DollarAmountGTASSubDataBroker to study
+                        differences between the data reported to these systems.
                     </p>
                     <p>
-                        It&apos;s still short but it will eventually have more content.
+                        This report aggregates File B data by TAS, ObjectClass, ByDirectReimbursableFundingSource,
+                        DisasterEmergencyFundCode, USSGL, and Begin End Indicator (Fiscal Year Begin (FYB) or Current
+                        Period End (CPE)). Note that this report does not aggregate to any Program Activity element.
+                    </p>
+                    <p>
+                        This report uses a different format than File B. File B has a &quot;wide&quot; format with
+                        separate columns for relevant combinations of USSGL and Begin End Indicator. This report
+                        presents information in a &quot;long&quot; format by creating two separate columns to store
+                        these values: USSGLAccountNumber and  BeginEndIndicator. The column DollarAmountDataBroker
+                        contains the published File B dollar value for the associated combination of categories. The
+                        DollarAmountGTAS column contains the published GTAS dollar value for the associated combination
+                        of categories. The column DollarAmountGTASSubDataBroker is calculated by subtracting
+                        DollarAmountDataBroker from DollarAmountGTAS. The column FileBRows contains the associated row
+                        numbers from the published File B that shares a combination of TAS, ObjectClass,
+                        ByDirectReimbursableFundingSource, and DisasterEmergencyFundCode. Since multiple File B rows may
+                        share these elements with different Program Activity elements, FileBRows is represented as a
+                        comma separated list.
                     </p>
                 </div>
             );

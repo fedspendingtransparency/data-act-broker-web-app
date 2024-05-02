@@ -38,7 +38,7 @@ export default class FileTypeSelect extends React.Component {
                         <label htmlFor="detached-generation-file-type-a">
                             File A
                             <div className="subtype-description">
-                                File A for submission
+                                Generate File A outside of a submission.
                             </div>
                         </label>
                     </div>
@@ -52,9 +52,9 @@ export default class FileTypeSelect extends React.Component {
                             onChange={this.pickedTypeBOC}
                             checked={this.props.fileType === 'BOC'} />
                         <label htmlFor="detached-generation-file-type-boc">
-                            BOC Comparison Report
+                            GTAS Comparison Report
                             <div className="subtype-description">
-                                BOC Comparison Report against a published submission
+                                Compare published data from Data Broker and GTAS.
                             </div>
                         </label>
                     </div>
