@@ -15,7 +15,8 @@ const propTypes = {
     publishedSubmissions: PropTypes.array,
     endDate: PropTypes.string,
     dateType: PropTypes.string,
-    isDabs: PropTypes.bool
+    isDabs: PropTypes.bool,
+    selectedAgency: PropTypes.string
 };
 
 const defaultProps = {
@@ -24,7 +25,8 @@ const defaultProps = {
     publishedSubmissions: [],
     endDate: '',
     dateType: '',
-    isDabs: true
+    isDabs: true,
+    selectedAgency: ''
 };
 
 export default class SubmissionTypeField extends React.Component {
@@ -97,6 +99,22 @@ export default class SubmissionTypeField extends React.Component {
                 certifiableCSS = 'disabled';
                 disabled = true;
             }
+        }
+
+        if (this.props.selectedAgency === 'TFVA') {
+            warningBanner = (
+                <div className="alert alert-warning text-left row" role="alert">
+                    <div className="col-xs-1">
+                        <FontAwesomeIcon icon="exclamation-triangle" />
+                    </div>
+                    <div className="col-xs-11">
+                        <h3>This agency cannot create publishable submissions.</h3>
+                        <p>This agency is only used to create test FABS submissions.</p>
+                    </div>
+                </div>
+            );
+            certifiableCSS = 'disabled';
+            disabled = true;
         }
 
         const testSubText = this.props.isDabs ? 'published or certified' : 'published';
