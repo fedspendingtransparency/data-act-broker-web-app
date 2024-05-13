@@ -123,6 +123,9 @@
                 .subtype-description {
                     font-style: italic;
                 }
+                .disabled {
+                    color: $color-gray-light;
+                }
 
                 label {
                     font-weight: bold;
@@ -137,6 +140,33 @@
                             }
                         }
                     }
+                }
+            }
+            .alert-warning {
+                @import "../../components/alerts/_alerts";
+                @include warningAlert;
+                border-color: rgb(243,199,77);
+                margin: 0;
+                padding: rem(7.5) 0;
+                h3 {
+                    margin: 0;
+                    font-weight: bold;
+                    font-size: rem(15);
+                }
+                p {
+                    margin: 0;
+                    margin-top: rem(5);
+                    font-size: rem(14);
+                    line-height: rem(18);
+                }
+                .fa-exclamation-triangle {
+                    font-size: rem(18);
+                    color: $color-gold-dark;
+                    float: right;
+                }
+
+                .col-xs-11 {
+                    padding-left: 0;
                 }
             }
         }

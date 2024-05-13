@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
 import Banner from 'components/SharedComponents/Banner';
-import { kGlobalConstants } from '../../GlobalConstants';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
 import AgencyListContainer from '../../containers/SharedContainers/AgencyListContainer';
@@ -138,23 +137,6 @@ export default class DetachedFilesFYP extends React.Component {
             );
         }
 
-        // TODO: This will be removed once this goes live, but for now we are preventing visibility
-        // in prod
-        let fileTypeLabel = null;
-        let fileTypeSelector = null;
-        if (!kGlobalConstants.PROD) {
-            fileTypeLabel = (
-                <div className="row usa-da-select-file-type-label">
-                    Select the type of file you would like to generate.
-                </div>
-            );
-            fileTypeSelector = (
-                <FileTypeSelect
-                    fileType={this.props.fileType}
-                    onChange={this.props.fileTypeChanged} />
-            );
-        }
-
         return (
             <div className="usa-da-detached-files-fyp-page">
                 <div className="usa-da-site_wrap">
@@ -164,7 +146,7 @@ export default class DetachedFilesFYP extends React.Component {
                             <div className="container">
                                 <div className="row usa-da-page-title">
                                     <div className="col-lg-12 mt-40 mb-20">
-                                        <div className="display-2">Generate and Download File A</div>
+                                        <div className="display-2">Generate Fiscal Year Period Files</div>
                                     </div>
                                 </div>
                             </div>
@@ -178,8 +160,12 @@ export default class DetachedFilesFYP extends React.Component {
                                         Please begin by telling us about the file you would like to generate.
                                     </div>
                                     <div className="select-agency-holder">
-                                        {fileTypeLabel}
-                                        {fileTypeSelector}
+                                        <div className="row usa-da-select-file-type-label">
+                                            Select the type of file you would like to generate.
+                                        </div>
+                                        <FileTypeSelect
+                                            fileType={this.props.fileType}
+                                            onChange={this.props.fileTypeChanged} />
                                         <div className="row usa-da-select-agency-label">
                                             The generated file will be used when submitting data for...
                                         </div>
