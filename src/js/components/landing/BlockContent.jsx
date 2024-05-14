@@ -83,9 +83,9 @@ export default class BlockContent extends React.Component {
                 <LandingBlock
                     type={this.props.type}
                     icon={<FontAwesomeIcon icon="cloud-download-alt" />}
-                    text="Generate File A for reconciliation purposes or as a starting point for your submission."
-                    buttonText="Generate File A"
-                    url="generateDetachedFileA" />
+                    text="Compare published Data Broker and GTAS data or generate File A outside of a submission."
+                    buttonText="Generate Files"
+                    url="generateDetachedFYPFiles" />
             );
         }
         else if (this.props.type === 'fabs') {

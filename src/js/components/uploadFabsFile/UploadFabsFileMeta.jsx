@@ -305,7 +305,8 @@ export default class UploadFabsFileMeta extends React.Component {
                                             <SubmissionTypeField
                                                 onChange={this.handleSubmissionTypeChange}
                                                 value={this.state.submissionType}
-                                                isDabs={false} />
+                                                isDabs={false}
+                                                selectedAgency={this.state.agency} />
                                         </CSSTransition>
                                     )}
                                 </TransitionGroup>

@@ -7,6 +7,7 @@ import SubmissionGuideContainer from 'containers/addData/SubmissionGuideContaine
 import AddDataPageContainer from 'containers/addData/AddDataPageContainer';
 import SubmissionsTablePage from 'components/submissionsTable/SubmissionsTablePage';
 import DetachedFilesFYPContainer from 'containers/generateDetachedFiles/DetachedFilesFYPContainer';
+import RedirectContainer from 'containers/SharedContainers/RedirectContainer';
 import SubmissionContainer from 'containers/submission/SubmissionContainer';
 import SubmissionStepsContainer from 'containers/submission/SubmissionStepsContainer';
 import HistoryContainer from 'containers/history/HistoryContainer';
@@ -132,10 +133,16 @@ const getRoutes = () => {
             type: 'dabs'
         },
         {
-            path: '/generateDetachedFileA',
+            path: '/generateDetachedFYPFiles',
             authFn: checkUserPermissions,
             component: DetachedFilesFYPContainer,
             type: 'dabs'
+        },
+        {
+            path: '/generateDetachedFileA',
+            authFn: checkUserPermissions,
+            component: RedirectContainer,
+            redirectPath: '/generateDetachedFYPFiles'
         },
         {
             path: '/dashboard/:type',

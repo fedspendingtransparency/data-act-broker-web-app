@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import Banner from '../SharedComponents/Banner';
 import { kGlobalConstants } from '../../GlobalConstants';
