@@ -69,8 +69,7 @@ export default class ResourcesContent extends React.Component {
                         <li>
                             <a
                                 href={`https://onevoicecrm.my.site.com/usaagencyresources/s/` +
-                                    `GSDM-practices-and-procedures/gsdm-practices-and-procedures-v1-0-` +
-                                    `MCPYTHEAMIKZCCRLQUZA7N4TKNZU`}
+                                    `gsdm-practice-and-procedures-files`}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 The GSDM Practices & Procedures
