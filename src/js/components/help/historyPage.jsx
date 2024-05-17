@@ -14,6 +14,7 @@ import HistoryContent from './historyContent';
 import HelpNav from './helpNav';
 
 const propTypes = {
+    session: PropTypes.object,
     history: PropTypes.oneOf(['release', 'technical']),
     type: PropTypes.oneOf(['dabs', 'fabs']),
     helpOnly: PropTypes.bool,
@@ -24,6 +25,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    session: {},
     history: '',
     type: '',
     helpOnly: false,
@@ -56,7 +58,7 @@ export default class HistoryPage extends React.Component {
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         Help | DATA Broker
-                                        <HelpNav selected="Help" type={this.props.type} />
+                                        <HelpNav selected="Help" type={this.props.type} session={this.props.session} />
                                     </div>
                                 </div>
                             </div>
