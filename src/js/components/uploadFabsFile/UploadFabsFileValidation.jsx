@@ -431,7 +431,8 @@ export class UploadFabsFileValidation extends React.Component {
                                     <FontAwesomeIcon icon="check-circle" />
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
                                         (excluding header) published at {parsedDate}
-                                    <span className="tooltip-popover-container"
+                                    <span
+                                        className="tooltip-popover-container"
                                         role="contentinfo"
                                         aria-label="information">
                                         <FontAwesomeIcon icon="info-circle" />
@@ -476,7 +477,8 @@ export class UploadFabsFileValidation extends React.Component {
                                     <FontAwesomeIcon icon="check-circle" />
                                         File Published: {this.state.fabs_meta.valid_rows} row(s) of data&nbsp;
                                         (excluding header) published at {parsedDate}
-                                    <span className="tooltip-popover-container"
+                                    <span
+                                        className="tooltip-popover-container"
                                         role="contentinfo"
                                         aria-label="information">
                                         <FontAwesomeIcon icon="info-circle" />
