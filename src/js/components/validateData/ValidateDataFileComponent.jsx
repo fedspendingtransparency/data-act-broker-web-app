@@ -382,7 +382,8 @@ export default class ValidateDataFileComponent extends React.Component {
                 onKeyDown={clickDownloadOnKeyDownHandler}
                 onClick={this.clickedReport}
                 download={fileName}
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+                aria-label="Uploaded File">
                 {fileName}
             </div>
         );

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * DetachedFilesFYPContainer-test.jsx
  * Created by Lizzie Salita 10/29/18
  */

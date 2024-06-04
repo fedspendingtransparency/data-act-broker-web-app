@@ -16,6 +16,7 @@ import HelpContent from './helpContent';
 import HelpNav from './helpNav';
 
 const propTypes = {
+    session: PropTypes.object,
     location: PropTypes.object,
     type: PropTypes.oneOf(['dabs', 'fabs']),
     helpOnly: PropTypes.bool,
@@ -26,6 +27,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    session: {},
     location: null,
     type: '',
     helpOnly: false,
@@ -58,7 +60,7 @@ export default class HelpPage extends React.Component {
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         {this.props.type.toUpperCase()} | Help
-                                        <HelpNav selected="Help" type={this.props.type} />
+                                        <HelpNav selected="Help" type={this.props.type} session={this.props.session} />
                                     </div>
                                 </div>
                             </div>
