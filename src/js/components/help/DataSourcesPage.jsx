@@ -14,11 +14,13 @@ import DataSourcesContent from 'components/help/DataSourcesContent';
 import HelpNav from './helpNav';
 
 const propTypes = {
+    session: PropTypes.object,
     type: PropTypes.oneOf(['dabs', 'fabs']),
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
+    session: {},
     type: '',
     helpOnly: false
 };
@@ -61,7 +63,7 @@ export default class DataSourcesPage extends React.Component {
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         {this.props.type.toUpperCase()} | Data Sources
-                                        <HelpNav selected="Data Sources" type={this.props.type} />
+                                        <HelpNav selected="Data Sources" type={this.props.type} session={this.props.session} />
                                     </div>
                                 </div>
                             </div>
