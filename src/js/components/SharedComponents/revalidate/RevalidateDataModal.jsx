@@ -111,7 +111,7 @@ export default class RevalidateDataModal extends React.Component {
                 <div className="usa-da-modal-page">
                     <div id="usa-da-revalidate-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
-                            <button onClick={this.closeModal.bind(this)}>
+                            <button aria-label="close" onClick={this.closeModal.bind(this)}>
                                 <FontAwesomeIcon icon="times" />
                             </button>
                         </div>
