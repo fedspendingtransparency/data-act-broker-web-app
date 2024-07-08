@@ -2,9 +2,13 @@
 	position: relative;
     border-right: 1px solid $color-gray-warm-light;
     .usa-da-validate-item-message-count {
-        color: $color-gold;
+        font-weight: $font-bold;
+        background-color: $color-gold-light;
+        padding: 0 rem(8);
+        border-radius: rem(5);
         &.none {
             color: $color-gray;
+			background-color: transparent;
         }
     }
 }
