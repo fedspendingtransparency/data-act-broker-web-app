@@ -19,10 +19,9 @@
     .name {
         display: block;
         text-align: center;
-        opacity: 0.3;
         font-size: 1.2rem;
         a {
-            color: $color-gray-dark;
+            color: $color-gray;
             &:hover {
                 text-decoration: none;
             }

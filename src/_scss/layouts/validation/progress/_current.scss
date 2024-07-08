@@ -4,12 +4,12 @@
 	}
 
 	.step {
-		border: 1px solid $color-focus;
-		background-color: $color-focus;
+		border: 1px solid $color-primary-alt-dark;
+		background-color: $color-primary-alt-dark;
 		color: $color-white;
 
 		&:before {
-			background-color: $color-focus;
+			background-color: $color-primary-alt-darkest;
 			z-index: -1;
 			bottom: 0.9em;
 		}
