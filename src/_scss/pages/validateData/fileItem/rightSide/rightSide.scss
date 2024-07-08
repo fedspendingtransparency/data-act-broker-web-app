@@ -14,13 +14,12 @@
     height: 171px;
 
     & .usa-da-success-txt{
-        color: $color-green-light;
-        font-weight: 600;
+        font-style: italic;
 		margin-bottom: 0;
     }
     & .usa-da-warning-txt{
-        color: $color-gold;
-        font-weight: 600;
+        font-style: italic;
+		margin-bottom: 0;
     }
 
     .usa-da-validate-item-file-section-result {
