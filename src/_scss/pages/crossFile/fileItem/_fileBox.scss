@@ -9,7 +9,7 @@
         width: 10%;
         font-weight: bold;
         padding: 15px;
-        background-color: $color-gray-light;
+        background-color: $color-gray-dark;
         color: $color-white;
         @include display(flex);
         @include align-self(stretch);
