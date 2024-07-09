@@ -36,6 +36,10 @@
         b {
             font-weight: $font-semibold;
         }
+        
+        a {
+            text-decoration: underline;
+        }
     }
 
     .comments-header {

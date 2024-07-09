@@ -39,8 +39,20 @@ const defaultProps = {
     published: ""
 };
 
-const warningBaseColors = { base: '#fdb81e', active: '#FF6F00', activeBorder: '#BF360C' };
-const errorBaseColors = { base: '#5d87bb', active: '#02bfe7', activeBorder: '#046b99' };
+const warningBaseColors = {
+    base: '#fdb81e',
+    active: '#ff580a',
+    activeBorder: '#cd2026',
+    text: '#000000',
+    activeText: '#000000'
+};
+const errorBaseColors = {
+    base: '#07648d',
+    active: '#02bfe7',
+    activeBorder: '#046b99',
+    text: '#FFFFFF',
+    activeText: '#000000'
+};
 
 export default class ValidateValuesFileComponent extends React.Component {
     constructor(props) {

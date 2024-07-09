@@ -3,13 +3,13 @@
 
     @include baseButton;
     &.btn-staged-upload {
-        @include btnBase($color-green, $color-green-lightest);
+        @include btnBase($color-green-dark, $color-green-lightest);
         box-shadow: inset 0 0 0 1px $color-green-lighter;
         &:active {
-            @include btnBase($color-white, $color-green-light);
+            @include btnBase($color-white, $color-green);
         }
         &:hover {
-            @include btnBase($color-white, $color-green-light);
+            @include btnBase($color-white, $color-green);
         }
     }
 }
