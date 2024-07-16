@@ -24,7 +24,7 @@
             background: #ececec;
         }
         &.active {
-            background: #a3a5aa;
+            background: $color-gray;
             color: $color-white;
             border: 1px solid #999ba1;
             border-bottom: none;
@@ -34,7 +34,7 @@
                 }
             }
             &:hover {
-                background: #93959a;
+                background: $color-gray-dark;
                 color: $color-white;
             }
         }

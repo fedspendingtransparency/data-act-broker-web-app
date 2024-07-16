@@ -1,12 +1,5 @@
 // headers
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.display-1,
-.display-2 {
+h1, h2, h3, h4, h5, h6, .display-1, .display-2 {
     font-family: $font-sans;
     color: #555;
     margin-bottom: $base-line-height;
@@ -103,3 +96,16 @@ p + h2, p + h3, p + h4, p + h5, p + h6 {
    margin-top: $base-line-height * 3;
 }
 
+
+
+// links (underline if surrounded by other text)
+ul, ol, p {
+    a {
+        color: $color-primary;
+        text-decoration: underline;
+    }
+}
+
+a {
+    color: $color-primary;
+}

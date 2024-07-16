@@ -243,6 +243,13 @@ export class DetachedFilesFYPContainer extends React.Component {
                         differences between the data reported to these systems.
                     </p>
                     <p>
+                        Currently, Data Broker only support PriorYearAdjustment (PYA) value “X” (Not an adjustment to
+                        prior-year reporting). This report removes records from the source GTAS data with PYA values of
+                        &quot;B&quot; or &quot;P.&quot; These records will be added to the report when Data Broker is
+                        updated to support other PYA values. Currently, the report column PriorYearAdjustment is always
+                        empty. This column will be populated when Data Broker is updated to support other PYA values.
+                    </p>
+                    <p>
                         This report aggregates File B data by TAS, ObjectClass, ByDirectReimbursableFundingSource,
                         DisasterEmergencyFundCode, USSGL, and Begin End Indicator (Fiscal Year Begin (FYB) or Current
                         Period End (CPE)). Note that this report does not aggregate to any Program Activity element.
@@ -260,6 +267,15 @@ export class DetachedFilesFYPContainer extends React.Component {
                         ByDirectReimbursableFundingSource, and DisasterEmergencyFundCode. Since multiple File B rows may
                         share these elements with different Program Activity elements, FileBRows is represented as a
                         comma separated list.
+                    </p>
+                    <p>
+                        This report sources GTAS data from the “OMB Bulk File Extract for all TAS” report from&nbsp;
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://www.gtas.for.fiscal.treasury.gov/gtas-ui/home">
+                            https://www.gtas.for.fiscal.treasury.gov/gtas-ui/home
+                        </a>.
                     </p>
                 </div>
             );

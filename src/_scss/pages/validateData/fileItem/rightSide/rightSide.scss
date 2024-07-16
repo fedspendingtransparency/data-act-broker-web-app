@@ -5,7 +5,7 @@
 @import "./replacement/replacement";
 
 @mixin fileItemRightSide {
-	padding: 0;
+    padding: 0;
     text-align: center;
     @include display(flex);
     @include flex-direction(column);
@@ -14,13 +14,12 @@
     height: 171px;
 
     & .usa-da-success-txt{
-        color: $color-green-light;
-        font-weight: 600;
-		margin-bottom: 0;
+        font-style: italic;
+        margin-bottom: 0;
     }
     & .usa-da-warning-txt{
-        color: $color-gold;
-        font-weight: 600;
+        font-style: italic;
+        margin-bottom: 0;
     }
 
     .usa-da-validate-item-file-section-result {
@@ -35,20 +34,20 @@
     }
 
     .usa-da-validate-item-file-name {
-    	@include rightSideFileName;
-		.file-text-header {
-		    margin-bottom: 0.25rem;
-		    font-weight: bold;
-		    margin-top: 0.5rem;
-		}
+        @include rightSideFileName;
+        .file-text-header {
+            margin-bottom: 0.25rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
     }
 
     .usa-da-validate-item-file-section-correct-button {
-    	@include rightSideButtons;
+        @include rightSideButtons;
     }
 
     // implement the file replacement styling
     .usa-da-validate-corrected-file-holder {
-    	@include rightSideReplacement;
+        @include rightSideReplacement;
     }
 }
