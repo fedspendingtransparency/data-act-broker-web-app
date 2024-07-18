@@ -336,10 +336,11 @@ export default class DataSourcesContent extends React.Component {
                         description={"Detailed information about the balances of each TAS, as well as a breakdown of" +
                             " those balances by Disaster Emergency Fund Code (DEFC)."}
                         source={
-                            <p>This file is manually placed into a shared S3 bucket by FRB and translated into a CSV
+                            <p>
+                                This file is manually placed into a shared S3 bucket by FRB and translated into a CSV
                                 by the Broker on a daily basis during the GTAS window each period. The GTAS Comparison
-                                report uses data from the &quot;OMB Bulk File Extract for all TAS&quot; report
-                                from&nbsp;
+                                report uses data from the &quot;OMB Bulk File Extract for all TAS&quot; report from
+                                &nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
