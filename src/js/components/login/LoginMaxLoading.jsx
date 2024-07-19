@@ -1,5 +1,5 @@
 /**
-  * LoginCaiaLoading.jsx
+  * LoginMaxLoading.jsx
   * Created by Kevin Li 10/14/16
   */
 
@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import LoginCaiaErrorMessage from './LoginCaiaErrorMessage';
+import LoginMaxErrorMessage from './LoginMaxErrorMessage';
 import LoadingBauble from '../SharedComponents/overlays/LoadingBauble';
 
 const propTypes = {
@@ -18,14 +18,17 @@ const defaultProps = {
     errorMessage: ''
 };
 
-export default class LoginCaiaLoading extends React.Component {
+const maxUrl = "https://community.max.gov/pages/viewpage.action?spaceKey=TREASExternal&" +
+    "title=DATA+Act+Broker+Registration";
+
+export default class LoginMaxLoading extends React.Component {
     render() {
         let errorMessageComponent = null;
         let hideLoading = '';
         let hideError = ' hide';
 
         if (this.props.errorMessage) {
-            errorMessageComponent = <LoginCaiaErrorMessage message={this.props.errorMessage} />;
+            errorMessageComponent = <LoginMaxErrorMessage message={this.props.errorMessage} url={maxUrl} />;
             hideLoading = ' hide';
             hideError = '';
         }
@@ -55,5 +58,5 @@ export default class LoginCaiaLoading extends React.Component {
     }
 }
 
-LoginCaiaLoading.propTypes = propTypes;
-LoginCaiaLoading.defaultProps = defaultProps;
+LoginMaxLoading.propTypes = propTypes;
+LoginMaxLoading.defaultProps = defaultProps;
