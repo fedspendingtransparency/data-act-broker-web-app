@@ -79,6 +79,7 @@ export default class HelpPage extends React.Component {
                             <div className="col-md-8">
                                 <HelpContent
                                     section={section}
+                                    helpOnly={this.props.helpOnly}
                                     changelog={this.props.changelog}
                                     technical={this.props.technical} />
                             </div>
