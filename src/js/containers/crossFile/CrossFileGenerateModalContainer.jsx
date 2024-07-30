@@ -330,7 +330,6 @@ export default class CrossFileGenerateModalContainer extends React.Component {
             <GenerateFileBox
                 label={this.props.label}
                 datePlaceholder=""
-                startingTab={1}
                 value={this.state.file}
                 error={this.state.file.error}
                 download={this.state.file.download}

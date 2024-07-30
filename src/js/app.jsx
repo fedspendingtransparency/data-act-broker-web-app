@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'react-dates/initialize';
-import "react-day-picker/style.css";
 import 'react-dates/lib/css/_datepicker.css';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -55,6 +54,7 @@ import {
     faTrashAlt
 } from "@fortawesome/free-regular-svg-icons";
 import AppContainer from './containers/AppContainer';
+import "../../node_modules/react-day-picker/src/style.css";
 
 library.add(
     faAngleDown,

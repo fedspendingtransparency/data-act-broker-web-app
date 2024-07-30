@@ -17,13 +17,11 @@ const propTypes = {
     value: PropTypes.object,
     title: PropTypes.string,
     type: PropTypes.string,
-    tabIndex: PropTypes.number,
     disabled: PropTypes.bool
 };
 
 const defaultProps = {
     type: 'startDate',
-    tabIndex: 1,
     onDateChange: null,
     updateError: null,
     opposite: null,
@@ -195,11 +193,11 @@ export default class DatePicker extends React.Component {
         let disabledDays = null;
         if (this.props.type === 'startDate' && this.props.opposite) {
             // the cutoff date represents the latest possible date
-            disabledDays = {after: this.props.opposite.toDate()};
+            disabledDays = { after: this.props.opposite.toDate() };
         }
         else if (this.props.type === 'endDate' && this.props.opposite) {
             // cutoff date represents the earliest possible date
-            disabledDays = {before: this.props.opposite.toDate()};
+            disabledDays = { before: this.props.opposite.toDate() };
         }
 
         let disabledClass = '';

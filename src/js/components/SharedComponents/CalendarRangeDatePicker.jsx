@@ -85,13 +85,13 @@ export default class CalendarRangeDatePicker extends React.Component {
 
     handleDayClick(day) {
         const range = addToRange(day, this.state.range);
-        this.setState({range});
+        this.setState({ range });
     }
 
     drawDatePicker() {
         const { minDate, maxDate } = this.props.minmaxDates;
         const disabledDays = { before: minDate, after: maxDate };
-        var defaultMonth = new Date();
+        const defaultMonth = new Date();
         defaultMonth.setMonth(defaultMonth.getMonth() - 1);
         if (this.props.minmaxDates.maxDate && this.props.minmaxDates.minDate) {
             return (<DayPicker
