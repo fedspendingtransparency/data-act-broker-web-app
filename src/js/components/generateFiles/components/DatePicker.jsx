@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DayPicker, { DateUtils } from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { keyCodes } from 'dataMapping/keyMappings';
@@ -82,9 +82,6 @@ export default class DatePicker extends React.Component {
 
     datePickerChangeEvent() {
         if (this.state.showDatePicker) {
-            // focus on the date picker
-            // this.refs.datepicker.dayPicker.querySelector('.DayPicker-Day--selected').focus();
-
             // we want to close the date picker on escape key
             // have to hold a reference to the bound function in order to cancel the listener later
             this.escapeEvent = this.escapeDatePicker.bind(this);
@@ -183,7 +180,7 @@ export default class DatePicker extends React.Component {
             showDatePicker = '';
         }
 
-        // handle null dates for the calendar default month and selecte date
+        // handle null dates for the calendar default month and selected date
         let pickedDay = null;
         if (this.props.value) {
             // convert the moment object to a JS date object
@@ -193,20 +190,16 @@ export default class DatePicker extends React.Component {
             // a start/end date was already picked
             pickedDay = this.props.opposite.toDate();
         }
-        else {
-            // no dates have been chosen at all, default to the current date
-            pickedDay = moment().toDate();
-        }
 
         // handle the cutoff dates (preventing end dates from coming before start dates or vice versa)
-        let cutoffFunc = null;
+        let disabledDays = null;
         if (this.props.type === 'startDate' && this.props.opposite) {
             // the cutoff date represents the latest possible date
-            cutoffFunc = (day) => moment(day).isAfter(this.props.opposite);
+            disabledDays = {after: this.props.opposite.toDate()};
         }
         else if (this.props.type === 'endDate' && this.props.opposite) {
             // cutoff date represents the earliest possible date
-            cutoffFunc = (day) => moment(day).isBefore(this.props.opposite);
+            disabledDays = {before: this.props.opposite.toDate()};
         }
 
         let disabledClass = '';
@@ -221,7 +214,6 @@ export default class DatePicker extends React.Component {
                         type="text"
                         placeholder={this.props.title}
                         value={this.state.inputValue}
-                        tabIndex={this.props.tabIndex}
                         ref={(c) => {
                             this.text = c;
                         }}
@@ -230,21 +222,24 @@ export default class DatePicker extends React.Component {
                         disabled={this.props.disabled} />
                     <button
                         onClick={this.toggleDatePicker.bind(this)}
-                        tabIndex={this.props.tabIndex + 1}
                         className="usa-da-icon picker-icon date"
                         aria-haspopup="true"
                         aria-label="date picker">
                         <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                     </button>
                 </div>
-                <div className={`floating-datepicker${showDatePicker}`} role="dialog">
+                <div
+                    className={`floating-datepicker${showDatePicker}`}
+                    role="dialog"
+                    aria-label="floating-date-picker"
+                    ref={(c) => {
+                        this.datepicker = c;
+                    }}>
                     <DayPicker
-                        ref={(c) => {
-                            this.datepicker = c;
-                        }}
                         initialMonth={pickedDay}
-                        disabledDays={cutoffFunc}
-                        selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
+                        disabled={disabledDays}
+                        selected={pickedDay}
+                        mode="single"
                         onDayClick={this.handleDatePick}
                         onFocus={this.handleDateFocus}
                         onBlur={this.handleDateBlur} />
