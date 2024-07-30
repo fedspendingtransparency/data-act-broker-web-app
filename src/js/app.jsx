@@ -54,6 +54,7 @@ import {
     faTrashAlt
 } from "@fortawesome/free-regular-svg-icons";
 import AppContainer from './containers/AppContainer';
+import "../../node_modules/react-day-picker/src/style.css";
 
 library.add(
     faAngleDown,

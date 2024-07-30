@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DayPicker, { DateUtils } from 'react-day-picker';
+import { DayPicker, addToRange } from 'react-day-picker';
 
 import Moment from 'moment';
-import Navbar from './CalendarRangeDatePickerNavbar';
 
 const propTypes = {
     numberOfMonths: PropTypes.number,
@@ -25,8 +24,10 @@ export default class CalendarRangeDatePicker extends React.Component {
 
         this.state = {
             dropdownopen: false,
-            from: null,
-            to: null
+            range: {
+                from: null,
+                to: null
+            }
         };
 
         this.dropdownNode = null;
@@ -68,10 +69,10 @@ export default class CalendarRangeDatePicker extends React.Component {
 
 
     sendToFilters() {
-        if (this.state.to) {
+        if (this.state.range.to) {
             const dates = {
-                startDate: Moment(this.state.from).format('MM/DD/YYYY'),
-                endDate: Moment(this.state.to).format('MM/DD/YYYY')
+                startDate: Moment(this.state.range.from).format('MM/DD/YYYY'),
+                endDate: Moment(this.state.range.to).format('MM/DD/YYYY')
             };
             this.props.onSelect(dates);
             this.setState({
@@ -83,27 +84,27 @@ export default class CalendarRangeDatePicker extends React.Component {
     }
 
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const range = addToRange(day, this.state.range);
+        this.setState({ range });
     }
 
     drawDatePicker() {
         const { minDate, maxDate } = this.props.minmaxDates;
-        const { from, to } = this.state;
-        const modifiers = { start: from, end: to };
         const disabledDays = { before: minDate, after: maxDate };
+        const defaultMonth = new Date();
+        defaultMonth.setMonth(defaultMonth.getMonth() - 1);
         if (this.props.minmaxDates.maxDate && this.props.minmaxDates.minDate) {
             return (<DayPicker
                 showOutsideDays
                 fixedWeeks
-                fromMonth={minDate}
-                toMonth={maxDate}
-                disabledDays={[disabledDays]}
-                navbarElement={<Navbar />}
-                className="innerCalendarDatePicker"
+                startMonth={minDate}
+                endMonth={maxDate}
+                disabled={[disabledDays]}
+                className="inner-calendar-datepicker"
                 numberOfMonths={this.props.numberOfMonths}
-                selectedDays={[from, { from, to }]}
-                modifiers={modifiers}
+                defaultMonth={defaultMonth}
+                selected={this.state.range}
+                mode="range"
                 onDayClick={this.handleDayClick} />);
         }
         return <p>Loading Dates...</p>;
@@ -125,18 +126,18 @@ export default class CalendarRangeDatePicker extends React.Component {
                     <span className="caret" />
                 </button>
                 <div
-                    className="dropdown-menu calendar-range-datepicker"
+                    className="dropdown-menu calendar-range-datepicker-wrapper"
                     style={this.state.dropdownopen ? { display: 'block' } : { display: 'none' }}
                     aria-labelledby="createdbydropdown">
                     <ul>
                         <li>
-                            <div className="RangeCalendarRangeDatePicker">
+                            <div className="calendar-range-datepicker">
                                 {this.drawDatePicker()}
                             </div>
                             <div className="button-bar">
                                 <button
                                     className="btn btn-primary"
-                                    disabled={!this.state.to}
+                                    disabled={!this.state.range.to}
                                     onClick={this.sendToFilters}>
                                     Add Filter
                                 </button>

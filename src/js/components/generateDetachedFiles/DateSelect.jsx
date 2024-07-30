@@ -96,7 +96,6 @@ export default class DateSelect extends React.Component {
                 <GenerateFileBox
                     label="File D1: Procurement Awards (FPDS data)"
                     datePlaceholder="Action"
-                    startingTab={1}
                     value={d1}
                     error={d1.error}
                     showDownload={this.props.d1.showDownload}
@@ -128,7 +127,6 @@ export default class DateSelect extends React.Component {
                 <GenerateFileBox
                     label="File D2: Financial Assistance"
                     datePlaceholder="Action"
-                    startingTab={9}
                     value={d2}
                     error={d2.error}
                     showDownload={d2.showDownload}
