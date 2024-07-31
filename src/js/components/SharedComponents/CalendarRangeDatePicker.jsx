@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DayPicker, addToRange } from 'react-day-picker';
 
-import Moment from 'moment';
 import moment from 'moment';
 
 const propTypes = {
@@ -72,8 +71,8 @@ export default class CalendarRangeDatePicker extends React.Component {
     sendToFilters() {
         if (this.state.range.to) {
             const dates = {
-                startDate: Moment(this.state.range.from).format('MM/DD/YYYY'),
-                endDate: Moment(this.state.range.to).format('MM/DD/YYYY')
+                startDate: moment(this.state.range.from).format('MM/DD/YYYY'),
+                endDate: moment(this.state.range.to).format('MM/DD/YYYY')
             };
             this.props.onSelect(dates);
             this.setState({
