@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DayPicker, addToRange } from 'react-day-picker';
 
 import Moment from 'moment';
+import moment from 'moment';
 
 const propTypes = {
     numberOfMonths: PropTypes.number,
@@ -91,8 +92,7 @@ export default class CalendarRangeDatePicker extends React.Component {
     drawDatePicker() {
         const { minDate, maxDate } = this.props.minmaxDates;
         const disabledDays = { before: minDate, after: maxDate };
-        const defaultMonth = new Date();
-        defaultMonth.setMonth(defaultMonth.getMonth() - 1);
+        const defaultMonth = moment().subtract(1, 'months').toDate();
         if (this.props.minmaxDates.maxDate && this.props.minmaxDates.minDate) {
             return (<DayPicker
                 showOutsideDays
