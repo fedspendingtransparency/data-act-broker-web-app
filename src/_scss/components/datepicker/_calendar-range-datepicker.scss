@@ -1,260 +1,115 @@
-.calendar-range-datepicker {
-  min-width: 500px;
-  left: -180px;
-  box-shadow: none;
-  border: none;
-
-  .RangeCalendarRangeDatePicker {
-    margin: 0 rem(20) rem(10) rem(20);
-  }
-
-  .DayPicker {
-    display: inline-block;
-    font-size: 1rem;
-  }
-
-  .DayPicker-wrapper {
-    position: relative;
-    flex-direction: row;
-    padding-bottom: 1em;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-  }
-
-  .DayPicker-Months {
-    display: flex;
-    flex-wrap: wrap;
-    & > div {
-        flex: 1;
-    }
-  }
-
-  .DayPicker-Month {
-    width: auto;
-    color: initial;
-    display: table;
-    border-spacing: 0;
-    border-collapse: collapse;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    &:first-child {
-      margin-right: rem(20);
-    }
-  }
-
-  .DayPicker-NavBar {
-    z-index: 5;
-    display: flex;
-    button {
-      top: rem(23);
-      background-color: transparent;
-      background-image: none;
-      padding: 0 rem(9);
-      border: 1px solid $color-gray-lighter;
-      color: $color-gray;
-      &:first-child {
-          position: relative;
-      }
-      &:last-child {
-          position: relative;
-          margin-left: auto;
-      }
-    }
-  }
-
-  .DayPicker-NavButton {
-    position: absolute;
-    top: 1em;
-    right: 1.5em;
-    left: auto;
-
-    display: inline-block;
-    margin-top: 2px;
-    width: 1.25em;
-    height: 1.25em;
-    background-position: center;
-    background-size: 50%;
-    background-repeat: no-repeat;
-    color: #8B9898;
-    cursor: pointer;
-  }
-
-  .DayPicker-NavButton:hover {
-    opacity: 0.8;
-  }
-
-  .DayPicker-NavButton--interactionDisabled {
-    display: none;
-  }
-
-  .DayPicker-Caption {
-    display: table-caption;
-    padding: 0 0.5em;
-    text-align: center;
-    & > div {
-     font-weight: 600;
-     font-size: 1.15em;
-   }
-  }
-  .DayPicker-Weekdays {
-    display: table-header-group;
-    margin-top: 1em;
-  }
-
-  .DayPicker-WeekdaysRow {
-    display: table-row;
-  }
-
-  .DayPicker-Weekday {
-    display: table-cell;
-    color: $color-gray;
-    text-align: center;
-    font-size: 0.875em;
-  }
-
-  .DayPicker-Weekday abbr[title] {
-    border-bottom: none;
-    text-decoration: none;
-  }
-
-  .DayPicker-Body {
-    display: table-row-group;
-  }
-
-  .DayPicker-Week {
-    display: table-row;
-  }
-
-  .DayPicker-Day {
-    border: 1px solid #f0f0f0;
-    border-radius: initial;
-    display: table-cell;
-    padding: 0.5em;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .DayPicker-WeekNumber {
-    display: table-cell;
-    padding: 0.5em;
-    min-width: 1em;
-    border-right: 1px solid #EAECEC;
-    color: #8B9898;
-    vertical-align: middle;
-    text-align: right;
-    font-size: 0.75em;
-    cursor: pointer;
-  }
-
-  .DayPicker--interactionDisabled .DayPicker-Day {
-    cursor: default;
-  }
-
-  .DayPicker-Footer {
-    padding-top: 0.5em;
-  }
-
-  .DayPicker-TodayButton {
-    border: none;
-    background-color: transparent;
-    background-image: none;
+.calendar-range-datepicker-wrapper {
+    min-width: 500px;
+    left: -180px;
     box-shadow: none;
-    color: #3f6fb3;
-    font-size: 0.875em;
-    cursor: pointer;
-  }
+    border: none;
 
-  /* Default modifiers */
+    .calendar-range-datepicker {
+        margin: 0 rem(20) rem(10) rem(20);
 
-  // .DayPicker-Day--today {
-  //   color: #D0021B;
-  //   font-weight: 700;
-  // }
+        .inner-calendar-datepicker {
+            display: block;
+            font-size: 1.1rem;
+            padding-bottom: 1rem;
 
-  .DayPicker-Day--outside {
-    color: $color-gray-lighter;
-    cursor: default;
-  }
+            .rdp-months {
+                justify-content: space-between;
+                max-width: 100%;
+                gap: 0;
 
-  .DayPicker-Day--disabled {
-    color: #DCE0E0;
-    cursor: default;
-    /* background-color: #eff1f1; */
-  }
+                .rdp-nav {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                }
 
-  /* Example modifiers */
+                .rdp-month {
+                    .rdp-month_caption {
+                        justify-content: space-around;
+                        font-family: $font-sans;
+                        font-size: rem(12);
+                    }
 
-  .DayPicker-Day--sunday {
-    background-color: #F7F8F8;
-  }
-
-  .DayPicker-Day--sunday:not(.DayPicker-Day--today) {
-    color: #DCE0E0;
-  }
-
-  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-    position: relative;
-    border: 1px solid #3f6fb3;
-    background-color: #3f6fb3;
-    color: $color-white;
-  }
-
-  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-    background-color: #0071bc;
-  }
-
-  .DayPicker:not(.DayPicker--interactionDisabled)
-    .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-    background-color: #F0F8FF;
-  }
-
-  /* DayPickerInput */
-
-  .DayPickerInput {
-    display: inline-block;
-  }
-
-  .DayPickerInput-OverlayWrapper {
-    position: relative;
-  }
-
-  .DayPickerInput-Overlay {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-
-    background: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  }
-
-  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-    color: $color-gray-lightest;
-    background-color: #0071bc;
-    opacity: 0.5;
-    border: 1px solid $color-primary-darker;
-  }
-
-  .innerCalendarDatePicker {
-    display: block;
-    font-size: 1.1rem;
-  }
-
-  .button-bar {
-    text-align: center;
-    button {
-      background-color: transparent;
-      border: 1px solid #78a0d6;
-      color: #78a0d6;
-      &:hover {
-        background-color: #3f6fb3;;
-        color: $color-white;
-      }
+                    table {
+                        td {
+                            border: 1px solid #f0f0f0;
+                            width: rem(30);
+                            height: rem(37.5);
+    
+                            button {
+                                border-radius: 0;
+                                color: black;
+                                font: inherit;
+                                width: 100%;
+                                height: 100%;
+    
+                                &:hover {
+                                    background-color: #F0F8FF;
+                                }
+    
+                                &:disabled {
+                                    color: $color-gray-lighter;
+                                    background-color: $color-white;
+                                }
+                            }
+    
+                            &.rdp-selected:not(.rdp-outside) {
+                                color: $color-gray-lightest;
+                                background-color: #0071bc;
+                                opacity: 0.5;
+                                border-color: $color-primary-darker;
+                                font: var(--rdp-day-font);
+    
+                                button {
+                                    color: $color-gray-lightest;
+                                    &:hover {
+                                        background-color: #0071bc;
+                                    }
+                                }
+                            }
+    
+                            &.rdp-range_start:not(.rdp-outside), &.rdp-range_end:not(.rdp-outside) {
+                                opacity: 1;
+    
+                                button {
+                                    background-color: #3f6fb3;
+                                    border-color: #3f6fb3;
+                                }
+                            }
+    
+                            &.rdp-outside {
+                                background: $color-white;
+                                border-color: #f0f0f0;
+                                color: $color-gray-lighter;
+                                cursor: default;
+                                font: var(--rdp-day-font);
+    
+                                button {
+                                    color: $color-gray-lighter;
+                                    background: $color-white;
+                                    border: none;
+                                    cursor: default;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
 
+    .button-bar {
+        text-align: center;
+
+        button {
+            background-color: transparent;
+            border: 1px solid #78a0d6;
+            color: #78a0d6;
+
+            &:hover {
+                background-color: #3f6fb3;;
+                color: $color-white;
+            }
+        }
+    }
 }
