@@ -1,5 +1,6 @@
-#### July 16, 2024{section=changelog}
+#### August 6, 2024{section=changelog}
 In this release of the Broker, we:
 
-* Slightly modified the look and feel of the Broker to have a higher contrast in accordance with Section 508 Compliance and Accessibility. This includes darker tables, slightly darker colors, underlined links in the bodies of text, and the error/warning counts style being updated.
-* Updated GTAS BOC Comparison Page Description and Report to ignore 'non-X'/non-null PYAs from GTAS.
+* Updated the GTAS Comparison report to be bidirectional. It will now also include relevant data from GTAS that has not been published in File B.
+* Loaded the FY25 Submission Calendar into the database and provided a link to it on the Broker help page.
+* Clarified the GTAS/SF-133 section of the Data Sources page with specifics on the GTAS Comparison Report.

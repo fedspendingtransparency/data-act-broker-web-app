@@ -1,4 +1,10 @@
-#### June 25, 2024{section=changelog}
+#### July 16, 2024{section=changelog}
+In this release of the Broker, we:
+
+* Slightly modified the look and feel of the Broker to have a higher contrast in accordance with Section 508 Compliance and Accessibility. This includes darker tables, slightly darker colors, underlined links in the bodies of text, and the error/warning counts style being updated.
+* Updated GTAS BOC Comparison Page Description and Report to ignore 'non-X'/non-null PYAs from GTAS.
+
+#### June 25, 2024
 In this release of the Broker, we:
 
 * Updated Federal Hierarchy loader and office data to include effective dates. This will be used with the updated FABS rules (21.1, 21.2, 23.1, 23.2, 38.2.1, 38.2.2, 38.4.1, 38.4.2) to determine if an office is active as of the action date.
