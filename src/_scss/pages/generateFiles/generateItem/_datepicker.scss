@@ -5,37 +5,37 @@
 	.generate-datepicker {
 		margin-left: auto;
 		margin-right: auto;
-	}
 
-	input {
-		@import "../../../components/inputs/_generic";
-		@include genericInput;
-	}
-
-	button.picker-icon {
-	    position: absolute;
-	    top: 14px;
-	    right: 25px;
-	    height: 21px;
-	    max-width: 21px;
-		background-color: transparent;
-		border:none;
-
-	    & svg {
-	        z-index: 9;
-	        color: #ccc;
-	        height: 21px;
-	        width: 21px;
-	    }
-	    &.error {
-	        & svg {
-	            color: $color-secondary;
-	        }
-	    }
-	    &.date svg {
-	        top: 12px;
-	    }
-
+		input {
+			@import "../../../components/inputs/_generic";
+			@include genericInput;
+		}
+	
+		button.picker-icon {
+			position: absolute;
+			top: 14px;
+			right: 25px;
+			height: 21px;
+			max-width: 21px;
+			background-color: transparent;
+			border:none;
+	
+			& svg {
+				z-index: 9;
+				color: #ccc;
+				height: 21px;
+				width: 21px;
+			}
+			&.error {
+				& svg {
+					color: $color-secondary;
+				}
+			}
+			&.date svg {
+				top: 12px;
+			}
+	
+		}
 	}
 
 	.floating-datepicker {
@@ -43,11 +43,56 @@
 		top: 50px;
 		right: 0px;
 		z-index: 9999;
+		padding: rem(10);
 
-		background-color: $color-gray-lightest;
+		background-color: $color-white;
 		border: 1px solid $color-gray-light;
 
-		// import day picker library styling
-		@import "../../../lib/react-day-picker/_daypicker.scss";
+		.rdp-months {
+			.rdp-nav {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+
+				.rdp-chevron {
+					fill: $color-gray-light;
+				}
+			}
+
+			.rdp-month {
+				.rdp-month_caption {
+					justify-content: space-around;
+					font-family: $font-sans;
+					font-weight: normal;
+					font-size: $base-font-size;
+				}
+
+				table {
+					.rdp-weekday {
+						text-decoration: underline;
+					}
+
+					.rdp-day {
+						border: 1px solid $color-gray-light;
+
+						&.rdp-selected {
+							font: var(--rdp-day-font);
+							background-color: $color-gray-dark;
+							color: $color-gray-lightest;
+						}
+						
+						button {
+							border-radius: 0;
+							border: none;
+						}
+					}
+
+					.rdp-disabled {
+						color: $color-gray-light;
+						background-color: $color-gray-lighter;
+					}
+				}
+			}
+		}
 	}
 }

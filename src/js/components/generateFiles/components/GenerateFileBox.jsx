@@ -17,8 +17,7 @@ const propTypes = {
     error: PropTypes.object,
     value: PropTypes.object,
     datePlaceholder: PropTypes.string,
-    label: PropTypes.string,
-    startingTab: PropTypes.number
+    label: PropTypes.string
 };
 
 const defaultProps = {
@@ -29,8 +28,7 @@ const defaultProps = {
     error: null,
     value: null,
     datePlaceholder: '',
-    label: '',
-    startingTab: 1
+    label: ''
 };
 
 export default class GenerateFileBox extends React.Component {
@@ -70,7 +68,6 @@ export default class GenerateFileBox extends React.Component {
                             <DatePicker
                                 type="startDate"
                                 title={`${this.props.datePlaceholder} Start Date`}
-                                tabIndex={this.props.startingTab}
                                 onDateChange={this.props.onDateChange}
                                 value={this.props.value.startDate}
                                 opposite={this.props.value.endDate}
@@ -81,7 +78,6 @@ export default class GenerateFileBox extends React.Component {
                             <DatePicker
                                 type="endDate"
                                 title={`${this.props.datePlaceholder} End Date`}
-                                tabIndex={this.props.startingTab + 4}
                                 onDateChange={this.props.onDateChange}
                                 value={this.props.value.endDate}
                                 opposite={this.props.value.startDate}
