@@ -22,7 +22,7 @@ export default class ResourcesContent extends React.Component {
                     <h2>Resources {this.props.type.toUpperCase()}</h2>
                     <p className="resources-page-content">
                         As part of Fiscal Service&#39;s efforts to provide GSDM and DAIMS documents in a single location
-                        we have created a single GSDM/DAIMS Resource page on the Broker. This page provides links to
+                        we have created a single GSDM/DAIMS Resource page on Data Broker. This page provides links to
                         agency-only documents (validation rules and SQL validation rules) and a link to the public site
                         for all other GSDM/DAIMS documents. This will ensure that links always point to the latest GSDM
                         documents.
@@ -52,7 +52,7 @@ export default class ResourcesContent extends React.Component {
                                 rel="noopener noreferrer">
                                 GSDM Validation Rules
                             </a>
-                            : documents the business rules employed by the DATA Broker for field and cross-file
+                            : documents the business rules employed by Data Broker for field and cross-file
                             validations.
                         </li>
                         <li>
@@ -61,7 +61,7 @@ export default class ResourcesContent extends React.Component {
                                     `master/dataactvalidator/config/sqlrules`}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                Broker SQL Validation Rules
+                                Data Broker SQL Validation Rules
                             </a>
                             : the actual machine logic used in FABS validations. These SQL statements are based directly
                             on the FABS validation rules.
