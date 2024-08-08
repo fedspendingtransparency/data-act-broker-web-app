@@ -36,8 +36,8 @@ export default class RawFilesPage extends React.Component {
             year: { id: null, label: '' },
             period: { id: null, label: '' },
             currentList: [
-                { id: 'dabs', label: 'Raw Data Broker (DABS) Files' },
-                { id: 'fabs', label: 'Raw Financial Assistance (FABS) Files' }
+                { id: 'dabs', label: 'Raw Data Accountability Broker Submission (DABS) Files' },
+                { id: 'fabs', label: 'Raw Financial Assistance Broker Submission (FABS) Files' }
             ]
         };
 

@@ -28,13 +28,13 @@ export default class GenerateEFContent extends React.Component {
                         type="E"
                         title="Executive Compensation Data"
                         description={"Executive Compensation data is generated from the System for Award Management" +
-                            " and includes data for the receiving entities of the awards in file D."} />
+                            " and includes data for the receiving entities of the awards in File D."} />
                     <GenerateEFItem
                         {...this.props}
                         type="F"
                         title="Sub-Award Data"
                         description={"Sub-award data is generated from the Federal Subaward Reporting System and " +
-                            "includes the subawards for the prime awards in file D."} />
+                            "includes the subawards for the prime awards in File D."} />
                 </div>
                 <GenerateEFOverlay {...this.props} />
             </div>

@@ -44,15 +44,14 @@ export default class BlockContent extends React.Component {
         if (this.props.type === 'home') {
             firstBlock = (<LandingBlock
                 type={this.props.type}
-                icon={<h5>DATA Broker Submission</h5>}
+                icon={<h5>Data Accountability Broker Submission (DABS)</h5>}
                 text={"Enter here to upload, validate, and certify your agency's financial data. You can " +
-                "also test financial data, generate your award files, and view your DATA Act " +
-                "submissions."}
+                "also test financial data, generate your award files, and view your submissions."}
                 buttonText="Enter"
                 url="landing" />);
             secondBlock = (<LandingBlock
                 type={this.props.type}
-                icon={<h5>Financial Assistance Broker Submission</h5>}
+                icon={<h5>Financial Assistance Broker Submission (FABS)</h5>}
                 text={"Enter here to upload, validate, and publish your agency's financial assistance data. You can " +
                 "also test your financial assistance data and view your submissions."}
                 buttonText="Enter"

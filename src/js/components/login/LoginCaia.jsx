@@ -76,7 +76,7 @@ export default class LoginCaia extends React.Component {
             <div className="row">
                 <div className="col-xs-12">
                     <p className="instructions">
-                        Sign in or register for the DATA Broker using your CAIA login.
+                        Sign in or register for the Data Broker using your CAIA login.
                     </p>
                     <button
                         className="usa-da-button btn-primary btn-lg btn-full bottom-login-button"
