@@ -191,7 +191,7 @@ export class DetachedFilesFYPContainer extends React.Component {
                     the &apos;agency-wide level&apos; the goal is to include all accounts for a given agency that are
                     appropriate for DABS submissions. Financing accounts are automatically excluded, and child
                     allocation accounts are bucketed with the child agency. File A is generated based on GTAS SF-133
-                    data, which GTAS provides to the Broker on a daily basis during any reporting/revision windows
+                    data, which GTAS provides to Data Broker on a daily basis during any reporting/revision windows
                     (note that it will take up to 24 hours for changes agencies make in GTAS to be reflected in Data
                     Broker). For a more detailed explanation of the approach for generating File A, see the Practices
                     and Procedures document available on the&nbsp;

@@ -42,7 +42,7 @@ export default class ResourcesContent extends React.Component {
                         </a>
                         &nbsp;of the Data Transparency site for the Bureau of the Fiscal Service.
                     </p>
-                    <h5>Additional Broker Resources</h5>
+                    <h5>Additional Data Broker Resources</h5>
                     <ul>
                         <li>
                             <a

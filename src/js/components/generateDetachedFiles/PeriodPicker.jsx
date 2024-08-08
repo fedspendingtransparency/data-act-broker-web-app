@@ -104,13 +104,13 @@ export default class PeriodPicker extends React.Component {
     render() {
         let currentSelection = 'Select a reporting period';
         if (this.props.type === 'fileA') {
-            // in file A we always select period 1 first
+            // in File A we always select period 1 first
             const minPeriod = utils.getPeriodTextFromValue(1);
             const maxPeriod = utils.getPeriodTextFromValue(this.props.period);
             currentSelection = `${minPeriod} - ${maxPeriod}`;
         }
         const periods = this.props.periodArray.map((period, index) => {
-            // if it's the file A generation, highlight the hovered period and everything before it. We start on
+            // if it's the File A generation, highlight the hovered period and everything before it. We start on
             // period 2 so we have to add 2 to the index, not 1
             let active = index + 2 <= this.state.hoveredPeriod;
             let disabledReason = '';
