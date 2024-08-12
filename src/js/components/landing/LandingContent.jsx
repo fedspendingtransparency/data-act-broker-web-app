@@ -76,7 +76,7 @@ export default class LandingContent extends React.Component {
             expandContent = 'Show Less';
         }
 
-        let header = "Welcome to the Data Broker";
+        let header = "Welcome to Data Broker";
         let headerBody = <div />;
         let headerClass = 'dark';
         if (this.props.type === 'fabs') {
