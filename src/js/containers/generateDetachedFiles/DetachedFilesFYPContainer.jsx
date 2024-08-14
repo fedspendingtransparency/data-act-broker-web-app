@@ -257,13 +257,13 @@ export class DetachedFilesFYPContainer extends React.Component {
                         comma separated list.
                     </p>
                     <p>
-                        This report sources GTAS data from the “OMB Bulk File Extract for all TAS” report from&nbsp;
+                        This report sources GTAS data from the “OMB Bulk File Extract Expenditure TAS” report from&nbsp;
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
                             href="https://www.gtas.for.fiscal.treasury.gov/gtas-ui/home">
                             https://www.gtas.for.fiscal.treasury.gov/gtas-ui/home
-                        </a>.
+                        </a> and removes records with Availability Type Code F or C.
                     </p>
                 </div>
             );

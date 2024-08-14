@@ -340,8 +340,8 @@ export default class DataSourcesContent extends React.Component {
                             <p>
                                 This file is manually placed into a shared S3 bucket by the Federal Reserve Bank and
                                 translated into a CSV by Data Broker on a daily basis during the GTAS window each
-                                period. The GTAS Comparison report uses data from the &quot;OMB Bulk File Extract for
-                                all TAS&quot; report from&nbsp;
+                                period. The GTAS Comparison report uses data from the &quot;OMB Bulk File Extract
+                                Expenditure TAS&quot; report from&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
