@@ -39,6 +39,7 @@ export default class DatePicker extends React.Component {
 
         this.state = {
             inputValue: '',
+            calendarMonth: moment().toDate(),
             showDatePicker: false
         };
 
@@ -46,6 +47,7 @@ export default class DatePicker extends React.Component {
         this.handleTypedDate = this.handleTypedDate.bind(this);
         this.handleDateBlur = this.handleDateBlur.bind(this);
         this.handleDateFocus = this.handleDateFocus.bind(this);
+        this.handleMonthChange = this.handleMonthChange.bind(this);
     }
 
     componentDidMount() {
@@ -62,10 +64,18 @@ export default class DatePicker extends React.Component {
     // convert the date to something typeable
         if (this.props.value !== null) {
             const inputValue = this.props.value.format('MM/DD/YYYY');
+            const calendarMonth = this.props.value.toDate();
             this.setState({
-                inputValue
+                inputValue,
+                calendarMonth
             });
         }
+    }
+
+    handleMonthChange(newMonth) {
+        this.setState({
+            calendarMonth: newMonth
+        });
     }
 
     toggleDatePicker(e) {
@@ -234,11 +244,12 @@ export default class DatePicker extends React.Component {
                         this.datepicker = c;
                     }}>
                     <DayPicker
-                        initialMonth={pickedDay}
+                        month={this.state.calendarMonth}
                         disabled={disabledDays}
                         selected={pickedDay}
                         mode="single"
                         onDayClick={this.handleDatePick}
+                        onMonthChange={this.handleMonthChange}
                         onFocus={this.handleDateFocus}
                         onBlur={this.handleDateBlur} />
                 </div>
