@@ -74,7 +74,7 @@ export default class AuthContainer extends React.Component {
                         let message = err;
                         if (message === 'cookie') {
                             // this is a cookie issue
-                            message = 'Your browser does not support cookies, which the DATA Broker requires to ' +
+                            message = 'Your browser does not support cookies, which Data Broker requires to ' +
                                 'function correctly. Try changing your browser settings to enable cookies or use a ' +
                                 'different browser.';
                         }

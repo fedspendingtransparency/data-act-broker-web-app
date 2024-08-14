@@ -42,9 +42,9 @@ export default class DataSourcesContent extends React.Component {
                             <p>
                                 The General Services Administration (GSA) Integrated Award Environment (IAE) loads a
                                 weekly USAspending Assistance Listing file to SAM.gov AWS S3 bucket and we load each new
-                                file into the Broker when it becomes available. The file is complete and includes
-                                retired Assistance Listings (including deactivation date). The latest file loaded into
-                                the Broker can be downloaded at:&nbsp;
+                                file into Data Broker when it becomes available. The file is complete and includes
+                                retired Assistance Listings (including deactivation date). Data Broker currently uses
+                                this Assistance Listing information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -63,7 +63,7 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>
                                 Updated periodically (e.g., due to changes in the IAE Federal Hierarchy or the A-11
-                                Circular Appendix C). The latest file loaded into the Broker can be downloaded at&nbsp;
+                                Circular Appendix C). Data Broker currently uses this agency information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -85,8 +85,8 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>
                                 This file is manually placed into a shared S3 bucket by FRB and translated into a
-                                CSV by the Broker. New files are received up to daily during the GTAS window each
-                                period. The latest file loaded into the Broker can be downloaded at&nbsp;
+                                CSV by Data Broker. New files are received up to daily during the GTAS window each
+                                period. Data Broker currently uses this CARS/TAS information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -112,8 +112,8 @@ export default class DataSourcesContent extends React.Component {
                                     href={cityURL}>
                                     {cityURL}
                                 </a>
-                                &nbsp;and updated monthly if new data is available. The latest file loaded into the
-                                Broker can be downloaded at&nbsp;
+                                &nbsp;and updated monthly if new data is available. Data Broker currently uses this city
+                                information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -121,8 +121,8 @@ export default class DataSourcesContent extends React.Component {
                                     {cityTxtURL}
                                 </a>
                                 . NOTE: The complete set of codes is present in this file, including FEATURE_CLASS
-                                values that are not used in the Broker. The Broker database only loads and accepts from
-                                users those codes with a FEATURE_CLASS of Civil, Census, Locale, and Populated Place.
+                                values that are not used in Data Broker. Data Broker only loads and accepts from users
+                                those codes with a FEATURE_CLASS of Civil, Census, Locale, and Populated Place.
                             </p>}
                         updatedAt={this.props.updateDates.city} />
 
@@ -156,7 +156,7 @@ export default class DataSourcesContent extends React.Component {
                                     relevant to open awards.
                                 </p>
                                 <p>
-                                    The latest Broker file can be downloaded at&nbsp;
+                                    Data Broker currently uses this Congressional District information:&nbsp;
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -196,7 +196,7 @@ export default class DataSourcesContent extends React.Component {
                                     href={countryURL}>
                                     {countryURL}
                                 </a>
-                                . The latest Broker file can be downloaded at&nbsp;
+                                . Data Broker currently uses this country code information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -221,8 +221,8 @@ export default class DataSourcesContent extends React.Component {
                                     href={countyURL}>
                                     {countyURL}
                                 </a>
-                                &nbsp;and updated monthly if new data is available. The latest file loaded into the
-                                Broker can be downloaded at&nbsp;
+                                &nbsp;and updated monthly if new data is available. Data Broker currently uses this
+                                county information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -260,7 +260,7 @@ export default class DataSourcesContent extends React.Component {
                                     href="https://www.govinfo.gov/app/collection/plaw">
                                     https://www.govinfo.gov/app/collection/plaw
                                 </a>
-                                . The complete table currently in use by the Broker can be downloaded here:&nbsp;
+                                . Data Broker currently uses this DEFC information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -283,7 +283,7 @@ export default class DataSourcesContent extends React.Component {
                         updatedAt={this.props.updateDates.executive_compensation} />
 
                     <DataSourcesItem
-                        title="FPDS"
+                        title="Federal Procurement Data System (FPDS)"
                         uses="DABS D1 file and USAspending"
                         description="All transactions for IDV and Contract Awards."
                         source={
@@ -301,7 +301,7 @@ export default class DataSourcesContent extends React.Component {
                                     https://www.fpds.gov/fpdsng_cms/index.php/en/worksite.html
                                 </a>
                                 . Data is not available for download on this page, but the data can be found on
-                                USAspending or in D1 file generation elsewhere on the Broker.
+                                USAspending or in D1 file generation elsewhere on Data Broker.
                             </p>}
                         updatedAt={this.props.updateDates.fpds} />
 
@@ -319,12 +319,13 @@ export default class DataSourcesContent extends React.Component {
                                 <a target="_blank" rel="noopener noreferrer" href="https://grants.gov/search-grants">
                                     https://grants.gov/search-grants
                                 </a>
-                                . Data Broker uses an API exposed on this page to download all FONs daily. The latest
-                                list of all FON values used by Data Broker can be downloaded:&nbsp;
+                                . Data Broker uses an API exposed on this page to download all FONs daily. Data Broker
+                                currently uses this Funding Opportunity Number information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href={`https://${fileLoc}.usaspending.gov/reference_data/funding_opportunity_numbers.csv`}>
+                                    href={`https://${fileLoc}.usaspending.gov/reference_data/` +
+                                        "funding_opportunity_numbers.csv"}>
                                     https://{fileLoc}.usaspending.gov/reference_data/funding_opportunity_numbers.csv
                                 </a>.
                             </p>}
@@ -337,10 +338,10 @@ export default class DataSourcesContent extends React.Component {
                             " those balances by Disaster Emergency Fund Code (DEFC)."}
                         source={
                             <p>
-                                This file is manually placed into a shared S3 bucket by FRB and translated into a CSV
-                                by the Broker on a daily basis during the GTAS window each period. The GTAS Comparison
-                                report uses data from the &quot;OMB Bulk File Extract Expenditure TAS&quot; report from
-                                &nbsp;
+                                This file is manually placed into a shared S3 bucket by the Federal Reserve Bank and
+                                translated into a CSV by Data Broker on a daily basis during the GTAS window each
+                                period. The GTAS Comparison report uses data from the &quot;OMB Bulk File Extract
+                                Expenditure TAS&quot; report from&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -359,7 +360,7 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>
                                 OMB Circular A-11 object classes manually encoded in CSV form and updated as needed.
-                                The latest Broker file can be downloaded at&nbsp;
+                                Data Broker currently uses this Object Class information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -416,9 +417,9 @@ export default class DataSourcesContent extends React.Component {
                                     href="https://community.max.gov/x/r4NkS">
                                     https://community.max.gov/x/r4NkS
                                 </a>
-                                . When any updates are available, OMB MAX places that data into an S3 bucket for
-                                Broker to process on a daily basis (containing updates from the previous day). The
-                                latest file loaded by the Broker is available here:&nbsp;
+                                . When any updates are available, OMB MAX places that data into an S3 bucket for Data
+                                Broker to process on a daily basis (containing updates from the previous day). Data
+                                Broker currently uses this Program Activity information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -430,13 +431,13 @@ export default class DataSourcesContent extends React.Component {
                         updatedAt={this.props.updateDates.program_activity} />
 
                     <DataSourcesItem
-                        title="State"
+                        title="State/Territory"
                         uses="FABS validations and derivations"
-                        description="The name, abbreviation, and FIPS code for all states in the US."
+                        description="The name, abbreviation, and FIPS code for all states and territories in the US."
                         source={
                             <p>
-                                A manually compiled list of US states and territories. The latest file loaded by the
-                                Broker is available at&nbsp;
+                                A manually compiled list of US states and territories. Data Broker currently uses this
+                                state/territory information:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -455,7 +456,7 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>Loaded in from the FSRS API on a daily basis. Loads contain updates from the previous
                                 day in FSRS. Data is not available for download on this page, but the data can be found
-                                on USAspending or in  File F generation elsewhere on the Broker.
+                                on USAspending or in  File F generation elsewhere on Data Broker.
                             </p>}
                         updatedAt={this.props.updateDates.subaward} />
 
@@ -483,7 +484,8 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href="https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf">
+                                    href={"https://open.gsa.gov/api/entity-api/v1/" +
+                                        "SAM%20Functional%20Data%20Dictionary.pdf"}>
                                     https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf
                                 </a>
                                 ). Data is FOUO so is not available for download.<br /><br />

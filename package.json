@@ -1,7 +1,7 @@
 {
   "name": "data-act-broker",
   "version": "0.0.0",
-  "description": "DATA Broker",
+  "description": "Data Broker",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/jest; exit 0;",

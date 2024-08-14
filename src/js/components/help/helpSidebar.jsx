@@ -114,7 +114,7 @@ export default class HelpSidebar extends React.Component {
                             className="usa-da-help-sidebar__signup-header usa-da-help-sidebar__signup-header_bold">
                             Receive Data Broker Updates
                         </span>
-                        <p>Subscribe to a list-serv for Broker updates as well as regular release notes.</p>
+                        <p>Subscribe to a list-serv for Data Broker updates as well as regular release notes.</p>
                         <a
                             className="usa-da-help-sidebar__signup-btn"
                             href="mailto:join-data-act-broker@lists.fiscal.treasury.gov?subject=
