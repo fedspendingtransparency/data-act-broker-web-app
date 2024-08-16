@@ -11,7 +11,7 @@ import moment from 'moment';
 
 import * as lastDateModifiedActions from '../../redux/actions/lastDateModifiedActions';
 
-import CalendarRangeDatePicker from '../../components/SharedComponents/CalendarRangeDatePicker';
+import CalendarDateRangePicker from '../../components/SharedComponents/CalendarDateRangePicker';
 
 const propTypes = {
     setLastDateModifiedList: PropTypes.func,
@@ -47,7 +47,7 @@ class LastDateModifiedContainer extends React.Component {
         };
 
         return (
-            <CalendarRangeDatePicker minmaxDates={finalPayload} {...this.props} />
+            <CalendarDateRangePicker minmaxDates={finalPayload} {...this.props} />
         );
     }
 }
