@@ -1,5 +1,5 @@
 /**
-  * DatePicker.jsx
+  * CalendarDatePicker.jsx
   * Created by Kevin Li 7/25/16
   */
 
@@ -30,7 +30,7 @@ const defaultProps = {
     disabled: false
 };
 
-export default class DatePicker extends React.Component {
+export default class CalendarDatePicker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -258,5 +258,5 @@ export default class DatePicker extends React.Component {
     }
 }
 
-DatePicker.propTypes = propTypes;
-DatePicker.defaultProps = defaultProps;
+CalendarDatePicker.propTypes = propTypes;
+CalendarDatePicker.defaultProps = defaultProps;
