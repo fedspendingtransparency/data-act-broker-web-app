@@ -18,7 +18,7 @@ export default class LoginCaiaErrorMessage extends React.Component {
                 <FontAwesomeIcon icon="exclamation-circle" />
                 <div className="alert-header-text">Error</div>
                 <p data-testid="errormessage">
-                    {this.props.message} Please work with your agency to request Broker access through CAIA.
+                    {this.props.message} Please work with your agency to request Data Broker access through CAIA.
                 </p>
             </div>
         );

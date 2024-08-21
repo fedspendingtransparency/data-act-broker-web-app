@@ -18,7 +18,7 @@ const defaultProps = {
     }
 };
 
-export default class CalendarRangeDatePicker extends React.Component {
+export default class CalendarDateRangePicker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -150,5 +150,5 @@ export default class CalendarRangeDatePicker extends React.Component {
     }
 }
 
-CalendarRangeDatePicker.propTypes = propTypes;
-CalendarRangeDatePicker.defaultProps = defaultProps;
+CalendarDateRangePicker.propTypes = propTypes;
+CalendarDateRangePicker.defaultProps = defaultProps;

@@ -115,12 +115,12 @@ export default class ReviewDataNotifyModal extends React.Component {
 
     generateMailToLink() {
         const toEmails = (this.state.selectedUsers.map((user) => user.email)).join(', ');
-        const subject = 'DATA Broker - Submission Ready for Review';
+        const subject = 'Data Broker - Submission Ready for Review';
         const revUser = this.props.fromUser.toUpperCase();
         const revAgecny = this.props.submittingAgency.toUpperCase();
         const revLink = `https://broker.usaspending.gov/submission/${this.props.submissionID}/reviewData`;
         const body = [
-            `${revUser} has shared a DATA Broker submission with you from ${revAgecny}. `,
+            `${revUser} has shared a Data Broker submission with you from ${revAgecny}. `,
             `Follow this link (${revLink}) to review their submission. `,
             `For questions or comments, please visit the Service Desk at https://servicedesk.usaspending.gov/ `,
             `or e-mail DATAPMO@fiscal.treasury.gov.`
