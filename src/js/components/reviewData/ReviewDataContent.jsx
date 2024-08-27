@@ -114,7 +114,7 @@ export default class ReviewDataContent extends React.Component {
 
     render() {
         const reportLabels = ['Agency Name', 'Report Start Date', 'Report End Date',
-            'Award Obligations Incurred (file C)', 'Total Financial Assistance Obligations',
+            'Award Obligations Incurred (File C)', 'Total Financial Assistance Obligations',
             'Total Procurement Obligations'];
 
         const reportData = [

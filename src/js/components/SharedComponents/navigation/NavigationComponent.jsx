@@ -173,7 +173,7 @@ export class Navbar extends React.Component {
                                 <span className="icon-bar" />
                                 <span className="icon-bar" />
                             </button>
-                            <Link className="navbar-brand usa-da-header-brand" to="/">DATA Broker</Link>
+                            <Link className="navbar-brand usa-da-header-brand" to="/">Data Broker</Link>
                         </div>
 
                         <div className="collapse navbar-collapse usa-da-header-links" id="bs-example-navbar-collapse-1">

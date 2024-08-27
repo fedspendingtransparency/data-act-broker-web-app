@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DatePicker from './DatePicker';
+import CalendarDatePicker from './CalendarDatePicker';
 import { createOnKeyDownHandler, convertToLocalDate } from '../../../helpers/util';
 
 const propTypes = {
@@ -65,7 +65,7 @@ export default class GenerateFileBox extends React.Component {
                             {lastGenerated}
                         </div>
                         <div className="date-range-wrapper">
-                            <DatePicker
+                            <CalendarDatePicker
                                 type="startDate"
                                 title={`${this.props.datePlaceholder} Start Date`}
                                 onDateChange={this.props.onDateChange}
@@ -75,7 +75,7 @@ export default class GenerateFileBox extends React.Component {
                             <div className="through-text">
                                 through
                             </div>
-                            <DatePicker
+                            <CalendarDatePicker
                                 type="endDate"
                                 title={`${this.props.datePlaceholder} End Date`}
                                 onDateChange={this.props.onDateChange}
