@@ -1,4 +1,10 @@
-#### August 6, 2024{section=technical}
+#### August 27, 2024{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* No additional technical notes.
+
+#### August 6, 2024
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
