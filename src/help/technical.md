@@ -1,5 +1,5 @@
-#### August 27, 2024{section=technical}
+#### September 17, 2024{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* No additional technical notes.
+* Removed various warnings from running the test suite related to timezones and SQLAlchemy.
