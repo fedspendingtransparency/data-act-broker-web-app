@@ -231,11 +231,7 @@ export class DetachedFilesFYPContainer extends React.Component {
                         differences between the data reported to these systems.
                     </p>
                     <p>
-                        Currently, Data Broker only support PriorYearAdjustment (PYA) value “X” (Not an adjustment to
-                        prior-year reporting). This report removes records from the source GTAS data with PYA values of
-                        &quot;B&quot; or &quot;P.&quot; These records will be added to the report when Data Broker is
-                        updated to support other PYA values. Currently, the report column PriorYearAdjustment is always
-                        empty. This column will be populated when Data Broker is updated to support other PYA values.
+                        Pre-FY25 reports may include misleading PYA information.
                     </p>
                     <p>
                         This report aggregates File B data by TAS, ObjectClass, ByDirectReimbursableFundingSource,
