@@ -1,4 +1,9 @@
-#### October 8, 2024{section=changelog}
+#### October 29, 2024{section=changelog}
+In this release of the Broker, we:
+
+* Added a section to the API Submission Guide on using the CAIA API proxy.
+
+#### October 8, 2024
 In this release of the Broker, we:
 
 * Added loaders to export the bulk or nightly update of FABS data for other specific services to use. 
