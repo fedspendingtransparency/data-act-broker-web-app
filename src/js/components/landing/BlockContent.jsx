@@ -30,7 +30,8 @@ export default class BlockContent extends React.Component {
             icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
             text="In order to upload and validate your agency's files, please request access in CAIA."
             buttonText="Request Access"
-            url="https://iiq.fiscal.treasury.gov/identityiq/home.jsf" />);
+            url="https://iiq.fiscal.treasury.gov/identityiq/home.jsf"
+            externalUrl />);
         let secondBlock = (<LandingBlock
             type={this.props.type}
             icon={<FontAwesomeIcon icon={['far', 'save']} />}

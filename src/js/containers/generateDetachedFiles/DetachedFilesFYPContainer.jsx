@@ -234,6 +234,10 @@ export class DetachedFilesFYPContainer extends React.Component {
                         Pre-FY25 reports may include misleading PYA information.
                     </p>
                     <p>
+                        This report filters out Budget Object Class values 000 (and equivalents) from File B and 999
+                        (and equivalents) from the source GTAS file.
+                    </p>
+                    <p>
                         This report aggregates File B data by TAS, ObjectClass, ByDirectReimbursableFundingSource,
                         DisasterEmergencyFundCode, USSGL, and Begin End Indicator (Fiscal Year Begin (FYB) or Current
                         Period End (CPE)). Note that this report does not aggregate to any Program Activity element.
