@@ -1,4 +1,9 @@
-#### November 18, 2024{section=changelog}
+#### December 10, 2024{section=changelog}
+In this release of the Broker, we:
+
+* Made several improvements to the GTAS Comparison Report (filtering out 000/999 BOCs, including USSGLs only from File B)
+
+#### November 18, 2024
 In this release of the Broker, we:
 
 * Including the last suite of changes from GSDM 1.0 (see the official release for more details)
