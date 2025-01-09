@@ -32,28 +32,19 @@ export default class ResourcesContent extends React.Component {
                         Schema (DAIMS), gives an overall view of the hundreds of distinct data elements used to tell
                         the story of how federal dollars are spent. It includes artifacts that provide technical
                         guidance for federal agencies about what data to report to Treasury including the authoritative
-                        sources of the data elements and the submission format. GSDM information is available on
-                        the&nbsp;
-                        <a
-                            href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            GSDM page
-                        </a>
-                        &nbsp;of the Data Transparency site for the Bureau of the Fiscal Service.
+                        sources of the data elements and the submission format.
                     </p>
                     <h5>Additional Data Broker Resources</h5>
                     <ul>
                         <li>
                             <a
-                                href={`https://fiscal.treasury.gov/files/data-transparency/` +
-                                    `GSDM-Validation-Rules-v1.0.xlsx`}
+                                href={`https://fiscal.treasury.gov/data-transparency/GSDM-current.html`}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                GSDM Validation Rules
+                                The GSDM page
                             </a>
-                            : documents the business rules employed by Data Broker for field and cross-file
-                            validations.
+                            &nbsp;of the Data Transparency site for the Bureau of Fiscal Service includes information
+                            including the latest Validation Rules Document.
                         </li>
                         <li>
                             <a
