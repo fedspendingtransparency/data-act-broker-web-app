@@ -62,15 +62,6 @@ export default class HelpSidebar extends React.Component {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href={"https://fiscal.treasury.gov/files/data-transparency/" +
-                                        "fy24-dabs-reporting-window-schedule.xlsx"}>
-                            Fiscal Year 2024 DABS Reporting Schedule
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 href={"https://www.fiscal.treasury.gov/files/data-transparency/" +
                                         "fy25-dabs-reporting-window-schedule.xlsx"}>
                             Fiscal Year 2025 DABS Reporting Schedule
