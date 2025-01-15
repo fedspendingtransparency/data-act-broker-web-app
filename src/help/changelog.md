@@ -1,4 +1,6 @@
-#### January 6, 2025{section=changelog}
+#### January 21, 2025{section=changelog}
 In this release of the Broker, we:
 
-* Removed all functionality of the MAX authentication for the Broker application. Please see the updated API Submission Guide for authenticating with CAIA via the Broker API Proxy.
+* Updated several PARK and USSGL columns in File B and C to match the terse 30 headers.
+* Removed the FY24 Submission Schedule calendar and updated the Validation Rules link in the Resources Help page per GSDM 1.1.
+* Removed the sample file links in the DABS Submission Guide. They are still available and current via the GSDM link in the same section.

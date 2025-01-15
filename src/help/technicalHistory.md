@@ -1,4 +1,10 @@
-#### December 10, 2024{section=technical}
+#### January 6, 2025{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* Re-added previous territories to the USPS city-code data loader.
+
+#### December 10, 2024
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
