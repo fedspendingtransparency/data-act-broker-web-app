@@ -95,33 +95,9 @@ export default class SubmissionGuideContent extends React.Component {
                                         .txt UTF-8 file formats.
                                         </p>
                                         <ul>
-                                            <li>File A: Appropriation Account data.
-                                                <a
-                                                    href={`${kGlobalConstants.PUBLIC_FILES}appropValid.csv`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    data-reactid=".0.0.1.0.0.0.1.1.1.0">
-                                                    (Sample file)
-                                                </a>
-                                            </li>
-                                            <li>File B: Object Class and Program Activity.
-                                                <a
-                                                    href={`${kGlobalConstants.PUBLIC_FILES}programActivityValid.csv`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    data-reactid=".0.0.1.0.0.0.1.2.1.0">
-                                                    (Sample file)
-                                                </a>
-                                            </li>
-                                            <li>File C: Award Financial data.
-                                                <a
-                                                    href={`${kGlobalConstants.PUBLIC_FILES}awardFinancialValid.csv`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    data-reactid=".0.0.1.0.0.0.1.3.1.0">
-                                                    (Sample file)
-                                                </a>
-                                            </li>
+                                            <li>File A: Appropriation Account data.</li>
+                                            <li>File B: Object Class and Program Activity.</li>
+                                            <li>File C: Award Financial data.</li>
                                         </ul>
                                         <p>
                                             <strong>
@@ -130,15 +106,7 @@ export default class SubmissionGuideContent extends React.Component {
                                         </p>
                                         <ul>
                                             <li>File D1: Award and Awardee Attributes (Procurement Award) data.</li>
-                                            <li>File D2: Award and Awardee Attributes (Financial Assistance) data.
-                                                <a
-                                                    href={`${kGlobalConstants.PUBLIC_FILES}awardValid.csv`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    data-reactid=".0.0.1.0.0.0.1.4.1.0">
-                                                    (Sample file)
-                                                </a>
-                                            </li>
+                                            <li>File D2: Award and Awardee Attributes (Financial Assistance) data.</li>
                                             <li>File E: Additional Awardee Attributes data.</li>
                                             <li>File F: Sub-award Attributes data.</li>
                                         </ul>

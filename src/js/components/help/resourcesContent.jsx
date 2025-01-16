@@ -47,7 +47,7 @@ export default class ResourcesContent extends React.Component {
                         <li>
                             <a
                                 href={`https://fiscal.treasury.gov/files/data-transparency/` +
-                                    `GSDM-Validation-Rules-v1.0.xlsx`}
+                                    `GSDM-Validation-Rules-v1.1.xlsx`}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 GSDM Validation Rules
