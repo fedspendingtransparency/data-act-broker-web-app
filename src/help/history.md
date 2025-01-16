@@ -1,4 +1,9 @@
-#### December 10, 2024{section=changelog}
+#### January 6, 2025{section=changelog}
+In this release of the Broker, we:
+
+* Removed all functionality of the MAX authentication for the Broker application. Please see the updated API Submission Guide for authenticating with CAIA via the Broker API Proxy.
+
+#### December 10, 2024
 In this release of the Broker, we:
 
 * Made several improvements to the GTAS Comparison Report (filtering out 000/999 BOCs, including USSGLs only from File B)
