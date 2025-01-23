@@ -109,9 +109,8 @@ export default class HelpSidebar extends React.Component {
                         <a
                             className="usa-da-help-sidebar__signup-btn"
                             href="mailto:join-data-act-broker@lists.fiscal.treasury.gov?subject=
-                            Sign%20Up%20for%20Broker%20Updates&body=Yes,%20sign%20me%20up%20for
-                            %20Data%20Broker%20Updates!">
-
+                            Sign%20Up%20for%20Broker%20Updates&body=Yes%2C%20sign%20me%20up%20for
+                            Data%20Broker%20Updates!">
                             Sign Up
                         </a>
                     </div>
