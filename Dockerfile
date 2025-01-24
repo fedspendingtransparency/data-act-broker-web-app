@@ -8,7 +8,7 @@ COPY package-lock.json /node-workspace
 WORKDIR /node-workspace
 
 RUN npm install --verbose -g npm@10.8.3
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 RUN mkdir /test-results
 
