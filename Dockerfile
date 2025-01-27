@@ -1,5 +1,5 @@
 # Base Container
-FROM node:20.18.1 as frontend_base
+FROM node:20.18.2 as frontend_base
 
 
 RUN mkdir /node-workspace

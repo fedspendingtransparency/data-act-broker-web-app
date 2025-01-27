@@ -14,7 +14,7 @@
     "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
   },
   "engines": {
-    "node": ">=20.18.1",
+    "node": ">=20.18.2",
     "npm": ">=10.8.3"
   },
   "repository": {
@@ -91,7 +91,7 @@
     "css-loader": "^6.5.1",
     "d3": "^3.5.16",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.4.0",
+    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v6.3.5",
     "dompurify": "^2.4.5",
     "ent": "^2.2.0",
     "file-loader": "^6.2.0",
@@ -109,13 +109,13 @@
     "prop-types": "^15.8.1",
     "q": "^1.4.1",
     "query-string": "^5.1.1",
-    "react": "^17.0.2",
+    "react": "^18.3.1",
     "react-aria-modal": "^4.0.1",
     "react-beautiful-dnd": "^13.1.1",
     "react-dates": "^21.8.0",
     "react-day-picker": "^9.0.5",
     "react-dimensions": "^1.0.2",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.3.1",
     "react-dropzone": "^3.3.0",
     "react-ga": "^2.7.0",
     "react-hot-loader": "^4.13.1",
@@ -123,7 +123,7 @@
     "react-redux": "^7.2.9",
     "react-router": "5.0.1",
     "react-router-dom": "^5.3.4",
-    "react-transition-group": "^4.4.1",
+    "react-transition-group": "^4.4.5",
     "react-with-direction": "^1.4.0",
     "redux": "^4.2.1",
     "rehype-attr": "^2.1.4",
