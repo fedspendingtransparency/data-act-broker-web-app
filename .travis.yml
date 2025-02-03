@@ -4,13 +4,7 @@ node_js:
   - "20.18.2"
 # Need a C++ compiler
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-env:
-  - CXX=g++-4.8
+  chrome: stable
 cache:
   directories:
     - node_modules
