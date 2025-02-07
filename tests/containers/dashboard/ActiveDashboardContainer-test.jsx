@@ -1,11 +1,12 @@
 /**
+ * @jest-environment jsdom
+ *
  * ActiveDashboardContainer-test.jsx
  * Created by Lizzie Salita 3/19/20
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
-
+import { render, screen } from '@testing-library/react';
 import { ActiveDashboardContainer } from 'containers/dashboard/ActiveDashboardContainer';
 import { mockActiveRedux } from './filters/mockFilters';
 
@@ -15,11 +16,12 @@ jest.mock('components/dashboard/NoResultsMessage', () => jest.fn(() => null));
 jest.mock('components/dashboard/LoadingMessage', () => jest.fn(() => null));
 jest.mock('components/dashboard/SelectSubmissionTable', () => jest.fn(() => null));
 
+
 describe('ActiveDashboardContainer', () => {
     let container;
     beforeEach(() => {
         jest.clearAllMocks();
-        container = shallow(<ActiveDashboardContainer {...mockActiveRedux} />);
+        container = render(<ActiveDashboardContainer {...mockActiveRedux} />);
     });
     describe('componentDidMount', () => {
         it('should call loadSubmissions on mount if filters are applied', () => {
