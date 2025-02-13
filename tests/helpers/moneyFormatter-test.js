@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * moneyFormatter-test.js
  * Created by Lizzie Salita 11/19/19
  */

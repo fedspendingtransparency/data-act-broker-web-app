@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * appliedFiltersReducer-test.js
  * Created by Lizzie Salita 10/3/19
  */

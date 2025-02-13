@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ *
+ * uploadHelper-test.js
+ * Created by Maxwell Kendall 06/11/19
+ */
+
 import * as uploadHelper from '../../src/js/helpers/uploadHelper';
 
 describe('prepareMetaData', () => {

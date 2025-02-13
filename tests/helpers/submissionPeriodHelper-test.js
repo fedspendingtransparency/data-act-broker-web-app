@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * submissionPeriodHelper-test.js
  * Created by Lizzie Salita 3/18/20
  */

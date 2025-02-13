@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * datePickerHelper-test.js
  * Created by Lizzie Salita 02/07/20
  */

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * settingsReducer-test.js
  * Created by Lizzie Salita 4/27/20
  */
