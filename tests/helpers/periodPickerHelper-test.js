@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * periodPickerHelper-test.js
  * Created by Kwadwo Opoku-Debrah 12/07/18
  */

@@ -2,11 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { GitRevisionPlugin } = require("git-revision-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
 module.exports = {
     entry: path.resolve(__dirname, "../src/js/app"),
@@ -58,6 +56,9 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new GitRevisionPlugin({
+            branch: true
+        }),
         new webpack.IgnorePlugin({
             resourceRegExp: /^\.\/locale$/,
             contextRegExp: /moment$/

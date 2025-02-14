@@ -124,17 +124,17 @@ export class ActiveDashboardContainer extends React.Component {
         const payload = {
             agency_codes: [filters.agency.code]
         };
-        if (filters.lastModified.start || filters.lastModified.end) {
+        if (filters.lastModified?.start || filters.lastModified?.end) {
             payload.last_modified_range = {
-                start_date: filters.lastModified.start,
-                end_date: filters.lastModified.end
+                start_date: filters.lastModified?.start,
+                end_date: filters.lastModified?.end
             };
         }
         if (filters.submissionId) {
             payload.submission_ids = [filters.submissionId];
         }
-        if (filters.createdBy.id) {
-            payload.user_ids = [filters.createdBy.id];
+        if (filters.createdBy?.id) {
+            payload.user_ids = [filters.createdBy?.id];
         }
         fetchSubmissions({
             filters: payload,

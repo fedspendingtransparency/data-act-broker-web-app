@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ *
+ * submissionListHelper-test.js
+ * Created by Maxwell Kendall 06/11/19
+ */
+
 import { parseRecentActivity } from "../../src/js/helpers/submissionListHelper";
 
 describe('parseRecentActivity', () => {

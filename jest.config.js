@@ -18,7 +18,8 @@ module.exports = {
         "\\.(css|less|scss)$": "identity-obj-proxy",
         d3: '<rootDir>/node_modules/d3/d3.min.js'
     },
-    setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
+    setupFiles: ["<rootDir>/tests/rejection.js"],
+    setupFilesAfterEnv: ["<rootDir>/tests/setup.js", "jest-canvas-mock"],
     transform: {
         "^.+\\.jsx$|js$": "babel-jest"
     },

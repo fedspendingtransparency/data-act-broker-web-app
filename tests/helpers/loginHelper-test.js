@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * loginHelper-test.js
  * Created by Lizzie Salita 1/10/20
  */

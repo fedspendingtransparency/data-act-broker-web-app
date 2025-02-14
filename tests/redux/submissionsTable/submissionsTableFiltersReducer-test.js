@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * submissionsTableFiltersReducer-test.js
  * Created by Lizzie Salita 10/29/18
  */

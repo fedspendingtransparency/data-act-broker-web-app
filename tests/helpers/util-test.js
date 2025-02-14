@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * util-test.js
  * Created by Lizzie Salita 10/24/18.
  */
