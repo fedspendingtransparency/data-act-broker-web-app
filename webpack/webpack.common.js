@@ -6,8 +6,6 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { GitRevisionPlugin } = require("git-revision-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-// const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
-
 module.exports = {
     entry: path.resolve(__dirname, "../src/js/app"),
     output: {
