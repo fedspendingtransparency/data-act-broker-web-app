@@ -174,39 +174,54 @@ const LastModifiedFilter = (props) => {
     endDate = endDate.subtract(1, 'months').toDate();
     const today = new Date()
     const disabledDays = { after: today };
-    const hiddenClass = isCalendarOpen ? '' : ' hidden';
+    const arrowPos = currentFocusType === 'start' ? ' start' : ' end';
     return (
-        <div ref={calendarRef}>
-            <input
-                type="text"
-                id="last-modified__start"
-                autoComplete="off"
-                className="text-filter__input"
-                value={inputValueStart}
-                onChange={handleInputChange}
-                onFocus={() => focusChange('start')} />
-            -
-            <input
-                ref={focusEndRef}
-                type="text"
-                id="last-modified__end"
-                autoComplete="off"
-                className="text-filter__input"
-                value={inputValueEnd}
-                onChange={handleInputChange}
-                onFocus={() => focusChange('end')} />
-            <DayPicker
-                showOutsideDays
-                fixedWeeks
-                startMonth={minDate}
-                endMonth={maxDate}
-                disabled={[disabledDays]}
-                className={`inner-calendar-filter-datepicker${hiddenClass}`}
-                numberOfMonths={2}
-                defaultMonth={endDate}
-                selected={props.selectedDates}
-                mode="range"
-                onSelect={dateSelected} />
+        <div
+            className="last-modified-wrapper"
+            ref={calendarRef}>
+            <div
+                className="last-modified-input-wrapper">
+                <input
+                    type="text"
+                    id="last-modified__start"
+                    autoComplete="off"
+                    className="text-filter__input"
+                    placeholder="Start Date"
+                    value={inputValueStart}
+                    onChange={handleInputChange}
+                    onFocus={() => focusChange('start')} />
+                -
+                <input
+                    ref={focusEndRef}
+                    type="text"
+                    id="last-modified__end"
+                    autoComplete="off"
+                    className="text-filter__input"
+                    placeholder="End Date"
+                    value={inputValueEnd}
+                    onChange={handleInputChange}
+                    onFocus={() => focusChange('end')} />
+            </div>
+            <div
+                style={isCalendarOpen ? { display: 'block' } : { display: 'none' }} >
+                <div className={`arrow-up outer${arrowPos}`}></div>
+                <div className={`arrow-up${arrowPos}`}></div>
+                <div
+                    className="dropdown-menu calendar-range-datepicker-wrapper"
+                    style={isCalendarOpen ? { display: 'block' } : { display: 'none' }} >
+                    <DayPicker
+                        fixedWeeks
+                        startMonth={minDate}
+                        endMonth={maxDate}
+                        disabled={[disabledDays]}
+                        className="inner-calendar-filter-datepicker"
+                        numberOfMonths={2}
+                        defaultMonth={endDate}
+                        selected={props.selectedDates}
+                        mode="range"
+                        onSelect={dateSelected} />
+                </div>
+            </div>
         </div>
     );
 };

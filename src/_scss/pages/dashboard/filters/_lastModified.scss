@@ -1,61 +1,131 @@
-.DateRangePicker {
-    margin-top: rem(12);
-    .DayPicker_weekHeader_li {
-        // override global li styling
-        &:before {
-            content: '';
-            display: block;
+.last-modified-wrapper {
+    position: relative;
+    border-color: $color-gray-lighter;
+
+    .arrow-up {
+        position: absolute;
+        width: 0; 
+        height: 0; 
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        border-bottom: 9px solid $color-white;
+        z-index: 1001;
+
+        top: 4.3rem;
+        left: 2rem;
+
+        &.outer {
+            border-width: 10px;
+            border-bottom-color: $color-gray-lighter;
+            z-index: 999;
+
+            top: 4.2rem;
+            left: 1.9rem;
         }
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    
-    .DateRangePickerInput {
-        height: rem(40);
-        border: solid 1px $color-gray-lighter;
-        .DateInput__small {
-            padding: rem(3) 0;
-        }
-        .DateInput_input__small {
-            font-weight: normal;
-            font-size: rem(14);
-        }
-        .DateInput_input__focused {
-            border-bottom-color: $color-primary;
-        }
-        .DayPickerKeyboardShortcuts_show__bottomRight {
-            &:before {
-                border-right-color: $color-primary;
+
+        &.end {
+            left: 12rem;
+
+            &.outer {
+                left:11.9rem;
             }
         }
     }
 
-    .CalendarDay {
-        border-color: $color-gray-light;
+    .dropdown-menu {
+        box-shadow: none;
+        padding: 1.5rem 2.5rem 0.5rem 2.5rem;
+        border-radius: 0;
+        width: 61rem;
+        top: 4.9rem;
+        left: -0.1rem;
+    }
 
-        &.CalendarDay__selected {
-            background-color: $color-primary;
-            border-color: $color-gray-light;
-            color: $color-white;
-        }
-    
-        &.CalendarDay__selected_span {
-            background-color: $color-cool-blue-lighter;
-            border-color: $color-gray-light;
-            color: $color-white;
-            &:hover {
-                background-color: $color-cool-blue-light;
+    .inner-calendar-filter-datepicker {
+        display: block;
+        font-size: 1.4rem;
+        padding-bottom: 1rem;
+
+        .rdp-months {
+            justify-content: space-between;
+            max-width: 100%;
+            gap: 0;
+            
+            td {
+                border: 1px solid $color-gray-light;
+                width: 3rem;
+                height: 3.5rem;
+
+                &.rdp-outside {
+                    border: none;
+                }
+
+                button {
+                    width: 3.7rem;
+                    height: 3.7rem;
+
+                    border-radius: 0;
+
+                    &:hover {
+                        background-color: $color-gray-lightest;
+                    }
+                }
+                
+                &.rdp-selected {
+                    color: $color-white;
+                    background-color: $color-cool-blue-lighter;
+                    border-color: $color-gray-light;
+                    font: var(--rdp-day-font);
+
+                    button {
+                        background-color: $color-primary;
+                        border-color: $color-primary;
+                    }
+
+                    &.rdp-range_middle {
+                        button {
+                            background-color: $color-cool-blue-lighter;
+                            &:hover {
+                                background-color: $color-cool-blue-light;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .rdp-month_caption {
+                justify-content: space-around;
+                color: $color-gray-dark;
+                margin-bottom: 1rem;
+            }
+
+            .rdp-weekday {
+                opacity: 1;
+                padding: 0;
             }
         }
-    
-        &.CalendarDay__hovered_span {
-            background-color: $color-cool-blue-lighter;
-            border-color: $color-gray-light;
-            color: $color-white;
-            &:hover {
-                background-color: $color-primary;
-                border-color: $color-gray-light;
-                color: $color-white;
+
+        .rdp-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .last-modified-input-wrapper {
+        border: 1px solid $color-gray-lighter;
+        height: 4rem;
+        padding: 0.3rem 0;
+        margin-top: 1.2rem;
+
+        input {
+            border: none;
+            width: 9.7rem;
+            padding: 0.7rem 0.7rem 0.5rem;
+
+            &:focus{
+                border-bottom: 1px solid $color-primary;
+                outline: 0;
             }
         }
     }
