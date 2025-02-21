@@ -25,20 +25,22 @@ export class LastModifiedFilterContainer extends React.Component {
     }
 
     enteredDate(enteredDate, datePosition) {
-        let filters = this.props.selectedFilters.lastModified;
+        const filters = this.props.selectedFilters.lastModified;
         if (datePosition === 'start') {
-            filters['from'] = enteredDate;
+            filters.from = enteredDate;
         }
         else {
-            filters['to'] = enteredDate;
+            filters.to = enteredDate;
         }
 
         this.pickedDates(filters);
     }
 
-    pickedDates(dates) {
+    pickedDates(datePicks) {
+        let dates = datePicks;
         if (dates === undefined) {
-            dates = {from: null,
+            dates = {
+                from: null,
                 to: null
             };
         }
