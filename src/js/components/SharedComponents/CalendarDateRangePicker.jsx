@@ -77,8 +77,8 @@ export default class CalendarDateRangePicker extends React.Component {
             this.props.onSelect(dates);
             this.setState({
                 dropdownopen: false,
-                from: '',
-                to: ''
+                from: null,
+                to: null
             });
         }
     }

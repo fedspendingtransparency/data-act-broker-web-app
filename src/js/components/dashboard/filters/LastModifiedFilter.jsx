@@ -3,14 +3,14 @@
  * Created by Lizzie Salita 2/7/20
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { DateRangePicker } from 'react-dates';
-import { isOutsideRange, initialVisibleMonth } from 'helpers/datePickerHelper';
-import { DayPicker, addToRange } from 'react-day-picker';
+import { format } from 'date-fns';
+import { DayPicker } from 'react-day-picker';
 
 const propTypes = {
+    enteredDate: PropTypes.func,
     pickedDates: PropTypes.func,
     selectedDates: PropTypes.shape({
         from: PropTypes.instanceOf(Date),
@@ -18,145 +18,198 @@ const propTypes = {
     })
 };
 
-export default class LastModifiedFilter extends React.Component {
-    constructor(props) {
-        super(props);
+const LastModifiedFilter = (props) => {
 
-        this.setCalendarRef = (element) => {
-            this.calendarNode = element;
+    useEffect(() => {
+        const handler = (event) => {
+            // if there is no calendar ref, do nothing
+            if (!calendarRef.current) {
+                return;
+            }
+
+            // if click is outside the calendar element, close the calendar
+            if (!calendarRef.current.contains(event.target)) {
+                setFocusType(null);
+                setIsCalendarOpen(false);
+            }
         };
 
-        this.state = {
-            startVal: this.props.selectedDates.from ? moment(this.props.selectedDates.from).format('MM/DD/YYYY') : '',
-            endVal: this.props.selectedDates.to ? moment(this.props.selectedDates.to).format('MM/DD/YYYY') : '',
-            startSelected: false,
-            endSelected: false,
-            calendarOpen: false
+        document.addEventListener("click", handler, true);
+        return () => {
+            document.removeEventListener("click", handler);
         };
+    }, []);
 
-        this.handleOutsideClick = this.handleOutsideClick.bind(this);
-        this.changeStart = this.changeStart.bind(this);
-        this.changeEnd = this.changeEnd.bind(this);
-        this.focusStart = this.focusStart.bind(this);
-        this.focusEnd = this.focusEnd.bind(this);
-    }
+    const handleInputChange = (e) => {
+        const inputType = e.target.id.substr('last-modified__'.length);
+        const inputVal = e.target.value;
+        const isValidDate = moment(inputVal, 'MM/DD/YYYY', true).isValid();
 
-    componentDidMount() {
-        document.addEventListener('mousedown', this.handleOutsideClick, false);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleOutsideClick, false);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.selectedDates.from !== prevProps.selectedDates.from ||
-            this.props.selectedDates.to !== prevProps.selectedDates.to) {
-            const dates = this.props.selectedDates;
-            this.setState({
-                startVal: dates.from ? moment(dates.from).format('MM/DD/YYYY') : '',
-                endVal: dates.to ? moment(dates.to).format('MM/DD/YYYY') : '',
-            });
-        }
-    }
-
-    handleOutsideClick(e) {
-        if (this.calendarNode && this.calendarNode.contains(e.target)) {
-            return false;
-        }
-        this.setState({
-            calendarOpen: false
-        });
-        return true;
-    }
-
-    changeStart(e) {
-        if (moment(e.target.value, 'MM/DD/YYYY', true).isValid() &&
-            (this.props.selectedDates.to === null || new Date(e.target.value) <= this.props.selectedDates.to)) {
-                console.log('adding');
-            this.props.pickedDates(new Date(e.target.value));
+        // keep the input value in sync
+        if (isValidDate) {
+            if (inputType === 'start') {
+                // if the new start date is later than the old end date, make it the new end date
+                if (props.selectedDates.to && props.selectedDates.to < new Date(inputVal)) {
+                    const dateRange = {from: null,
+                        to: new Date(inputVal)
+                    };
+                    setInputValueStart('');
+                    setInputValueEnd(inputVal);
+                    props.pickedDates(dateRange);
+                }
+                else {
+                    setInputValueStart(inputVal);
+                    props.enteredDate(new Date(inputVal), inputType);
+                }
+            }
+            else {
+                // if the new end date is earlier than the old start date, make it the new start date
+                if (props.selectedDates.from && props.selectedDates.from > new Date(inputVal)) {
+                    const dateRange = {from: new Date(inputVal),
+                        to: null
+                    };
+                    setInputValueStart(inputVal);
+                    setInputValueEnd('');
+                    props.pickedDates(dateRange);
+                }
+                else {
+                    setInputValueEnd(inputVal);
+                    props.enteredDate(new Date(inputVal), inputType);
+                }
+            }
         }
         else {
-            this.setState({
-                startVal: e.target.value
-            });
+            if (inputType === 'start') {
+                setInputValueStart(inputVal);
+            }
+            else {
+                setInputValueEnd(inputVal);
+            }
+            // if the input value isn't a valid date, always make it null in the filter
+            props.enteredDate(null, inputType);
         }
     }
 
-    changeEnd(e) {
-        this.setState({
-            endVal: e.target.value
-        });
+    // Determines which input is being focused and opens the calendar if one is
+    const focusChange = (focusType) => {
+        setFocusType(focusType);
+        setIsCalendarOpen(true);
     }
 
-    focusStart() {
-        this.setState({
-            startSelected: true,
-            calendarOpen: true
-        })
-    }
-
-    focusEnd() {
-        this.setState({
-            endSelected: true,
-            calendarOpen: true
-        })
-    }
-
-    render() {
-        console.log(this.props.selectedDates);
-        // const [focusedInput, onFocusChange] = useState(null);
-        const startDate = moment().subtract(1, 'months').toDate();
-        const endDate = this.props.selectedDates.to ? moment(this.props.selectedDates.to) : new Date();
-        const today = new Date()
-        // const lastMonth = initialVisibleMonth;
-        const disabledDays = { after: today };
-        const hiddenClass = this.state.calendarOpen ? '' : ' hidden';
-        // return (
-        //     <DateRangePicker
-        //         startDate={startDate} // momentPropTypes.momentObj or null,
-        //         startDateId="last-modified__start"
-        //         endDate={endDate} // momentPropTypes.momentObj or null,
-        //         endDateId="last-modified__end"
-        //         onDatesChange={props.pickedDates}
-        //         focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-        //         onFocusChange={onFocusChange}
-        //         isOutsideRange={isOutsideRange}
-        //         initialVisibleMonth={lastMonth}
-        //         small />
-        // );
-        return (
-            <React.Fragment>
-                <input
-                    id="last-modified__start"
-                    className="text-filter__input"
-                    value={this.state.startVal}
-                    onChange={this.changeStart}
-                    onFocus={this.focusStart} />
-                <input
-                    id="last-modified__end"
-                    className="text-filter__input"
-                    value={this.state.endVal}
-                    onChange={this.changeEnd}
-                    onFocus={this.focusEnd} />
-                <div ref={this.setCalendarRef}>
-                <DayPicker
+    const dateSelected = (dates) => {
+        if (dates !== undefined) {
+            if (currentFocusType === 'start') {
+                // if the dates are the same and the start is being focused, set the end date to null
+                if (dates.from === dates.to) {
+                    setInputValueEnd('');
+                    dates['to'] = null;
+                }
+                // react-day-picker always moves the "to" date unless the date selected is earlier than the old
+                // "from" date, so we have to get a little creative to move the "from" date instead
+                // if the new date is earlier than the old latest date, keep the old latest date
+                else if (dates.from === props.selectedDates.from && dates.to < props.selectedDates.to) {
+                    dates['from'] = dates.to;
+                    dates['to'] = props.selectedDates.to;
                     
-                    showOutsideDays
-                    fixedWeeks
-                    startMonth={startDate}
-                    endMonth={endDate}
-                    disabled={[disabledDays]}
-                    className={`inner-calendar-filter-datepicker${hiddenClass}`}
-                    numberOfMonths={2}
-                    defaultMonth={endDate}
-                    selected={this.props.selectedDates}
-                    mode="range"
-                    onDayClick={this.props.pickedDates} />
-                    </div>
-            </React.Fragment>
-        )
+                }
+                // if it's later than the current latest date, make the latest date null
+                else if (dates.from === props.selectedDates.from && dates.to > props.selectedDates.to) {
+                    dates['from'] = dates.to;
+                    dates['to'] = null;
+                    setInputValueEnd('');
+                }
+
+                setInputValueStart(format(dates.from, 'MM/dd/yyyy'));
+                focusEndRef.current.focus();
+            }
+            else {
+                // if the dates are the same and the end is being focused, set the start to null
+                if (dates.from === dates.to) {
+                    setInputValueStart('');
+                    dates['from'] = null;
+                }
+                // if the end date didn't change but the new start date is earlier than the old one, make the
+                // new start date the one listed and set the end date to null
+                else if (dates.to === props.selectedDates.to && dates.from < props.selectedDates.from) {
+                    setInputValueStart(format(dates.from, 'MM/dd/yyyy'));
+                    setInputValueEnd('');
+                    dates['to'] = null;
+                }
+
+                // if there is still an end date, set the input value to that and close the calendar
+                if (dates.to) {
+                    setInputValueEnd(format(dates.to, 'MM/dd/yyyy'));
+                    setIsCalendarOpen(false);
+                }
+            }
+        }
+        // if there are no proper dates being sent, set all inputs to blank and close the calendar
+        else {
+            setInputValueStart('');
+            setInputValueEnd('');
+            setIsCalendarOpen(false);
+        }
+
+        props.pickedDates(dates);
     }
+
+    const [currentFocusType, setFocusType] = useState(null);
+    const focusEndRef = useRef();
+
+    // Hold the calendar visibility in state
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const calendarRef = useRef();
+
+    // Hold the input value in state
+    const [inputValueStart, setInputValueStart] = useState("");
+    const [inputValueEnd, setInputValueEnd] = useState("");
+
+    // we don't need dates earlier than 2017 because Broker didn't exist then
+    const minDate = new Date('2017-01-01');
+    // there are no valid submissions past the current month. We can just use today to find that
+    const maxDate = new Date();
+    // the default month to display should be either the current month or the date of the end date selected
+    let endDate = props.selectedDates.to ? moment(props.selectedDates.to) : moment();
+    // we subtract one month because otherwise it won't show the second month
+    endDate = endDate.subtract(1, 'months').toDate();
+    const today = new Date()
+    const disabledDays = { after: today };
+    const hiddenClass = isCalendarOpen ? '' : ' hidden';
+    return (
+        <div ref={calendarRef}>
+            <input
+                type="text"
+                id="last-modified__start"
+                autoComplete="off"
+                className="text-filter__input"
+                value={inputValueStart}
+                onChange={handleInputChange}
+                onFocus={() => focusChange('start')} />
+            -
+            <input
+                ref={focusEndRef}
+                type="text"
+                id="last-modified__end"
+                autoComplete="off"
+                className="text-filter__input"
+                value={inputValueEnd}
+                onChange={handleInputChange}
+                onFocus={() => focusChange('end')} />
+            <DayPicker
+                showOutsideDays
+                fixedWeeks
+                startMonth={minDate}
+                endMonth={maxDate}
+                disabled={[disabledDays]}
+                className={`inner-calendar-filter-datepicker${hiddenClass}`}
+                numberOfMonths={2}
+                defaultMonth={endDate}
+                selected={props.selectedDates}
+                mode="range"
+                onSelect={dateSelected} />
+        </div>
+    );
 };
 
 LastModifiedFilter.propTypes = propTypes;
+export default LastModifiedFilter;
