@@ -27,8 +27,8 @@ export const initialState = {
             id: null
         },
         lastModified: {
-            start: '',
-            end: ''
+            from: null,
+            to: null
         },
         submissionId: '',
         file: ''

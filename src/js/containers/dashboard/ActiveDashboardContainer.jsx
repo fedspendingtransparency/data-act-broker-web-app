@@ -5,7 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import moment from 'moment';
+import { isEqual, cloneDeep } from 'lodash';
 import { connect } from 'react-redux';
 import { fetchSubmissions } from 'helpers/dashboardHelper';
 import ActiveDashboard from 'components/dashboard/ActiveDashboard';
@@ -26,8 +27,8 @@ const propTypes = {
                     id: PropTypes.number
                 }),
                 lastModified: PropTypes.shape({
-                    start: PropTypes.string,
-                    end: PropTypes.string
+                    from: PropTypes.instanceOf(Date),
+                    to: PropTypes.instanceOf(Date)
                 }),
                 submissionId: PropTypes.string,
                 file: PropTypes.string
@@ -124,10 +125,11 @@ export class ActiveDashboardContainer extends React.Component {
         const payload = {
             agency_codes: [filters.agency.code]
         };
-        if (filters.lastModified?.start || filters.lastModified?.end) {
+        if (filters.lastModified?.from || filters.lastModified?.to) {
+            const modDates = cloneDeep(filters.lastModified);
             payload.last_modified_range = {
-                start_date: filters.lastModified?.start,
-                end_date: filters.lastModified?.end
+                start_date: modDates?.from ? moment(modDates?.from).format('MM/DD/YYYY') : '',
+                end_date: modDates?.to ? moment(modDates?.to).format('MM/DD/YYYY') : ''
             };
         }
         if (filters.submissionId) {
