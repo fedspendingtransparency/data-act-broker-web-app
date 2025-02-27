@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ *
+ * stackedBarChartHelper-test.js
+ * Created by Maxwell Kendall 06/11/19
+ */
+
 import * as stackedBarHelper from 'helpers/stackedBarChartHelper';
 
 describe('stacked bar chart helper functions', () => {

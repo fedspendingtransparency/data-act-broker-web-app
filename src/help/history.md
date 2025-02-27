@@ -1,4 +1,9 @@
-#### January 21, 2025{section=changelog}
+#### February 11, 2025{section=changelog}
+In this release of the Broker, we:
+
+* Reworked rule B29 include a check for PYA domain values in Files B and C. Rules B29 and B29.1 will do these additional checks while rule B29.2 will include the primary logic.
+
+#### January 21, 2025
 In this release of the Broker, we:
 
 * Updated several PARK and USSGL columns in File B and C to match the terse 30 headers.
