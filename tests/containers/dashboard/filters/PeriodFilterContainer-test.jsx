@@ -25,55 +25,6 @@ describe('passing test', () => {
 //     beforeEach(() => {
 //         jest.restoreAllMocks();
 //     });
-//     it('should make an API call for the latest period on mount', async () => {
-//         const container = shallow(<PeriodFilterContainer
-//             {...mockActions}
-//             {...mockReduxHistorical} />
-//         );
-//         const getLatestPeriod = jest.fn();
-//         container.instance().getLatestPeriod = getLatestPeriod;
-//         container.instance().componentDidMount();
-//         expect(getLatestPeriod).toHaveBeenCalled();
-//     });
-//     it('should call getDisabledStatus when the selected FYs change', () => {
-//         const container = shallow(<PeriodFilterContainer
-//             {...mockActions}
-//             {...mockReduxHistorical} />
-//         );
-//         const getDisabledStatus = jest.fn();
-//         container.instance().getDisabledStatus = getDisabledStatus;
-
-//         container.instance().componentDidUpdate({ selectedFilters: { fy: [2018, 2019] } });
-
-//         expect(getDisabledStatus).toHaveBeenCalled();
-//     });
-//     describe('pickedPeriod', () => {
-//         it('should call the updateGenericFilter action', () => {
-//             const container = shallow(<PeriodFilterContainer
-//                 {...mockActions}
-//                 {...mockReduxHistorical} />
-//             );
-
-//             container.instance().pickedPeriod(4);
-
-//             expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('historical', 'period', 4);
-//         });
-//     });
-//     describe('removePeriod', () => {
-//         it('should call the updateGenericFilter action', () => {
-//             const container = shallow(<PeriodFilterContainer
-//                 {...mockActions}
-//                 {...mockReduxHistorical} />
-//             );
-//             const newProps = cloneDeep(container.instance().props);
-//             newProps.selectedFilters.period = 5;
-//             container.setProps({ ...newProps });
-
-//             container.instance().removePeriod();
-
-//             expect(mockActions.updateGenericFilter).toHaveBeenCalledWith('historical', 'period', 5);
-//         });
-//     });
 //     describe('getDisabledStatus', () => {
 //         it('should disable P02, P03, and Q1 when 2017 is the only FY selected', () => {
 //             const container = shallow(<PeriodFilterContainer
