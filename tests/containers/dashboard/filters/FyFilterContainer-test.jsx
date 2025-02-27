@@ -25,52 +25,6 @@ describe('passing test', () => {
 //     beforeEach(() => {
 //         jest.clearAllMocks();
 //     });
-//     it('should make an API call for the latest period on mount', async () => {
-//         const container = shallow(<FyFilterContainer
-//             {...mockActions}
-//             {...mockReduxHistorical} />
-//         );
-//         const getLatestPeriod = jest.fn();
-//         container.instance().getLatestPeriod = getLatestPeriod;
-//         container.instance().componentDidMount();
-//         expect(getLatestPeriod).toHaveBeenCalled();
-//     });
-//     it('should call generateAllFy when the selected period changes', () => {
-//         const container = shallow(<FyFilterContainer
-//             {...mockActions}
-//             {...mockReduxHistorical} />
-//         );
-//         const generateAllFy = jest.fn();
-//         container.instance().generateAllFy = generateAllFy;
-
-//         container.instance().componentDidUpdate({ selectedFilters: { period: 'Q1' } });
-
-//         expect(generateAllFy).toHaveBeenCalled();
-//     });
-//     it('should call removeDisabledSelections when the selected period changes', () => {
-//         const container = shallow(<FyFilterContainer
-//             {...mockActions}
-//             {...mockReduxHistorical} />
-//         );
-//         const removeDisabledSelections = jest.fn();
-//         container.instance().removeDisabledSelections = removeDisabledSelections;
-
-//         container.instance().componentDidUpdate({ selectedFilters: { period: 'Q4' } });
-
-//         expect(removeDisabledSelections).toHaveBeenCalled();
-//     });
-//     describe('pickedFy', () => {
-//         it('should call the updateFilterSet action', () => {
-//             const container = shallow(<FyFilterContainer
-//                 {...mockActions}
-//                 {...mockReduxHistorical} />
-//             );
-
-//             container.instance().pickedFy(2018);
-
-//             expect(mockActions.updateFilterSet).toHaveBeenCalledWith('historical', 'fy', 2018);
-//         });
-//     });
 //     describe('generateAllFy', () => {
 //         it('should disable 2017 when P02, P03, or Q1 is the only period selected', () => {
 //             const container = shallow(<FyFilterContainer
@@ -115,7 +69,7 @@ describe('passing test', () => {
 //             );
 //             const pickedFy = jest.fn();
 //             container.instance().pickedFy = pickedFy;
-            
+
 //             // Set the props to FY 2017 and Q1
 //             const newProps = cloneDeep(container.instance().props);
 //             newProps.selectedFilters.period = 'Q1';
