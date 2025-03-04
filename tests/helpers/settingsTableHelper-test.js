@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ *
+ * settingsTableHelper-test.js
+ * Created by Maxwell Kendall 06/11/19
+ */
+
 import { reorder, prepareSettings } from 'helpers/settingsTableHelper';
 
 describe('reorder', () => {

@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ *
+ * reviewHelper-test.js
+ * Created by Maxwell Kendall 06/11/19
+ */
+
 import * as reviewHelper from "helpers/reviewHelper";
 
 describe("reviewHelper", () => {

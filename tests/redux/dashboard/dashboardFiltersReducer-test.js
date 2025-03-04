@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * dashboardFiltersReducer-test.js
  * Created by Lizzie Salita 10/03/19
  */

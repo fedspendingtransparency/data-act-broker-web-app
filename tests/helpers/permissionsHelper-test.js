@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ *
+ * permissionsHelper-test.js
+ * Created by Maxwell Kendall 06/11/19
+ */
+
 import * as permissionsHelper from "../../src/js/helpers/permissionsHelper";
 
 const getRole = (agencyName = 'test', role = 'n00b') => ({

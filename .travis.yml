@@ -1,16 +1,11 @@
 language: node_js
+dist: focal
 node_js:
   # latest in each series
-  - "16.14.2"
+  - "20.18.2"
 # Need a C++ compiler
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-env:
-  - CXX=g++-4.8
+  chrome: stable
 cache:
   directories:
     - node_modules
