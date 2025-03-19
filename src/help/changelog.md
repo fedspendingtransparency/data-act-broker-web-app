@@ -1,4 +1,4 @@
-#### March 4, 2025{section=changelog}
+#### March 25, 2025{section=changelog}
 In this release of the Broker, we:
 
-* Upgraded Broker Frontend to use Node 20 and npm 10 (with updated date pickers).
+* Fully migrated from FSRS to SAM.gov to be the source of subaward data on the Data Broker and USASpending.gov. Note this may affect the data produced from File F generation.
