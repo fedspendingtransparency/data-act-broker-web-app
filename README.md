@@ -86,8 +86,12 @@ To use the frontend, go to [http://localhost:3000](http://localhost:3000) in a s
 
 ### Running Tests
 
-To run the unit test suite, run `npm run test`.
+To run the unit test suite, run `npm run test`. If developing in a Windows environment, run `npm run test-windows`.
+
+### Running Linter
+
+To run the linter, run `npm run lint`. If developing in a Windows environment, run `npm run lint-windows`.
 
 ## Full Data Broker Setup
 
-For instructions on contributing to this project or installing Data Broker backend, please refer to the [documentation in the Data Act core repository](https://github.com/fedspendingtransparency/data-act-core/blob/master/doc/INSTALL.md "Data Broker installation guide").
+For instructions on contributing to this project or installing Data Broker backend, please refer to the [documentation in the Data Act broker repository](https://github.com/fedspendingtransparency/data-act-broker-backend/blob/master/doc/CONTRIBUTING.md "Data Broker installation guide").
