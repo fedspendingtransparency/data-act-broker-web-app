@@ -41,3 +41,5 @@ cache/
 broker.sh
 
 .idea/
+
+*storybook.log
