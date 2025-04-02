@@ -13,7 +13,10 @@ const presets = [
             }
         }
     ],
-    "@babel/preset-react"
+    [
+        "@babel/preset-react",
+        { "runtime": "automatic" }
+    ]
 ];
 
 const plugins = [
