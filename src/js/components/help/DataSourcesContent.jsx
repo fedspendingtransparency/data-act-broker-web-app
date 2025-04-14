@@ -394,7 +394,8 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href="https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf">
+                                    href={"https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20" +
+                                       "Dictionary.pdf"}>
                                     https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf
                                 </a>
                                 ). This data is For Official Use Only (FOUO) and is thus not available for download on
@@ -429,6 +430,18 @@ export default class DataSourcesContent extends React.Component {
                                 .
                             </p>}
                         updatedAt={this.props.updateDates.program_activity} />
+
+                    <DataSourcesItem
+                        title="Program Activity Reporting Key (PARK)"
+                        uses="DABS validations"
+                        description={"The Program Activity Reporting Key (PARK) is a unique identifier assigned by" +
+                            " OMB used for tracking Program Activity by TAS and used for mapping records to the" +
+                            " USAspending display. This unique code identifies specific activity or project as listed" +
+                            " in the program and financing schedules of the annual budget of the United States" +
+                            " Government."}
+                        source={
+                            <p>(Not determined yet as of 2.14.25)</p>}
+                        updatedAt={this.props.updateDates.park} />
 
                     <DataSourcesItem
                         title="State/Territory"
