@@ -97,7 +97,7 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.21.3",
-    "@babel/runtime": "^7.21.0",
+    "@babel/runtime": "^7.27.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
