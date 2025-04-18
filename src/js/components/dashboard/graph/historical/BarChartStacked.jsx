@@ -15,8 +15,6 @@ import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
 import BarChartLegend from './BarChartLegend';
 import StackedBarGroup from './StackedBarGroup';
 
-/* eslint-disable react/no-unused-prop-types */
-// allow unused prop types. they are indirectly accessed as nextProps
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.string),
     ySeries: PropTypes.arrayOf(PropTypes.object),
@@ -31,7 +29,6 @@ const propTypes = {
     spaceBetweenStacks: PropTypes.number,
     hovered: PropTypes.string
 };
-/* eslint-enable react/no-unused-prop-types */
 
 const defaultProps = {
     padding: {

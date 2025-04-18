@@ -78,7 +78,6 @@ export default class ReviewDataNarrative extends React.Component {
         window.removeEventListener("beforeunload", this.preventExit);
     }
 
-    /* eslint-disable consistent-return */
     preventExit(e) {
         // for this function we want to disable the consistent-return rule because we only want it to return
         // when this condition is met. Otherwise it prevents the user from leaving the page at the wrong time
@@ -87,7 +86,6 @@ export default class ReviewDataNarrative extends React.Component {
             return 'You have unsaved comments.';
         }
     }
-    /* eslint-enable consistent-return */
 
     saveNarrative() {
         this.setState({ saveState: 'Saving' });

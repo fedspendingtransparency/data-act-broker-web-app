@@ -68,7 +68,6 @@ export default class SettingsTable extends React.Component {
                             <tbody className="broker-table__body">
                                 {this.props.results.map((row, index) => (
                                     <Draggable key={row.label} draggableId={row.label} index={index}>
-                                        {/* eslint-disable-next-line no-shadow */}
                                         {(provided, snapshot) => (
                                             <tr
                                                 className="settings-table__row"
