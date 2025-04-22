@@ -451,12 +451,13 @@ export default class DataSourcesContent extends React.Component {
                     <DataSourcesItem
                         title="Subaward"
                         uses=" DABS File F and USAspending"
-                        description={"Subcontract and subgrant data reported to the FFATA Subaward Reporting System" +
-                            " (FSRS) run by the GSA IAE by prime awardees that meet the reporting requirements."}
+                        description={"Subcontract and subgrant data reported to SAM.gov run by the GSA IAE by prime" +
+                            " awardees that meet the reporting requirements."}
                         source={
-                            <p>Loaded in from the FSRS API on a daily basis. Loads contain updates from the previous
-                                day in FSRS. Data is not available for download on this page, but the data can be found
-                                on USAspending or in  File F generation elsewhere on Data Broker.
+                            <p>
+                                Loaded in from the SAM API on a daily basis. Loads contain updates from the previous
+                                day in SAM. Data is not available for download on this page, but the data can be found
+                                on USAspending or in File F generation elsewhere on Data Broker.
                             </p>}
                         updatedAt={this.props.updateDates.subaward} />
 
