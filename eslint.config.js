@@ -63,6 +63,8 @@ module.exports = defineConfig([
             "max-len": [1, 120, {"tabWidth": 4}],
             // do not allow dangling commas at the end of arrays, objects, etc.
             "comma-dangle": [2, "never"],
+            // Make sure there are always semicolons at the end of lines where applicable
+            "@/semi": [2, "always"],
             // downgrade extra semicolons to warnings
             "no-extra-semi": [1],
             // require parens in arrow functions with single arguments for improved readability
