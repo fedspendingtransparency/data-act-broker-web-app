@@ -1,8 +1,5 @@
 /**
  * @jest-environment jsdom
- *
- * PeriodFilterContainer-test.jsx
- * Created by Alisa Burdeyny 06/11/21
  */
 
 import React, { act } from "react";
