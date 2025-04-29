@@ -4,8 +4,8 @@
 
 import { jest, expect, test } from "@jest/globals";
 import AddDataPage from "../../src/js/components/addData/AddDataPage";
-import React, { act } from "react";
-import { render, screen, prettyDOM } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "../../src/js/redux/reducers";
@@ -45,11 +45,8 @@ jest.mock('../../src/js/helpers/util', () => ({
 
 jest.spyOn(Cookies, 'get').mockReturnValue('');
 
-
-// jest.mock('../../src/js/helpers/submissionListHelper', () => jest.fn());
-
 const initialState = {
-    session: { admin: true, user: { affiliations: [{ permission: 'submitter' }, { permission: 'fabs' }] } }
+    session: { admin: true, user: { affiliations: [{ permission: 'submitter' }, { permission: 'dabs' }] } }
 };
 const store = createStore(reducers, initialState);
 const storeSingleton = new StoreSingleton();
@@ -59,59 +56,46 @@ function componentWithProvider(component) {
     return <Provider store={store}><MemoryRouter>{component}</MemoryRouter></Provider>;
 }
 
-const pageTypes = {
-    // fabs: [
-    //     'Financial Assistance Broker Submission (FABS)',
-    //     'Upload your agency\'s fiancial assistance data and validate it against the latest version of the Governmentwide Spending Data Model (GSDM), formerly known as the DATA Act Information Model Schema (DAIMS).',
-    //     'Ready to upload and validate your agency\'s files? Great, we\'ll be happy to walk you through the process.',
-    //     'Upload & Validate a New Submission',
-    //     'Did you start a submission but were unable to complete it? Want to see your previous submissions? Continue here to the submission table.',
-    //     'View Submission Table'
-    // ],
-    dabs: [
-        {
-            submission: {
-                meta: {
-                    publishedSubmissions: [],
-                    testSubmission: false
-                }
-            },
-            content: [
-                'Please begin by telling us about the submission you are creating',
-                'Which agency is this submission for?'
-            ]
+const testCases = [
+    {
+        name: 'No agency',
+        submission: {
+            meta: {
+                publishedSubmissions: [],
+                testSubmission: false
+            }
         },
-        {
-            submission: {
-                meta: {
-                    agency: 'test',
-                    publishedSubmissions: [],
-                    testSubmission: false
-                }
-            },
-            content: [
-                'File-A_FY25Q0',
-                'File B: Program Activity & Object Class Data',
-                'File C: Award Financial'
-            ]
-        }
-    ]
-};
+        content: [
+            'Please begin by telling us about the submission you are creating',
+            'Which agency is this submission for?'
+        ]
+    },
+    {
+        name: 'Agency selected',
+        submission: {
+            meta: {
+                agency: 'test',
+                publishedSubmissions: [],
+                testSubmission: false
+            }
+        },
+        content: [
+            'File-A_FY25Q0',
+            'File B: Program Activity & Object Class Data',
+            'File C: Award Financial'
+        ]
+    }
+];
 
-let result;
-
-Object.entries(pageTypes).forEach(([page, configs]) => {
-    configs.forEach((config) => {
-        test(`Add Page should render - ${page}`, async () => {
-            await act(async () => {
-                result = render(componentWithProvider(<AddDataPage
-                    type={page}
-                    submission={config.submission}
-                    updateMetaData={jest.fn()} />));
-            });
-            config.content.forEach((i) => {
-                expect(screen.queryAllByText(i).length).toBeGreaterThanOrEqual(1);
-            });
+testCases.forEach((testCase) => {
+    test(`Add Page should render - ${testCase.name}`, async () => {
+        render(componentWithProvider(<AddDataPage
+            type="dabs"
+            submission={testCase.submission}
+            updateMetaData={jest.fn()} />
+        ));
+        testCase.content.forEach((i) => {
+            expect(screen.queryAllByText(i).length).toBeGreaterThanOrEqual(1);
         });
     });
 });

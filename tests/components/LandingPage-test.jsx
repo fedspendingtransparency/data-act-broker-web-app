@@ -4,7 +4,7 @@
 
 import { jest, expect, test } from "@jest/globals";
 import LandingPage from "../../src/js/components/landing/LandingPage";
-import React, { act } from "react";
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -90,9 +90,7 @@ const pageTypes = {
 
 Object.entries(pageTypes).forEach(([page, content]) => {
     test(`Landing Page should render - ${page}`, async () => {
-        await act(async () => {
-            render(componentWithProvider(<LandingPage type={page} />));
-        });
+        render(componentWithProvider(<LandingPage type={page} />));
         content.forEach((i) => {
             expect(screen.queryAllByText(i).length).toBeGreaterThanOrEqual(1);
         });
