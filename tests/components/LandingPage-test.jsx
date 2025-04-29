@@ -88,13 +88,13 @@ const pageTypes = {
     ]
 };
 
-Object.entries(pageTypes).forEach(([page, strings]) => {
+Object.entries(pageTypes).forEach(([page, content]) => {
     test(`Landing Page should render - ${page}`, async () => {
         await act(async () => {
             render(componentWithProvider(<LandingPage type={page} />));
         });
-        strings.forEach((string) => {
-            expect(screen.queryAllByText(string).length).toBeGreaterThanOrEqual(1);
+        content.forEach((i) => {
+            expect(screen.queryAllByText(i).length).toBeGreaterThanOrEqual(1);
         });
     });
 });
