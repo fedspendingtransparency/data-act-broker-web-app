@@ -1,94 +1,107 @@
 /**
  * @jest-environment jsdom
- *
- * PeriodFilterContainer-test.jsx
- * Created by Alisa Burdeyny 06/11/21
  */
 
-// TODO: Replace with non-enzyme tests or delete
-describe('passing test', () => {
-    it('this just needs a passing test until we rework it', () => {
-        expect(true).toEqual(true);
+import React, { act } from "react";
+import { Set } from "immutable";
+import { render, screen } from "@testing-library/react";
+import { jest, test, expect } from "@jest/globals";
+
+import { fetchLatestPublicationPeriod } from "../../../../src/js/helpers/dashboardHelper";
+import { mockActions, mockReduxHistorical } from "./mockFilters";
+import { PeriodFilterContainer } from "../../../../src/js/containers/dashboard/filters/PeriodFilterContainer";
+
+jest.mock('../../../../src/js/helpers/dashboardHelper', () => ({
+    ...jest.requireActual('../../../../src/js/helpers/dashboardHelper'),
+    fetchLatestPublicationPeriod: jest.fn()
+}));
+
+jest.mock('@fortawesome/react-fontawesome', () => ({
+    FontAwesomeIcon: jest.fn()
+}));
+
+test('PeriodFilterContainer should disable P02, P03, and Q1 when 2017 is the only FY selected', async () => {
+    fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
+        { period: 4, year: 2019 }
+    ));
+    let result;
+    // default case
+    await act(async () => {
+        result = render(<PeriodFilterContainer
+            {...mockActions}
+            {...mockReduxHistorical} />);
+    });
+    await act(async () => {
+        result.rerender(<PeriodFilterContainer
+            {...mockActions}
+            selectedFilters={{
+                ...mockReduxHistorical.selectedFilters,
+                fy: new Set([...mockReduxHistorical.selectedFilters.fy, 2017])
+            }} />);
+    });
+    expect(screen.getByText('Q1')).toHaveClass('period-picker__list-button_disabled');
+    expect(screen.getByText('P01/P02')).toHaveClass('period-picker__list-button_disabled');
+    expect(screen.getByText('P03')).toHaveClass('period-picker__list-button_disabled');
+    ['Q2', 'Q3', 'Q4', 'P04', 'P05', 'P06', 'P07', 'P08', 'P09', 'P10', 'P11', 'P12'].forEach((period) => {
+        expect(screen.getByText(period)).not.toHaveClass('period-picker__list-button_disabled');
     });
 });
-// import React from 'react';
-// import { shallow } from 'enzyme';
-// import { cloneDeep } from 'lodash';
 
-// import { PeriodFilterContainer } from 'containers/dashboard/filters/PeriodFilterContainer';
-// import { mockActions, mockReduxHistorical } from './mockFilters';
+test('PeriodFilterContainer should disabled future periods when the current FY is the only FY selected, current period enabled', async () => {
+    fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
+        { period: 7, year: 2020 }
+    ));
 
-// // mock the child component by replacing it with a function that returns a null element
-// jest.mock('components/generateDetachedFiles/PeriodPicker', () => jest.fn(() => null));
+    let result;
+    // default case
+    await act(async () => {
+        result = render(<PeriodFilterContainer
+            {...mockActions}
+            {...mockReduxHistorical} />);
+    });
+    await act(async () => {
+        result.rerender(<PeriodFilterContainer
+            {...mockActions}
+            selectedFilters={{
+                ...mockReduxHistorical.selectedFilters,
+                fy: new Set([...mockReduxHistorical.selectedFilters.fy, 2020])
+            }} />);
+    });
+    const pastPeriods = ['Q1', 'P01/P02', 'P03', 'Q2', 'P04', 'P05', 'P06', 'Q3', 'P07'];
+    const futurePeriods = ['P08', 'P09', 'Q4', 'P10', 'P11', 'P12'];
+    futurePeriods.forEach((period) => {
+        expect(screen.getByText(period)).toHaveClass('period-picker__list-button_disabled');
+    });
+    pastPeriods.forEach((period) => {
+        expect(screen.getByText(period)).not.toHaveClass('period-picker__list-button_disabled');
+    });
+});
 
-// describe('PeriodFilterContainer', () => {
-//     beforeEach(() => {
-//         jest.restoreAllMocks();
-//     });
-//     describe('getDisabledStatus', () => {
-//         it('should disable P02, P03, and Q1 when 2017 is the only FY selected', () => {
-//             const container = shallow(<PeriodFilterContainer
-//                 {...mockActions}
-//                 {...mockReduxHistorical} />
-//             );
-//             container.instance().setState({
-//                 latestYear: 2019,
-//                 lastestPeriod: 4
-//             });
-//             const newProps = cloneDeep(container.instance().props);
-//             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2017);
-//             container.setProps({ ...newProps });
-//             container.instance().getDisabledStatus();
-//             expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2017]);
-//             expect(container.instance().state.disabledPeriods[0]).toEqual('firstYear');
-//             expect(container.instance().state.disabledPeriods[1]).toEqual('firstYear');
-//             expect(container.instance().state.disabledPeriods[2]).toEqual('firstYear');
-//             expect(container.instance().state.disabledPeriods[3]).toEqual('');
-//         });
-//         it('should disabled future periods when the current FY is the only FY selected, current period enabled', () => {
-//             const container = shallow(<PeriodFilterContainer
-//                 {...mockActions}
-//                 {...mockReduxHistorical} />
-//             );
-//             container.instance().setState({
-//                 latestYear: 2020,
-//                 latestPeriod: 7
-//             });
-//             const newProps = cloneDeep(container.instance().props);
-//             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2020);
-//             container.setProps({ ...newProps });
-//             container.instance().getDisabledStatus();
+test('PeriodFilterContainer should enable all periods when more than one FY is selected', async () => {
+    fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
+        { period: 7, year: 2020 }
+    ));
 
-//             expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2020]);
-//             expect(container.instance().state.disabledPeriods[7]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[8]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[9]).toEqual('notOpen');
-//             expect(container.instance().state.disabledPeriods[10]).toEqual('notOpen');
-//             expect(container.instance().state.disabledPeriods[11]).toEqual('notOpen');
-//             expect(container.instance().state.disabledPeriods[12]).toEqual('notOpen');
-//         });
-//         it('should enable all periods when more than one FY is selected', () => {
-//             const container = shallow(<PeriodFilterContainer
-//                 {...mockActions}
-//                 {...mockReduxHistorical} />
-//             );
-//             container.instance().setState({
-//                 latestYear: 2020,
-//                 latestPeriod: 1
-//             });
-//             const newProps = cloneDeep(container.instance().props);
-//             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2020);
-//             newProps.selectedFilters.fy = newProps.selectedFilters.fy.add(2018);
-//             container.setProps({ ...newProps });
-//             container.instance().getDisabledStatus();
+    let result;
+    // default case
+    await act(async () => {
+        result = render(<PeriodFilterContainer
+            {...mockActions}
+            {...mockReduxHistorical} />);
+    });
+    await act(async () => {
+        result.rerender(<PeriodFilterContainer
+            {...mockActions}
+            selectedFilters={{
+                ...mockReduxHistorical.selectedFilters,
+                fy: new Set([...mockReduxHistorical.selectedFilters.fy, 2018, 2020])
+            }} />);
+    });
+    const periods = [
+        'Q1', 'P01/P02', 'P03', 'Q2', 'P04', 'P05', 'P06', 'Q3', 'P07', 'P08', 'P09', 'Q4', 'P10', 'P11', 'P12'
+    ];
+    periods.forEach((period) => {
+        expect(screen.getByText(period)).not.toHaveClass('period-picker__list-button_disabled');
+    });
+});
 
-//             expect(container.instance().props.selectedFilters.fy.toArray()).toEqual([2020, 2018]);
-//             expect(container.instance().state.disabledPeriods[0]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[1]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[6]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[7]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[13]).toEqual('');
-//             expect(container.instance().state.disabledPeriods[14]).toEqual('');
-//         });
-//     });
-// });
