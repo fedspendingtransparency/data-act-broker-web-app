@@ -36,8 +36,6 @@ jest.mock('../../src/js/helpers/loginHelper', () => ({
 jest.spyOn(Cookies, 'get').mockReturnValue('');
 
 
-// jest.mock('../../src/js/helpers/submissionListHelper', () => jest.fn());
-
 const initialState = {
     session: { admin: true, user: { affiliations: [{ permission: 'submitter' }, { permission: 'fabs' }] } }
 };
