@@ -445,7 +445,7 @@ export default class DataSourcesContent extends React.Component {
                         source={
                             <p>
                                 OMB approves agencies program activities in the Exception Request System (ERS), which
-                                is available here:%nbsp;
+                                is available here:&nbsp;
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
