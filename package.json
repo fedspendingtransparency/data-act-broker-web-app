@@ -11,7 +11,7 @@
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
     "sass": "webpack --progress --config ./webpack/webpack.sass.config.js",
-    "travis": "eslint --config eslint.config.js && ./node_modules/.bin/jest --runInBand;",
+    "travis": "./node_modules/.bin/eslint --config eslint.config.js && ./node_modules/.bin/jest --runInBand;",
     "lint-windows": "eslint --config eslint.config.js",
     "test-windows": "jest",
     "storybook": "storybook dev -p 6006 --ci",
