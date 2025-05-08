@@ -394,7 +394,8 @@ export default class DataSourcesContent extends React.Component {
                                 <a
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    href="https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf">
+                                    href={"https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20" +
+                                       "Dictionary.pdf"}>
                                     https://open.gsa.gov/api/entity-api/v1/SAM%20Functional%20Data%20Dictionary.pdf
                                 </a>
                                 ). This data is For Official Use Only (FOUO) and is thus not available for download on
@@ -403,7 +404,7 @@ export default class DataSourcesContent extends React.Component {
                         updatedAt={this.props.updateDates.office} />
 
                     <DataSourcesItem
-                        title="Program Activity"
+                        title="Program Activity Code/Name (PAC/PAN)"
                         uses="DABS validations"
                         description={"A specific activity or project as listed in the program and financing schedules" +
                             " of the annual budget of the United States Government."}
@@ -429,6 +430,40 @@ export default class DataSourcesContent extends React.Component {
                                 .
                             </p>}
                         updatedAt={this.props.updateDates.program_activity} />
+
+                    <DataSourcesItem
+                        title="Program Activity Reporting Key (PARK)"
+                        uses="DABS validations"
+                        description={"The Program Activity Reporting Key (PARK) is a unique identifier assigned by" +
+                            " OMB used for tracking Program Activity by TAS Fund Family, Allocation Transfer Agency," +
+                            " and subaccount (in a very limited number of cases), and used for mapping records to" +
+                            " the USAspending display.  This unique code identifies specific activity or project as" +
+                            " listed in the program and financing schedules of the annual budget of the United" +
+                            " States Government. PARK is the new program activity starting in FY26, all previous" +
+                            " program activity was recorded by Program Activity Code (PAC) and Program Activity Name" +
+                            " (PAN)."}
+                        source={
+                            <p>
+                                OMB approves agencies program activities in the Exception Request System (ERS), which
+                                is available here:%nbsp;
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://go.max.gov/ers">
+                                    OMB Collect
+                                </a>
+                                .  When any updates are available, OMB MAX places that data into a shared online
+                                location for the Data Broker to process daily. The latest PARK file can be downloaded
+                                here:&nbsp;
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href={`https://${fileLoc}.usaspending.gov/reference_data/park.csv`}>
+                                    https://{fileLoc}.usaspending.gov/reference_data/park.csv
+                                </a>
+                                .
+                            </p>}
+                        updatedAt={this.props.updateDates.park} />
 
                     <DataSourcesItem
                         title="State/Territory"
