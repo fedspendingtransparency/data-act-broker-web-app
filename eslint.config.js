@@ -6,7 +6,10 @@ const importPlugin = require('eslint-plugin-import');
 
 module.exports = defineConfig([
     {
-        ignores: ["src/js/vendor/*"],
+        ignores: ["src/js/vendor/*", "src/stories/*", "coverage/*"]
+    },
+    {
+        files: ["src/js/**/*.jsx", "src/js/**/*.js"],
         plugins: {
             'jsx-a11y': jsxA11y,
             'react': reactPlugin,
