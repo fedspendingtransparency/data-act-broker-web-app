@@ -3,7 +3,6 @@
  * Created by Alisa Burdeyny 11/20/19
  */
 
-/* eslint-disable object-shorthand */
 const BaseDashboardTableRow = {
     populate: function (data) {
         data.files.sort();
@@ -17,6 +16,5 @@ const BaseDashboardTableRow = {
         this.submittedBy = data.submitted_by;
     }
 };
-/* eslint-enable object-shorthand */
 
 export default BaseDashboardTableRow;

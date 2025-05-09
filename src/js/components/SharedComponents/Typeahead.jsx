@@ -252,8 +252,6 @@ export default class Typeahead extends React.Component {
                         tabIndex={this.props.tabIndex}
                         disabled={disabled}
                         aria-required={this.props.isRequired}
-                        // Awesomeplete will add some of the required aria props
-                        // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                         role="combobox"
                         aria-expanded={this.state.expanded}
                         aria-label={placeholder} />

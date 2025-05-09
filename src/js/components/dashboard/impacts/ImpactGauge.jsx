@@ -76,11 +76,9 @@ export default class ImpactGauge extends React.Component {
                 role="button"
                 tabIndex={0}
                 disabled={!this.state.displayModal}>
-                {/* eslint-disable import/no-dynamic-require, global-require */}
                 <img
                     src={require(`../../../../graphics/gauges/chart-${this.props.level}.png`)}
                     alt={this.props.level} />
-                {/* eslint-enable import/no-dynamic-require, global-require */}
                 <div className="impact-section__stats">
                     <div className="impact-section__count">
                         {impactCountContent}

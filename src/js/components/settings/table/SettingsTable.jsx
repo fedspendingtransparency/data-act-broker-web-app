@@ -6,10 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { reorder } from 'helpers/settingsTableHelper';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import ImpactDropdown from './ImpactDropdown';
+import { useState } from "react";
+import { reorder, listLabels } from 'helpers/settingsTableHelper';
+import { useDroppable, DndContext } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
+import SettingsRow from "./SettingsRow";
 
 const propTypes = {
     results: PropTypes.array,
@@ -21,95 +22,54 @@ const defaultProps = {
     results: []
 };
 
-const columns = ['significance', 'impact', 'description'];
+const SettingsTable = (props) => {
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-    userSelect: 'none',
-    // change background color if dragging
-    background: isDragging ? '#9bdaf1' : '',
-    boxShadow: isDragging ? '0 2px 5px rgba(0, 0, 0, 0.15)' : '0 0',
-    // styles we need to apply on draggables
-    ...draggableStyle
-});
+    const columns = ['significance', 'impact', 'description'];
+    const [sortedItems, setSortedItems] = useState(listLabels(props.results));
 
-export default class SettingsTable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onDragEnd = this.onDragEnd.bind(this);
-    }
-
-    onDragEnd(result) {
-        // dropped outside the list
-        if (!result.destination) {
+    function handleDragEnd({ active, over }) {
+        // dropped outside list or in its old location
+        if (!over || active.id === over.id) {
             return;
         }
 
-        const items = reorder(this.props.results, result.source.index, result.destination.index);
-
-        // Update Redux state
-        this.props.updateOrder(items);
+        const activeIndex = active.data.current.sortable.index;
+        const overIndex = over.data.current?.sortable.index || 0;
+        const items = reorder(props.results, activeIndex, overIndex);
+        props.updateOrder(items);
+        setSortedItems(listLabels(items));
     }
 
-    tableHeaders = columns.map((col) => <th key={col}>{startCase(col)}</th>);
-
-    render() {
-        return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId="droppable">
-                    {(provided) => (
-                        <table
-                            className="broker-table settings-table"
-                            ref={provided.innerRef}>
-                            <thead className="broker-table__header">
-                                <tr>
-                                    {this.tableHeaders}
-                                </tr>
-                            </thead>
-                            <tbody className="broker-table__body">
-                                {this.props.results.map((row, index) => (
-                                    <Draggable key={row.label} draggableId={row.label} index={index}>
-                                        {/* eslint-disable-next-line no-shadow */}
-                                        {(provided, snapshot) => (
-                                            <tr
-                                                className="settings-table__row"
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                style={getItemStyle(
-                                                    snapshot.isDragging,
-                                                    provided.draggableProps.style
-                                                )}>
-                                                <td
-                                                    style={{ width: "20%" }}
-                                                    className="settings-table__data settings-table__data_significance">
-                                                    <FontAwesomeIcon icon="bars" />
-                                                    {index + 1}.
-                                                    <span className="settings-table__rule">{row.label}</span>
-                                                </td>
-                                                <td style={{ width: "20%" }} className="settings-table__data">
-                                                    <ImpactDropdown
-                                                        rule={row.label}
-                                                        selectedOption={startCase(row.impact)}
-                                                        updateImpact={this.props.updateImpact} />
-                                                </td>
-                                                <td style={{ width: "60%" }} className="settings-table__data">
-                                                    <div title={row.description} className="ellipse-box">
-                                                        {row.description}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </tbody>
-                        </table>
-                    )}
-                </Droppable>
-            </DragDropContext>
-        );
-    }
-}
+    const tableHeaders = columns.map((col) => <th key={col}>{startCase(col)}</th>);
+    const { setNodeRef } = useDroppable({ id: 'sortable-context' });
+    
+    return (
+        <DndContext onDragEnd={handleDragEnd}>
+            <SortableContext id="sortable-context" items={sortedItems}>
+                <table
+                    className="broker-table settings-table"
+                    ref={setNodeRef}>
+                    <thead className="broker-table__header">
+                        <tr>
+                            {tableHeaders}
+                        </tr>
+                    </thead>
+                    <tbody className="broker-table__body">
+                        {props.results.map((row, index) => (
+                            <SettingsRow
+                                key={row.label}
+                                row={row}
+                                index={index}
+                                updateImpact={props.updateImpact} />
+                        ))}
+                    </tbody>
+                </table>
+            </SortableContext>
+        </DndContext>
+    );
+};
 
 SettingsTable.defaultProps = defaultProps;
 SettingsTable.propTypes = propTypes;
+
+export default SettingsTable;

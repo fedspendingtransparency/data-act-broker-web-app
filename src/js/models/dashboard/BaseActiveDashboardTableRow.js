@@ -5,7 +5,6 @@
 
 import { fileLabels } from 'dataMapping/dashboard/fileLabels';
 
-/* eslint-disable object-shorthand */
 const BaseActiveDashboardTableRow = {
     populate: function (data, meta) {
         const fileTypes = meta.files;
@@ -21,6 +20,5 @@ const BaseActiveDashboardTableRow = {
         this.significance = data.significance;
     }
 };
-/* eslint-enable object-shorthand */
 
 export default BaseActiveDashboardTableRow;

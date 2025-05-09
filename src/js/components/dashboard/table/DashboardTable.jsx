@@ -137,7 +137,6 @@ export default class DashboardTable extends React.Component {
                                 {row.instanceCount}
                             </td>
                             <td>
-                                {/* eslint-disable-next-line */}
                                 <div className="scroll-box" tabIndex={0}>
                                     {row.ruleDescription}
                                 </div>

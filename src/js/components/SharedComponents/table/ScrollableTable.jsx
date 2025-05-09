@@ -71,7 +71,6 @@ export default class ScrollableTable extends React.Component {
                         </thead>
                     </table>
                 </div>
-                {/* eslint-disable-next-line */}
                 <div className="usa-da-scrollable-table-content" tabIndex={0} >
                     <table className="usa-da-table table-bordered">
                         <tbody>
