@@ -1,73 +1,57 @@
 import Q from 'q';
 import Request from './sessionSuperagent';
+import { apiRequest } from './apiRequest';
 
 import { kGlobalConstants } from '../GlobalConstants';
 
+export const parseAgencies = (agencyResults, listType = 'perm') => {
+    // parsing either permission-level lists or full agency lists
+    if (listType === 'perm') {
+        return agencyResults.data.cgac_agency_list.concat(agencyResults.data.frec_agency_list);
+    }
+    
+    return agencyResults.data.agency_list.concat(agencyResults.data.shared_agency_list);
+}
+
 export const fetchAgencies = (permissionLevel = 'reader', permissionType = 'mixed') => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'list_agencies/',
+        params: {
+            'perm_level': permissionLevel,
+            'perm_type': permissionType
+        }
+    })
 
-    Request.get(`${kGlobalConstants.API}list_agencies/?perm_level=${permissionLevel}&perm_type=${permissionType}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body.cgac_agency_list.concat(res.body.frec_agency_list));
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchAllAgencies = () => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'list_all_agencies/'
+    })
 
-    Request.get(`${kGlobalConstants.API}list_all_agencies/`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body.agency_list.concat(res.body.shared_agency_list));
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchSubTierAgencies = () => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'list_sub_tier_agencies/'
+    })
 
-    Request.get(`${kGlobalConstants.API}list_sub_tier_agencies/`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body.sub_tier_agency_list);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-export function getPublishedSubmissions(cgac, frec, year, quarter, isQuarter) {
-    const deferred = Q.defer();
-    const validCgac = cgac || '';
-    const validFrec = frec || '';
-    Request.get(`${kGlobalConstants.API}published_submissions/?cgac_code=${validCgac}&frec_code=${validFrec}&` +
-                `reporting_fiscal_year=${year}&reporting_fiscal_period=${quarter}&is_quarter=${isQuarter}`)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body.published_submissions);
-            }
-        });
+export const getPublishedSubmissions = (cgac, frec, year, quarter, isQuarter) => {
+    const req = apiRequest({
+        url: 'published_submissions/',
+        params: {
+            'cgac_code': cgac || '',
+            'frec_code': frec || '',
+            'reporting_fiscal_year': year,
+            'reporting_fiscal_period': quarter,
+            'is_quarter': isQuarter
+        }
+    })
 
-    return deferred.promise;
-}
+    return req.promise;
+};

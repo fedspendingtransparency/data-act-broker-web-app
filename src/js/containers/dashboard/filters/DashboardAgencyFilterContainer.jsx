@@ -60,7 +60,8 @@ export class DashboardAgencyFilterContainer extends React.Component {
     loadData() {
         // we need to populate the list
         AgencyHelper.fetchAgencies()
-            .then((agencies) => {
+            .then((res) => {
+                const agencies = AgencyHelper.parseAgencies(res, 'perm');
                 this.setState({
                     results: agencies,
                     singleAgency: agencies.length === 1
