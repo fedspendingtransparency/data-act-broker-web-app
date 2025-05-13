@@ -162,8 +162,6 @@ export default class AddDataMeta extends React.Component {
             AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, dates.year, dates.period, isQuarter)
                 .then((res) => {
                     const publishedSubmissions = res.data.published_submissions;
-                    console.log(res);
-                    console.log(res.data);
                     if (publishedSubmissions.length > 0) {
                         this.setState({
                             testSubmission: true,

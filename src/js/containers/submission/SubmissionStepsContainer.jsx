@@ -93,32 +93,40 @@ export class SubmissionStepsContainer extends React.Component {
         const params = this.props.computedMatch.params;
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
-                const originalStep = parseInt(res.step, 10);
-                let currentStep = originalStep;
-                if (stepNumber && stepNumber <= originalStep) {
-                    currentStep = stepNumber;
-                }
-                this.setState(
-                    {
+                const originalStep = parseInt(res.data.step, 10);
+                if (originalStep === 6) {
+                    this.setState({
                         stepLoading: false,
-                        error: false,
-                        errorMessage: '',
-                        currentStep
-                    },
-                    () => {
-                        if (!stepNumber || stepNumber > originalStep) {
-                            const route = routes[originalStep - 1];
-                            this.props.history.replace(`/submission/${params.submissionID}/${route}`);
-                        }
+                        error: true,
+                        errorMessage: 'This is a FABS ID. Please navigate to FABS.'
+                    });
+                }
+                else {
+                    let currentStep = originalStep;
+                    if (stepNumber && stepNumber <= originalStep) {
+                        currentStep = stepNumber;
                     }
-                );
+                    this.setState(
+                        {
+                            stepLoading: false,
+                            error: false,
+                            errorMessage: '',
+                            currentStep
+                        },
+                        () => {
+                            if (!stepNumber || stepNumber > originalStep) {
+                                const route = routes[originalStep - 1];
+                                this.props.history.replace(`/submission/${params.submissionID}/${route}`);
+                            }
+                        }
+                    );
+                }
             })
             .catch((err) => {
-                const { message } = err.body;
                 this.setState({
                     stepLoading: false,
                     error: true,
-                    errorMessage: message,
+                    errorMessage: err.response.data.message,
                     currentStep: 0
                 });
             });

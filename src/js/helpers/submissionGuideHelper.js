@@ -1,54 +1,20 @@
-import Q from 'q';
-import Request from './sessionSuperagent';
-
-import StoreSingleton from '../redux/storeSingleton';
-
-import { kGlobalConstants } from '../GlobalConstants';
-import * as sessionActions from '../redux/actions/sessionActions';
+import { apiRequest } from './apiRequest';
 
 export const setSkipGuide = (skipGuide) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'set_skip_guide/',
+        method: 'post',
+        data: {'skip_guide': skipGuide}
+    })
 
-    const store = new StoreSingleton().store;
-
-    Request.post(`${kGlobalConstants.API}set_skip_guide/`)
-        .send({ skip_guide: skipGuide })
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                // Only skip the guide if the user wants to skip the guide
-                if (skipGuide === true) {
-                    const action = sessionActions.setSkipGuide(skipGuide);
-                    store.dispatch(action);
-                }
-
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const getSubmissionPage = (submissionId) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'check_current_page/',
+        params: {'submission_id': submissionId}
+    })
 
-    Request.get(`${kGlobalConstants.API}check_current_page/?submission_id=${submissionId}`)
-        .end((err, res) => {
-            if (err) {
-                return deferred.reject(res);
-            }
-            const stepNumber = parseInt(res.body.step, 10);
-            if (stepNumber === 6) {
-                return deferred.reject({
-                    body: {
-                        message: 'This is a FABS ID. Please navigate to FABS.'
-                    }
-                });
-            }
-            return deferred.resolve(res.body);
-        });
-
-    return deferred.promise;
+    return req.promise;
 };

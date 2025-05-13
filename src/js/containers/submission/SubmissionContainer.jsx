@@ -36,22 +36,29 @@ export class SubmissionContainer extends React.Component {
         const params = this.props.computedMatch.params;
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
-                const originalStep = parseInt(res.step, 10);
-                const redirectPath = routes[originalStep - 1];
-
-                this.setState({
-                    loading: false,
-                    error: false,
-                    errorMessage: '',
-                    redirectPath
-                });
+                const originalStep = parseInt(res.data.step, 10);
+                if (originalStep === 6) {
+                    this.setState({
+                        loading: false,
+                        error: true,
+                        errorMessage: 'This is a FABS ID. Please navigate to FABS.'
+                    });
+                }
+                else {
+                    const redirectPath = routes[originalStep - 1];
+                    this.setState({
+                        loading: false,
+                        error: false,
+                        errorMessage: '',
+                        redirectPath
+                    });
+                }
             })
             .catch((err) => {
-                const { message } = err.body;
                 this.setState({
                     loading: false,
                     error: true,
-                    errorMessage: message
+                    errorMessage: err.response.data.message
                 });
             });
     }
