@@ -39,8 +39,8 @@ export default class HistoryTable extends React.Component {
 
     componentDidMount() {
         SubmissionListHelper.loadSubmissionHistory(parseInt(this.props.submissionID, 10))
-            .then((response) => {
-                const tmpResponse = response;
+            .then((res) => {
+                const tmpResponse = res.data;
                 tmpResponse.active = 0;
                 this.setState(tmpResponse);
             })
@@ -67,8 +67,8 @@ export default class HistoryTable extends React.Component {
         });
         SubmissionListHelper.getSubmissionFile(this.props.submissionID, urlFile.published_files_history_id,
             urlFile.is_warning)
-            .then((response) => {
-                window.open(response.url);
+            .then((res) => {
+                window.open(res.data.url);
                 this.setState({
                     warning: {
                         active: false
@@ -82,7 +82,7 @@ export default class HistoryTable extends React.Component {
                         active: true,
                         type: 'danger',
                         header: 'History Error',
-                        body: err.message
+                        body: err.response.data.message
                     }
                 });
             });
@@ -105,8 +105,8 @@ export default class HistoryTable extends React.Component {
             }
         });
         SubmissionListHelper.getSubmissionZip(this.props.submissionID, historyId, this.state.activeType)
-            .then((response) => {
-                window.open(response.url);
+            .then((res) => {
+                window.open(res.data.url);
                 this.setState({
                     warning: {
                         active: false
@@ -120,7 +120,7 @@ export default class HistoryTable extends React.Component {
                         active: true,
                         type: 'danger',
                         header: 'History Error',
-                        body: err.message
+                        body: err.response.data.message
                     }
                 });
             });

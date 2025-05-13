@@ -125,7 +125,13 @@ export class SubmissionsTableContainer extends React.Component {
 
         SubmissionListHelper.loadSubmissionList(page, 10, published, category, order,
             this.props.type === 'fabs', filters)
-            .then((data) => {
+            .then((res) => {
+                console.log(res.data);
+                const data = {
+                    submissions: SubmissionListHelper.parseRecentActivity(res.data.submissions),
+                    total: res.data.total,
+                    min_last_modified: res.data.min_last_modified
+                }
                 this.setState({
                     [`${tableName}Total`]: data.total,
                     [`${tableName}Submissions`]: data.submissions,

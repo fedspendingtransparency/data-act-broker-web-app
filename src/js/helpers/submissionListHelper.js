@@ -1,7 +1,5 @@
-import Q from 'q';
 import moment from 'moment';
-import Request from './sessionSuperagent';
-import { kGlobalConstants } from '../GlobalConstants';
+import { apiRequest } from './apiRequest';
 
 import * as Status from '../components/landing/recentActivity/SubmissionStatus';
 
@@ -61,88 +59,57 @@ export const parseRecentActivity = (submissions) => {
 
 export const loadSubmissionList = (
     page = 1, limit = 10, published = false, sort = 'updated', order = 'desc', fabs = false, filters = {}) => {
-    const deferred = Q.defer();
+    const data = {
+        page,
+        limit,
+        published: published.toString(),
+        sort,
+        order,
+        fabs,
+        filters
+    }
+    const req = apiRequest({
+        url: 'list_submissions/',
+        method: 'post',
+        data
+    })
 
-    Request.post(`${kGlobalConstants.API}list_submissions/`)
-        .send({
-            page,
-            limit,
-            published: published.toString(),
-            sort,
-            order,
-            fabs,
-            filters
-        })
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(res.body);
-            }
-            else {
-                const { submissions, total } = res.body;
-                const output = {
-                    submissions: parseRecentActivity(submissions),
-                    total,
-                    min_last_modified: res.body.min_last_modified
-                };
-                deferred.resolve(output);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const loadSubmissionHistory = (submissionID) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'list_history/',
+        params: {'submission_id': submissionID}
+    })
 
-    Request.get(`${kGlobalConstants.API}list_history/?submission_id=${submissionID}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const getSubmissionFile = (submissionID, publishedFilesHistory, isWarning) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_published_file/',
+        params: {
+            'submission_id': submissionID,
+            'published_files_history_id': publishedFilesHistory,
+            'is_warning': isWarning
+        }
+    })
 
-    Request.get(`${kGlobalConstants.API}get_published_file/?submission_id=${submissionID}&` +
-                `published_files_history_id=${publishedFilesHistory}&is_warning=${isWarning}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const getSubmissionZip = (submissionID, historyId, activeType) => {
-    const deferred = Q.defer();
-
     const historyType = (activeType === 'publication') ? 'publish' : 'certify';
-    Request.get(`${kGlobalConstants.API}get_submission_zip/?submission_id=${submissionID}&` +
-                `${historyType}_history_id=${historyId}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
+    const req = apiRequest({
+        url: 'get_submission_zip/',
+        params: {
+            'submission_id': submissionID,
+            [`${historyType}_history_id`]: historyId
+        }
+    })
 
-    return deferred.promise;
+    return req.promise;
 };
 
 export const loadRecentActivity = (type) => loadSubmissionList(1, 5, 'mixed', 'updated', 'desc', type === 'fabs');
