@@ -25,7 +25,7 @@ afterEach(() => {
 
 test('FyFilterContainer should disable 2017 when P01, P02, or Q1 is the only period selected', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 12, year: 2019 }
+        { data: { period: 12, year: 2019 } }
     ));
 
     let result;
@@ -62,7 +62,7 @@ test('FyFilterContainer should disable 2017 when P01, P02, or Q1 is the only per
 
 test('FyFilterContainer should disable the current FY when the selected period is in the future', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 3, year: 2020 }
+        { data: { period: 3, year: 2020 } }
     ));
     await act(async () => {
         render(<FyFilterContainer
@@ -74,7 +74,7 @@ test('FyFilterContainer should disable the current FY when the selected period i
 
 test('FyFilterContainer should remove FY 2017 if P02, P03, or Q1 is the only period selected', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 3, year: 2020 }
+        { data: { period: 3, year: 2020 } }
     ));
     let result;
     await act(async () => {
@@ -101,7 +101,7 @@ test('FyFilterContainer should remove FY 2017 if P02, P03, or Q1 is the only per
 
 test('should remove the current FY if only a future period is selected', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 3, year: 2020 }
+        { data: { period: 3, year: 2020 } }
     ));
     let result;
     await act(async () => {

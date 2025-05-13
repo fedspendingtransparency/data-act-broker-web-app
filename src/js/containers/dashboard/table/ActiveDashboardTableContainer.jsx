@@ -119,7 +119,7 @@ export class ActiveDashboardTableContainer extends React.Component {
         DashboardHelper.fetchActiveDashboardTableContents(submissionId, this.props.appliedFilters.file,
             this.props.errorLevel, this.state.page, this.state.limit, this.state.sort, this.state.order)
             .then((res) => {
-                this.parseRows(res);
+                this.parseRows(res.data);
             })
             .catch((err) => {
                 console.error(err);

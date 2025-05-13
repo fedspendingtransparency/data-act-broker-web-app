@@ -108,7 +108,7 @@ export default class DashboardTableContainer extends React.Component {
 
         DashboardHelper.fetchDashboardTableContents(searchParams)
             .then((res) => {
-                this.parseRows(res);
+                this.parseRows(res.data);
             })
             .catch((err) => {
                 console.error(err);

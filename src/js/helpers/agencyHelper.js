@@ -1,8 +1,4 @@
-import Q from 'q';
-import Request from './sessionSuperagent';
 import { apiRequest } from './apiRequest';
-
-import { kGlobalConstants } from '../GlobalConstants';
 
 export const parseAgencies = (agencyResults, listType = 'perm') => {
     // parsing either permission-level lists or full agency lists
