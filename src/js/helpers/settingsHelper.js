@@ -1,39 +1,23 @@
-import Q from 'q';
-import Request from './sessionSuperagent';
-
-import { kGlobalConstants } from '../GlobalConstants';
+import { apiRequest } from './apiRequest';
 
 export const fetchSettings = (agencyCode, file) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'rule_settings/',
+        params: {
+            'agency_code': agencyCode,
+            file
+        }
+    })
 
-    Request.get(`${kGlobalConstants.API}rule_settings?agency_code=${agencyCode}&file=${file}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-    return deferred.promise;
+    return req.promise;
 };
 
-export const saveSettings = (callBody) => {
-    const deferred = Q.defer();
+export const saveSettings = (data) => {
+    const req = apiRequest({
+        url: 'save_rule_settings/',
+        method: 'post',
+        data
+    })
 
-    Request.post(`${kGlobalConstants.API}save_rule_settings/`)
-        .send(callBody)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };

@@ -1,7 +1,4 @@
 import { apiRequest } from './apiRequest';
-import Q from 'q';
-import Request from './sessionSuperagent';
-import { kGlobalConstants } from '../GlobalConstants';
 
 require('../../help/changelog.md');
 require('../../help/history.md');
