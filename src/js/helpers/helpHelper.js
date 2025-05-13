@@ -1,3 +1,4 @@
+import { apiRequest } from './apiRequest';
 import Q from 'q';
 import Request from './sessionSuperagent';
 import { kGlobalConstants } from '../GlobalConstants';
@@ -31,235 +32,75 @@ export const parseMarkdown = (rawText) => {
     return output;
 };
 
-const loadHistory = () => {
-    const deferred = Q.defer();
+export const loadHistory = () => {
+    const req = apiRequest({
+        baseURL: '',
+        url: '/help/history.md'
+    })
 
-    Request.get('/help/history.md')
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                const output = parseMarkdown(res.text);
-                deferred.resolve(output);
-            }
-        });
-
-
-    return deferred.promise;
+    return req.promise;
 };
 
-const loadTechnicalHistory = () => {
-    const deferred = Q.defer();
+export const loadTechnicalHistory = () => {
+    const req = apiRequest({
+        baseURL: '',
+        url: '/help/technicalHistory.md'
+    })
 
-    Request.get('/help/technicalHistory.md')
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                const output = parseMarkdown(res.text);
-                deferred.resolve(output);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-const loadChangelog = () => {
-    const deferred = Q.defer();
+export const loadChangelog = () => {
+    const req = apiRequest({
+        baseURL: '',
+        url: '/help/changelog.md'
+    })
 
-    Request.get('/help/changelog.md')
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                const output = parseMarkdown(res.text);
-                deferred.resolve(output);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-const loadTechnicalNotes = () => {
-    const deferred = Q.defer();
+export const loadTechnicalNotes = () => {
+    const req = apiRequest({
+        baseURL: '',
+        url: '/help/technical.md'
+    })
 
-    Request.get('/help/technical.md')
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                const output = parseMarkdown(res.text);
-                deferred.resolve(output);
-            }
-        });
-
-    return deferred.promise;
-};
-
-export const loadHelp = () => {
-    const deferred = Q.defer();
-
-    const output = {
-        body: '',
-        sections: [],
-        history: '',
-        historySections: []
-    };
-
-    loadChangelog()
-        .then((data) => {
-            output.body = data.body;
-            output.sections = data.sections;
-            return loadHistory();
-        })
-        .then((data) => {
-            output.history = data.body;
-            output.historySections = data.sections;
-
-            deferred.resolve(output);
-        })
-        .catch((err) => {
-            deferred.reject(err);
-        });
-
-    return deferred.promise;
-};
-
-export const loadTechnical = () => {
-    const deferred = Q.defer();
-
-    const output = {
-        body: '',
-        sections: [],
-        history: '',
-        historySections: []
-    };
-
-    loadTechnicalNotes()
-        .then((data) => {
-            output.body = data.body;
-            output.sections = data.sections;
-            return loadTechnicalHistory();
-        })
-        .then((data) => {
-            output.history = data.body;
-            output.historySections = data.sections;
-
-            deferred.resolve(output);
-        })
-        .catch((err) => {
-            deferred.reject(err);
-        });
-
-    return deferred.promise;
-};
-
-const loadResourcesFile = () => {
-    const deferred = Q.defer();
-
-    Request.get('/help/resources.md')
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                const output = parseMarkdown(res.text);
-                deferred.resolve(output);
-            }
-        });
-
-    return deferred.promise;
-};
-
-export const loadResources = () => {
-    const deferred = Q.defer();
-
-    const output = {
-        html: '',
-        sections: []
-    };
-
-    loadResourcesFile()
-        .then((data) => {
-            output.html = data.body;
-            output.sections = data.sections;
-        })
-        .then(() => {
-            deferred.resolve(output);
-        })
-        .catch((err) => {
-            deferred.reject(err);
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const rawFilesDrilldown = (type = '', agency = null, year = null, period = null) => {
-    const deferred = Q.defer();
-    let params = `type=${type}`;
+    const params = {type};
     if (agency !== null) {
-        params += `&agency=${agency}`;
+        params['agency'] = agency;
     }
     if (year !== null) {
-        params += `&year=${year}`;
+        params['year'] = year;
     }
     if (period !== null) {
-        params += `&period=${period}`;
+        params['period'] = period;
     }
 
-    Request.get(`${kGlobalConstants.API}list_latest_published_files/?${params}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
+    const req = apiRequest({
+        url: 'list_latest_published_files/',
+        params
+    });
 
-    return deferred.promise;
+    return req.promise;
 };
 
 export const downloadPublishedFile = (publishedFilesId = 0) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_submitted_published_file/',
+        params: {'published_files_history_id': publishedFilesId}
+    })
 
-    Request.get(`${kGlobalConstants.API}get_submitted_published_file/?published_files_history_id=${publishedFilesId}`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const getDataSources = () => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'list_data_sources/'
+    })
 
-    Request.get(`${kGlobalConstants.API}list_data_sources`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };

@@ -42,8 +42,8 @@ export default class DataSourcesPage extends React.Component {
 
     getUpdateDates() {
         HelpHelper.getDataSources()
-            .then((dataSources) => {
-                this.setState({ updateDates: dataSources });
+            .then((res) => {
+                this.setState({ updateDates: res.data });
             })
             .catch((error) => {
                 console.error(error);

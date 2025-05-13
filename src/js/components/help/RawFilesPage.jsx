@@ -49,8 +49,8 @@ export default class RawFilesPage extends React.Component {
     getDrilldownLevel(currState) {
         const tmpState = currState;
         HelpHelper.rawFilesDrilldown(tmpState.fileType.id, tmpState.agency.id, tmpState.year.id, tmpState.period.id)
-            .then((drilldownList) => {
-                tmpState.currentList = drilldownList;
+            .then((res) => {
+                tmpState.currentList = res.data;
                 this.setState({ ...tmpState });
             })
             .catch((error) => {
@@ -62,8 +62,8 @@ export default class RawFilesPage extends React.Component {
         if (level === 'download') {
             if (fileType !== 'comments') {
                 HelpHelper.downloadPublishedFile(id)
-                    .then((result) => {
-                        window.open(result.url);
+                    .then((res) => {
+                        window.open(res.data.url);
                     })
                     .catch((error) => {
                         console.error(error);

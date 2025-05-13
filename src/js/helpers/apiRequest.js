@@ -26,11 +26,6 @@ export const apiRequest = (axiosParams = {}) => {
         const parameters = { ...defaultParams };
         Object.assign(parameters, options);
         parameters.headers = headers(options.headers);
-        if (parameters.data) {
-            if (parameters.data.award_id) {
-                parameters.data.award_id = decodeURIComponent(options.data.award_id);
-            }
-        }
         return parameters;
     };
 
