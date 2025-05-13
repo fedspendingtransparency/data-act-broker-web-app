@@ -15,11 +15,9 @@ module.exports = defineConfig([
             'react': reactPlugin,
             'import': importPlugin
         },
-        // "extends": ['eslint:recommended', 'plugin:react/recommended'],
         "languageOptions": {
             "parser": babelParser,
             "ecmaVersion": 2018,
-            // "presets": ["@babel/preset-react"],
             "globals": {
                 "window": true,
                 "document": true
