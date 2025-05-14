@@ -101,15 +101,16 @@ export class GenerateFilesContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
-                .then((data) => {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((res) => {
                     if (!this.isUnmounted) {
-                        this.setState({ agency_name: data.agency_name });
+                        this.props.setSubmissionPublishStatus(res.data.publish_status);
+                        this.setState({ agency_name: res.data.agency_name });
                     }
                 })
                 .catch((error) => {
                     console.error(error);
-                    this.props.errorFromStep(error.body.message);
+                    this.props.errorFromStep(error.response.data.message);
                 });
         }
     }
@@ -191,14 +192,14 @@ export class GenerateFilesContainer extends React.Component {
 
     loadSubmissionData() {
         // prepopulate the fields with the submission metadata dates
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, 'dabs')
-            .then((data) => {
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
+            .then((res) => {
                 this.props.setSubmissionId(this.props.submissionID);
-                this.props.setSubmissionPublishStatus(data.publish_status);
+                this.props.setSubmissionPublishStatus(res.data.publish_status);
 
                 // check if quarter or month
-                const defaultStart = moment(data.reporting_start_date, 'MM/DD/YYYY');
-                const defaultEnd = moment(data.reporting_end_date, 'MM/DD/YYYY');
+                const defaultStart = moment(res.data.reporting_start_date, 'MM/DD/YYYY');
+                const defaultEnd = moment(res.data.reporting_end_date, 'MM/DD/YYYY');
 
                 const output = {
                     state: 'ready',
@@ -225,7 +226,7 @@ export class GenerateFilesContainer extends React.Component {
             })
             .catch((err) => {
                 console.error(' Error : ', err);
-                this.props.errorFromStep(err.message);
+                this.props.errorFromStep(err.response.data.message);
             });
     }
 

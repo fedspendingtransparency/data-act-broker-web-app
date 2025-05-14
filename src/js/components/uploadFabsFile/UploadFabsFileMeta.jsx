@@ -148,9 +148,9 @@ export default class UploadFabsFileMeta extends React.Component {
                 }
                 this.setState({
                     showUploadFilesBox: false,
-                    jobResults: { fabs: response.jobs[0] }
+                    jobResults: { fabs: response.data.jobs[0] }
                 }, () => {
-                    this.parseJobStates(response);
+                    this.parseJobStates(response.data);
                 });
             })
             .catch((err) => {
@@ -162,12 +162,13 @@ export default class UploadFabsFileMeta extends React.Component {
 
     validateSubmission(submissionID) {
         ReviewHelper.validateFabsSubmission(submissionID)
-            .then((response) => {
+            .then((res) => {
+                const fileStates = ReviewHelper.getFileStates(res.data);
                 this.setState({
-                    fabs: response.item,
+                    fabs: fileStates.item,
                     validationFinished: true,
                     headerErrors: false,
-                    jobResults: response
+                    jobResults: fileStates
                 });
             });
     }

@@ -30,9 +30,9 @@ export default class HistoryHeader extends React.Component {
     }
 
     componentDidMount() {
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, this.props.type)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
             .then((response) => {
-                this.setState({ metadata: response });
+                this.setState({ metadata: response.data });
             })
             .catch((err) => {
                 console.error(err);

@@ -69,19 +69,19 @@ export default class ReviewDataCertifyModal extends React.Component {
                     goToSubmissionTable: true
                 });
             })
-            .catch((error) => {
+            .catch((err) => {
                 let processType = this.props.type;
                 if (this.props.type === 'both') {
                     processType = 'certify';
                 }
                 let errorMessage = `An error occurred while attempting to ${processType} the submission. ` +
                     `Please contact your administrator for assistance`;
-                if (error.httpStatus === 400 || error.httpStatus === 403) {
-                    errorMessage = error.message;
-                    if (error.submissionId) {
+                if (err.status === 400 || err.status === 403) {
+                    errorMessage = err.response.data.message;
+                    if (err.response.data.submissionId) {
                         errorMessage = (
                             <div>
-                                {error.message}
+                                {errorMessage}
                             </div>);
                     }
                 }

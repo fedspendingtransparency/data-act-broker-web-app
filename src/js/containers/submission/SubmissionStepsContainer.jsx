@@ -74,9 +74,10 @@ export class SubmissionStepsContainer extends React.Component {
             metadataLoading: true
         });
         const { submissionID } = this.props.computedMatch.params;
-        ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
-            .then((data) => {
-                this.props.setInfo(data);
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
+            .then((res) => {
+                this.props.setSubmissionPublishStatus(res.data.publish_status);
+                this.props.setInfo(res.data);
                 this.setState({
                     metadataLoading: false
                 });
@@ -161,7 +162,7 @@ export class SubmissionStepsContainer extends React.Component {
                 });
             })
             .catch((err) => {
-                const { message } = err.body;
+                const { message } = err.response.data;
                 this.setState({
                     error: true,
                     errorMessage: message,

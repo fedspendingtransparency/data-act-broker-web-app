@@ -8,8 +8,12 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import * as uploadActions from 'redux/actions/uploadActions';
+import * as sessionActions from 'redux/actions/sessionActions';
 
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
@@ -106,14 +110,24 @@ export class UploadFabsFileValidation extends React.Component {
         this.setState({
             inFlight: true
         });
-        ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs')
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
             .then((response) => {
+                if (!response.data.fabs_meta) {
+                    this.setState({
+                        inFlight: false
+                    }, () => {
+                        this.setSubmissionError('This is a DABS ID. Please navigate to DABS.');
+                    });
+                    return;
+                }
+
+                this.props.setSubmissionPublishStatus(response.data.publish_status);
                 this.setState({
-                    metadata: response,
-                    agency: response.agency_name,
-                    cgac_code: response.cgac_code,
-                    published: response.publish_status,
-                    fabs_meta: response.fabs_meta,
+                    metadata: response.data,
+                    agency: response.data.agency_name,
+                    cgac_code: response.data.cgac_code,
+                    published: response.data.publish_status,
+                    fabs_meta: response.data.fabs_meta,
                     inFlight: false
                 });
             })
@@ -122,7 +136,7 @@ export class UploadFabsFileValidation extends React.Component {
                 this.setState({
                     inFlight: false
                 }, () => {
-                    this.setSubmissionError(err.body.message);
+                    this.setSubmissionError(err.response.data.message);
                 });
             });
     }
@@ -164,7 +178,7 @@ export class UploadFabsFileValidation extends React.Component {
             })
             .catch((error) => {
                 const errMsg =
-                    error.message ||
+                    error.response.data.message ||
                     'An error occurred while attempting to revalidate the submission. ' +
                         'Please contact the Service Desk.';
 
@@ -176,6 +190,7 @@ export class UploadFabsFileValidation extends React.Component {
     }
 
     checkFileStatus(submissionID) {
+        const startTime = new Date().getTime();
         // callback to check file status
         ReviewHelper.fetchStatus(submissionID)
             .then((response) => {
@@ -183,7 +198,14 @@ export class UploadFabsFileValidation extends React.Component {
                     return;
                 }
 
-                const fabsData = response.fabs;
+                const endTime = new Date().getTime();
+                const duration = endTime - startTime;
+                // log the API call duration
+                this.props.setApiMeta({
+                    time: duration
+                });
+
+                const fabsData = response.data.fabs;
                 if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
                     let success = false;
                     if (this.dataTimer) {
@@ -192,15 +214,17 @@ export class UploadFabsFileValidation extends React.Component {
                         success = true;
                     }
 
-                    ReviewHelper.fetchSubmissionMetadata(submissionID, 'fabs').then((metadataResponse) => {
+                    ReviewHelper.fetchSubmissionMetadata(submissionID).then((metadataResponse) => {
+                        this.props.setSubmissionPublishStatus(metadataResponse.data.publish_status);
+
                         ReviewHelper.fetchSubmissionData(submissionID).then((dataResponse) => {
-                            const fabsJob = ReviewHelper.getFileStates(dataResponse).fabs;
+                            const fabsJob = ReviewHelper.getFileStates(dataResponse.data).fabs;
                             this.setState({
                                 jobResults: { fabs: fabsJob },
                                 error: 0,
                                 showSuccess: success,
-                                published: metadataResponse.publish_status,
-                                fabs_meta: metadataResponse.fabs_meta,
+                                published: metadataResponse.data.publish_status,
+                                fabs_meta: metadataResponse.data.fabs_meta,
                                 validationFinished: true,
                                 headerErrors: fabsJob.error_type === 'header_errors',
                                 progressMeta: { progress: 100, name: fabsJob.filename }
@@ -210,7 +234,10 @@ export class UploadFabsFileValidation extends React.Component {
                 }
                 else {
                     this.setState({
-                        progressMeta: { progress: response.fabs.validation_progress, name: response.fabs.file_name }
+                        progressMeta: {
+                            progress: response.data.fabs.validation_progress,
+                            name: response.data.fabs.file_name
+                        }
                     });
 
                     if (!this.dataTimer) {
@@ -625,4 +652,7 @@ export class UploadFabsFileValidation extends React.Component {
 UploadFabsFileValidation.propTypes = propTypes;
 UploadFabsFileValidation.defaultProps = defaultProps;
 
-export default connect((state) => ({ session: state.session }))(UploadFabsFileValidation);
+export default connect(
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(Object.assign({}, uploadActions, sessionActions), dispatch)
+)(UploadFabsFileValidation);
