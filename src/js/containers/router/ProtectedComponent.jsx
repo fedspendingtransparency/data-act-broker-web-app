@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -74,7 +75,17 @@ export class ProtectedComponent extends React.Component {
         // start a timer to periodically check the user's session state every 15 minutes
         this.sessionChecker = setInterval(() => {
             LoginHelper.checkSession()
+                .then((res) => {
+                    if (res.data.status !== 'True') {
+                        return Promise.reject();
+                    }
+                })
                 .catch(() => {
+                    this.props.setLoggedOut();
+
+                    // unset the login state cookie
+                    Cookies.remove('brokerLogin');
+
                     // session expired, stop checking if it's active any more
                     clearInterval(this.sessionChecker);
                 });

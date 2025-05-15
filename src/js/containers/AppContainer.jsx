@@ -9,6 +9,7 @@ import { createStore } from 'redux';
 import Cookies from 'js-cookie';
 
 import reducers from '../redux/reducers/index';
+import * as sessionActions from '../redux/actions/sessionActions';
 import { kGlobalConstants } from '../GlobalConstants';
 import StoreSingleton from '../redux/storeSingleton';
 import { fetchActiveUser } from '../helpers/loginHelper';
@@ -52,6 +53,11 @@ export default class AppContainer extends React.Component {
                 });
             })
             .catch(() => {
+                const action = sessionActions.setLoggedOut();
+                store.dispatch(action);
+                // unset the login state cookie
+                Cookies.remove('brokerLogin');
+
                 this.setState({
                     appReady: true
                 });

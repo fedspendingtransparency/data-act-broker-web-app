@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
 
 import * as LoginHelper from 'helpers/loginHelper';
 import LoginCaiaLoading from 'components/login/LoginCaiaLoading';
@@ -15,7 +16,7 @@ const propTypes = {
     history: PropTypes.object
 };
 
-export default class AuthContainer extends React.Component {
+export class AuthContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -59,6 +60,17 @@ export default class AuthContainer extends React.Component {
 
                 // perform the login
                 LoginHelper.performCAIALogin(this.state.code)
+                    .then((loginRes) => {
+                        LoginHelper.establishSession(loginRes.headers);
+                        
+                        if (!Cookies.get('session')) {
+                            // couldn't set cookie, fail this request and notify the user
+                            this.props.setLoginState('failed');
+                            return Promise.reject('cookie');
+                        }
+        
+                        return LoginHelper.fetchActiveUser();
+                    })
                     .then((data) => {
                         // remove any redirection cookies
                         Cookies.remove('brokerRedirect');
@@ -70,6 +82,17 @@ export default class AuthContainer extends React.Component {
                         this.props.history.push(destination);
                     })
                     .catch((err) => {
+                        // if the endpoint that failed was the login
+                        if (err.request?.responseURL.includes('caia_login')) {
+                            this.props.setLoginState('failed');
+                        }
+                        // if the endpoint that failed was the active user check
+                        if (err.request?.responseURL.includes('active_user')) {
+                            this.props.setLoggedOut();
+                        }
+                        // unset the login state cookie
+                        Cookies.remove('brokerLogin');
+
                         // something went wrong (or API passed back an error status and message)
                         let message = err;
                         if (message === 'cookie') {
@@ -111,3 +134,8 @@ export default class AuthContainer extends React.Component {
 }
 
 AuthContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({ session: state.session }),
+    (dispatch) => bindActionCreators(sessionActions, dispatch)
+)(AuthContainer);
