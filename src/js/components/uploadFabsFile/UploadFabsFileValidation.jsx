@@ -26,7 +26,6 @@ import DABSFABSErrorMessage from 'components/SharedComponents/DABSFABSErrorMessa
 import PublishModal from './PublishModal';
 import UploadFabsFileError from './UploadFabsFileError';
 import UploadFabsFileHeader from './UploadFabsFileHeader';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 
 const propTypes = {
@@ -319,11 +318,19 @@ export class UploadFabsFileValidation extends React.Component {
                     this.checkFile(this.props.submission.id);
                 })
                 .catch((error) => {
-                    if (error.httpStatus === 500) {
-                        this.setState({ error: 4, error_message: error.message, published: 'unpublished' });
+                    if (error.status === 500) {
+                        this.setState({
+                            error: 4,
+                            error_message: error.response.data.message,
+                            published: 'unpublished'
+                        });
                     }
                     else {
-                        this.setState({ error: 1, error_message: error.message, published: 'unpublished' });
+                        this.setState({
+                            error: 1,
+                            error_message: error.response.data.message,
+                            published: 'unpublished'
+                        });
                     }
                 });
         });
@@ -333,14 +340,6 @@ export class UploadFabsFileValidation extends React.Component {
     // 1: Submission is already published
     // 2: Fetching file metadata failed
     // 3: File already has been submitted in another submission
-
-    uploadFileHelper(local, submission) {
-        if (local) {
-            return UploadHelper.performFabsLocalCorrectedUpload(submission);
-        }
-        return UploadHelper.performFabsFileCorrectedUpload(submission);
-    }
-
     uploadFile(item) {
         if (this.isUnmounted) {
             return;
@@ -362,20 +361,22 @@ export class UploadFabsFileValidation extends React.Component {
             progressMeta: { progress: 0, name: '' }
         });
 
-        this.uploadFileHelper(kGlobalConstants.LOCAL, submission)
-            .then((submissionID) => {
+        UploadHelper.performFabsFileCorrectedUpload(submission)
+            .then((res) => {
+                this.props.setSubmissionState('prepare');
                 this.setState({
                     validationFinished: false
                 });
                 setTimeout(() => {
-                    this.checkFileStatus(submissionID);
+                    this.checkFileStatus(res.data.submission_id);
                 }, 2000);
             })
             .catch((err) => {
+                this.props.setSubmissionState('failed')
                 this.setState({
                     validationFinished: false,
                     error: 4,
-                    error_message: err.body === undefined ? err.message : err.body.message
+                    error_message: err.response.data === undefined ? err.message : err.response.data.message
                 });
             });
     }

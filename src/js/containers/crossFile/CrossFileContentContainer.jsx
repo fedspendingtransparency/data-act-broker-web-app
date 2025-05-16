@@ -93,24 +93,18 @@ class CrossFileContentContainer extends React.Component {
     }
 
     uploadFiles() {
-        if (kGlobalConstants.LOCAL === true) {
-            UploadHelper.performLocalCorrectedUpload(this.props.submission)
-                .then(() => {
-                    this.props.resetSubmission();
-                    // reload the data
-                    this.loadData();
-                    this.startTimer();
-                });
-        }
-        else {
-            UploadHelper.performRemoteCorrectedUpload(this.props.submission)
-                .then(() => {
-                    this.props.resetSubmission();
-                    // reload the data
-                    this.loadData();
-                    this.startTimer();
-                });
-        }
+        UploadHelper.performDabsCorrectedUpload(this.props.submission)
+            .then(() => {
+                UploadHelper.prepareFileValidationStates(this.props.submission.files);
+                this.props.setSubmissionState('prepare');
+                this.props.resetSubmission();
+                // reload the data
+                this.loadData();
+                this.startTimer();
+            })
+            .catch(() => {
+                this.props.setSubmissionState('failed');
+            });
     }
 
     hasEarlierErrors(data) {
