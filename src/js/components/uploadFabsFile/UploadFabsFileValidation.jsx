@@ -268,7 +268,7 @@ export class UploadFabsFileValidation extends React.Component {
             .then((result) => {
                 this.setState(
                     {
-                        signedUrl: result.published_file,
+                        signedUrl: result.data.published_file,
                         signInProgress: false
                     },
                     () => {

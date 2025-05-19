@@ -101,7 +101,7 @@ export class ActiveDashboardTableContainer extends React.Component {
     downloadFile(fileType, submissionId) {
         GenerateFilesHelper.fetchFile(fileType, submissionId)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
