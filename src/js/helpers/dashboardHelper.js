@@ -3,7 +3,7 @@ import { apiRequest } from './apiRequest';
 export const fetchLatestPublicationPeriod = () => {
     const req = apiRequest({
         url: 'latest_publication_period/'
-    })
+    });
 
     return req.promise;
 };
@@ -13,7 +13,7 @@ export const fetchRules = (data) => {
         url: 'get_rule_labels/',
         method: 'post',
         data
-    })
+    });
 
     return req.promise;
 };
@@ -23,7 +23,7 @@ export const fetchWarnings = (data) => {
         url: 'historic_dabs_graphs/',
         method: 'post',
         data
-    })
+    });
 
     return req.promise;
 };
@@ -33,7 +33,7 @@ export const fetchDashboardTableContents = (data) => {
         url: 'historic_dabs_table/',
         method: 'post',
         data
-    })
+    });
 
     return req.promise;
 };
@@ -43,7 +43,7 @@ export const fetchSubmissions = (data) => {
         url: 'list_submissions/',
         method: 'post',
         data
-    })
+    });
 
     return req.promise;
 };
@@ -56,7 +56,7 @@ export const fetchActiveOverview = (submissionId, fileType, errorLevel) => {
             'file': fileType,
             'error_level': errorLevel
         }
-    })
+    });
 
     return req.promise;
 };
@@ -69,7 +69,7 @@ export const fetchActiveImpacts = (submissionId, fileType, errorLevel) => {
             'file': fileType,
             'error_level': errorLevel
         }
-    })
+    });
 
     return req.promise;
 };
@@ -82,7 +82,7 @@ export const fetchSignificanceCounts = (submissionId, fileType, errorLevel) => {
             'file': fileType,
             'error_level': errorLevel
         }
-    })
+    });
 
     return req.promise;
 };
@@ -99,7 +99,7 @@ export const fetchActiveDashboardTableContents = (submissionId, fileType, errorL
             'sort': sort,
             'order': order
         }
-    })
+    });
 
     return req.promise;
 };

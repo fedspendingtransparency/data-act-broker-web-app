@@ -372,7 +372,7 @@ export class UploadFabsFileValidation extends React.Component {
                 }, 2000);
             })
             .catch((err) => {
-                this.props.setSubmissionState('failed')
+                this.props.setSubmissionState('failed');
                 this.setState({
                     validationFinished: false,
                     error: 4,

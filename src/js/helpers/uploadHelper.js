@@ -27,7 +27,7 @@ export const prepareFileValidationStates = (stagedFiles) => {
         };
     }
     store.dispatch(uploadActions.setValidation(validationStates));
-}
+};
 
 export const prepareMetadata = (metadata, request) => {
     const tmpRequest = Object.assign({}, request);
@@ -69,7 +69,7 @@ const prepareFabsFile = (fileDict) => {
         'fabs': fileDict.fabs,
         [fieldType]: fileDict[fieldType],
         'test_submission': fileDict.test_submission || false
-    }
+    };
 
     const req = apiRequest({
         url: 'upload_fabs_file/',
@@ -163,7 +163,7 @@ export const performFabsFileUpload = (submission) => {
         request.fabs = submission.files.fabs.file;
     }
 
-    return prepareFabsFile(request)
+    return prepareFabsFile(request);
 };
 
 export const performFabsFileCorrectedUpload = (submission) => {
@@ -178,5 +178,5 @@ export const performFabsFileCorrectedUpload = (submission) => {
         request.fabs = submission.files.fabs.file;
     }
 
-    return prepareFabsFile(request)
+    return prepareFabsFile(request);
 };

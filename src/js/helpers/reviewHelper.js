@@ -110,7 +110,7 @@ export const  fetchSubmissionMetadata = (submissionId) => {
     const req = apiRequest({
         url: 'submission_metadata/',
         params: { 'submission_id': submissionId }
-    })
+    });
 
     return req.promise;
 };
@@ -124,7 +124,7 @@ export const fetchSubmissionData = (submissionId, type = '') => {
     const req = apiRequest({
         url: 'submission_data/',
         params
-    })
+    });
 
     return req.promise;
 };
@@ -146,7 +146,7 @@ export const  fetchStatus = (submissionId, type = '') => {
     const req = apiRequest({
         url: 'check_status/',
         params
-    })
+    });
 
     return req.promise;
 };
@@ -203,7 +203,7 @@ export const listUsers = () => {
     const req = apiRequest({
         url: 'list_user_emails/',
         params: { 'status': 'approved' }
-    })
+    });
 
     return req.promise;
 };
@@ -212,7 +212,7 @@ export const fetchObligations = (submissionId) => {
     const req = apiRequest({
         url: 'get_obligations/',
         params: { 'submission_id': submissionId }
-    })
+    });
 
     return req.promise;
 };
@@ -232,7 +232,7 @@ export const submissionReport = (submissionId, warning, fileType, crossType) => 
     const req = apiRequest({
         url: 'report_url/',
         params
-    })
+    });
 
     return req.promise;
 };
@@ -241,7 +241,7 @@ export const fetchCommentsFile = (submissionId) => {
     const req = apiRequest({
         url: 'get_comments_file/',
         params: { 'submission_id': submissionId }
-    })
+    });
 
     return req.promise;
 };
@@ -250,7 +250,7 @@ export const fetchSubmissionNarrative = (submissionId) => {
     const req = apiRequest({
         url: 'get_submission_comments/',
         params: { 'submission_id': submissionId }
-    })
+    });
 
     return req.promise;
 };
@@ -260,7 +260,7 @@ export const saveNarrative = (narrative) => {
         url: 'update_submission_comments/',
         method: 'post',
         data: narrative
-    })
+    });
 
     return req.promise;
 };
@@ -278,7 +278,7 @@ export const publishCertifyDABSSubmission = (submissionId, type = 'both') => {
         url,
         method: 'post',
         data: { 'submission_id': submissionId }
-    })
+    });
 
     return req.promise;
 };
@@ -288,7 +288,7 @@ export const deleteSubmission = (submissionId) => {
         url: 'delete_submission/',
         method: 'post',
         data: { 'submission_id': submissionId }
-    })
+    });
 
     return req.promise;
 };
@@ -301,7 +301,7 @@ export const revalidateSubmission = (submissionId, isFabs = false) => {
             'submission_id': submissionId,
             'is_fabs': isFabs
         }
-    })
+    });
 
     return req.promise;
 };
@@ -310,7 +310,7 @@ export const listBanners = (login) => {
     const req = apiRequest({
         url: 'list_banners/',
         params: { login }
-    })
+    });
 
     return req.promise;
 };
@@ -320,7 +320,7 @@ export const revertToCertified = (submissionID) => {
         url: 'revert_submission/',
         method: 'post',
         data: { 'submission_id': parseInt(submissionID, 10) }
-    })
+    });
 
     return req.promise;
 };

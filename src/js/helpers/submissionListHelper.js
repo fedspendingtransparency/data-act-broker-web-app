@@ -67,12 +67,12 @@ export const loadSubmissionList = (
         order,
         fabs,
         filters
-    }
+    };
     const req = apiRequest({
         url: 'list_submissions/',
         method: 'post',
         data
-    })
+    });
 
     return req.promise;
 };
@@ -81,7 +81,7 @@ export const loadSubmissionHistory = (submissionID) => {
     const req = apiRequest({
         url: 'list_history/',
         params: {'submission_id': submissionID}
-    })
+    });
 
     return req.promise;
 };
@@ -94,7 +94,7 @@ export const getSubmissionFile = (submissionID, publishedFilesHistory, isWarning
             'published_files_history_id': publishedFilesHistory,
             'is_warning': isWarning
         }
-    })
+    });
 
     return req.promise;
 };
@@ -107,7 +107,7 @@ export const getSubmissionZip = (submissionID, historyId, activeType) => {
             'submission_id': submissionID,
             [`${historyType}_history_id`]: historyId
         }
-    })
+    });
 
     return req.promise;
 };

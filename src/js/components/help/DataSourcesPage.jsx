@@ -63,7 +63,10 @@ export default class DataSourcesPage extends React.Component {
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         {this.props.type.toUpperCase()} | Data Sources
-                                        <HelpNav selected="Data Sources" type={this.props.type} session={this.props.session} />
+                                        <HelpNav
+                                            selected="Data Sources"
+                                            type={this.props.type}
+                                            session={this.props.session} />
                                     </div>
                                 </div>
                             </div>

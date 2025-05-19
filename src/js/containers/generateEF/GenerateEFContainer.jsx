@@ -114,8 +114,7 @@ class GenerateEFContainer extends React.Component {
         Promise.allSettled([
             GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
             GenerateHelper.generateFile('F', this.props.submissionID, '', '')
-        ])
-        .then((allResponses) => {
+        ]).then((allResponses) => {
             this.handleResponse(allResponses);
         });
     }
@@ -124,8 +123,7 @@ class GenerateEFContainer extends React.Component {
         Promise.allSettled([
             GenerateHelper.checkGenerationStatus('E', this.props.submissionID),
             GenerateHelper.checkGenerationStatus('F', this.props.submissionID)
-        ])
-        .then((allResponses) => {
+        ]).then((allResponses) => {
             this.handleResponse(allResponses);
         });
     }

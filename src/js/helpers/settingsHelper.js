@@ -7,7 +7,7 @@ export const fetchSettings = (agencyCode, file) => {
             'agency_code': agencyCode,
             file
         }
-    })
+    });
 
     return req.promise;
 };
@@ -17,7 +17,7 @@ export const saveSettings = (data) => {
         url: 'save_rule_settings/',
         method: 'post',
         data
-    })
+    });
 
     return req.promise;
 };

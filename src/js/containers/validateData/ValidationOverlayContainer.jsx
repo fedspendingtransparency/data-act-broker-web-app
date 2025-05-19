@@ -12,7 +12,6 @@ import _ from 'lodash';
 import * as uploadActions from '../../redux/actions/uploadActions';
 
 import ValidationOverlay from '../../components/validateData/ValidationOverlay';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 import * as UploadHelper from '../../helpers/uploadHelper';
 

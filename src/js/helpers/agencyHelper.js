@@ -7,7 +7,7 @@ export const parseAgencies = (agencyResults, listType = 'perm') => {
     }
     
     return agencyResults.data.agency_list.concat(agencyResults.data.shared_agency_list);
-}
+};
 
 export const fetchAgencies = (permissionLevel = 'reader', permissionType = 'mixed') => {
     const req = apiRequest({
@@ -16,7 +16,7 @@ export const fetchAgencies = (permissionLevel = 'reader', permissionType = 'mixe
             'perm_level': permissionLevel,
             'perm_type': permissionType
         }
-    })
+    });
 
     return req.promise;
 };
@@ -24,7 +24,7 @@ export const fetchAgencies = (permissionLevel = 'reader', permissionType = 'mixe
 export const fetchAllAgencies = () => {
     const req = apiRequest({
         url: 'list_all_agencies/'
-    })
+    });
 
     return req.promise;
 };
@@ -32,7 +32,7 @@ export const fetchAllAgencies = () => {
 export const fetchSubTierAgencies = () => {
     const req = apiRequest({
         url: 'list_sub_tier_agencies/'
-    })
+    });
 
     return req.promise;
 };
@@ -47,7 +47,7 @@ export const getPublishedSubmissions = (cgac, frec, year, quarter, isQuarter) =>
             'reporting_fiscal_period': quarter,
             'is_quarter': isQuarter
         }
-    })
+    });
 
     return req.promise;
 };

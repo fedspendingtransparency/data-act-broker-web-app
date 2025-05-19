@@ -108,7 +108,10 @@ export default class RawFilesPage extends React.Component {
                                 <div className="col-md-12 mt-40 mb-20">
                                     <div className="display-2" data-contentstart="start" tabIndex={-1}>
                                         {this.props.type.toUpperCase()} | Raw Files
-                                        <HelpNav selected="Raw Files" type={this.props.type} session={this.props.session} />
+                                        <HelpNav
+                                            selected="Raw Files"
+                                            type={this.props.type}
+                                            session={this.props.session} />
                                     </div>
                                 </div>
                             </div>

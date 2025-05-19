@@ -10,8 +10,7 @@ import moment from 'moment';
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
-    submissionID: PropTypes.string,
-    type: PropTypes.string
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {

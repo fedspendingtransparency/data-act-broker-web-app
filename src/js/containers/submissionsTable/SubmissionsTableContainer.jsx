@@ -130,7 +130,7 @@ export class SubmissionsTableContainer extends React.Component {
                     submissions: SubmissionListHelper.parseRecentActivity(res.data.submissions),
                     total: res.data.total,
                     min_last_modified: res.data.min_last_modified
-                }
+                };
                 this.setState({
                     [`${tableName}Total`]: data.total,
                     [`${tableName}Submissions`]: data.submissions,

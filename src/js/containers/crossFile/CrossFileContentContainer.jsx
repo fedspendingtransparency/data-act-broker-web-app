@@ -10,11 +10,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import * as uploadActions from 'redux/actions/uploadActions';
-import * as sessionActions from 'redux/actions/sessionActions'
+import * as sessionActions from 'redux/actions/sessionActions';
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import CrossFileContent from 'components/crossFile/CrossFileContent';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     resetSubmission: PropTypes.func,
