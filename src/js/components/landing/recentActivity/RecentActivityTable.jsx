@@ -127,14 +127,14 @@ export default class RecentActivityTable extends React.Component {
 
     loadActivity(type = this.props.type) {
         SubmissionListHelper.loadRecentActivity(type)
-            .then((data) => {
+            .then((res) => {
                 if (this.didUnmount) {
                     return;
                 }
                 // save the response for sorting later
                 this.setState(
                     {
-                        cachedResponse: data.submissions
+                        cachedResponse: SubmissionListHelper.parseRecentActivity(res.data.submissions)
                     },
                     () => {
                         // show the response once the data is in place

@@ -102,7 +102,7 @@ export const getCrossFileData = (data, type) => {
     return output;
 };
 
-export const  fetchSubmissionMetadata = (submissionId) => {
+export const fetchSubmissionMetadata = (submissionId) => {
     // set the submission ID
     const store = new StoreSingleton().store;
     store.dispatch(uploadActions.setSubmissionId(submissionId));
@@ -131,7 +131,7 @@ export const fetchSubmissionData = (submissionId, type = '') => {
 
 export const  fetchStatus = (submissionId, type = '') => {
     const params = { 'submission_id': submissionId };
-    if(type) {
+    if (type) {
         params['type'] = type;
     }
 
