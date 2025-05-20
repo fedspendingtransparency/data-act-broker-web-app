@@ -77,8 +77,6 @@ export class SubmissionStatus extends React.Component {
     render() {
         const colors = this.progressBar(this.props.status);
         let label = this.statusStrings[this.props.status];
-        console.log(label);
-        console.log(this.props.status);
         if (this.props.status !== StatusTypes.PUBLISHED && this.props.published && !this.props.certified) {
             label += '\n(Needs Republishing)';
         }
