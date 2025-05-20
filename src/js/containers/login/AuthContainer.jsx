@@ -9,6 +9,7 @@ import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as sessionActions from 'redux/actions/sessionActions';
 
 import * as LoginHelper from 'helpers/loginHelper';
 import LoginCaiaLoading from 'components/login/LoginCaiaLoading';
