@@ -110,13 +110,13 @@ export default class ReviewDataNarrative extends React.Component {
     downloadCommentsFile() {
         ReviewHelper.fetchCommentsFile(this.props.submissionID)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
                 this.setState({
                     saveState: 'Error',
-                    errorMessage: `: ${error.message}`
+                    errorMessage: `: ${error.response.data.message}`
                 });
             });
     }

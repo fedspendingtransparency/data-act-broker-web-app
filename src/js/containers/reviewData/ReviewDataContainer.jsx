@@ -61,22 +61,23 @@ class ReviewDataContainer extends React.Component {
     loadData() {
         let submissionData = {};
         const { submissionID } = this.props;
-        ReviewHelper.fetchSubmissionMetadata(submissionID, 'dabs')
-            .then((data) => {
+        ReviewHelper.fetchSubmissionMetadata(submissionID)
+            .then((res) => {
                 // Update meta data (submission.info) in redux
-                this.props.setInfo(data);
-                submissionData = data;
+                this.props.setSubmissionPublishStatus(res.data.publish_status);
+                this.props.setInfo(res.data);
+                submissionData = res.data;
 
                 return ReviewHelper.fetchSubmissionNarrative(submissionID);
             })
-            .then((narrative) => {
-                submissionData.file_narrative = narrative;
+            .then((narrRes) => {
+                submissionData.file_narrative = narrRes.data;
                 return ReviewHelper.fetchObligations(submissionID);
             })
-            .then((data) => {
-                submissionData.total_obligations = data.total_obligations;
-                submissionData.total_assistance_obligations = data.total_assistance_obligations;
-                submissionData.total_procurement_obligations = data.total_procurement_obligations;
+            .then((obRes) => {
+                submissionData.total_obligations = obRes.data.total_obligations;
+                submissionData.total_assistance_obligations = obRes.data.total_assistance_obligations;
+                submissionData.total_procurement_obligations = obRes.data.total_procurement_obligations;
                 const createdDate = moment.utc(submissionData.created_on).local().format('MM/DD/YYYY');
                 this.setState({
                     jobs: submissionData.jobs,
@@ -102,7 +103,7 @@ class ReviewDataContainer extends React.Component {
             })
             .catch((error) => {
                 console.error(error);
-                this.props.errorFromStep(error.body.message);
+                this.props.errorFromStep(error.response.data.message);
             });
     }
 

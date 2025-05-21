@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Cookies from 'js-cookie';
+
 import LoginPanel from 'components/login/LoginPanel';
 import LoginCaia from 'components/login/LoginCaia';
 import Banner from 'components/SharedComponents/Banner';
@@ -39,8 +41,33 @@ class LoginContainer extends React.Component {
         });
 
         LoginHelper.performLogin(username, password)
+            .then((loginRes) => {
+                LoginHelper.establishSession(loginRes.headers);
+
+                if (!Cookies.get('session')) {
+                    // couldn't set cookie, fail this request and notify the user
+                    this.props.setLoginState('failed');
+                    return Promise.reject('cookie');
+                }
+
+                return LoginHelper.fetchActiveUser();
+            })
             .catch((err) => {
+                // if the endpoint that failed was the login
+                if (err.request?.responseURL.includes('login')) {
+                    this.props.setLoginState('failed');
+                }
+                // if the endpoint that failed was the active user check
+                if (err.request?.responseURL.includes('active_user')) {
+                    this.props.setLoggedOut();
+                }
+
+                // unset the login state cookie
+                Cookies.remove('brokerLogin');
+
+                // if there was a cookie issue, we have to specify it, otherwise just show the error
                 if (err === "cookie") {
+                    this.props.setLoginState('failed');
                     this.setState({
                         loading: false,
                         errorMessage: 'Your browser does not support cookies, which Data Broker requires ' +
@@ -51,7 +78,7 @@ class LoginContainer extends React.Component {
                 else {
                     this.setState({
                         loading: false,
-                        errorMessage: err
+                        errorMessage: err.response.data.message
                     });
                 }
             });

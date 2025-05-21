@@ -45,8 +45,24 @@ class HelpPageContainer extends React.Component {
     }
 
     loadChangelog() {
-        HelpHelper.loadHelp()
-            .then((output) => {
+        const output = {
+            body: '',
+            sections: [],
+            history: '',
+            historySections: []
+        };
+
+        HelpHelper.loadChangelog()
+            .then((res) => {
+                const data = HelpHelper.parseMarkdown(res.data);
+                output.body = data.body;
+                output.sections = data.sections;
+                return HelpHelper.loadHistory();
+            })
+            .then((res) => {
+                const data = HelpHelper.parseMarkdown(res.data);
+                output.history = data.body;
+                output.historySections = data.sections;
                 this.setState({
                     changelog: output.body,
                     clSections: output.sections,
@@ -59,8 +75,25 @@ class HelpPageContainer extends React.Component {
     }
 
     loadTechnical() {
-        HelpHelper.loadTechnical()
-            .then((output) => {
+        const output = {
+            body: '',
+            sections: [],
+            history: '',
+            historySections: []
+        };
+
+        HelpHelper.loadTechnicalNotes()
+            .then((res) => {
+                const data = HelpHelper.parseMarkdown(res.data);
+                output.body = data.body;
+                output.sections = data.sections;
+                return HelpHelper.loadTechnicalHistory();
+            })
+            .then((res) => {
+                const data = HelpHelper.parseMarkdown(res.data);
+                output.history = data.body;
+                output.historySections = data.sections;
+    
                 this.setState({
                     technical: output.body,
                     tSections: output.sections,

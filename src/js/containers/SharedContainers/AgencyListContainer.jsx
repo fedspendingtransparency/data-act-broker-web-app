@@ -34,7 +34,8 @@ class AgencyListContainer extends React.Component {
         // we need to populate the list
         if (this.props.detached) {
             AgencyHelper.fetchAllAgencies()
-                .then((agencies) => {
+                .then((res) => {
+                    const agencies = AgencyHelper.parseAgencies(res, 'all');
                     this.props.setAgencyList(agencies);
                 })
                 .catch((err) => {
@@ -43,7 +44,8 @@ class AgencyListContainer extends React.Component {
         }
         else {
             AgencyHelper.fetchAgencies()
-                .then((agencies) => {
+                .then((res) => {
+                    const agencies = AgencyHelper.parseAgencies(res, 'perm');
                     this.props.setAgencyList(agencies);
                 })
                 .catch((err) => {

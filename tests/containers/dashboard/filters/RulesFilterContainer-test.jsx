@@ -23,10 +23,10 @@ jest.mock('@fortawesome/react-fontawesome', () => ({
 
 test('PeriodFilterContainer should enable all periods when more than one FY is selected', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 7, year: 2020 }
+        { data: { period: 7, year: 2020 } }
     ));
     fetchRules.mockImplementation(() => Promise.resolve(
-        { labels: ['X1', 'Y2', 'Z3'] }
+        { data: { labels: ['X1', 'Y2', 'Z3'] } }
     ));
 
     let result;

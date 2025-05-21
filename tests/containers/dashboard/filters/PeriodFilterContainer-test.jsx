@@ -22,7 +22,7 @@ jest.mock('@fortawesome/react-fontawesome', () => ({
 
 test('PeriodFilterContainer should disable P02, P03, and Q1 when 2017 is the only FY selected', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 4, year: 2019 }
+        { data: { period: 4, year: 2019 } }
     ));
     let result;
     // default case
@@ -49,7 +49,7 @@ test('PeriodFilterContainer should disable P02, P03, and Q1 when 2017 is the onl
 
 test('PeriodFilterContainer should disabled future periods when the current FY is the only FY selected, current period enabled', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 7, year: 2020 }
+        { data: { period: 7, year: 2020 } }
     ));
 
     let result;
@@ -79,7 +79,7 @@ test('PeriodFilterContainer should disabled future periods when the current FY i
 
 test('PeriodFilterContainer should enable all periods when more than one FY is selected', async () => {
     fetchLatestPublicationPeriod.mockImplementation(() => Promise.resolve(
-        { period: 7, year: 2020 }
+        { data: { period: 7, year: 2020 } }
     ));
 
     let result;

@@ -79,7 +79,7 @@ export default class DashboardTableContainer extends React.Component {
     downloadFile(fileType, submissionId) {
         GenerateFilesHelper.fetchFile(fileType, submissionId)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
@@ -108,7 +108,7 @@ export default class DashboardTableContainer extends React.Component {
 
         DashboardHelper.fetchDashboardTableContents(searchParams)
             .then((res) => {
-                this.parseRows(res);
+                this.parseRows(res.data);
             })
             .catch((err) => {
                 console.error(err);

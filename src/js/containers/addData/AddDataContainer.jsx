@@ -82,33 +82,28 @@ class AddDataContainer extends React.Component {
     performUpload() {
         this.props.setSubmissionState('uploading');
 
-        this.uploadFileHelper(kGlobalConstants.LOCAL, this.props.submission)
-            .then((submissionID) => {
+        UploadHelper.performDabsUpload(this.props.submission)
+            .then((res) => {
+                const submissionID = res.data.submission_id;
                 this.props.setSubmissionId(submissionID);
                 // Looping because we need to allow backend to catchup to front end and prevent
                 // incorrect 404
                 this.getPage(submissionID, 0);
             })
             .catch((err) => {
-                if (!kGlobalConstants.LOCAL && err.submissionID !== null && err.submissionID !== 0) {
-                    this.props.setSubmissionId(err.submissionID);
+                const submissionID = err.response.data.submission_id;
+                if (!kGlobalConstants.LOCAL && submissionID !== null && submissionID !== 0) {
+                    this.props.setSubmissionId(submissionID);
                 }
-                if (err.httpStatus === 403) {
+                if (err.status === 403) {
                     this.setState({
                         notAllowed: true
                     });
                 }
                 this.setState({
-                    errorMessage: err.message
+                    errorMessage: err.response.data.message
                 });
             });
-    }
-
-    uploadFileHelper(local, submission) {
-        if (local) {
-            return UploadHelper.performLocalUpload(submission);
-        }
-        return UploadHelper.performRemoteUpload(submission);
     }
 
     render() {

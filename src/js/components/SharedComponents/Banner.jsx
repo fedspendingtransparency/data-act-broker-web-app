@@ -39,14 +39,15 @@ export default class Banner extends React.Component {
     getBanners() {
         ReviewHelper.listBanners(this.props.type === "login")
             .then((res) => {
-                if (!res.data) {
+
+                if (!res.data.data) {
                     return;
                 }
                 const bannerList = [];
-                for (let i = 0; i < res.data.length; i++) {
-                    if (res.data[i].type.toLowerCase() === this.props.type.toLowerCase() ||
-                        res.data[i].type.toLowerCase() === 'all') {
-                        bannerList.push(res.data[i]);
+                for (let i = 0; i < res.data.data.length; i++) {
+                    if (res.data.data[i].type.toLowerCase() === this.props.type.toLowerCase() ||
+                        res.data.data[i].type.toLowerCase() === 'all') {
+                        bannerList.push(res.data.data[i]);
                     }
                 }
                 if (bannerList.length !== 0) {

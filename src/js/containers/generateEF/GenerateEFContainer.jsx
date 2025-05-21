@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Q from 'q';
-
 import * as uploadActions from 'redux/actions/uploadActions';
 import * as GenerateHelper from 'helpers/generateFilesHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
@@ -66,15 +64,16 @@ class GenerateEFContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
-                .then((data) => {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((res) => {
                     if (!this.isUnmounted) {
-                        this.setState({ agency_name: data.agency_name });
+                        this.props.setSubmissionPublishStatus(res.data.publish_status);
+                        this.setState({ agency_name: res.data.agency_name });
                     }
                 })
                 .catch((error) => {
                     console.error(error);
-                    this.props.errorFromStep(error.body.message);
+                    this.props.errorFromStep(error.response.data.message);
                 });
         }
     }
@@ -89,8 +88,8 @@ class GenerateEFContainer extends React.Component {
         for (let i = 0; i < keys.length; i++) {
             const response = allResponses[i];
             let data;
-            if (response.state === 'fulfilled') {
-                data = response.value;
+            if (response.status === 'fulfilled') {
+                data = response.value.data;
 
                 if (data.status === 'invalid') {
                     if (!this.state.generated) {
@@ -112,25 +111,21 @@ class GenerateEFContainer extends React.Component {
     }
 
     generateFiles() {
-        Q
-            .allSettled([
-                GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
-                GenerateHelper.generateFile('F', this.props.submissionID, '', '')
-            ])
-            .then((allResponses) => {
-                this.handleResponse(allResponses);
-            });
+        Promise.allSettled([
+            GenerateHelper.generateFile('E', this.props.submissionID, '', ''),
+            GenerateHelper.generateFile('F', this.props.submissionID, '', '')
+        ]).then((allResponses) => {
+            this.handleResponse(allResponses);
+        });
     }
 
     checkFileStatus() {
-        Q
-            .allSettled([
-                GenerateHelper.checkGenerationStatus('E', this.props.submissionID),
-                GenerateHelper.checkGenerationStatus('F', this.props.submissionID)
-            ])
-            .then((allResponses) => {
-                this.handleResponse(allResponses);
-            });
+        Promise.allSettled([
+            GenerateHelper.checkGenerationStatus('E', this.props.submissionID),
+            GenerateHelper.checkGenerationStatus('F', this.props.submissionID)
+        ]).then((allResponses) => {
+            this.handleResponse(allResponses);
+        });
     }
 
     parseState() {

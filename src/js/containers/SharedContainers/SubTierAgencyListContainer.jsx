@@ -32,8 +32,8 @@ class SubTierAgencyListContainer extends React.Component {
         if (this.props.subTierAgencyList.subTierAgencies.length === 0) {
             // we need to populate the list
             AgencyHelper.fetchSubTierAgencies()
-                .then((agencies) => {
-                    this.props.setSubTierAgencyList(agencies);
+                .then((res) => {
+                    this.props.setSubTierAgencyList(res.data.sub_tier_agency_list);
                 })
                 .catch((err) => {
                     console.error(err);

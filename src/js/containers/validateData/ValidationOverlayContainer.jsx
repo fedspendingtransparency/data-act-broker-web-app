@@ -12,7 +12,6 @@ import _ from 'lodash';
 import * as uploadActions from '../../redux/actions/uploadActions';
 
 import ValidationOverlay from '../../components/validateData/ValidationOverlay';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 import * as UploadHelper from '../../helpers/uploadHelper';
 
@@ -39,33 +38,22 @@ class ValidationOverlayContainer extends React.Component {
 
     uploadFiles() {
         this.props.resetProgress();
-        if (kGlobalConstants.LOCAL === true) {
-            UploadHelper.performLocalCorrectedUpload(this.props.submission)
-                .catch((err) => {
-                    if (err.httpStatus === 403) {
-                        this.setState({
-                            notAllowed: true
-                        });
-                    }
+        UploadHelper.performDabsCorrectedUpload(this.props.submission)
+            .then(() => {
+                UploadHelper.prepareFileValidationStates(this.props.submission.files);
+                this.props.setSubmissionState('prepare');
+            })
+            .catch((err) => {
+                this.props.setSubmissionState('failed');
+                if (err.status === 403) {
                     this.setState({
-                        uploadApiCallError: err.message
+                        notAllowed: true
                     });
+                }
+                this.setState({
+                    uploadApiCallError: err.response.data.message
                 });
-        }
-        else {
-            UploadHelper.performRemoteCorrectedUpload(this.props.submission)
-                .catch((err) => {
-                    console.error(err);
-                    if (err.httpStatus === 403) {
-                        this.setState({
-                            notAllowed: true
-                        });
-                    }
-                    this.setState({
-                        uploadApiCallError: err.message
-                    });
-                });
-        }
+            });
     }
 
 

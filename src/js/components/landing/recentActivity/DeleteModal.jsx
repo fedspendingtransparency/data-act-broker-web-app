@@ -39,8 +39,8 @@ export default class DeleteModal extends React.Component {
     clickedDeleteButton() {
         this.setState({ disable: true });
         ReviewHelper.deleteSubmission(this.props.id)
-            .then((data) => {
-                if (data.message === 'Success') {
+            .then((res) => {
+                if (res.data.message === 'Success') {
                     this.props.delete();
 
                     // reset the modal if closed
@@ -55,8 +55,8 @@ export default class DeleteModal extends React.Component {
             .catch((error) => {
                 let errorMessage = "An error occurred while attempting to delete the submission. Please contact " +
                     "your administrator for assistance.";
-                if (error.message && error.message !== "") {
-                    errorMessage = error.message;
+                if (error.response.data.message && error.response.data.message !== "") {
+                    errorMessage = error.response.data.message;
                 }
                 this.setState({ errorMessage });
             });

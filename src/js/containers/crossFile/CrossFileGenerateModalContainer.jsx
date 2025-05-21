@@ -78,7 +78,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
             .then((response) => {
                 // check if both files have been requested
                 let requested = true;
-                if (response.status === 'invalid') {
+                if (response.data.status === 'invalid') {
                     // no request has been made yet
                     requested = false;
                 }
@@ -92,8 +92,8 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                 }
                 else {
                     // files have been requested before, load the dates
-                    const start = moment(response.start, 'MM/DD/YYYY');
-                    const end = moment(response.end, 'MM/DD/YYYY');
+                    const start = moment(response.data.start, 'MM/DD/YYYY');
+                    const end = moment(response.data.end, 'MM/DD/YYYY');
 
                     // load them into React state
                     const fileData = Object.assign({}, this.state.file);
@@ -104,7 +104,7 @@ export default class CrossFileGenerateModalContainer extends React.Component {
                         file: fileData
                     }, () => {
                         // now parse the data (in case the files were still in pending state)
-                        this.parseFileStates(response, true);
+                        this.parseFileStates(response.data, true);
                     });
                 }
             });
@@ -236,10 +236,10 @@ export default class CrossFileGenerateModalContainer extends React.Component {
         // check the status of the file
         GenerateFilesHelper
             .checkGenerationStatus(this.props.type, this.props.submissionID)
-            .then((allResponses) => {
-                this.parseFileStates(allResponses);
+            .then((res) => {
+                this.parseFileStates(res.data);
             })
-            .fail(() => {
+            .catch(() => {
                 this.props.setButtonText('Generate File');
                 this.props.enableButton();
             });

@@ -101,7 +101,7 @@ export class ActiveDashboardTableContainer extends React.Component {
     downloadFile(fileType, submissionId) {
         GenerateFilesHelper.fetchFile(fileType, submissionId)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
@@ -119,7 +119,7 @@ export class ActiveDashboardTableContainer extends React.Component {
         DashboardHelper.fetchActiveDashboardTableContents(submissionId, this.props.appliedFilters.file,
             this.props.errorLevel, this.state.page, this.state.limit, this.state.sort, this.state.order)
             .then((res) => {
-                this.parseRows(res);
+                this.parseRows(res.data);
             })
             .catch((err) => {
                 console.error(err);

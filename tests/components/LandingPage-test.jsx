@@ -20,7 +20,7 @@ jest.mock('@fortawesome/react-fontawesome', () => ({
 
 jest.mock('../../src/js/helpers/reviewHelper', () => ({
     ...jest.requireActual('../../src/js/helpers/reviewHelper'),
-    listBanners: jest.fn(() => Promise.resolve({ data: {} }))
+    listBanners: jest.fn(() => Promise.resolve({ data: { data: {} } }))
 }));
 
 jest.mock('../../src/js/helpers/submissionListHelper', () => ({

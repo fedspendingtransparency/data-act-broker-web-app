@@ -158,10 +158,10 @@ export default class ErrorBox extends React.Component {
     signReport(warning) {
         ReviewHelper.submissionReport(this.props.submission.id, warning, this.props.meta.firstKey,
             this.props.meta.secondKey)
-            .then((data) => {
+            .then((res) => {
                 this.setState({
                     signInProgress: false,
-                    signedUrl: data.url
+                    signedUrl: res.data.url
                 }, () => {
                     this.openReport();
                 });

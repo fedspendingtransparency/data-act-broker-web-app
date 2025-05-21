@@ -62,7 +62,7 @@ export default class WarningsInfoGraphContainer extends React.Component {
 
         DashboardHelper.fetchWarnings(apiParams)
             .then((res) => {
-                this.parseData(res);
+                this.parseData(res.data);
             })
             .catch((err) => {
                 console.error(err);
