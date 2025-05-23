@@ -45,8 +45,8 @@ class CreatedByContainer extends React.Component {
 
     loadData() {
         createdByHelper.fetchCreatedBy(this.props.type)
-            .then((data) => {
-                this.props.setCreatedByList(data);
+            .then((res) => {
+                this.props.setCreatedByList(res.data.users);
             })
             .catch((err) => {
                 console.error(err);

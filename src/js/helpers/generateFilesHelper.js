@@ -1,150 +1,90 @@
-import Q from 'q';
-import Request from './sessionSuperagent';
-
-import { kGlobalConstants } from '../GlobalConstants';
+import { apiRequest } from './apiRequest';
 
 export const generateFile = (type, submissionId, start, end, agencyType, fileFormat) => {
-    const deferred = Q.defer();
-
-    const callBody = {
+    const data = {
         submission_id: submissionId,
         file_type: type
     };
 
     if (start) {
-        callBody.start = start;
+        data.start = start;
     }
     if (end) {
-        callBody.end = end;
+        data.end = end;
     }
     if (agencyType) {
-        callBody.agency_type = agencyType;
+        data.agency_type = agencyType;
     }
     if (fileFormat) {
-        callBody.file_format = fileFormat;
+        data.file_format = fileFormat;
     }
 
-    Request.post(`${kGlobalConstants.API}generate_file/`)
-        .send(callBody)
-        .end((errFile, res) => {
-            if (errFile) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
+    const req = apiRequest({
+        url: 'generate_file/',
+        method: 'post',
+        data
+    });
 
-    return deferred.promise;
+    return req.promise;
 };
 
 export const checkGenerationStatus = (type, submissionId) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'check_generation_status/',
+        params: {
+            'file_type': type,
+            'submission_id': submissionId
+        }
+    });
 
-    Request.get(`${kGlobalConstants.API}check_generation_status/?submission_id=${submissionId}&file_type=${type}`)
-        .end((errFile, res) => {
-            if (errFile) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchFile = (type, submissionId) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_file_url/',
+        params: {
+            'file_type': type,
+            'submission_id': submissionId
+        }
+    });
 
-    Request.get(`${kGlobalConstants.API}get_file_url?file_type=${type}&submission_id=${submissionId}`)
-        .send()
-        .end((errFile, res) => {
-            if (errFile) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchDetachedFileUrl = (jobId) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_detached_file_url/',
+        params: { 'job_id': jobId }
+    });
 
-    Request.get(`${kGlobalConstants.API}get_detached_file_url?job_id=${jobId}`)
-        .send()
-        .end((errFile, res) => {
-            if (errFile) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const getFabsMeta = (submissionId) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_fabs_meta/',
+        params: {'submission_id': submissionId }
+    });
 
-    Request.get(`${kGlobalConstants.API}get_fabs_meta/?submission_id=${submissionId}`)
-        .send()
-        .end((errFile, res) => {
-            if (errFile) {
-                deferred.reject(errFile);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-    return deferred.promise;
+    return req.promise;
 };
 
-export const generateDetachedFile = (params) => {
-    const deferred = Q.defer();
+export const generateDetachedFile = (data) => {
+    const req = apiRequest({
+        url: 'generate_detached_file/',
+        method: 'post',
+        data
+    });
 
-    Request.post(`${kGlobalConstants.API}generate_detached_file/`)
-        .send(params)
-        .end((errFile, res) => {
-            if (errFile) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchDetachedFile = (jobId) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'check_detached_generation_status/',
+        params: { 'job_id': jobId }
+    });
 
-    Request.get(`${kGlobalConstants.API}check_detached_generation_status/?job_id=${jobId}`)
-        .end((errFile, res) => {
-            if (errFile) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };

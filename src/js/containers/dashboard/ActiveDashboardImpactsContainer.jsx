@@ -54,10 +54,10 @@ export class ActiveDashboardImpactsContainer extends React.Component {
         const fileType = this.props.appliedFilters.file;
         const errorLevel = this.props.errorLevel;
         DashboardHelper.fetchActiveImpacts(submissionId, fileType, errorLevel)
-            .then((data) => {
+            .then((res) => {
                 this.setState({
                     hasFailed: false,
-                    submissionData: data,
+                    submissionData: res.data,
                     inFlight: false
                 });
             })

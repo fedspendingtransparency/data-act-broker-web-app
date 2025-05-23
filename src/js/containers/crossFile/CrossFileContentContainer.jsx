@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import * as uploadActions from 'redux/actions/uploadActions';
+import * as sessionActions from 'redux/actions/sessionActions';
 import * as UploadHelper from 'helpers/uploadHelper';
 import * as ReviewHelper from 'helpers/reviewHelper';
 import CrossFileContent from 'components/crossFile/CrossFileContent';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     resetSubmission: PropTypes.func,
@@ -92,24 +92,18 @@ class CrossFileContentContainer extends React.Component {
     }
 
     uploadFiles() {
-        if (kGlobalConstants.LOCAL === true) {
-            UploadHelper.performLocalCorrectedUpload(this.props.submission)
-                .then(() => {
-                    this.props.resetSubmission();
-                    // reload the data
-                    this.loadData();
-                    this.startTimer();
-                });
-        }
-        else {
-            UploadHelper.performRemoteCorrectedUpload(this.props.submission)
-                .then(() => {
-                    this.props.resetSubmission();
-                    // reload the data
-                    this.loadData();
-                    this.startTimer();
-                });
-        }
+        UploadHelper.performDabsCorrectedUpload(this.props.submission)
+            .then(() => {
+                UploadHelper.prepareFileValidationStates(this.props.submission.files);
+                this.props.setSubmissionState('prepare');
+                this.props.resetSubmission();
+                // reload the data
+                this.loadData();
+                this.startTimer();
+            })
+            .catch(() => {
+                this.props.setSubmissionState('failed');
+            });
     }
 
     hasEarlierErrors(data) {
@@ -125,11 +119,19 @@ class CrossFileContentContainer extends React.Component {
 
     loadData() {
         this.props.setSubmissionState('empty');
+        const startTime = new Date().getTime();
         ReviewHelper.fetchStatus(this.props.submissionID)
-            .then((data) => {
-                const crossInfo = data.cross;
+            .then((res) => {
+                const endTime = new Date().getTime();
+                const duration = endTime - startTime;
+                // log the API call duration
+                this.props.setApiMeta({
+                    time: duration
+                });
+
+                const crossInfo = res.data.cross;
                 if (crossInfo.status === 'ready') {
-                    const earlierErrors = this.hasEarlierErrors(data);
+                    const earlierErrors = this.hasEarlierErrors(res.data);
                     if (earlierErrors) {
                         if (this.dataTimer) {
                             window.clearInterval(this.dataTimer);
@@ -155,8 +157,8 @@ class CrossFileContentContainer extends React.Component {
                         .then((response) => {
                             // there is only ever one job returned when the type is specified, simply use that one
                             const crossFile = {
-                                errors: ReviewHelper.getCrossFileData(response.jobs[0], 'errors'),
-                                warnings: ReviewHelper.getCrossFileData(response.jobs[0], 'warnings'),
+                                errors: ReviewHelper.getCrossFileData(response.data.jobs[0], 'errors'),
+                                warnings: ReviewHelper.getCrossFileData(response.data.jobs[0], 'warnings'),
                                 lastValidated: crossInfo.validation_last_updated
                             };
                             this.props.setSubmissionState(crossInfo.status);
@@ -236,5 +238,5 @@ export default connect(
         submission: state.submission,
         session: state.session
     }),
-    (dispatch) => bindActionCreators(uploadActions, dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, uploadActions, sessionActions), dispatch)
 )(CrossFileContentContainer);

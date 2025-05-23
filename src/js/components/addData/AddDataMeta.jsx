@@ -160,7 +160,8 @@ export default class AddDataMeta extends React.Component {
         }
         else {
             AgencyHelper.getPublishedSubmissions(cgacCode, frecCode, dates.year, dates.period, isQuarter)
-                .then((publishedSubmissions) => {
+                .then((res) => {
+                    const publishedSubmissions = res.data.published_submissions;
                     if (publishedSubmissions.length > 0) {
                         this.setState({
                             testSubmission: true,

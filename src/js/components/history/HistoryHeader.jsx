@@ -10,8 +10,7 @@ import moment from 'moment';
 import * as ReviewHelper from '../../helpers/reviewHelper';
 
 const propTypes = {
-    submissionID: PropTypes.string,
-    type: PropTypes.string
+    submissionID: PropTypes.string
 };
 
 const defaultProps = {
@@ -30,9 +29,9 @@ export default class HistoryHeader extends React.Component {
     }
 
     componentDidMount() {
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, this.props.type)
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
             .then((response) => {
-                this.setState({ metadata: response });
+                this.setState({ metadata: response.data });
             })
             .catch((err) => {
                 console.error(err);

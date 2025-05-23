@@ -95,7 +95,7 @@ export class RulesFilterContainer extends React.Component {
         DashboardHelper.fetchRules(searchParams)
             .then((res) => {
                 this.setState({
-                    results: res.labels,
+                    results: res.data.labels,
                     inFlight: false
                 });
             })

@@ -47,7 +47,8 @@ export class PeriodFilterContainer extends React.Component {
 
     getLatestPeriod() {
         DashboardHelper.fetchLatestPublicationPeriod()
-            .then((data) => {
+            .then((res) => {
+                const data = res.data;
                 const allFy = [];
                 for (let i = data.year; i >= 2017; i--) {
                     allFy.push(i);

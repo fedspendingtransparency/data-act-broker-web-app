@@ -43,10 +43,10 @@ export class FyFilterContainer extends React.Component {
 
     getLatestPeriod() {
         DashboardHelper.fetchLatestPublicationPeriod()
-            .then((data) => {
+            .then((res) => {
                 this.setState({
-                    latestPeriod: data.period,
-                    latestYear: data.year
+                    latestPeriod: res.data.period,
+                    latestYear: res.data.year
                 }, () => this.generateAllFy());
             })
             .catch((err) => {

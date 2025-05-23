@@ -19,7 +19,6 @@ import Banner from '../SharedComponents/Banner';
 
 import * as UploadHelper from '../../helpers/uploadHelper';
 import * as ReviewHelper from '../../helpers/reviewHelper';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     setSubmissionId: PropTypes.func,
@@ -103,13 +102,6 @@ export default class UploadFabsFileMeta extends React.Component {
         });
     }
 
-    uploadFileHelper(local, submission) {
-        if (local) {
-            return UploadHelper.performFabsLocalUpload(submission);
-        }
-        return UploadHelper.performFabsFileUpload(submission);
-    }
-
     uploadFile() {
         // upload specified file
         this.props.setSubmissionState('uploading');
@@ -117,14 +109,15 @@ export default class UploadFabsFileMeta extends React.Component {
         submission.meta.subTierAgency = this.state.agency;
         submission.meta.testSubmission = this.state.submissionType === 'test';
 
-        this.uploadFileHelper(kGlobalConstants.LOCAL === true, submission)
-            .then((submissionID) => {
+        UploadHelper.performFabsFileUpload(submission)
+            .then((res) => {
+                const submissionID = res.data.submission_id;
                 this.props.setSubmissionId(submissionID);
                 this.checkFileStatus(submissionID);
                 this.props.validate(submissionID);
             })
             .catch((err) => {
-                const errorMessage = err.message || err.body.message || '';
+                const errorMessage = err.response.data.message || err.message || '';
                 this.setState({
                     notAllowed: err.httpStatus === 403,
                     errorMessage,
@@ -148,9 +141,9 @@ export default class UploadFabsFileMeta extends React.Component {
                 }
                 this.setState({
                     showUploadFilesBox: false,
-                    jobResults: { fabs: response.jobs[0] }
+                    jobResults: { fabs: response.data.jobs[0] }
                 }, () => {
-                    this.parseJobStates(response);
+                    this.parseJobStates(response.data);
                 });
             })
             .catch((err) => {
@@ -162,12 +155,13 @@ export default class UploadFabsFileMeta extends React.Component {
 
     validateSubmission(submissionID) {
         ReviewHelper.validateFabsSubmission(submissionID)
-            .then((response) => {
+            .then((res) => {
+                const fileStates = ReviewHelper.getFileStates(res.data);
                 this.setState({
-                    fabs: response.item,
+                    fabs: fileStates.item,
                     validationFinished: true,
                     headerErrors: false,
-                    jobResults: response
+                    jobResults: fileStates
                 });
             });
     }

@@ -10,7 +10,7 @@ cache:
   directories:
     - node_modules
 before_install:
-  - npm install eslint@8.32.0
+  - npm install eslint@9.26.0
 script:
   - npm run dev
   - npm run travis

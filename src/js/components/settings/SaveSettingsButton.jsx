@@ -45,7 +45,7 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
                 dispatch(updateSavedSettings(stagedSettings));
             })
             .catch((err) => {
-                setErrorMessage(err.message);
+                setErrorMessage(err.response.data.message);
                 setLoading(false);
             });
     };

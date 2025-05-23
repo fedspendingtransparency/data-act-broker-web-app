@@ -53,8 +53,8 @@ export default class RevalidateDataModal extends React.Component {
             .catch((error) => {
                 let errMsg = 'An error occurred while attempting to certify the submission. ' +
                     'Please contact your administrator for assistance.';
-                if (error.httpStatus === 400 || error.httpStatus === 403) {
-                    errMsg = error.message;
+                if (error.status === 400 || error.status === 403) {
+                    errMsg = error.response.data.message;
                 }
 
                 this.setState({ errorMessage: errMsg });

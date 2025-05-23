@@ -109,7 +109,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
         const item = Object.assign({}, this.state[fileType]);
         GenerateFilesHelper.fetchDetachedFileUrl(item.jobID)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
@@ -244,7 +244,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                     return;
                 }
 
-                this.parseFileState(response);
+                this.parseFileState(response.data);
             });
     }
 
@@ -256,7 +256,7 @@ export default class GenerateDetachedFilesPage extends React.Component {
                     return;
                 }
 
-                this.parseFileState(response);
+                this.parseFileState(response.data);
             });
     }
 

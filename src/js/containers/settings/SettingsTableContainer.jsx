@@ -34,8 +34,8 @@ const SettingsTableContainer = ({ agencyCode, file, errorLevel }) => {
         if (agencyCode && file) {
             setLoading(true);
             fetchSettings(agencyCode, file)
-                .then((data) => {
-                    dispatch(updateSavedSettings(data));
+                .then((res) => {
+                    dispatch(updateSavedSettings(res.data));
                     setLoading(false);
                 })
                 .catch(() => {

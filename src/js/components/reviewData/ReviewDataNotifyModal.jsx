@@ -48,8 +48,8 @@ export default class ReviewDataNotifyModal extends React.Component {
 
     loadUsers() {
         ReviewHelper.listUsers()
-            .then((data) => {
-                const tmpData = data;
+            .then((res) => {
+                const tmpData = res.data.users;
                 for (let i = 0; i < tmpData.length; i++) {
                     tmpData[i].displayName = `${tmpData[i].name} | ${tmpData[i].email}`;
                 }
@@ -97,20 +97,6 @@ export default class ReviewDataNotifyModal extends React.Component {
                 this.setState({ selectedUsers: updatedSelectedUsers });
             }
         }
-    }
-
-    sendNotification(e) {
-        e.preventDefault();
-
-        const users = this.state.selectedUsers.map((user) => user.id);
-
-        ReviewHelper.sendNotification(users, this.props.submissionID)
-            .then(() => {
-                this.props.closeModal();
-            })
-            .catch((error) => {
-                console.error(error);
-            });
     }
 
     generateMailToLink() {

@@ -56,7 +56,8 @@ export default class DateRangeField extends React.Component {
         }
         else {
             DashboardHelper.fetchLatestPublicationPeriod()
-                .then((data) => {
+                .then((res) => {
+                    const data = res.data;
                     const deadline = new Date(`${data.deadline.replace(" ", "T")}Z`);
                     const currDate = moment();
                     // add a year to the given year if it's after the publish deadline and it's the last period

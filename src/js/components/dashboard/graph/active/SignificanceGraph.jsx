@@ -13,8 +13,6 @@ import BarChartXAxis from 'components/dashboard/graph/BarChartXAxis';
 import BarChartYAxis from 'components/dashboard/graph/BarChartYAxis';
 import SignificanceCircle from './SignificanceCircle';
 
-/* eslint-disable react/no-unused-prop-types */
-// allow unused prop types. they are indirectly accessed as nextProps
 const propTypes = {
     xSeries: PropTypes.arrayOf(PropTypes.number),
     ySeries: PropTypes.arrayOf(PropTypes.object),
@@ -28,7 +26,6 @@ const propTypes = {
     toggleTooltip: PropTypes.func,
     categories: PropTypes.arrayOf(PropTypes.oneOf(['accuracy', 'completeness', 'existence']))
 };
-/* eslint-enable react/no-unused-prop-types */
 
 const defaultProps = {
     padding: {

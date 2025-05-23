@@ -41,7 +41,8 @@ class AgencyFilterContainer extends React.Component {
     loadData() {
         // we need to populate the list
         AgencyHelper.fetchAgencies()
-            .then((agencies) => {
+            .then((res) => {
+                const agencies = AgencyHelper.parseAgencies(res, 'perm');
                 this.props.setAgencyList(agencies);
             })
             .catch((err) => {

@@ -148,7 +148,7 @@ export default class ValidateValuesFileComponent extends React.Component {
                 .then((result) => {
                     this.setState({
                         signInProgress: false,
-                        signedUrl: result.url
+                        signedUrl: result.data.url
                     }, () => {
                         this.openReport();
                     });
