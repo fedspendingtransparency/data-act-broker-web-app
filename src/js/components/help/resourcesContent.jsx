@@ -74,10 +74,10 @@ export default class ResourcesContent extends React.Component {
                                 rel="noopener noreferrer">
                                 The GSDM Practices & Procedures
                             </a>
-                            &nbsp;contains file-wide practices, explanations of how elements are derived based on FABS data,
-                            and information on the submission process (including corrections and deletions), validation
-                            rule source data, user management, technical procedures for formatting submission files,
-                            etc.
+                            &nbsp;contains file-wide practices, explanations of how elements are derived based on FABS
+                            data, and information on the submission process (including corrections and deletions),
+                            validation rule source data, user management, technical procedures for formatting submission
+                            files, etc.
                         </li>
                     </ul>
                 </div>

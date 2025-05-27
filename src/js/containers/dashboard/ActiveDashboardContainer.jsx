@@ -146,14 +146,14 @@ export class ActiveDashboardContainer extends React.Component {
             limit: this.state.limit,
             page: this.state.page
         })
-            .then((data) => {
-                this.parseResults(data);
+            .then((res) => {
+                this.parseResults(res.data);
             })
             .catch((error) => {
                 console.error(error);
                 this.setState({
                     loading: false,
-                    errorMessage: error.message
+                    errorMessage: error.response.data.message
                 });
             });
     }

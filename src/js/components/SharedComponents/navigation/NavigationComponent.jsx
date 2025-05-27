@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -84,7 +85,15 @@ export class Navbar extends React.Component {
     }
 
     logout() {
-        LoginHelper.performLogout();
+        LoginHelper.performLogout().then((res, err) => {
+            if (!err) {
+                this.props.setLoggedOut();
+
+                // unset the login state cookie
+                Cookies.remove('brokerLogin');
+                Cookies.remove('session');
+            }
+        });
     }
 
     openSettingsModal() {

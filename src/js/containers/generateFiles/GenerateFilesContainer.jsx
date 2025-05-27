@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 import moment from 'moment';
 import { assign, findIndex, merge } from 'lodash';
-import Q from 'q';
 
 import GenerateFilesContent from 'components/generateFiles/GenerateFilesContent';
 
@@ -101,15 +100,16 @@ export class GenerateFilesContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
-                .then((data) => {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((res) => {
                     if (!this.isUnmounted) {
-                        this.setState({ agency_name: data.agency_name });
+                        this.props.setSubmissionPublishStatus(res.data.publish_status);
+                        this.setState({ agency_name: res.data.agency_name });
                     }
                 })
                 .catch((error) => {
                     console.error(error);
-                    this.props.errorFromStep(error.body.message);
+                    this.props.errorFromStep(error.response.data.message);
                 });
         }
     }
@@ -117,7 +117,7 @@ export class GenerateFilesContainer extends React.Component {
     clickedDownload(fileType) {
         GenerateFilesHelper.fetchFile(fileType, this.props.submissionID)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
@@ -127,7 +127,7 @@ export class GenerateFilesContainer extends React.Component {
 
     checkForPreviousFiles() {
         // check if D1 and D2 files already exist for this submission
-        Q.allSettled([
+        Promise.allSettled([
             GenerateFilesHelper.checkGenerationStatus('D1', this.props.submissionID),
             GenerateFilesHelper.checkGenerationStatus('D2', this.props.submissionID)
         ])
@@ -140,12 +140,12 @@ export class GenerateFilesContainer extends React.Component {
                 let allRequested = true;
                 const combinedData = [];
                 allResponses.forEach((response) => {
-                    if (response.state !== 'fulfilled' || response.value.status === 'invalid') {
+                    if (response.status !== 'fulfilled' || response.value.data.status === 'invalid') {
                         // no request has been made yet
                         allRequested = false;
                     }
                     else {
-                        combinedData.push(response.value);
+                        combinedData.push(response.value.data);
                     }
                 });
 
@@ -156,14 +156,14 @@ export class GenerateFilesContainer extends React.Component {
                 }
                 else {
                     // files have been requested before, load the dates and types
-                    const d1Start = moment(allResponses[0].value.start, 'MM/DD/YYYY');
-                    const d1End = moment(allResponses[0].value.end, 'MM/DD/YYYY');
-                    const d2Start = moment(allResponses[1].value.start, 'MM/DD/YYYY');
-                    const d2End = moment(allResponses[1].value.end, 'MM/DD/YYYY');
-                    const d1FileType = allResponses[0].value.url.includes('.txt') ? 'txt' : 'csv';
-                    const d2FileType = allResponses[1].value.url.includes('.txt') ? 'txt' : 'csv';
-                    const d1AgencyType = allResponses[0].value.url.includes('funding') ? 'funding' : 'awarding';
-                    const d2AgencyType = allResponses[1].value.url.includes('funding') ? 'funding' : 'awarding';
+                    const d1Start = moment(allResponses[0].value.data.start, 'MM/DD/YYYY');
+                    const d1End = moment(allResponses[0].value.data.end, 'MM/DD/YYYY');
+                    const d2Start = moment(allResponses[1].value.data.start, 'MM/DD/YYYY');
+                    const d2End = moment(allResponses[1].value.data.end, 'MM/DD/YYYY');
+                    const d1FileType = allResponses[0].value.data.url.includes('.txt') ? 'txt' : 'csv';
+                    const d2FileType = allResponses[1].value.data.url.includes('.txt') ? 'txt' : 'csv';
+                    const d1AgencyType = allResponses[0].value.data.url.includes('funding') ? 'funding' : 'awarding';
+                    const d2AgencyType = allResponses[1].value.data.url.includes('funding') ? 'funding' : 'awarding';
 
                     // load them into React state
                     const d1 = Object.assign({}, this.state.d1);
@@ -191,14 +191,14 @@ export class GenerateFilesContainer extends React.Component {
 
     loadSubmissionData() {
         // prepopulate the fields with the submission metadata dates
-        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID, 'dabs')
-            .then((data) => {
+        ReviewHelper.fetchSubmissionMetadata(this.props.submissionID)
+            .then((res) => {
                 this.props.setSubmissionId(this.props.submissionID);
-                this.props.setSubmissionPublishStatus(data.publish_status);
+                this.props.setSubmissionPublishStatus(res.data.publish_status);
 
                 // check if quarter or month
-                const defaultStart = moment(data.reporting_start_date, 'MM/DD/YYYY');
-                const defaultEnd = moment(data.reporting_end_date, 'MM/DD/YYYY');
+                const defaultStart = moment(res.data.reporting_start_date, 'MM/DD/YYYY');
+                const defaultEnd = moment(res.data.reporting_end_date, 'MM/DD/YYYY');
 
                 const output = {
                     state: 'ready',
@@ -225,7 +225,7 @@ export class GenerateFilesContainer extends React.Component {
             })
             .catch((err) => {
                 console.error(' Error : ', err);
-                this.props.errorFromStep(err.message);
+                this.props.errorFromStep(err.response.data.message);
             });
     }
 
@@ -330,7 +330,7 @@ export class GenerateFilesContainer extends React.Component {
         });
 
         // submit both D1 and D2 date ranges to the API
-        Q.allSettled([
+        Promise.allSettled([
             GenerateFilesHelper.generateFile('D1', this.props.submissionID,
                 this.state.d1.startDate.format('MM/DD/YYYY'),
                 this.state.d1.endDate.format('MM/DD/YYYY'),
@@ -349,8 +349,8 @@ export class GenerateFilesContainer extends React.Component {
 
                 const responses = [];
                 allResponses.forEach((response) => {
-                    if (response.state === 'fulfilled') {
-                        responses.push(response.value);
+                    if (response.status === 'fulfilled') {
+                        responses.push(response.value.data);
                     }
                     else {
                         responses.push(response.reason);
@@ -363,7 +363,7 @@ export class GenerateFilesContainer extends React.Component {
 
     checkFileStatus() {
         // check the status of both D1 and D2 files
-        Q.allSettled([
+        Promise.allSettled([
             GenerateFilesHelper.checkGenerationStatus('D1', this.props.submissionID),
             GenerateFilesHelper.checkGenerationStatus('D2', this.props.submissionID)
         ])
@@ -374,8 +374,8 @@ export class GenerateFilesContainer extends React.Component {
 
                 const responses = [];
                 allResponses.forEach((response) => {
-                    if (response.state === 'fulfilled') {
-                        responses.push(response.value);
+                    if (response.status === 'fulfilled') {
+                        responses.push(response.value.data);
                     }
                     else {
                         responses.push(response.reason);

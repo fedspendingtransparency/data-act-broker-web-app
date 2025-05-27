@@ -45,7 +45,7 @@ export class DetachedFilesFYPContainer extends React.Component {
     clickedDownload() {
         GenerateFilesHelper.fetchDetachedFileUrl(this.state.jobId)
             .then((result) => {
-                window.open(result.url);
+                window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
@@ -69,11 +69,11 @@ export class DetachedFilesFYPContainer extends React.Component {
 
         GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
-                this.parseFileState(response);
+                this.parseFileState(response.data);
             })
             .catch((err) => {
                 console.error(err);
-                this.parseFileState(err);
+                this.parseFileState(err.response.data);
             });
     }
 
@@ -108,11 +108,11 @@ export class DetachedFilesFYPContainer extends React.Component {
                     return;
                 }
 
-                this.parseFileState(response);
+                this.parseFileState(response.data);
             })
             .catch((err) => {
                 console.error(err);
-                this.parseFileState(err);
+                this.parseFileState(err.response.data);
             });
     }
 

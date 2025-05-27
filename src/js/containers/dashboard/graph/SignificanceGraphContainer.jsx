@@ -51,7 +51,7 @@ export class SignificanceGraphContainer extends React.Component {
 
         DashboardHelper.fetchSignificanceCounts(id, file, this.props.errorLevel)
             .then((res) => {
-                this.parseData(res.rules, res.total_instances);
+                this.parseData(res.data.rules, res.data.total_instances);
             })
             .catch((err) => {
                 console.error(err);

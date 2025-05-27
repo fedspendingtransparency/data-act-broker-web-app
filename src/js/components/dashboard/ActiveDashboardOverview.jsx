@@ -22,7 +22,6 @@ export default class ActiveDashboardOverview extends React.Component {
     render() {
         let content = (
             <div>
-                {/* eslint-disable import/no-dynamic-require, global-require */}
                 <h2>
                     {this.props.submissionData.icon_name ?
                         <img
@@ -30,7 +29,6 @@ export default class ActiveDashboardOverview extends React.Component {
                             alt={this.props.submissionData.agency_name} /> : ''}
                     {this.props.submissionData.agency_name || 'Submission Data' }
                 </h2>
-                {/* eslint-enable import/no-dynamic-require, global-require */}
                 <hr />
                 <div className="submission-overview-details">
                     <h3>Submission Period</h3>

@@ -48,10 +48,10 @@ export class ActiveDashboardOverviewContainer extends React.Component {
         const fileType = this.props.appliedFilters.file;
         const errorLevel = this.props.errorLevel;
         DashboardHelper.fetchActiveOverview(submissionId, fileType, errorLevel)
-            .then((data) => {
+            .then((res) => {
                 this.setState({
                     hasFailed: false,
-                    submissionData: data,
+                    submissionData: res.data,
                     inFlight: false
                 });
             })

@@ -69,16 +69,20 @@ export default class DropZone extends React.Component {
         }
 
         return (
-            <Dropzone
-                className={`usa-da-dropzone text-center${dropped}`}
-                activeClassName="active"
-                multiple={false}
-                onDrop={this.props.onDrop}
-                data-testid={`upload-${this.props.requestName}`}>
-                <DropZoneDisplay
-                    displayMode={isFileValid ? this.props.submission.state : 'invalid'}
-                    displayString={dropzoneString}
-                    progress={progress} />
+            <Dropzone onDrop={this.props.onDrop}>
+                {({getRootProps, getInputProps, isDragActive}) => (
+                    <section>
+                        <div {...getRootProps({
+                            className: `usa-da-dropzone text-center${dropped}${isDragActive ? ' active' : ''}`
+                        })}>
+                            <input {...getInputProps({multiple: false})} />
+                            <DropZoneDisplay
+                                displayMode={isFileValid ? this.props.submission.state : 'invalid'}
+                                displayString={dropzoneString}
+                                progress={progress} />
+                        </div>
+                    </section>
+                )}
             </Dropzone>
         );
     }

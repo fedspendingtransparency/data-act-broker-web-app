@@ -1,166 +1,107 @@
-import Q from 'q';
-import Request from './sessionSuperagent';
-
-import { kGlobalConstants } from '../GlobalConstants';
+import { apiRequest } from './apiRequest';
 
 export const fetchLatestPublicationPeriod = () => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'latest_publication_period/'
+    });
 
-    Request.get(`${kGlobalConstants.API}latest_publication_period/`)
-        .send()
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-export const fetchRules = (callBody) => {
-    const deferred = Q.defer();
+export const fetchRules = (data) => {
+    const req = apiRequest({
+        url: 'get_rule_labels/',
+        method: 'post',
+        data
+    });
 
-    Request.post(`${kGlobalConstants.API}get_rule_labels/`)
-        .send(callBody)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-export const fetchWarnings = (callBody) => {
-    const deferred = Q.defer();
+export const fetchWarnings = (data) => {
+    const req = apiRequest({
+        url: 'historic_dabs_graphs/',
+        method: 'post',
+        data
+    });
 
-    Request.post(`${kGlobalConstants.API}historic_dabs_graphs/`)
-        .send(callBody)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-export const fetchDashboardTableContents = (callBody) => {
-    const deferred = Q.defer();
+export const fetchDashboardTableContents = (data) => {
+    const req = apiRequest({
+        url: 'historic_dabs_table/',
+        method: 'post',
+        data
+    });
 
-    Request.post(`${kGlobalConstants.API}historic_dabs_table/`)
-        .send(callBody)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-export const fetchSubmissions = (callBody) => {
-    const deferred = Q.defer();
-    Request.post(`${kGlobalConstants.API}list_submissions/`)
-        .send(callBody)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-    return deferred.promise;
+export const fetchSubmissions = (data) => {
+    const req = apiRequest({
+        url: 'list_submissions/',
+        method: 'post',
+        data
+    });
+
+    return req.promise;
 };
 
 export const fetchActiveOverview = (submissionId, fileType, errorLevel) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'active_submission_overview/',
+        params: {
+            'submission_id': submissionId,
+            'file': fileType,
+            'error_level': errorLevel
+        }
+    });
 
-    Request.get(`${kGlobalConstants.API}active_submission_overview/?submission_id=${submissionId}&file=${fileType}&` +
-        `error_level=${errorLevel}`)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
-
 export const fetchActiveImpacts = (submissionId, fileType, errorLevel) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_impact_counts/',
+        params: {
+            'submission_id': submissionId,
+            'file': fileType,
+            'error_level': errorLevel
+        }
+    });
 
-    Request.get(`${kGlobalConstants.API}get_impact_counts/?submission_id=${submissionId}&file=${fileType}&` +
-        `error_level=${errorLevel}`)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchSignificanceCounts = (submissionId, fileType, errorLevel) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'get_significance_counts/',
+        params: {
+            'submission_id': submissionId,
+            'file': fileType,
+            'error_level': errorLevel
+        }
+    });
 
-    Request.get(`${kGlobalConstants.API}get_significance_counts/?submission_id=${submissionId}&file=${fileType}&` +
-        `error_level=${errorLevel}`)
-        .end((err, res) => {
-            if (err) {
-                const response = Object.assign({}, res.body);
-                response.httpStatus = res.status;
-                deferred.reject(response);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const fetchActiveDashboardTableContents = (submissionId, fileType, errorLevel, page, limit, sort, order) => {
-    const deferred = Q.defer();
+    const req = apiRequest({
+        url: 'active_submission_table/',
+        params: {
+            'submission_id': submissionId,
+            'file': fileType,
+            'error_level': errorLevel,
+            'page': page,
+            'limit': limit,
+            'sort': sort,
+            'order': order
+        }
+    });
 
-    Request.get(`${kGlobalConstants.API}active_submission_table/?submission_id=${submissionId}&file=${fileType}&` +
-        `error_level=${errorLevel}&page=${page}&limit=${limit}&sort=${sort}&order=${order}`)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-            }
-            else {
-                deferred.resolve(res.body);
-            }
-        });
-
-    return deferred.promise;
+    return req.promise;
 };
 
 export const getPeriodListFromFilter = (period) => {

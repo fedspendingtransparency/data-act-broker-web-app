@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as uploadActions from '../../redux/actions/uploadActions';
+import * as uploadActions from 'redux/actions/uploadActions';
+import * as sessionActions from 'redux/actions/sessionActions';
 
 import ValidationContent from '../../components/validateData/ValidationContent';
 import ValidateNotYours from '../../components/validateData/ValidateNotYours';
@@ -97,15 +98,16 @@ export class ValidateDataContainer extends React.Component {
 
     setAgencyName(givenProps) {
         if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID, 'dabs')
-                .then((data) => {
+            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+                .then((res) => {
                     if (!this.isUnmounted) {
-                        this.setState({ agencyName: data.agency_name });
+                        this.props.setSubmissionPublishStatus(res.data.publish_status);
+                        this.setState({ agencyName: res.data.agency_name });
                     }
                 })
                 .catch((error) => {
                     console.error(error);
-                    this.props.errorFromStep(error.body.message);
+                    this.props.errorFromStep(error.response.data.message);
                 });
         }
     }
@@ -183,13 +185,22 @@ export class ValidateDataContainer extends React.Component {
         if (this.props.submissionID === "") {
             return;
         }
+        const startTime = new Date().getTime();
         ReviewHelper.fetchStatus(this.props.submissionID)
-            .then((data) => {
+            .then((res) => {
                 if (this.isUnmounted) {
                     // the component has been unmounted, so don't bother with updating the state
                     // (it doesn't exist anymore anyway)
                     return;
                 }
+                const endTime = new Date().getTime();
+                const duration = endTime - startTime;
+                // log the API call duration
+                this.props.setApiMeta({
+                    time: duration
+                });
+
+                const data = res.data;
 
                 // this.setState({ finishedPageLoad: true });
                 this.props.setSubmissionState('review');
@@ -213,7 +224,7 @@ export class ValidateDataContainer extends React.Component {
                 if (fileStatusChanged) {
                     ReviewHelper.fetchSubmissionData(this.props.submissionID)
                         .then((response) => {
-                            const fileStates = ReviewHelper.getFileStates(response);
+                            const fileStates = ReviewHelper.getFileStates(response.data);
                             // sometimes the delay between checking status and getting the jobs gives the jobs time
                             // to finish when we think they're still running, this is to make sure the jobs we think
                             // are still running show as such so there is no visual discrepancy
@@ -295,5 +306,5 @@ export default connect(
         submission: state.submission,
         session: state.session
     }),
-    (dispatch) => bindActionCreators(uploadActions, dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, uploadActions, sessionActions), dispatch)
 )(ValidateDataContainer);
