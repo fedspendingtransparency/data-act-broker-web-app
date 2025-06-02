@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import * as LoginHelper from '../../helpers/loginHelper';
@@ -10,6 +10,7 @@ import * as sessionActions from '../../redux/actions/sessionActions';
 
 const propTypes = {
     children: PropTypes.node,
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
     session: PropTypes.shape({
         login: PropTypes.string,
         user: PropTypes.shape({
@@ -93,41 +94,49 @@ export class ProtectedComponent extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         if (this.props.location.pathname === '/' && this.props.location.hash) {
             const redirectPath = this.props.location.hash.replace('#', '');
-            return <Redirect to={redirectPath} />;
+            return <Navigate to={redirectPath} />;
         }
-        if (!this.props.authFn(this.props.session)) {
-            const search = `redirect=${this.props.location.pathname}`;
-            return (
-                <Redirect to={{
-                    pathname: '/login/',
-                    search
-                }} />
-            );
-        }
-        const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
-        if (redirectPath !== null && this.props.location.pathname === '/login' &&
-            this.props.session.login === 'loggedIn') {
-            return <Redirect to={redirectPath} />;
-        }
-        return this.props.children;
+        // if (!this.props.authFn(this.props.session)) {
+        //     const search = `redirect=${this.props.location.pathname}`;
+        //     return (
+        //         <Navigate to={{
+        //             pathname: '/login/',
+        //             search
+        //         }} />
+        //     );
+        // }
+        // const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
+        // if (redirectPath !== null && this.props.location.pathname === '/login' &&
+        //     this.props.session.login === 'loggedIn') {
+        //     return <Navigate to={redirectPath} />;
+        // }
+        const Component = this.props.Child;
+        return <Component {...this.props} />;
     }
 }
 
 ProtectedComponent.propTypes = propTypes;
 
-const ProtectedComponentContainer = connect(
+export default connect(
     (state) => ({
         session: state.session
     }),
     (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(ProtectedComponent);
 
-export const withAuth = (Component, props) => () => (
-    <ProtectedComponentContainer {...props}>
-        <Component {...props} />
-    </ProtectedComponentContainer>
-);
+// export default connect(
+//     (state) => ({
+//         session: state.session
+//     }),
+//     (dispatch) => bindActionCreators(sessionActions, dispatch)
+// )(ProtectedComponent);
 
-export default ProtectedComponentContainer;
+// export const withAuth = (component, props) => {
+//     console.log(props);
+//     return <ProtectedComponentContainer {...props} Child={component} />
+// };
+
+// export default ProtectedComponentContainer;

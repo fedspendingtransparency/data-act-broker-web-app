@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import { routes } from 'dataMapping/dabs/submission';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import SubmissionPage from 'components/submission/SubmissionPage';
 
 const propTypes = {
@@ -66,7 +66,7 @@ export class SubmissionContainer extends React.Component {
     render() {
         const { submissionID } = this.props.computedMatch.params;
         if (this.state.redirectPath) {
-            return <Redirect to={`/submission/${submissionID}/${this.state.redirectPath}`} />;
+            return <Navigate to={`/submission/${submissionID}/${this.state.redirectPath}`} />;
         }
         return (
             <SubmissionPage

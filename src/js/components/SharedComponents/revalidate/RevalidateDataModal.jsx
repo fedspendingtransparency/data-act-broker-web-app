@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as ReviewHelper from 'helpers/reviewHelper';
@@ -84,7 +84,7 @@ export default class RevalidateDataModal extends React.Component {
                 window.location.reload();
             }
             else {
-                return <Redirect to={`/submission/${this.props.submissionID}/validateData`} />;
+                return <Navigate to={`/submission/${this.props.submissionID}/validateData`} />;
             }
         }
         let hideClose = '';

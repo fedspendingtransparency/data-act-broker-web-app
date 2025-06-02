@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
@@ -105,11 +105,11 @@ export default class DashboardPage extends React.Component {
         const activeTab = this.props.computedMatch.params.type && this.props.computedMatch.params.type.toLowerCase();
         if (!activeTab) {
             // Redirect /dashboard to Active
-            return <Redirect to="/dashboard/active" />;
+            return <Navigate to="/dashboard/active" />;
         }
         else if (!(activeTab === 'historical' || activeTab === 'active')) {
             // Redirect invalid params to 'Page Not Found'
-            return <Redirect to="/404" />;
+            return <Navigate to="/404" />;
         }
         return (
             <div>

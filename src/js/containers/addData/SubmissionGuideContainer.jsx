@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import SubmissionGuidePage from 'components/addData/SubmissionGuidePage';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { setSkipGuide } from 'helpers/submissionGuideHelper';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const propTypes = {
     setSkipGuide: PropTypes.func,
@@ -66,7 +66,7 @@ class SubmissionGuideContainer extends React.Component {
 
     render() {
         if (this.state.toAddData) {
-            return <Redirect to="/addData/" />;
+            return <Navigate to="/addData/" />;
         }
         return (
             <SubmissionGuidePage {...this.props} saveSkipGuide={this.saveSkipGuide} />
