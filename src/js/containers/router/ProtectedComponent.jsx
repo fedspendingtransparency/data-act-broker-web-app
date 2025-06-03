@@ -9,7 +9,6 @@ import * as LoginHelper from '../../helpers/loginHelper';
 import * as sessionActions from '../../redux/actions/sessionActions';
 
 const propTypes = {
-    children: PropTypes.node,
     Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
     session: PropTypes.shape({
         login: PropTypes.string,
@@ -69,7 +68,7 @@ export class ProtectedComponent extends React.Component {
     performAutoLogin() {
         const isAuthorized = this.props.authFn(this.props.session);
         const path = LoginHelper.getPath(this.props.location, isAuthorized);
-        this.props.history.push(path);
+        // this.props.history.push(path);
     }
 
     monitorSession() {
@@ -94,25 +93,24 @@ export class ProtectedComponent extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         if (this.props.location.pathname === '/' && this.props.location.hash) {
             const redirectPath = this.props.location.hash.replace('#', '');
             return <Navigate to={redirectPath} />;
         }
-        // if (!this.props.authFn(this.props.session)) {
-        //     const search = `redirect=${this.props.location.pathname}`;
-        //     return (
-        //         <Navigate to={{
-        //             pathname: '/login/',
-        //             search
-        //         }} />
-        //     );
-        // }
-        // const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
-        // if (redirectPath !== null && this.props.location.pathname === '/login' &&
-        //     this.props.session.login === 'loggedIn') {
-        //     return <Navigate to={redirectPath} />;
-        // }
+        if (!this.props.authFn(this.props.session)) {
+            const search = `redirect=${this.props.location.pathname}`;
+            return (
+                <Navigate to={{
+                    pathname: '/login',
+                    search
+                }} />
+            );
+        }
+        const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
+        if (redirectPath !== null && this.props.location.pathname === '/login' &&
+            this.props.session.login === 'loggedIn') {
+            return <Navigate to={redirectPath} />;
+        }
         const Component = this.props.Child;
         return <Component {...this.props} />;
     }

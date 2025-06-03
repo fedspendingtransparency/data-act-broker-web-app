@@ -6,10 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ReactGA from 'react-ga';
 
 import { kGlobalConstants } from '../../GlobalConstants';
 import * as sessionActions from '../../redux/actions/sessionActions';
@@ -19,9 +17,6 @@ import ProtectedRoute from './ProtectedRoute';
 // import { withAuth } from "./ProtectedComponent";
 // import ProtectedComponent from "./ProtectedComponent";
 import WithAuth from "./WithAuth";
-
-const GA_OPTIONS = { debug: false };
-const isProd = process.env.NODE_ENV === 'production';
 
 const propTypes = {
     session: PropTypes.shape({
@@ -41,18 +36,8 @@ const defaultProps = {
 };
 
 const RouteList = new RouterRoutes();
-// const history = createBrowserHistory();
 
 class RouterContainer extends React.Component {
-    // componentDidMount() {
-    //     if (isProd && kGlobalConstants.GA_TRACKING_ID !== '') {
-    //         ReactGA.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
-    //         history.listen((location) => {
-    //             ReactGA.set({ page: location.pathname });
-    //             ReactGA.pageview(location.pathname);
-    //         });
-    //     }
-    // }
 
     render() {
         // console.log(RouteList.getRoutes());
@@ -61,21 +46,21 @@ class RouterContainer extends React.Component {
             <BrowserRouter>
                 <Routes>
                     {[
-                        ...RouteList.getRoutes().map(({ path, component }) => {
+                        ...RouteList.getRoutes().map((route) => {
                             // console.log(path);
                             // console.log(component);
                             // console.log(route);
-                            const Component = (routerProps) => WithAuth(component, routerProps);
+                            // const Component = (routerProps) => WithAuth(component, routerProps);
                             // const Component = <ProtectedComponent Child={component} />
                             // const testVar = (routerProps) => <ProtectedComponent Child={component} {...routerProps} />;
                             // console.log(testVar);
                             // const Component = route.component;
-                            // const componentWithAuth = withAuth(route.component, {...route});
+                            const Component = () => WithAuth(route.component, {...route});
                             
                             return (
                             <Route
-                                key={path}
-                                path={path}
+                                key={route.path}
+                                path={route.path}
                                 element={<Component />}
                                 session={this.props.session} />
                         )})
