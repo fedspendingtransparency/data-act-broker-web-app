@@ -35,7 +35,7 @@ export default class ResourcesContent extends React.Component {
                         sources of the data elements and the submission format. GSDM information is available on
                         the&nbsp;
                         <a
-                            href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
+                            href="https://tfx.treasury.gov/data-transparency/gsdm"
                             target="_blank"
                             rel="noopener noreferrer">
                             GSDM page
@@ -46,14 +46,12 @@ export default class ResourcesContent extends React.Component {
                     <ul>
                         <li>
                             <a
-                                href={`https://fiscal.treasury.gov/files/data-transparency/` +
-                                    `GSDM-Validation-Rules-v1.1.xlsx`}
+                                href={`https://tfx.treasury.gov/data-transparency/resources`}
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                GSDM Validation Rules
+                                Resources for Federal Agencies
                             </a>
-                            : documents the business rules employed by Data Broker for field and cross-file
-                            validations.
+                            : quick links to the RSS, IDD, and Validation Rules.
                         </li>
                         <li>
                             <a
@@ -63,8 +61,8 @@ export default class ResourcesContent extends React.Component {
                                 rel="noopener noreferrer">
                                 Data Broker SQL Validation Rules
                             </a>
-                            : the actual machine logic used in FABS validations. These SQL statements are based directly
-                            on the FABS validation rules.
+                            : the actual machine logic used in DABS and FABS validations. These SQL statements are based
+                            directly on the DABS and FABS validation rules.
                         </li>
                         <li>
                             <a
@@ -74,8 +72,8 @@ export default class ResourcesContent extends React.Component {
                                 rel="noopener noreferrer">
                                 The GSDM Practices & Procedures
                             </a>
-                            &nbsp;contains file-wide practices, explanations of how elements are derived based on FABS
-                            data, and information on the submission process (including corrections and deletions),
+                            &nbsp;contains agency best practices and special scenarios on how to submit, validate, and
+                            understand the submission process to the Data Broker. This includes corrections and deletions,
                             validation rule source data, user management, technical procedures for formatting submission
                             files, etc.
                         </li>
