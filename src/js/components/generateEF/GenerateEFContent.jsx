@@ -33,8 +33,8 @@ export default class GenerateEFContent extends React.Component {
                         {...this.props}
                         type="F"
                         title="Sub-Award Data"
-                        description={"Sub-award data is generated from the Federal Subaward Reporting System and " +
-                            "includes the subawards for the prime awards in File D."} />
+                        description={"Sub-award data is generated from SAM and includes the subawards for the prime" +
+                            "awards in File D."} />
                 </div>
                 <GenerateEFOverlay {...this.props} />
             </div>
