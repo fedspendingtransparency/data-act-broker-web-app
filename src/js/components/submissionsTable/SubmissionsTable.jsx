@@ -375,8 +375,9 @@ export default class SubmissionsTable extends React.Component {
     }
 
     loadUser() {
-        LoginHelper.fetchActiveUser().then((user) => {
-            this.setState({ account: user });
+        // Leaving this as a function in case the user changes and we want to update it
+        this.setState({
+            account: this.props.session.user
         });
     }
 

@@ -84,82 +84,30 @@ const ProtectedComponent = (props) => {
         }, 15 * 60 * 1000);
     }
 
+    // Remove # from the paths
+    if (props.location.pathname === '/' && props.location.hash) {
+        const redirectPath = props.location.hash.replace('#', '');
+        return <Navigate to={redirectPath} />;
+    }
+    // if user isn't logged in, redirect to the login page
+    if (!props.authFn(props.session)) {
+        const search = `redirect=${props.location.pathname}`;
+        return (
+            <Navigate to={{
+                pathname: '/login',
+                search
+            }} />
+        );
+    }
+    // if there's a redirect path and the user logs in, redirect them to that path
+    const redirectPath = LoginHelper.getRedirectPath(props.location, true);
+    if (redirectPath !== null && props.location.pathname === '/login' && props.session.login === 'loggedIn') {
+        return <Navigate to={redirectPath} />;
+    }
+
     const Component = props.Child;
     return <Component {...props} />;
 };
-
-// export class ProtectedComponent extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.sessionChecker = null;
-//     }
-
-//     componentDidUpdate(prevProps) {
-//         if (this.props.session.login !== prevProps.session.login) {
-//             if (this.props.session.login === "loggedIn") {
-//                 // we've switched from either a logged out state to logged in or
-//                 // we've received session data back from the backend
-//                 // so we should auto-relogin
-//                 this.performAutoLogin();
-//                 this.monitorSession();
-//             }
-//         }
-//     }
-
-//     componentWillUnmount() {
-//         window.clearImmediate(this.sessionChecker);
-//     }
-
-//     performAutoLogin() {
-//         const isAuthorized = this.props.authFn(this.props.session);
-//         const path = LoginHelper.getPath(this.props.location, isAuthorized);
-//         // this.props.history.push(path);
-//     }
-
-//     monitorSession() {
-//         // start a timer to periodically check the user's session state every 15 minutes
-//         this.sessionChecker = setInterval(() => {
-//             LoginHelper.checkSession()
-//                 .then((res) => {
-//                     if (res.data.status !== 'True') {
-//                         return Promise.reject();
-//                     }
-//                 })
-//                 .catch(() => {
-//                     this.props.setLoggedOut();
-
-//                     // unset the login state cookie
-//                     Cookies.remove('brokerLogin');
-
-//                     // session expired, stop checking if it's active any more
-//                     clearInterval(this.sessionChecker);
-//                 });
-//         }, 15 * 60 * 1000);
-//     }
-
-//     render() {
-//         if (this.props.location.pathname === '/' && this.props.location.hash) {
-//             const redirectPath = this.props.location.hash.replace('#', '');
-//             return <Navigate to={redirectPath} />;
-//         }
-//         if (!this.props.authFn(this.props.session)) {
-//             const search = `redirect=${this.props.location.pathname}`;
-//             return (
-//                 <Navigate to={{
-//                     pathname: '/login',
-//                     search
-//                 }} />
-//             );
-//         }
-//         const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
-//         if (redirectPath !== null && this.props.location.pathname === '/login' &&
-//             this.props.session.login === 'loggedIn') {
-//             return <Navigate to={redirectPath} />;
-//         }
-//         const Component = this.props.Child;
-//         return <Component {...this.props} />;
-//     }
-// }
 
 ProtectedComponent.propTypes = propTypes;
 
@@ -169,17 +117,3 @@ export default connect(
     }),
     (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(ProtectedComponent);
-
-// export default connect(
-//     (state) => ({
-//         session: state.session
-//     }),
-//     (dispatch) => bindActionCreators(sessionActions, dispatch)
-// )(ProtectedComponent);
-
-// export const withAuth = (component, props) => {
-//     console.log(props);
-//     return <ProtectedComponentContainer {...props} Child={component} />
-// };
-
-// export default ProtectedComponentContainer;
