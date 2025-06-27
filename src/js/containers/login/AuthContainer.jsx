@@ -3,7 +3,7 @@
   * Created by Kevin Li 10/13/16
   */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import _ from 'lodash';
