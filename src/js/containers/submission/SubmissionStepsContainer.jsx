@@ -3,10 +3,11 @@
  * Created by Lizzie Salita 2/27/20
  */
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { useParams, useNavigate } from 'react-router';
 
 import * as uploadActions from 'redux/actions/uploadActions';
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
@@ -15,175 +16,127 @@ import SubmissionPage from 'components/submission/SubmissionPage';
 import { routes, steps } from 'dataMapping/dabs/submission';
 
 const propTypes = {
-    computedMatch: PropTypes.object,
     history: PropTypes.object,
     submissionInfo: PropTypes.object,
     setInfo: PropTypes.func
 };
 
-export class SubmissionStepsContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const SubmissionStepsContainer = (props) => {
+    const [stepLoading, setStepLoading] = useState(true);
+    const [metadataLoading, setMetadataLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [currentStep, setCurrentStep] = useState(0);
+    const [reverting, setReverting] = useState(false);
+    const params = useParams();
+    const navigate = useNavigate();
 
-        this.state = {
-            stepLoading: true,
-            metadataLoading: true,
-            error: false,
-            errorMessage: '',
-            currentStep: 0,
-            reverting: false
-        };
+    useEffect(() => {
+        getSubmissionInfo();
+        getOriginalStep(steps[params.step]);
+    }, []);
 
-        this.errorFromStep = this.errorFromStep.bind(this);
-        this.revertSubmission = this.revertSubmission.bind(this);
-    }
+    // if submission ID changes, get the submission info again
+    useEffect(() => {
+        getSubmissionInfo();
+    }, [params.submissionID]);
 
-    componentDidMount() {
-        const { step } = this.props.computedMatch.params;
-        this.getSubmissionInfo();
-        const stepNumber = steps[step];
-        this.getOriginalStep(stepNumber);
-    }
-
-    componentDidUpdate(prevProps) {
-        const { submissionID, step } = this.props.computedMatch.params;
-        const stepNumber = steps[step];
+    // if the step changes, get the new step
+    useEffect(() => {
+        const stepNumber = steps[params.step];
         if (stepNumber) {
-            // check for ID change
-            if (prevProps.computedMatch.params.submissionID !== submissionID) {
-                this.getSubmissionInfo();
-                this.getOriginalStep(stepNumber);
-            }
-            else if (prevProps.computedMatch.params.step !== step) {
-                // A new step has been specified via URL
-                this.getOriginalStep(stepNumber);
-            }
+            getOriginalStep(stepNumber);
         }
         else {
-            // invalid url
-            this.props.history.push('/404');
+            navigate('/404');
         }
-    }
+    }, [params.step]);
 
-    componentWillUnmount() {
-        this.resetStep();
-    }
+    // if the "highest" step available in the submission is lower than the step in the url, replace the url
+    useEffect(() => {
+        if (currentStep > 0 && steps[params.step] > currentStep) {
+            navigate(`/submission/${params.submissionID}/${routes[currentStep - 1]}`);
+        }
+    }, [currentStep]);
 
-    getSubmissionInfo() {
-        this.setState({
-            metadataLoading: true
-        });
-        const { submissionID } = this.props.computedMatch.params;
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+    const getSubmissionInfo = () => {
+        setMetadataLoading(true);
+        ReviewHelper.fetchSubmissionMetadata(params.submissionID)
             .then((res) => {
-                this.props.setSubmissionPublishStatus(res.data.publish_status);
-                this.props.setInfo(res.data);
-                this.setState({
-                    metadataLoading: false
-                });
+                props.setSubmissionPublishStatus(res.data.publish_status);
+                props.setInfo(res.data);
+                setMetadataLoading(false);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }
+    };
 
-    getOriginalStep(stepNumber) {
-        this.setState({
-            stepLoading: true
-        });
-        const params = this.props.computedMatch.params;
+    const getOriginalStep = (stepNumber) => {
+        setStepLoading(true);
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
                 const originalStep = parseInt(res.data.step, 10);
                 if (originalStep === 6) {
-                    this.setState({
-                        stepLoading: false,
-                        error: true,
-                        errorMessage: 'This is a FABS ID. Please navigate to FABS.'
-                    });
+                    setStepLoading(false);
+                    setHasError(true);
+                    setErrorMessage('This is a FABS ID. Please navigate to FABS.');
                 }
                 else {
-                    let currentStep = originalStep;
+                    let currStep = originalStep;
                     if (stepNumber && stepNumber <= originalStep) {
-                        currentStep = stepNumber;
+                        currStep = stepNumber;
                     }
-                    this.setState(
-                        {
-                            stepLoading: false,
-                            error: false,
-                            errorMessage: '',
-                            currentStep
-                        },
-                        () => {
-                            if (!stepNumber || stepNumber > originalStep) {
-                                const route = routes[originalStep - 1];
-                                this.props.history.replace(`/submission/${params.submissionID}/${route}`);
-                            }
-                        }
-                    );
+                    setStepLoading(false);
+                    setHasError(false);
+                    setErrorMessage('');
+                    setCurrentStep(currStep);
                 }
             })
             .catch((err) => {
-                this.setState({
-                    stepLoading: false,
-                    error: true,
-                    errorMessage: err.response.data.message,
-                    currentStep: 0
-                });
+                setStepLoading(false);
+                setHasError(true);
+                setErrorMessage(err.response.data.messag);
+                setCurrentStep(0);
             });
-    }
+    };
 
-    errorFromStep(errorMessage) {
-        this.setState({
-            error: true,
-            errorMessage
-        });
-    }
+    const errorFromStep = (errorMessage) => {
+        setHasError(true);
+        setErrorMessage(errorMessage);
+    };
 
-    resetStep() {
-        this.setState({
-            currentStep: 0
-        });
-    }
-
-    revertSubmission(e) {
+    const revertSubmission = (e) => {
         e.preventDefault();
-        const savedStep = this.state.currentStep;
-        this.setState({
-            currentStep: 0,
-            reverting: true
-        });
-        ReviewHelper.revertToCertified(this.props.computedMatch.params.submissionID)
+        const savedStep = currentStep;
+        setCurrentStep(0);
+        setReverting(true);
+        ReviewHelper.revertToCertified(params.submissionID)
             .then(() => {
-                this.getSubmissionInfo();
-                this.setState({
-                    currentStep: savedStep,
-                    reverting: false
-                });
+                getSubmissionInfo();
+                setCurrentStep(savedStep);
+                setReverting(false);
             })
             .catch((err) => {
-                const { message } = err.response.data;
-                this.setState({
-                    error: true,
-                    errorMessage: message,
-                    currentStep: savedStep,
-                    reverting: false
-                });
+                setHasError(true);
+                setErrorMessage(err.response.data);
+                setCurrentStep(savedStep);
+                setReverting(false);
             });
-    }
+    };
 
-    render() {
-        const { submissionID } = this.props.computedMatch.params;
-        return (
-            <SubmissionPage
-                submissionID={submissionID}
-                {...this.state}
-                errorFromStep={this.errorFromStep}
-                loading={this.state.metadataLoading || this.state.stepLoading}
-                submissionInfo={this.props.submissionInfo}
-                revertSubmission={this.revertSubmission} />
-        );
-    }
+    return (
+        <SubmissionPage
+            submissionID={params.submissionID}
+            errorFromStep={errorFromStep}
+            error={hasError}
+            errorMessage={errorMessage}
+            loading={metadataLoading || stepLoading}
+            submissionInfo={props.submissionInfo}
+            currentStep={currentStep}
+            revertSubmission={revertSubmission}
+            reverting={reverting} />
+    );
 }
 
 SubmissionStepsContainer.propTypes = propTypes;

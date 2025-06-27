@@ -1,10 +1,11 @@
 /**
 * UploadFabsFilePage.jsx
-* Created by MichaelHess
+* Created by Michael Hess
 */
 
-import React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useParams, useNavigate } from 'react-router';
 
 import Footer from 'components/SharedComponents/FooterComponent';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
@@ -16,7 +17,6 @@ const propTypes = {
     setSubmissionId: PropTypes.func,
     setSubmissionState: PropTypes.func,
     history: PropTypes.object,
-    computedMatch: PropTypes.object,
     type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };
@@ -28,60 +28,54 @@ const defaultProps = {
     submission: {}
 };
 
-export default class UploadFabsFilePage extends React.Component {
-    constructor(props) {
-        super(props);
+const UploadFabsFilePage = (props) => {
+    const params = useParams();
+    const navigate = useNavigate();
 
-        this.validate = this.validate.bind(this);
+    useEffect(() => {
+        props.setSubmissionId(params.submissionID);
+    }, [params.submissionID]);
+
+    const validate = (submissionID) => {
+        props.setSubmissionId(submissionID);
+        navigate(`/FABSaddData/${submissionID}`);
+    };
+
+    let content = null;
+    if (params.submissionID) {
+        content = (<UploadFabsFileValidation
+            {...props}
+            submission={props.submission}
+            setSubmissionId={props.setSubmissionId} />);
     }
-
-    componentDidUpdate(prevProps) {
-        const { params } = this.props.computedMatch;
-        if (params.submissionID !== prevProps.computedMatch.params.submissionID) {
-            this.props.setSubmissionId(params.submissionID);
-        }
+    else {
+        content = (<UploadFabsFileMeta
+            setSubmissionState={props.setSubmissionState}
+            setSubmissionId={props.setSubmissionId}
+            history={props.history}
+            submission={props.submission}
+            validate={validate} />);
     }
-
-    validate(submissionID) {
-        this.props.setSubmissionId(submissionID);
-        this.props.history.push(`/FABSaddData/${submissionID}`);
-    }
-
-    render() {
-        let content = null;
-        if (this.props.computedMatch.params.submissionID) {
-            content = (<UploadFabsFileValidation
-                {...this.props}
-                submission={this.props.submission}
-                setSubmissionId={this.props.setSubmissionId} />);
-        }
-        else {
-            content = (<UploadFabsFileMeta
-                setSubmissionState={this.props.setSubmissionState}
-                setSubmissionId={this.props.setSubmissionId}
-                history={this.props.history}
-                submission={this.props.submission}
-                validate={this.validate} />);
-        }
-        return (
-            <div className="usa-da-upload-fabs-file-page">
-                <div className="usa-da-site_wrap">
-                    <div className="usa-da-page-content">
-                        <Navbar
-                            activeTab="FABSAddData"
-                            type={this.props.type} />
-                        <div className="usa-da-upload-fabs-file-page">
-                            <div className="usa-da-site_wrap">
-                                {content}
-                            </div>
+    return (
+        <div className="usa-da-upload-fabs-file-page">
+            <div className="usa-da-site_wrap">
+                <div className="usa-da-page-content">
+                    <Navbar
+                        activeTab="FABSAddData"
+                        type={props.type} />
+                    <div className="usa-da-upload-fabs-file-page">
+                        <div className="usa-da-site_wrap">
+                            {content}
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
-        );
-    }
+            <Footer />
+        </div>
+    );
 }
 
 UploadFabsFilePage.propTypes = propTypes;
 UploadFabsFilePage.defaultProps = defaultProps;
+
+export default UploadFabsFilePage;

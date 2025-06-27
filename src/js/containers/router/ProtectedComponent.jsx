@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
@@ -50,18 +50,10 @@ const ProtectedComponent = (props) => {
         if (props.session.login === 'loggedIn') {
             // we've switched from either a logged out state to logged in or
             // we've received session data back from the backend
-            // so we should auto-relogin
-            performAutoLogin();
+            // so we should update the session monitoring
             monitorSession();
         }
     }, [props.session.login]);
-
-    const performAutoLogin = () => {
-        const isAuthorized = props.authFn(props.session);
-        const path = LoginHelper.getPath(props.location, isAuthorized);
-        console.log('just performing a login, fix later');
-        // this.props.history.push(path);
-    }
 
     const monitorSession = () => {
         // start a timer to periodically check the user's session state every 15 minutes

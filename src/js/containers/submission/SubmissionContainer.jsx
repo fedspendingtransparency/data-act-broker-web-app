@@ -3,80 +3,60 @@
  * Created by Minahm Kim 6/29/17
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import { routes } from 'dataMapping/dabs/submission';
 import { Navigate } from 'react-router-dom';
 import SubmissionPage from 'components/submission/SubmissionPage';
 
-const propTypes = {
-    computedMatch: PropTypes.object
-};
+const SubmissionContainer = () => {
+    const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [redirectPath, setRedirectPath] = useState('');
+    const params = useParams();
 
-export class SubmissionContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        getOriginalStep();
+    }, []);
 
-        this.state = {
-            loading: true,
-            error: false,
-            errorMessage: '',
-            redirectPath: ''
-        };
-    }
-
-    componentDidMount() {
-        this.getOriginalStep();
-    }
-
-    getOriginalStep() {
-        const params = this.props.computedMatch.params;
+    const getOriginalStep = () => {
         SubmissionGuideHelper.getSubmissionPage(params.submissionID)
             .then((res) => {
                 const originalStep = parseInt(res.data.step, 10);
+                setLoading(false);
                 if (originalStep === 6) {
-                    this.setState({
-                        loading: false,
-                        error: true,
-                        errorMessage: 'This is a FABS ID. Please navigate to FABS.'
-                    });
+                    setHasError(true);
+                    setErrorMessage('This is a FABS ID. Please navigate to FABS.');
                 }
                 else {
-                    const redirectPath = routes[originalStep - 1];
-                    this.setState({
-                        loading: false,
-                        error: false,
-                        errorMessage: '',
-                        redirectPath
-                    });
+                    setHasError(false);
+                    setErrorMessage('');
+                    setRedirectPath(routes[originalStep - 1]);
                 }
             })
             .catch((err) => {
-                this.setState({
-                    loading: false,
-                    error: true,
-                    errorMessage: err.response.data.message
-                });
+                setLoading(false);
+                setHasError(true);
+                setErrorMessage(err.response.data.message);
             });
     }
 
-    render() {
-        const { submissionID } = this.props.computedMatch.params;
-        if (this.state.redirectPath) {
-            return <Navigate to={`/submission/${submissionID}/${this.state.redirectPath}`} />;
-        }
-        return (
-            <SubmissionPage
-                submissionID={submissionID}
-                {...this.state} />
-        );
+    if (redirectPath) {
+        return <Navigate to={`/submission/${params.submissionID}/${redirectPath}`} />;
     }
-}
 
-SubmissionContainer.propTypes = propTypes;
+    return (
+        <SubmissionPage
+            submissionID={params.submissionID}
+            loading={loading}
+            error={hasError}
+            errorMessage={errorMessage} />
+    );
+};
 
 export default connect(
     (state) => ({
