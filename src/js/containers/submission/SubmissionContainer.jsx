@@ -42,7 +42,7 @@ const SubmissionContainer = () => {
                 setHasError(true);
                 setErrorMessage(err.response.data.message);
             });
-    }
+    };
 
     if (redirectPath) {
         return <Navigate to={`/submission/${params.submissionID}/${redirectPath}`} />;

@@ -12,7 +12,6 @@ import WithAuth from "./WithAuth";
 const RouteList = new RouterRoutes();
 
 class RouterContainer extends React.Component {
-
     render() {
         return (
             <BrowserRouter>
@@ -22,11 +21,12 @@ class RouterContainer extends React.Component {
                             const Component = () => WithAuth(route.component, {...route});
                             
                             return (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={<Component />} />
-                        )})
+                                <Route
+                                    key={route.path}
+                                    path={route.path}
+                                    element={<Component />} />
+                            );
+                        })
                     ]}
                 </Routes>
             </BrowserRouter>

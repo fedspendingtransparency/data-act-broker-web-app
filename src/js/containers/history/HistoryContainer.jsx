@@ -18,7 +18,7 @@ const HistoryContainer = (props) => {
     return (
         <HistoryPage submissionID={params.submissionID} type={props.type} />
     );
-}
+};
 
 HistoryContainer.propTypes = propTypes;
 

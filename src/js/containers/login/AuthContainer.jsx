@@ -28,7 +28,7 @@ const AuthContainer = (props) => {
     useEffect(() => {
         if (runRedirect) {
             setRunRedirect(false);
-            navigate(location.pathname, { replace: true })
+            navigate(location.pathname, { replace: true });
 
             let destination = '/landing';
 
@@ -116,7 +116,7 @@ const AuthContainer = (props) => {
             // remove any redirection cookies
             Cookies.remove('brokerRedirect');
         }
-    }
+    };
 
     return (
         <div className="login-right usa-da-login-container">

@@ -77,7 +77,7 @@ const UploadFabsFileValidation = (props) => {
         return () => {
             props.resetSubmission();
             isUnmounted = true;
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -140,7 +140,7 @@ const UploadFabsFileValidation = (props) => {
                 })
                 .catch(() => {
                     setError(1);
-                    setErrorMessage(`Invalid File Type Selected ${item.file_type}`);
+                    setErrorMessage(`Invalid File Type Selected ${props.item.file_type}`);
                     setSignInProgress(false);
                 });
         }
@@ -167,22 +167,22 @@ const UploadFabsFileValidation = (props) => {
                 setInFlight(false);
                 setSubmissionErrorMessage(err.response.data.message);
             });
-    }
+    };
 
     const openModal = () => {
         setShowPublish(true);
-    }
+    };
 
     const closeModal = () => {
         setShowPublish(false);
-    }
+    };
 
     const startRevalidation = () => {
         setValidationFinished(false);
         setPublished('unpublished');
         setProgressMeta({ progress: 0, name: progressMeta.name });
         setRunRevalidate(true);
-    }
+    };
 
     const checkFileStatus = (submissionID) => {
         // callback to check file status
@@ -268,7 +268,7 @@ const UploadFabsFileValidation = (props) => {
         setPublished('publishing');
         setShowPublish(false);
         setRunPublish(true);
-    }
+    };
 
     // ERRORS
     // 1: Submission is already published
@@ -307,7 +307,7 @@ const UploadFabsFileValidation = (props) => {
                 setError(4);
                 setErrorMessage(err.response.data === undefined ? err.message : err.response.data.message);
             });
-    }
+    };
 
     if (inFlight) {
         return (
@@ -572,7 +572,7 @@ const UploadFabsFileValidation = (props) => {
                 published={published} />
         </div>
     );
-}
+};
 
 UploadFabsFileValidation.propTypes = propTypes;
 UploadFabsFileValidation.defaultProps = defaultProps;

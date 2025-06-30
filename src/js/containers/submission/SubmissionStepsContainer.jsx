@@ -16,7 +16,6 @@ import SubmissionPage from 'components/submission/SubmissionPage';
 import { routes, steps } from 'dataMapping/dabs/submission';
 
 const propTypes = {
-    history: PropTypes.object,
     submissionInfo: PropTypes.object,
     setInfo: PropTypes.func
 };
@@ -137,7 +136,7 @@ const SubmissionStepsContainer = (props) => {
             revertSubmission={revertSubmission}
             reverting={reverting} />
     );
-}
+};
 
 SubmissionStepsContainer.propTypes = propTypes;
 

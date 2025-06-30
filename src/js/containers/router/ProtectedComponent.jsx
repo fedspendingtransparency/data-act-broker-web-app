@@ -74,7 +74,7 @@ const ProtectedComponent = (props) => {
                     clearInterval(sessionChecker);
                 });
         }, 15 * 60 * 1000);
-    }
+    };
 
     // Remove # from the paths
     if (props.location.pathname === '/' && props.location.hash) {

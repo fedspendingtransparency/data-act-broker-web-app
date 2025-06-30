@@ -16,7 +16,6 @@ import FormattedTable from '../SharedComponents/table/FormattedTable';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink';
 import HistoryLink from './HistoryLink';
 import * as Status from '../landing/recentActivity/SubmissionStatus';
-import * as LoginHelper from '../../helpers/loginHelper';
 import * as UtilHelper from '../../helpers/util';
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import DeleteLink from '../landing/recentActivity/DeleteLink';

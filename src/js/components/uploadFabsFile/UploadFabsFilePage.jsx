@@ -73,7 +73,7 @@ const UploadFabsFilePage = (props) => {
             <Footer />
         </div>
     );
-}
+};
 
 UploadFabsFilePage.propTypes = propTypes;
 UploadFabsFilePage.defaultProps = defaultProps;
