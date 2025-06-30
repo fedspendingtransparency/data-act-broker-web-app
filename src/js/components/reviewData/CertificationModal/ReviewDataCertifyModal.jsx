@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CertifyDisclaimer from 'components/reviewData/CertificationModal/CertifyDisclaimer';
 import PublishDisclaimer from 'components/reviewData/CertificationModal/PublishDisclaimer';

@@ -3,8 +3,7 @@
   * Created by Lizzie Salita 9/24/19
   */
 
-import { useParams } from 'react-router';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router';
 
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';

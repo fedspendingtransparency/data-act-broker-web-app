@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 

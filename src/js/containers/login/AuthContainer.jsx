@@ -4,8 +4,7 @@
   */
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';

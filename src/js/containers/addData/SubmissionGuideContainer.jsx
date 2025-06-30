@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,7 +13,6 @@ import queryString from 'query-string';
 import SubmissionGuidePage from 'components/addData/SubmissionGuidePage';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { setSkipGuide } from 'helpers/submissionGuideHelper';
-import { Navigate } from 'react-router-dom';
 
 const propTypes = {
     setSkipGuide: PropTypes.func,

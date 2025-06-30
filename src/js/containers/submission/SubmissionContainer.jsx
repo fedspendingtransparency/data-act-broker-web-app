@@ -5,11 +5,10 @@
 
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import { routes } from 'dataMapping/dabs/submission';
-import { Navigate } from 'react-router-dom';
 import SubmissionPage from 'components/submission/SubmissionPage';
 
 const SubmissionContainer = () => {

@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const propTypes = {
     submissionId: PropTypes.oneOfType([

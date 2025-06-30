@@ -4,12 +4,12 @@
   */
 
 import React from 'react';
+import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import GenerateFileBox from 'components/generateFiles/components/GenerateFileBox';
-import { Navigate } from 'react-router-dom';
 
 const propTypes = {
     disableButton: PropTypes.func,

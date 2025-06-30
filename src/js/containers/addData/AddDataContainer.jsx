@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 import * as uploadActions from 'redux/actions/uploadActions';
 import * as UploadHelper from 'helpers/uploadHelper';

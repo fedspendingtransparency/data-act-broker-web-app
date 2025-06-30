@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import ProtectedComponent from 'containers/router/ProtectedComponent';
 
 const WithAuth = (component, props) => {

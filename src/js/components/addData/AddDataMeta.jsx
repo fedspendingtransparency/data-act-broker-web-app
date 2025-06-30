@@ -4,9 +4,9 @@
 */
 
 import React from 'react';
+import { Link, Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Link, Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as AgencyHelper from 'helpers/agencyHelper';
