@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 const propTypes = {
     redirectPath: PropTypes.string.isRequired
@@ -14,7 +13,7 @@ const propTypes = {
 
 export default class RedirectContainer extends React.Component {
     render() {
-        return <Redirect to={`${this.props.redirectPath}`} />;
+        return <Navigate to={`${this.props.redirectPath}`} />;
     }
 }
 

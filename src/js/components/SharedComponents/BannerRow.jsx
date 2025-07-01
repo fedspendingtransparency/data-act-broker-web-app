@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
@@ -44,10 +44,10 @@ export default class BannerRow extends React.Component {
                             {this.props.useMarkdown ?
                                 <div>
                                     <div className="banner-header">
-                                        <ReactMarkdown>{this.props.header}</ReactMarkdown>
+                                        <Markdown>{this.props.header}</Markdown>
                                     </div>
                                     <div className="banner-content">
-                                        <ReactMarkdown>{this.props.message}</ReactMarkdown>
+                                        <Markdown>{this.props.message}</Markdown>
                                     </div>
                                 </div> :
                                 <div>
