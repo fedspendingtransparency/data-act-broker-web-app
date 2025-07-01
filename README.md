@@ -1,5 +1,7 @@
 # Data Broker Web App
 
+[![npm: >10.8.3](https://img.shields.io/badge/npm-%3E10.8.3-blue)](https://www.npmjs.com/) [![node: 20.18.2](https://img.shields.io/badge/node-20.18.2-blue)](https://nodejs.org/en) [![react: 18.3.1](https://img.shields.io/badge/react-18.3.1-blue)](https://react.dev/) [![Pull Request Checks](https://github.com/fedspendingtransparency/data-act-broker-web-app/actions/workflows/pull-request-checks.yaml/badge.svg)](https://github.com/fedspendingtransparency/data-act-broker-web-app/actions/workflows/pull-request-checks.yaml)
+
 The Data Broker website is the front-end to the [Data Broker backend](https://github.com/fedspendingtransparency/data-act-broker-backend "Data Broker backend").
 
 ## Development Set Up

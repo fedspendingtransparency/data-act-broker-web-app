@@ -115,7 +115,7 @@ export default class SubmissionGuideContent extends React.Component {
                                             <a
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html">
+                                                href="https://tfx.treasury.gov/data-transparency/gsdm">
                                                 GSDM
                                             </a>
                                             &nbsp;page of the Data Transparency site for the Bureau of the Fiscal
