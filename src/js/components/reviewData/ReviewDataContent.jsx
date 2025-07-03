@@ -4,10 +4,10 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from 'react-router-dom';
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { checkAffiliations } from 'helpers/permissionsHelper';

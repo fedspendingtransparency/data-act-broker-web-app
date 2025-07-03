@@ -4,9 +4,9 @@
 */
 
 import React from 'react';
+import { Link, Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as AgencyHelper from 'helpers/agencyHelper';
@@ -185,9 +185,9 @@ export default class AddDataMeta extends React.Component {
 
             const pubSublink = (
                 singlePubSub ?
-                    <Redirect to={`/submission/${this.state.publishedSubmissions[0].submission_id}/validateData`} />
+                    <Navigate to={`/submission/${this.state.publishedSubmissions[0].submission_id}/validateData`} />
                     :
-                    <Redirect to="/submissionTable/" />
+                    <Navigate to="/submissionTable/" />
             );
             return pubSublink;
         }

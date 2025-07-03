@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from 'react-router-dom';
 import Banner from 'components/SharedComponents/Banner';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import Footer from '../SharedComponents/FooterComponent';
