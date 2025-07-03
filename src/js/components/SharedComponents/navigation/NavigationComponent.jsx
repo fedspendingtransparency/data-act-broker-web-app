@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import * as sessionActions from 'redux/actions/sessionActions';
 import { clearSettings } from 'redux/actions/settingsActions';
 import * as PermissionHelper from 'helpers/permissionsHelper';

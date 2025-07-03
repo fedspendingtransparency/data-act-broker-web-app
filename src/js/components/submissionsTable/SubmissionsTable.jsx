@@ -16,7 +16,6 @@ import FormattedTable from '../SharedComponents/table/FormattedTable';
 import SubmissionLink from '../landing/recentActivity/SubmissionLink';
 import HistoryLink from './HistoryLink';
 import * as Status from '../landing/recentActivity/SubmissionStatus';
-import * as LoginHelper from '../../helpers/loginHelper';
 import * as UtilHelper from '../../helpers/util';
 import * as PermissionsHelper from '../../helpers/permissionsHelper';
 import DeleteLink from '../landing/recentActivity/DeleteLink';
@@ -375,8 +374,9 @@ export default class SubmissionsTable extends React.Component {
     }
 
     loadUser() {
-        LoginHelper.fetchActiveUser().then((user) => {
-            this.setState({ account: user });
+        // Leaving this as a function in case the user changes and we want to update it
+        this.setState({
+            account: this.props.session.user
         });
     }
 

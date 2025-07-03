@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from '../SharedComponents/icons/Icons';
 
@@ -53,11 +53,11 @@ export default class DropZoneDisplay extends React.Component {
                     }
                 })()}
                 <div>
-                    <ReactMarkdown
-                        disallowedTypes={['paragraph']}
+                    <Markdown
+                        disallowedElements={['p']}
                         unwrapDisallowed>
                         {this.props.displayString}
-                    </ReactMarkdown>
+                    </Markdown>
                 </div>
             </div>
         );

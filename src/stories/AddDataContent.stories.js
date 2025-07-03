@@ -1,5 +1,5 @@
 import { fn, userEvent, within, expect } from '@storybook/test';
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from '../js/redux/reducers';

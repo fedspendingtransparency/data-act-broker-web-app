@@ -1,15 +1,15 @@
-import React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import * as LoginHelper from '../../helpers/loginHelper';
 import * as sessionActions from '../../redux/actions/sessionActions';
 
 const propTypes = {
-    children: PropTypes.node,
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
     session: PropTypes.shape({
         login: PropTypes.string,
         user: PropTypes.shape({
@@ -43,37 +43,21 @@ const propTypes = {
     })
 };
 
-export class ProtectedComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.sessionChecker = null;
-    }
+const ProtectedComponent = (props) => {
+    let sessionChecker = null;
 
-    componentDidUpdate(prevProps) {
-        if (this.props.session.login !== prevProps.session.login) {
-            if (this.props.session.login === "loggedIn") {
-                // we've switched from either a logged out state to logged in or
-                // we've received session data back from the backend
-                // so we should auto-relogin
-                this.performAutoLogin();
-                this.monitorSession();
-            }
+    useEffect(() => {
+        if (props.session.login === 'loggedIn') {
+            // we've switched from either a logged out state to logged in or
+            // we've received session data back from the backend
+            // so we should update the session monitoring
+            monitorSession();
         }
-    }
+    }, [props.session.login]);
 
-    componentWillUnmount() {
-        window.clearImmediate(this.sessionChecker);
-    }
-
-    performAutoLogin() {
-        const isAuthorized = this.props.authFn(this.props.session);
-        const path = LoginHelper.getPath(this.props.location, isAuthorized);
-        this.props.history.push(path);
-    }
-
-    monitorSession() {
+    const monitorSession = () => {
         // start a timer to periodically check the user's session state every 15 minutes
-        this.sessionChecker = setInterval(() => {
+        sessionChecker = setInterval(() => {
             LoginHelper.checkSession()
                 .then((res) => {
                     if (res.data.status !== 'True') {
@@ -81,53 +65,47 @@ export class ProtectedComponent extends React.Component {
                     }
                 })
                 .catch(() => {
-                    this.props.setLoggedOut();
+                    props.setLoggedOut();
 
                     // unset the login state cookie
                     Cookies.remove('brokerLogin');
 
                     // session expired, stop checking if it's active any more
-                    clearInterval(this.sessionChecker);
+                    clearInterval(sessionChecker);
                 });
         }, 15 * 60 * 1000);
+    };
+
+    // Remove # from the paths
+    if (props.location.pathname === '/' && props.location.hash) {
+        const redirectPath = props.location.hash.replace('#', '');
+        return <Navigate to={redirectPath} />;
+    }
+    // if user isn't logged in, redirect to the login page
+    if (!props.authFn(props.session)) {
+        const search = `redirect=${props.location.pathname}`;
+        return (
+            <Navigate to={{
+                pathname: '/login',
+                search
+            }} />
+        );
+    }
+    // if there's a redirect path and the user logs in, redirect them to that path
+    const redirectPath = LoginHelper.getRedirectPath(props.location, true);
+    if (redirectPath !== null && props.location.pathname === '/login' && props.session.login === 'loggedIn') {
+        return <Navigate to={redirectPath} />;
     }
 
-    render() {
-        if (this.props.location.pathname === '/' && this.props.location.hash) {
-            const redirectPath = this.props.location.hash.replace('#', '');
-            return <Redirect to={redirectPath} />;
-        }
-        if (!this.props.authFn(this.props.session)) {
-            const search = `redirect=${this.props.location.pathname}`;
-            return (
-                <Redirect to={{
-                    pathname: '/login/',
-                    search
-                }} />
-            );
-        }
-        const redirectPath = LoginHelper.getRedirectPath(this.props.location, true);
-        if (redirectPath !== null && this.props.location.pathname === '/login' &&
-            this.props.session.login === 'loggedIn') {
-            return <Redirect to={redirectPath} />;
-        }
-        return this.props.children;
-    }
-}
+    const Component = props.Child;
+    return <Component {...props} />;
+};
 
 ProtectedComponent.propTypes = propTypes;
 
-const ProtectedComponentContainer = connect(
+export default connect(
     (state) => ({
         session: state.session
     }),
     (dispatch) => bindActionCreators(sessionActions, dispatch)
 )(ProtectedComponent);
-
-export const withAuth = (Component, props) => () => (
-    <ProtectedComponentContainer {...props}>
-        <Component {...props} />
-    </ProtectedComponentContainer>
-);
-
-export default ProtectedComponentContainer;

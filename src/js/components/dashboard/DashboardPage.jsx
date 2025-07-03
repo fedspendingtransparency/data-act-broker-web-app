@@ -3,9 +3,7 @@
   * Created by Lizzie Salita 9/24/19
   */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router';
 
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
 import Footer from 'components/SharedComponents/FooterComponent';
@@ -96,64 +94,60 @@ const filters = {
     ]
 };
 
-const propTypes = {
-    computedMatch: PropTypes.object
+const DashboardPage = () => {
+    const params = useParams();
+    const activeTab = params.type && params.type.toLowerCase();
+    if (!activeTab) {
+        // Redirect /dashboard to Active
+        return <Navigate to="/dashboard/active" />;
+    }
+    else if (!(activeTab === 'historical' || activeTab === 'active')) {
+        // Redirect invalid params to 'Page Not Found'
+        return <Navigate to="/404" />;
+    }
+    
+    return (
+        <div>
+            <div className="usa-da-site_wrap usa-da-dashboard-page">
+                <Navbar type="dabs" activeTab="dashboard" />
+                <main>
+                    <div className="usa-da-content-dark">
+                        <div className="container">
+                            <div className="row usa-da-page-title">
+                                <div className="col-md-12">
+                                    <h1 className="display-2">DABS Dashboard</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="tabs tabs_dark">
+                            <div className="tabs__content">
+                                <TabItem
+                                    label="Active"
+                                    id="active"
+                                    link="/dashboard/active"
+                                    active={activeTab === 'active'} />
+                                <TabItem
+                                    label="Historical"
+                                    id="historical"
+                                    link="/dashboard/historical"
+                                    active={activeTab === 'historical'} />
+                            </div>
+                        </div>
+                    </div>
+                    <Banner type="dabs" />
+                    <div className="dashboard-page">
+                        <div className="dashboard-page__wrapper">
+                            <div className="dashboard-page__filters">
+                                <FilterSidebar type={activeTab} filters={filters[activeTab]} />
+                            </div>
+                            <DashboardContentContainer type={activeTab} />
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <Footer />
+        </div>
+    );
 };
 
-export default class DashboardPage extends React.Component {
-    render() {
-        const activeTab = this.props.computedMatch.params.type && this.props.computedMatch.params.type.toLowerCase();
-        if (!activeTab) {
-            // Redirect /dashboard to Active
-            return <Redirect to="/dashboard/active" />;
-        }
-        else if (!(activeTab === 'historical' || activeTab === 'active')) {
-            // Redirect invalid params to 'Page Not Found'
-            return <Redirect to="/404" />;
-        }
-        return (
-            <div>
-                <div className="usa-da-site_wrap usa-da-dashboard-page">
-                    <Navbar type="dabs" activeTab="dashboard" />
-                    <main>
-                        <div className="usa-da-content-dark">
-                            <div className="container">
-                                <div className="row usa-da-page-title">
-                                    <div className="col-md-12">
-                                        <h1 className="display-2">DABS Dashboard</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="tabs tabs_dark">
-                                <div className="tabs__content">
-                                    <TabItem
-                                        label="Active"
-                                        id="active"
-                                        link="/dashboard/active"
-                                        active={activeTab === 'active'} />
-                                    <TabItem
-                                        label="Historical"
-                                        id="historical"
-                                        link="/dashboard/historical"
-                                        active={activeTab === 'historical'} />
-                                </div>
-                            </div>
-                        </div>
-                        <Banner type="dabs" />
-                        <div className="dashboard-page">
-                            <div className="dashboard-page__wrapper">
-                                <div className="dashboard-page__filters">
-                                    <FilterSidebar type={activeTab} filters={filters[activeTab]} />
-                                </div>
-                                <DashboardContentContainer type={activeTab} />
-                            </div>
-                        </div>
-                    </main>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
-}
-
-DashboardPage.propTypes = propTypes;
+export default DashboardPage;

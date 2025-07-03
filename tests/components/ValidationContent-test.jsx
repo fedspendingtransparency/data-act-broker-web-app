@@ -4,13 +4,12 @@
 
 import { jest, expect, test } from "@jest/globals";
 import ValidationContent from "../../src/js/components/validateData/ValidationContent";
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "../../src/js/redux/reducers";
 import StoreSingleton from "../../src/js/redux/storeSingleton";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 
 jest.mock('@fortawesome/react-fontawesome', () => ({
     FontAwesomeIcon: jest.fn()

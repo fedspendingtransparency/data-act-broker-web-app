@@ -3,25 +3,22 @@
 * Created by Minahm Kim 6/7/17
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
 import { connect } from 'react-redux';
 
 import HistoryPage from 'components/history/HistoryPage';
 
 const propTypes = {
-    type: PropTypes.oneOf(['dabs', 'fabs']),
-    computedMatch: PropTypes.object
+    type: PropTypes.oneOf(['dabs', 'fabs'])
 };
 
-class HistoryContainer extends React.Component {
-    render() {
-        const { submissionID } = this.props.computedMatch.params;
-        return (
-            <HistoryPage submissionID={submissionID} type={this.props.type} />
-        );
-    }
-}
+const HistoryContainer = (props) => {
+    const params = useParams();
+    return (
+        <HistoryPage submissionID={params.submissionID} type={props.type} />
+    );
+};
 
 HistoryContainer.propTypes = propTypes;
 

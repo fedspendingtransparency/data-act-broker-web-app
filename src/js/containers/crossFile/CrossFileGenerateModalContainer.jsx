@@ -4,12 +4,12 @@
   */
 
 import React from 'react';
+import { Navigate } from 'react-router';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import * as GenerateFilesHelper from 'helpers/generateFilesHelper';
 import GenerateFileBox from 'components/generateFiles/components/GenerateFileBox';
-import { Redirect } from 'react-router-dom';
 
 const propTypes = {
     disableButton: PropTypes.func,
@@ -321,10 +321,10 @@ export default class CrossFileGenerateModalContainer extends React.Component {
 
     render() {
         if (this.state.toGenerateFiles) {
-            return <Redirect to={`/submission/${this.props.submissionID}/generateFiles/`} />;
+            return <Navigate to={`/submission/${this.props.submissionID}/generateFiles/`} />;
         }
         else if (this.state.toValidateCrossFile) {
-            return <Redirect to={`/submission/${this.props.submissionID}/validateCrossFile/`} />;
+            return <Navigate to={`/submission/${this.props.submissionID}/validateCrossFile/`} />;
         }
         return (
             <GenerateFileBox

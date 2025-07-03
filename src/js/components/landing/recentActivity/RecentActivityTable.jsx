@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as SubmissionListHelper from 'helpers/submissionListHelper';
-import * as LoginHelper from 'helpers/loginHelper';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
 import FormattedTable from 'components/SharedComponents/table/FormattedTable';
 import LastModifiedCell from 'components/landing/recentActivity/LastModifiedCell';
@@ -120,8 +119,9 @@ export default class RecentActivityTable extends React.Component {
     }
 
     loadUser() {
-        LoginHelper.fetchActiveUser().then((user) => {
-            this.setState({ account: user });
+        // Leaving this as a function in case the user changes and we want to update it
+        this.setState({
+            account: this.props.session.user
         });
     }
 

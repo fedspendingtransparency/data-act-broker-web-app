@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { stepNames, classes } from 'dataMapping/dabs/progress';
 import { routes } from 'dataMapping/dabs/submission';
 

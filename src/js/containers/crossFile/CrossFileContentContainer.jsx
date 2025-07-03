@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 import * as uploadActions from 'redux/actions/uploadActions';
 import * as sessionActions from 'redux/actions/sessionActions';
@@ -210,11 +210,11 @@ class CrossFileContentContainer extends React.Component {
 
     render() {
         if (this.state.toValidateData) {
-            return <Redirect to={`/submission/${this.props.submissionID}/validateData/`} />;
+            return <Navigate to={`/submission/${this.props.submissionID}/validateData/`} />;
         }
 
         else if (this.state.toGenerateFiles) {
-            return <Redirect to={`/submission/${this.props.submissionID}/generateFiles/`} />;
+            return <Navigate to={`/submission/${this.props.submissionID}/generateFiles/`} />;
         }
 
         return (

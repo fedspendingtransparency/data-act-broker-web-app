@@ -1,3 +1,28 @@
+const ignorePatterns = [
+    'data-tranparency-ui',
+    /** react-markdown 10.1.0 */
+    'react-markdown',
+    'devlop',
+    'hast-util-.*',
+    'mdast-util-.*',
+    'unist-util-.*',
+    'remark-.*',
+    'bail',
+    'comma-separated-tokens',
+    'decode-named-character-reference',
+    'estree-util-is-identifier-name',
+    'html-url-attributes',
+    'is-plain-obj',
+    'micromark',
+    'property-information',
+    'space-separated-tokens',
+    'trim-lines',
+    'trough',
+    'unified',
+    'vfile',
+    'vfile-message'
+].join('|')
+
 module.exports = {
     rootDir: ".",
     testRegex: "tests/.*-(test)\\.(jsx||js)?$",
@@ -21,9 +46,9 @@ module.exports = {
     setupFiles: ["<rootDir>/tests/rejection.js"],
     setupFilesAfterEnv: ["<rootDir>/tests/setup.js", "jest-canvas-mock"],
     transform: {
-        "^.+\\.jsx$|js$": "babel-jest"
+        "^.+\\.(jsx|js)$": "babel-jest"
     },
     transformIgnorePatterns: [
-        "node_modules/(?!(data-transparency-ui))"
-    ]
+        `node_modules/(?!(${ignorePatterns}))`,
+        ]
 };

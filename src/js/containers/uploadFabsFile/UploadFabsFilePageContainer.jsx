@@ -15,7 +15,6 @@ const propTypes = {
     setSubmissionId: PropTypes.func,
     setSubmissionState: PropTypes.func,
     history: PropTypes.object,
-    computedMatch: PropTypes.object,
     type: PropTypes.oneOf(['dabs', 'fabs']),
     submission: PropTypes.object
 };

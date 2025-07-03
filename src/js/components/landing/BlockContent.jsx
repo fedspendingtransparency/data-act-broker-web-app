@@ -38,7 +38,7 @@ export default class BlockContent extends React.Component {
             text={"Did you start a submission but were unable to complete it? Want to see your certified " +
             "submissions? Continue here to the submission table."}
             buttonText="View Submission Table"
-            url="submissionTable" />);
+            url="/submissionTable" />);
         let thirdBlock = null;
         let fourthBlock = null;
 
@@ -49,14 +49,14 @@ export default class BlockContent extends React.Component {
                 text={"Enter here to upload, validate, and certify your agency's financial data. You can " +
                 "also test financial data, generate your award files, and view your submissions."}
                 buttonText="Enter"
-                url="landing" />);
+                url="/landing" />);
             secondBlock = (<LandingBlock
                 type={this.props.type}
                 icon={<h5>Financial Assistance Broker Submission (FABS)</h5>}
                 text={"Enter here to upload, validate, and publish your agency's financial assistance data. You can " +
                 "also test your financial assistance data and view your submissions."}
                 buttonText="Enter"
-                url="FABSlanding" />);
+                url="/FABSlanding" />);
         }
         else if (this.props.type === 'dabs') {
             if (permissionHelper.checkPermissions(this.props.session)) {
@@ -68,7 +68,7 @@ export default class BlockContent extends React.Component {
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
-                        url="submissionGuide" >
+                        url="/submissionGuide" >
                         <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                     </LandingBlock>
                 );
@@ -78,14 +78,14 @@ export default class BlockContent extends React.Component {
                 icon={<FontAwesomeIcon icon="cloud-download-alt" />}
                 text="Generate your D1 and D2 award files without having to create a submission."
                 buttonText="Generate D Files"
-                url="generateDetachedFiles" />);
+                url="/generateDetachedFiles" />);
             fourthBlock = (
                 <LandingBlock
                     type={this.props.type}
                     icon={<FontAwesomeIcon icon="cloud-download-alt" />}
                     text="Compare published Data Broker and GTAS data or generate File A outside of a submission."
                     buttonText="Generate Files"
-                    url="generateDetachedFYPFiles" />
+                    url="/generateDetachedFYPFiles" />
             );
         }
         else if (this.props.type === 'fabs') {
@@ -98,7 +98,7 @@ export default class BlockContent extends React.Component {
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
-                        url="FABSaddData" >
+                        url="/FABSaddData" >
                         <LandingBlockBottomLink onClick={this.props.clickedUploadReqs} />
                     </LandingBlock>
                 );
@@ -109,7 +109,7 @@ export default class BlockContent extends React.Component {
                 text={"Did you start a submission but were unable to complete it? Want to see your previous " +
                     "submissions? Continue here to the submission table."}
                 buttonText="View Submission Table"
-                url="FABSsubmissionTable" />);
+                url="/FABSsubmissionTable" />);
         }
 
         return (

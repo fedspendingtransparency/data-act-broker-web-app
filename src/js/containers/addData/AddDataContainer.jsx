@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 import * as uploadActions from 'redux/actions/uploadActions';
 import * as UploadHelper from 'helpers/uploadHelper';
@@ -114,10 +114,10 @@ class AddDataContainer extends React.Component {
         }
         else if (this.state.toValidateData) {
             const submissionID = this.props.submission.id;
-            return <Redirect to={`/submission/${submissionID}/validateData/`} />;
+            return <Navigate to={`/submission/${submissionID}/validateData/`} />;
         }
         else if (this.state.to404) {
-            return <Redirect to="/404/" />;
+            return <Navigate to="/404/" />;
         }
 
         return (
