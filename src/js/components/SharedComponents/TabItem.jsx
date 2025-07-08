@@ -3,9 +3,8 @@
  * Created by Lizzie Salita 4/23/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const propTypes = {
     label: PropTypes.string.isRequired,

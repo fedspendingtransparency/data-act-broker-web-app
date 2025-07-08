@@ -2,10 +2,9 @@
  * @jest-environment jsdom
  */
 
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 
 import Progress from 'components/SharedComponents/Progress';
 import { mockProps } from './mockData';

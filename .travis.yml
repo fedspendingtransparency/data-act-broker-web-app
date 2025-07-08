@@ -13,4 +13,4 @@ before_install:
   - npm install eslint@9.26.0
 script:
   - npm run dev
-  - npm run travis
+  - npm run audit

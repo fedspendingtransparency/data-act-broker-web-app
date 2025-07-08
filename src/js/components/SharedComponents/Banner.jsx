@@ -63,7 +63,7 @@ export default class Banner extends React.Component {
         const rows = this.state.bannerList.map((banner) =>
             (
                 <BannerRow
-                    key={banner.message}
+                    key={banner.banner_type + banner.message}
                     type={banner.banner_type}
                     header={banner.header}
                     message={banner.message} />));

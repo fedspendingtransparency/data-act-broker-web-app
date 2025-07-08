@@ -3,9 +3,8 @@
  * Created by Lizzie Salita 3/2/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { routes } from 'dataMapping/dabs/submission';
 
 const propTypes = {

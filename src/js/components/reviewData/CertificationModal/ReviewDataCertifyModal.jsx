@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CertifyDisclaimer from 'components/reviewData/CertificationModal/CertifyDisclaimer';
 import PublishDisclaimer from 'components/reviewData/CertificationModal/PublishDisclaimer';
@@ -112,7 +112,7 @@ export default class ReviewDataCertifyModal extends React.Component {
 
     render() {
         if (this.state.goToSubmissionTable) {
-            return <Redirect to="/submissionTable" />;
+            return <Navigate to="/submissionTable" />;
         }
         let message = null;
         if (this.props.warnings > 0) {

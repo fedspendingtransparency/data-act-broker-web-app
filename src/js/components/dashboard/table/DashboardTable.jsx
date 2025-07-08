@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import DashboardTableHeader from 'components/dashboard/table/DashboardTableHeader';
 import NoResultsMessage from 'components/SharedComponents/NoResultsMessage';
