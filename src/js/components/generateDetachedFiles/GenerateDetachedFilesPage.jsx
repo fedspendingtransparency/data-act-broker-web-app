@@ -364,8 +364,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                             </div>
                                         </div>
 
+                                        {this.state.showDateSelect &&
                                         <TransitionGroup>
-                                            {this.state.showDateSelect && (
                                                 <CSSTransition
                                                     classNames="usa-da-meta-fade"
                                                     timeout={{ enter: 500, exit: 300 }}
@@ -379,8 +379,8 @@ export default class GenerateDetachedFilesPage extends React.Component {
                                                         clickedDownload={this.clickedDownload}
                                                         clickedElementNumbersCheckbox={this.clickedElemNumsCheckbox} />
                                                 </CSSTransition>
-                                            )}
                                         </TransitionGroup>
+                                        }
                                     </div>
                                 </div>
                             </div>

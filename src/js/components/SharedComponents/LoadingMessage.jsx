@@ -3,7 +3,6 @@
   * Copied from USASpending by Jonathan Hill 03/19/19
   **/
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import LoadingBars from './LoadingBars';

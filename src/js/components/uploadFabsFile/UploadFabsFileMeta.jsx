@@ -290,8 +290,8 @@ export default class UploadFabsFileMeta extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                {this.state.showSubmissionType &&
                                 <TransitionGroup>
-                                    {this.state.showSubmissionType && (
                                         <CSSTransition
                                             classNames="usa-da-meta-fade"
                                             timeout={{ enter: 600, exit: 200 }}
@@ -302,11 +302,11 @@ export default class UploadFabsFileMeta extends React.Component {
                                                 isDabs={false}
                                                 selectedAgency={this.state.agency} />
                                         </CSSTransition>
-                                    )}
                                 </TransitionGroup>
+                                }
 
+                                {this.state.showUploadFilesBox &&
                                 <TransitionGroup>
-                                    {this.state.showUploadFilesBox && (
                                         <CSSTransition
                                             classNames="usa-da-meta-fade"
                                             timeout={{ enter: 600, exit: 200 }}
@@ -316,8 +316,8 @@ export default class UploadFabsFileMeta extends React.Component {
                                                 submission={this.props.submission}
                                                 uploadFile={this.uploadFile} />
                                         </CSSTransition>
-                                    )}
                                 </TransitionGroup>
+                                }
                                 {errorMessage}
                             </div>
                         </div>

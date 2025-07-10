@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper } from 'data-transparency-ui'; //UPDATE VERSION APPARENTLY
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as UtilHelper from 'helpers/util';
