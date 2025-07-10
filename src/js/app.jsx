@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
@@ -105,8 +105,8 @@ require("core-js");
 require('../css/main.scss');
 
 const documentLocation = document.getElementById('app');
-
-ReactDOM.render(
-    <AppContainer />,
-    documentLocation
+const root = createRoot(documentLocation);
+const App = root.render(
+    <AppContainer />
 );
+export default App;
