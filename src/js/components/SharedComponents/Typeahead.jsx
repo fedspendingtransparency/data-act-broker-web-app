@@ -114,14 +114,14 @@ export default class Typeahead extends React.Component {
                 value: e.text.label
             }, () => {
                 this.bubbleUpChange();
+                if (this.props.clearAfterSelect) {
+                    e.target.value = '';
+                    this.setState({
+                        value: ''
+                    });
+                }
             });
-            if (this.props.clearAfterSelect) {
-                e.target.value = '';
-                this.setState({
-                    value: ''
-                });
-            }
-            this.typeahead.close();
+            this.collapse();
         });
 
         // enable tab keyboard shortcut for selection

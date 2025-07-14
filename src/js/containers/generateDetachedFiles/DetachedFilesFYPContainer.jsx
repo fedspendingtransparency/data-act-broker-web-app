@@ -69,11 +69,11 @@ export class DetachedFilesFYPContainer extends React.Component {
 
         GenerateFilesHelper.generateDetachedFile(params)
             .then((response) => {
-                this.parseFileState(response.data);
+                this.parseFileState(response.data, 200);
             })
             .catch((err) => {
                 console.error(err);
-                this.parseFileState(err.response.data);
+                this.parseFileState(err.response.data, err.response.status);
             });
     }
 
@@ -108,18 +108,17 @@ export class DetachedFilesFYPContainer extends React.Component {
                     return;
                 }
 
-                this.parseFileState(response.data);
+                this.parseFileState(response.data, 200);
             })
             .catch((err) => {
-                console.error(err);
-                this.parseFileState(err.response.data);
+                this.parseFileState(err.response.data, err.response.status);
             });
     }
 
-    parseFileState(data) {
+    parseFileState(data, httpStatus) {
         let runCheck = true;
 
-        if (data.httpStatus === 401) {
+        if (httpStatus === 401) {
             // don't run the check again if it failed
             runCheck = false;
 
@@ -129,7 +128,7 @@ export class DetachedFilesFYPContainer extends React.Component {
                 status: ''
             });
         }
-        else if (data.httpStatus === 400) {
+        else if (httpStatus === 400) {
             // don't run the check again if it failed
             runCheck = false;
 
