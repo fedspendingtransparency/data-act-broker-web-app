@@ -5,7 +5,7 @@ on:
 
 jobs:
   Run:
-    # These checks are not broken out into multiple jobs because the steps to prepare the environment
+    # These checks re not broken out into multiple jobs because the steps to prepare the environment
     # take the bulk of the time. Running them in parallel saves minimal time at the cost of using more
     # runners than needed.
     name: Audit, Jest, Linting
