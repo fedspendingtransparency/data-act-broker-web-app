@@ -366,19 +366,19 @@ export default class GenerateDetachedFilesPage extends React.Component {
 
                                         {this.state.showDateSelect &&
                                         <TransitionGroup>
-                                                <CSSTransition
-                                                    classNames="usa-da-meta-fade"
-                                                    timeout={{ enter: 500, exit: 300 }}
-                                                    exit>
-                                                    <DateSelect
-                                                        {...this.state}
-                                                        handleDateChange={this.handleDateChange}
-                                                        updateError={this.updateError}
-                                                        generateFile={this.generateFile}
-                                                        updateFileProperty={this.updateFileProperty}
-                                                        clickedDownload={this.clickedDownload}
-                                                        clickedElementNumbersCheckbox={this.clickedElemNumsCheckbox} />
-                                                </CSSTransition>
+                                            <CSSTransition
+                                                classNames="usa-da-meta-fade"
+                                                timeout={{ enter: 500, exit: 300 }}
+                                                exit>
+                                                <DateSelect
+                                                    {...this.state}
+                                                    handleDateChange={this.handleDateChange}
+                                                    updateError={this.updateError}
+                                                    generateFile={this.generateFile}
+                                                    updateFileProperty={this.updateFileProperty}
+                                                    clickedDownload={this.clickedDownload}
+                                                    clickedElementNumbersCheckbox={this.clickedElemNumsCheckbox} />
+                                            </CSSTransition>
                                         </TransitionGroup>
                                         }
                                     </div>

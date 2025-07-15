@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dimensions from 'react-dimensions';
-import _ from 'lodash';
+import _, { throttle } from 'lodash';
 import Treemap from '../treemap/Treemap';
 import TreemapHelp from './ValidateValuesTreemapHelp';
 import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder';
@@ -36,17 +35,33 @@ class ValidateValuesTreemap extends React.Component {
                 data: [],
                 max: 0,
                 min: 0
-            }
+            },
+            treemapWidth: 0
         };
+
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
     }
 
     componentDidMount() {
+        window.addEventListener("resize", this.handleWindowResize);
         this.formatData();
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleWindowResize);
     }
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.data, this.props.data)) {
             this.formatData();
+        }
+    }
+
+    handleWindowResize() {
+        if (this.treemapWrapper !== undefined) {
+            this.setState({
+                treemapWidth: this.treemapWrapper.clientWidth * 0.75
+            });
         }
     }
 
@@ -97,12 +112,18 @@ class ValidateValuesTreemap extends React.Component {
             i += 1;
         });
 
+        let treemapWidth = 0;
+        if (this.treemapWrapper !== undefined) {
+            treemapWidth = this.treemapWrapper.clientWidth * 0.75;
+        }
+
         this.setState({
             formattedData: {
                 data: sortedData,
                 min: minCount,
                 max: maxCount
-            }
+            },
+            treemapWidth
         });
     }
 
@@ -122,17 +143,23 @@ class ValidateValuesTreemap extends React.Component {
         }
 
         return (
-            <div className="row">
-                <div className="col-md-9">
-                    <Treemap
-                        formattedData={this.state.formattedData}
-                        width={this.props.containerWidth * 0.75}
-                        clickedItem={this.clickedItem.bind(this)}
-                        colors={this.props.colors}
-                        activeCell={this.state.activeCell} />
-                </div>
-                <div className="col-md-3">
-                    {help}
+            <div
+                className="treemap-wrapper"
+                ref={(div) => {
+                    this.treemapWrapper = div;
+                }}>
+                <div className="row">
+                    <div className="col-md-9">
+                        <Treemap
+                            formattedData={this.state.formattedData}
+                            width={this.state.treemapWidth}
+                            clickedItem={this.clickedItem.bind(this)}
+                            colors={this.props.colors}
+                            activeCell={this.state.activeCell} />
+                    </div>
+                    <div className="col-md-3">
+                        {help}
+                    </div>
                 </div>
             </div>
         );
@@ -142,4 +169,4 @@ class ValidateValuesTreemap extends React.Component {
 ValidateValuesTreemap.propTypes = propTypes;
 ValidateValuesTreemap.defaultProps = defaultProps;
 
-export default Dimensions()(ValidateValuesTreemap);
+export default ValidateValuesTreemap;

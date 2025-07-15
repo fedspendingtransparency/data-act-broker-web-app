@@ -292,30 +292,30 @@ export default class UploadFabsFileMeta extends React.Component {
                                 </div>
                                 {this.state.showSubmissionType &&
                                 <TransitionGroup>
-                                        <CSSTransition
-                                            classNames="usa-da-meta-fade"
-                                            timeout={{ enter: 600, exit: 200 }}
-                                            exit>
-                                            <SubmissionTypeField
-                                                onChange={this.handleSubmissionTypeChange}
-                                                value={this.state.submissionType}
-                                                isDabs={false}
-                                                selectedAgency={this.state.agency} />
-                                        </CSSTransition>
+                                    <CSSTransition
+                                        classNames="usa-da-meta-fade"
+                                        timeout={{ enter: 600, exit: 200 }}
+                                        exit>
+                                        <SubmissionTypeField
+                                            onChange={this.handleSubmissionTypeChange}
+                                            value={this.state.submissionType}
+                                            isDabs={false}
+                                            selectedAgency={this.state.agency} />
+                                    </CSSTransition>
                                 </TransitionGroup>
                                 }
 
                                 {this.state.showUploadFilesBox &&
                                 <TransitionGroup>
-                                        <CSSTransition
-                                            classNames="usa-da-meta-fade"
-                                            timeout={{ enter: 600, exit: 200 }}
-                                            exit>
-                                            <UploadFabsFileBox
-                                                {...this.state}
-                                                submission={this.props.submission}
-                                                uploadFile={this.uploadFile} />
-                                        </CSSTransition>
+                                    <CSSTransition
+                                        classNames="usa-da-meta-fade"
+                                        timeout={{ enter: 600, exit: 200 }}
+                                        exit>
+                                        <UploadFabsFileBox
+                                            {...this.state}
+                                            submission={this.props.submission}
+                                            uploadFile={this.uploadFile} />
+                                    </CSSTransition>
                                 </TransitionGroup>
                                 }
                                 {errorMessage}
