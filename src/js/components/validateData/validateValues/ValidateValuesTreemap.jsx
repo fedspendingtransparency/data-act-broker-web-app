@@ -13,14 +13,12 @@ import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder';
 const propTypes = {
     colors: PropTypes.object,
     data: PropTypes.array,
-    containerWidth: PropTypes.number,
     type: PropTypes.string
 };
 
 const defaultProps = {
     colors: {},
     data: [],
-    containerWidth: 100,
     type: ''
 };
 
@@ -36,7 +34,7 @@ class ValidateValuesTreemap extends React.Component {
                 max: 0,
                 min: 0
             },
-            treemapWidth: 0
+            treemapWidth: 100
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -112,7 +110,7 @@ class ValidateValuesTreemap extends React.Component {
             i += 1;
         });
 
-        let treemapWidth = 0;
+        let treemapWidth = 100;
         if (this.treemapWrapper !== undefined) {
             treemapWidth = this.treemapWrapper.clientWidth * 0.75;
         }
