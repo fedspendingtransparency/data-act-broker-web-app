@@ -70,7 +70,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        // new webpack.HashedModuleIdsPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -98,11 +97,6 @@ module.exports = {
                     noErrorOnMissing: true
                 }
             ]
-        }),
-        new webpack.ProvidePlugin({
-            setImmediate: ['setimmediate', 'setImmedate'],
-            clearImmediate: ['setimmediate', 'clearImmedate']
-         })
-        // new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
+        })
     ]
 };

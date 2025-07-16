@@ -3,7 +3,6 @@
   * Copied from USASpending by Jonathan Hill 03/19/19
   **/
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import LoadingBars from './LoadingBars';
@@ -15,14 +14,7 @@ const propTypes = {
     barPad: PropTypes.number
 };
 
-const defaultProps = {
-    loadingMessage: 'Gathering your data...',
-    barWidth: 10,
-    barHeight: 50,
-    barPad: 2
-};
-
-const LoadingMessage = (props) => (
+const LoadingMessage = ({loadingMessage = 'Gathering your data...', barWidth = 10, barHeight = 50, barPad = 2}) => (
     <div className="results-table-content">
         <TransitionGroup>
             <CSSTransition
@@ -31,9 +23,9 @@ const LoadingMessage = (props) => (
                 exit>
                 <div className="results-table-message-container">
                     <div className="results-table-loading">
-                        <LoadingBars barWidth={props.barWidth} barHeight={props.barHeight} barPad={props.barPad} />
+                        <LoadingBars barWidth={barWidth} barHeight={barHeight} barPad={barPad} />
                         <div className="loading-message">
-                            {props.loadingMessage}
+                            {loadingMessage}
                         </div>
                     </div>
                 </div>
@@ -43,5 +35,4 @@ const LoadingMessage = (props) => (
 );
 
 LoadingMessage.propTypes = propTypes;
-LoadingMessage.defaultProps = defaultProps;
 export default LoadingMessage;
