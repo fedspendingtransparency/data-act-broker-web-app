@@ -21,8 +21,8 @@ jobs:
 
       # While we could adjust this to only install necessary packages for linting, the benefit of doing
       # all packages is that it will cache the entirety of the required packages for the downstream tests.
-      # - name: Init NPM
-      #   run: npm install -g npm@10.8.3
+      - name: Init NPM
+        run: npm install -g npm@10.8.3
 
       # - name: Install webpack
       #   run: npm install -g webpack@5.94.0
