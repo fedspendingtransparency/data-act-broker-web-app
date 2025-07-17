@@ -64,11 +64,11 @@ const UploadFabsFileValidation = (props) => {
     const [runRevalidate, setRunRevalidate] = useState(false);
     const [runPublish, setRunPublish] = useState(false);
     const params = useParams();
-    let isUnmounted = true;
-    let dataTimer = null;
+    const [isUnmounted, setIsUnMounted] = useState(false);
+    const [dataTimer, setDataTimer] = useState(null);
 
     useEffect(() => {
-        isUnmounted = false;
+        setIsUnMounted(false);
         if (params.submissionID) {
             setSubmissionMetadata(params.submissionID);
             checkFileStatus(params.submissionID);
@@ -76,7 +76,7 @@ const UploadFabsFileValidation = (props) => {
 
         return () => {
             props.resetSubmission();
-            isUnmounted = true;
+            setIsUnMounted(true);
         };
     }, []);
 
@@ -197,7 +197,7 @@ const UploadFabsFileValidation = (props) => {
                     let success = false;
                     if (dataTimer) {
                         window.clearInterval(dataTimer);
-                        dataTimer = null;
+                        setDataTimer(null);
                         success = true;
                     }
 
@@ -239,11 +239,11 @@ const UploadFabsFileValidation = (props) => {
     };
 
     const checkFile = (submissionID) => {
-        dataTimer = window.setInterval(() => {
+        setDataTimer(window.setInterval(() => {
             if (published !== 'published') {
                 checkFileStatus(submissionID);
             }
-        }, timerDuration * 1000);
+        }, timerDuration * 1000));
     };
 
     const openReport = () => {
