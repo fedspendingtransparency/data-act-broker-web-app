@@ -147,7 +147,7 @@ const UploadFabsFileValidation = (props) => {
     }, [signInProgress]);
 
     useEffect(() => {
-        return () => clearInterval(dataTimer.current);
+        return () => window.clearInterval(dataTimer.current);
     }, [])
 
     const setSubmissionMetadata = (submissionID) => {
@@ -200,7 +200,7 @@ const UploadFabsFileValidation = (props) => {
                 if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
                     let success = false;
                     if (dataTimer.current) {
-                        clearInterval(dataTimer.current);
+                        window.clearInterval(dataTimer.current);
                         dataTimer.current = null;
                         success = true;
                     }
@@ -243,7 +243,7 @@ const UploadFabsFileValidation = (props) => {
     };
 
     const checkFile = (submissionID) => {
-        dataTimer.current = setInterval(() => {
+        dataTimer.current = window.setInterval(() => {
             if (published !== 'published') {
                 checkFileStatus(submissionID);
             }
