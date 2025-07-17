@@ -148,7 +148,7 @@ const UploadFabsFileValidation = (props) => {
 
     useEffect(() => {
         return () => window.clearInterval(dataTimer.current);
-    }, [])
+    }, []);
 
     const setSubmissionMetadata = (submissionID) => {
         setInFlight(true);
