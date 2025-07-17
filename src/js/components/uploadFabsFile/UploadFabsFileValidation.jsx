@@ -5,7 +5,7 @@
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { connect } from 'react-redux';
@@ -65,7 +65,7 @@ const UploadFabsFileValidation = (props) => {
     const [runPublish, setRunPublish] = useState(false);
     const params = useParams();
     const [isUnmounted, setIsUnMounted] = useState(false);
-    const [dataTimer, setDataTimer] = useState(null);
+    const dataTimer = useRef();
 
     useEffect(() => {
         setIsUnMounted(false);
@@ -146,6 +146,10 @@ const UploadFabsFileValidation = (props) => {
         }
     }, [signInProgress]);
 
+    useEffect(() => {
+        return () => clearInterval(dataTimer.current);
+    }, [])
+
     const setSubmissionMetadata = (submissionID) => {
         setInFlight(true);
         ReviewHelper.fetchSubmissionMetadata(submissionID)
@@ -195,9 +199,9 @@ const UploadFabsFileValidation = (props) => {
                 const fabsData = response.data.fabs;
                 if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
                     let success = false;
-                    if (dataTimer) {
-                        window.clearInterval(dataTimer);
-                        setDataTimer(null);
+                    if (dataTimer.current) {
+                        clearInterval(dataTimer.current);
+                        dataTimer.current = null;
                         success = true;
                     }
 
@@ -222,7 +226,7 @@ const UploadFabsFileValidation = (props) => {
                         name: response.data.fabs.file_name
                     });
 
-                    if (!dataTimer) {
+                    if (!dataTimer.current) {
                         window.setTimeout(() => {
                             if (submissionID) {
                                 checkFileStatus(submissionID);
@@ -239,11 +243,11 @@ const UploadFabsFileValidation = (props) => {
     };
 
     const checkFile = (submissionID) => {
-        setDataTimer(window.setInterval(() => {
+        dataTimer.current = setInterval(() => {
             if (published !== 'published') {
                 checkFileStatus(submissionID);
             }
-        }, timerDuration * 1000));
+        }, timerDuration * 1000);
     };
 
     const openReport = () => {
