@@ -71,7 +71,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.6.1",
     "babel-jest": "^30.0.4",
-    "babel-loader": "^9.1.0",
+    "babel-loader": "^10.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "eslint": "^9.26.0",
