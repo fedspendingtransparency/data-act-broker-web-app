@@ -77,6 +77,9 @@ const UploadFabsFileValidation = (props) => {
         return () => {
             props.resetSubmission();
             setIsUnMounted(true);
+            if (dataTimer.current) {
+                window.clearInterval(dataTimer.current);
+            }
         };
     }, []);
 
@@ -145,10 +148,6 @@ const UploadFabsFileValidation = (props) => {
                 });
         }
     }, [signInProgress]);
-
-    useEffect(() => {
-        return () => window.clearInterval(dataTimer.current);
-    }, []);
 
     const setSubmissionMetadata = (submissionID) => {
         setInFlight(true);
