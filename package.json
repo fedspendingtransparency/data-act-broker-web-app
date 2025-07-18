@@ -144,7 +144,7 @@
     "react-hot-loader": "^4.13.1",
     "react-markdown": "^10.1.0",
     "react-redux": "^7.2.9",
-    "react-router": "^7.6.3",
+    "react-router": "^7.7.0",
     "react-transition-group": "^4.4.5",
     "redux": "^4.2.1",
     "rehype-attr": "^2.1.4",
