@@ -20,7 +20,7 @@ const defaultProps = {
 };
 
 const NextButton = ({
-    disabled, nextButtonClass, step, label, submissionID
+    disabled, nextButtonClass, step, label='Next', submissionID
 }) => (
     disabled ? (
         <button
