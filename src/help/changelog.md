@@ -1,4 +1,5 @@
-#### July 8, 2025{section=changelog}
+#### July 29, 2025{section=changelog}
 In this release of the Broker, we:
 
-* Added DABS Rules B27.5 and B27.6 to prevent PAC/PAN being included starting FY26.
+* Updated various rule descriptions related to the GSDM 1.1 release.
+* Bumped up the supported React version to 19 and upgraded various babel packages.
