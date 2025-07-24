@@ -217,61 +217,61 @@ export default class AddDataMeta extends React.Component {
                                     </div>
                                 </div>
 
+                                {this.state.showDateTypeField &&
                                 <TransitionGroup>
-                                    {this.state.showDateTypeField && (
-                                        <CSSTransition
-                                            classNames="usa-da-meta-fade"
-                                            timeout={{ enter: 500, exit: 300 }}
-                                            exit>
-                                            <DateTypeField
-                                                value={this.state.dateType}
-                                                onChange={this.handleDateTypeChange} />
-                                        </CSSTransition>
-                                    )}
+                                    <CSSTransition
+                                        classNames="usa-da-meta-fade"
+                                        timeout={{ enter: 500, exit: 300 }}
+                                        exit>
+                                        <DateTypeField
+                                            value={this.state.dateType}
+                                            onChange={this.handleDateTypeChange} />
+                                    </CSSTransition>
                                 </TransitionGroup>
+                                }
 
+                                {this.state.showDateRangeField && 
                                 <TransitionGroup>
-                                    {this.state.showDateRangeField && (
-                                        <CSSTransition
-                                            classNames="usa-da-meta-fade"
-                                            timeout={{ enter: 500, exit: 300 }}
-                                            exit>
-                                            <DateRangeField
-                                                onChange={this.handleDateChange}
-                                                type={this.state.dateType} />
-                                        </CSSTransition>
-                                    )}
+                                    <CSSTransition
+                                        classNames="usa-da-meta-fade"
+                                        timeout={{ enter: 500, exit: 300 }}
+                                        exit>
+                                        <DateRangeField
+                                            onChange={this.handleDateChange}
+                                            type={this.state.dateType} />
+                                    </CSSTransition>
                                 </TransitionGroup>
+                                }
 
+                                {this.state.showSubmissionTypeField &&
                                 <TransitionGroup>
-                                    {this.state.showSubmissionTypeField && (
-                                        <CSSTransition
-                                            classNames="usa-da-meta-fade"
-                                            timeout={{ enter: 500, exit: 300 }}
-                                            exit>
-                                            <SubmissionTypeField
-                                                onChange={this.handleSubmissionTypeChange}
-                                                value={this.state.submissionType}
-                                                publishedSubmissions={this.state.publishedSubmissions}
-                                                endDate={this.state.endDate}
-                                                dateType={this.state.dateType} />
-                                        </CSSTransition>
-                                    )}
+                                    <CSSTransition
+                                        classNames="usa-da-meta-fade"
+                                        timeout={{ enter: 500, exit: 300 }}
+                                        exit>
+                                        <SubmissionTypeField
+                                            onChange={this.handleSubmissionTypeChange}
+                                            value={this.state.submissionType}
+                                            publishedSubmissions={this.state.publishedSubmissions}
+                                            endDate={this.state.endDate}
+                                            dateType={this.state.dateType} />
+                                    </CSSTransition>
                                 </TransitionGroup>
+                                }
 
+                                {this.state.showSubmitButton &&
                                 <TransitionGroup>
-                                    {this.state.showSubmitButton && (
-                                        <CSSTransition
-                                            classNames="usa-da-meta-fade"
-                                            timeout={{ enter: 500, exit: 300 }}
-                                            exit>
-                                            <SubmitComponent
-                                                onSubmit={this.submitMetadata}
-                                                publishedSubmissions={this.state.publishedSubmissions}
-                                                setRedirect={this.setRedirect} />
-                                        </CSSTransition>
-                                    )}
+                                    <CSSTransition
+                                        classNames="usa-da-meta-fade"
+                                        timeout={{ enter: 500, exit: 300 }}
+                                        exit>
+                                        <SubmitComponent
+                                            onSubmit={this.submitMetadata}
+                                            publishedSubmissions={this.state.publishedSubmissions}
+                                            setRedirect={this.setRedirect} />
+                                    </CSSTransition>
                                 </TransitionGroup>
+                                }
                             </div>
                             <div className="usa-da-guide-link">
                                 <Link to="/submissionGuide?force=true">View Submission Guide</Link>

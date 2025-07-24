@@ -94,7 +94,7 @@ export class CreatedByFilterContainer extends React.Component {
         createdByHelper.fetchCreatedBy('dabs')
             .then((res) => {
                 this.setState({
-                    results: res,
+                    results: res.data.users,
                     inFlight: false
                 });
             })
