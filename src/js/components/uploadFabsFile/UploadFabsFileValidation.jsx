@@ -5,7 +5,7 @@
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { connect } from 'react-redux';
@@ -64,11 +64,11 @@ const UploadFabsFileValidation = (props) => {
     const [runRevalidate, setRunRevalidate] = useState(false);
     const [runPublish, setRunPublish] = useState(false);
     const params = useParams();
-    let isUnmounted = true;
-    let dataTimer = null;
+    const [isUnmounted, setIsUnMounted] = useState(false);
+    const dataTimer = useRef();
 
     useEffect(() => {
-        isUnmounted = false;
+        setIsUnMounted(false);
         if (params.submissionID) {
             setSubmissionMetadata(params.submissionID);
             checkFileStatus(params.submissionID);
@@ -76,7 +76,10 @@ const UploadFabsFileValidation = (props) => {
 
         return () => {
             props.resetSubmission();
-            isUnmounted = true;
+            setIsUnMounted(true);
+            if (dataTimer.current) {
+                window.clearInterval(dataTimer.current);
+            }
         };
     }, []);
 
@@ -195,9 +198,9 @@ const UploadFabsFileValidation = (props) => {
                 const fabsData = response.data.fabs;
                 if (fabsData.status !== 'uploading' && fabsData.status !== 'running') {
                     let success = false;
-                    if (dataTimer) {
-                        window.clearInterval(dataTimer);
-                        dataTimer = null;
+                    if (dataTimer.current) {
+                        window.clearInterval(dataTimer.current);
+                        dataTimer.current = null;
                         success = true;
                     }
 
@@ -222,7 +225,7 @@ const UploadFabsFileValidation = (props) => {
                         name: response.data.fabs.file_name
                     });
 
-                    if (!dataTimer) {
+                    if (!dataTimer.current) {
                         window.setTimeout(() => {
                             if (submissionID) {
                                 checkFileStatus(submissionID);
@@ -239,7 +242,7 @@ const UploadFabsFileValidation = (props) => {
     };
 
     const checkFile = (submissionID) => {
-        dataTimer = window.setInterval(() => {
+        dataTimer.current = window.setInterval(() => {
             if (published !== 'published') {
                 checkFileStatus(submissionID);
             }
