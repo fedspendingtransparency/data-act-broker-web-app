@@ -45,8 +45,7 @@
     "**/got": "11.8.5",
     "json5": "2.2.3",
     "http-cache-semantic": "4.1.1",
-    "sequelize": "6.29.0",
-    "eslint": "7.32.0"
+    "sequelize": "6.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
@@ -70,13 +69,12 @@
     "babel-loader": "^10.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
-    "eslint": "^9.26.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.31.0",
+    "eslint": "^9.32.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-storybook": "^0.12.0",
+    "eslint-plugin-storybook": "^9.0.18",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.4",
     "jest-canvas-mock": "^2.5.2",
