@@ -75,7 +75,7 @@
         @include dangerAlert;
         & svg {
             margin-bottom: rem(-2);
-            &.fa-exclamation-circle {
+            &.fa-circle-exclamation {
                 color: $color-secondary;
                 font-size: rem(25);
             }

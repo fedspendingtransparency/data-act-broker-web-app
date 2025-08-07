@@ -46,7 +46,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import {
     faBuilding,
-    faCalendarAlt,
+    faCalendarDays,
     faClock,
     faSave,
     faTrashAlt
@@ -63,7 +63,7 @@ library.add(
     faBars,
     faBell,
     faBuilding,
-    faCalendarAlt,
+    faCalendarDays,
     faCaretDown,
     faCaretLeft,
     faCaretRight,

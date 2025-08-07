@@ -20,7 +20,11 @@ export default class HistoryLink extends React.Component {
         return (
             <div className="usa-da-recent-activity-link">
                 <Link to={`/submissionHistory/${this.props.submissionId}`}>
-                    <FontAwesomeIcon icon={['far', 'calendar-alt']} title="View" />
+                    <FontAwesomeIcon
+                        icon={['far', 'calendar-days']}
+                        title="View"
+                        role="link"
+                        aria-label="history-link" />
                 </Link>
             </div>
         );

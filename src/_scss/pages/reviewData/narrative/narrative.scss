@@ -125,15 +125,15 @@
                 left: rem(-5);
                 top: rem(4);
 
-                &.fa-check-circle {
+                &.fa-circle-check {
                     color: $color-green-light;
                 }
 
-                &.fa-exclamation-circle {
+                &.fa-circle-exclamation {
                     color: $color-secondary;
                 }
 
-                &.fa-exclamation-triangle {
+                &.fa-triangle-exclamation {
                     color: $color-gold-dark;
                 }
             }
