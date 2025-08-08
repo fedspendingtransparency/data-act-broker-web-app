@@ -97,7 +97,7 @@ export default class ActiveDashboardTableModal extends React.Component {
                             className="close-button"
                             onClick={this.props.closeModal}
                             aria-label="close-modal-button">
-                            <FontAwesomeIcon icon="times" />
+                            <FontAwesomeIcon icon="xmark" />
                         </button>
                         <h4>{this.props.data.fileLabel.toUpperCase()}</h4>
                         <hr />

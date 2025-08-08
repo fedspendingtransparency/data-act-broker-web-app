@@ -40,17 +40,17 @@ export default class GenerateEFItem extends React.Component {
         if (status === 'failed') {
             hideError = '';
             hideSpinner = ' hide';
-            icon = <FontAwesomeIcon icon="exclamation-circle" />;
+            icon = <FontAwesomeIcon icon="circle-exclamation" />;
         }
         else if (status === 'invalid') {
             hideError = '';
             hideSpinner = ' hide';
-            icon = <FontAwesomeIcon icon="exclamation-circle" />;
+            icon = <FontAwesomeIcon icon="circle-exclamation" />;
         }
         else if (status === 'finished') {
             hideDownload = '';
             hideSpinner = ' hide';
-            icon = <FontAwesomeIcon icon="check-circle" />;
+            icon = <FontAwesomeIcon icon="circle-check" />;
         }
 
         let comingSoon = '';
@@ -100,7 +100,7 @@ export default class GenerateEFItem extends React.Component {
                 </div>
                 <div className={`alert alert-danger${hideError}`}>
                     <div className="usa-da-icon error-icon">
-                        <FontAwesomeIcon icon="exclamation-circle" />
+                        <FontAwesomeIcon icon="circle-exclamation" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">File {this.props.type} Error</div>

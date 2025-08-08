@@ -16,7 +16,7 @@ const WarningTooltip = (props) => (
         <div className="warning-content">
             <div className="tooltip-pointer left" />
             <div className="icon" aria-label="Warning">
-                <FontAwesomeIcon icon="exclamation-triangle" />
+                <FontAwesomeIcon icon="triangle-exclamation" />
             </div>
             <div className="message">
                 {props.message}

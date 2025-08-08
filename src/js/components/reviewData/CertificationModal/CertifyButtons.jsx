@@ -35,7 +35,7 @@ export default class CertifyButtons extends React.Component {
         if (this.props.type === 'publish') {
             certifyButtonText = 'Publish to USAspending.gov';
             checkboxText = 'attest';
-            icon = <FontAwesomeIcon icon="file-upload" />;
+            icon = <FontAwesomeIcon icon="file-arrow-up" />;
         }
         if (!this.props.certified) {
             buttonClass = ' btn-disabled';

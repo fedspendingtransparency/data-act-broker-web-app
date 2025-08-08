@@ -12,7 +12,7 @@ export default class TestEnvironmentBanner extends React.Component {
         return (
             <div className="usa-da-header-warning-banner">
                 <div className="usa-da-icon error-icon">
-                    <FontAwesomeIcon icon="exclamation-triangle" />
+                    <FontAwesomeIcon icon="triangle-exclamation" />
                 </div>
                 <div>
                     <p>This is a test environment.</p>

@@ -23,7 +23,7 @@ export default class ShownValue extends React.Component {
                 aria-label={`Applied filter: ${this.props.label}`}>
                 {this.props.label}
                 <span className="close">
-                    <FontAwesomeIcon icon="times" />
+                    <FontAwesomeIcon icon="xmark" />
                 </span>
             </button>
         ) : (

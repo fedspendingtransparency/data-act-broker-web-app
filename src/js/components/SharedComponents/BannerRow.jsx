@@ -23,10 +23,10 @@ const defaultProps = {
 };
 
 const iconMapping = {
-    warning: 'exclamation-triangle',
-    info: 'info-circle',
-    error: 'exclamation-circle',
-    success: 'check-circle'
+    warning: 'triangle-exclamation',
+    info: 'circle-info',
+    error: 'circle-exclamation',
+    success: 'circle-check'
 };
 
 export default class BannerRow extends React.Component {

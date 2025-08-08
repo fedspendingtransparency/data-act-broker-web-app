@@ -22,7 +22,7 @@ export default class ReviewDataSelectedUser extends React.Component {
         return (
             <div className="usa-da-review-data-user-row">
                 <button className="usa-da-icon usa-da-icon-times-circle" onClick={this.props.deselectUser} alt="Remove">
-                    <FontAwesomeIcon icon="times-circle" />
+                    <FontAwesomeIcon icon="circle-xmark" />
                 </button>
                 <span>
                     {this.props.user.displayName}

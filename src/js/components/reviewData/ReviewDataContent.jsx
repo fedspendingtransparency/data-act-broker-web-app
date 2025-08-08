@@ -140,7 +140,7 @@ export default class ReviewDataContent extends React.Component {
         let certifyButtonAction;
         let notifyButtonAction = this.openNotifyModal;
         let twoButtons = false;
-        let certifyIcon = <FontAwesomeIcon icon="globe-americas" />;
+        let certifyIcon = <FontAwesomeIcon icon="earth-americas" />;
         // TODO: I don't think we ever actually have window data to gather, we should look into this
         const blockedWindow = this.windowBlocked();
 
@@ -213,7 +213,7 @@ export default class ReviewDataContent extends React.Component {
                     disabled={!publishButtonAction}
                     className={`usa-da-button btn-primary${publishButtonClass}`}>
                     <div className="button-wrapper">
-                        <FontAwesomeIcon icon="file-upload" />{publishButtonText}
+                        <FontAwesomeIcon icon="file-arrow-up" />{publishButtonText}
                     </div>
                 </button>);
         }
@@ -247,7 +247,7 @@ export default class ReviewDataContent extends React.Component {
                             <h5>File Details</h5>
                             <div className="usa-da-file-wrap">
                                 <div className="usa-da-icon usa-da-icon-check-circle">
-                                    <FontAwesomeIcon icon="check-circle" />
+                                    <FontAwesomeIcon icon="circle-check" />
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <div className="row">

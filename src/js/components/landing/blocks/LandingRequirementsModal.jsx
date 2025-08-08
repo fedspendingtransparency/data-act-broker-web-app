@@ -53,7 +53,7 @@ export default class LandingRequirementsModal extends React.Component {
                     <div id="usa-da-landing-modal" className="usa-da-landing-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
                             <button onClick={this.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="xmark" />
                             </button>
                         </div>
                         <LandingBody {...this.props} />

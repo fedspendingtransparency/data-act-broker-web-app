@@ -97,7 +97,7 @@ export default class DeleteModal extends React.Component {
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
                             <button onClick={this.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="xmark" />
                             </button>
                         </div>
 

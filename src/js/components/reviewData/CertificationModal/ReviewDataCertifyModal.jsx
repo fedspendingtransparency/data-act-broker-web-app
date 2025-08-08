@@ -167,7 +167,7 @@ export default class ReviewDataCertifyModal extends React.Component {
                     <div id="usa-da-certify-modal" className="usa-da-certify-modal">
                         <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
                             <button onClick={this.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="xmark" />
                             </button>
                         </div>
 

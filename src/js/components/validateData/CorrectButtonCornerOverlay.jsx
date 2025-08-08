@@ -30,7 +30,7 @@ export default class CorrectButtonCornerOverlay extends React.Component {
                         onKeyDown={onKeyDownHandler}
                         onClick={this.props.buttonClicked}
                         aria-label="Trash Can Icon">
-                        <FontAwesomeIcon icon={['far', 'trash-alt']} />
+                        <FontAwesomeIcon icon={['far', 'trash-can']} />
                     </div>
                 </div>
             </div>

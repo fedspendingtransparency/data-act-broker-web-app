@@ -69,7 +69,7 @@ export default class SubmissionTypeField extends React.Component {
             warningBanner = (
                 <div className="alert alert-warning text-left row" role="alert">
                     <div className="col-xs-1">
-                        <FontAwesomeIcon icon="exclamation-triangle" />
+                        <FontAwesomeIcon icon="triangle-exclamation" />
                     </div>
                     <div className="col-xs-11">
                         <h3>{title}</h3>
@@ -88,7 +88,7 @@ export default class SubmissionTypeField extends React.Component {
                 warningBanner = (
                     <div className="alert alert-warning text-left row" role="alert">
                         <div className="col-xs-1">
-                            <FontAwesomeIcon icon="exclamation-triangle" />
+                            <FontAwesomeIcon icon="triangle-exclamation" />
                         </div>
                         <div className="col-xs-11">
                             <h3>As of FY22, Quarterly submissions can no longer be published or certified</h3>
@@ -105,7 +105,7 @@ export default class SubmissionTypeField extends React.Component {
             warningBanner = (
                 <div className="alert alert-warning text-left row" role="alert">
                     <div className="col-xs-1">
-                        <FontAwesomeIcon icon="exclamation-triangle" />
+                        <FontAwesomeIcon icon="triangle-exclamation" />
                     </div>
                     <div className="col-xs-11">
                         <h3>This agency cannot create publishable submissions.</h3>

@@ -152,15 +152,15 @@ export default class ReviewDataNarrative extends React.Component {
         if (commentsChanged) {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
-                    <FontAwesomeIcon icon="exclamation-triangle" /> There are unsaved comments
+                    <FontAwesomeIcon icon="triangle-exclamation" /> There are unsaved comments
                 </div>);
-            resultSymbol = <FontAwesomeIcon icon="exclamation-triangle" />;
+            resultSymbol = <FontAwesomeIcon icon="triangle-exclamation" />;
             resultText = 'There are unsaved comments';
         }
         if (this.state.saveState === 'Error') {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
-                    <FontAwesomeIcon icon="exclamation-circle" /> An error occurred and your comments were not saved
+                    <FontAwesomeIcon icon="circle-exclamation" /> An error occurred and your comments were not saved
                 </div>);
         }
         if (this.state.commentsCollapsed) {
@@ -176,7 +176,7 @@ export default class ReviewDataNarrative extends React.Component {
             <button
                 className="usa-da-download"
                 onClick={this.downloadCommentsFile}>
-                <FontAwesomeIcon icon="cloud-download-alt" /> Download Comments for All Files (.csv)
+                <FontAwesomeIcon icon="cloud-arrow-down" /> Download Comments for All Files (.csv)
             </button>
         );
         if (blockedStatuses.indexOf(this.props.publishStatus) > -1 || !hasSavedComments) {
@@ -184,11 +184,11 @@ export default class ReviewDataNarrative extends React.Component {
         }
 
         if (this.state.saveState === 'Saved') {
-            resultSymbol = <FontAwesomeIcon icon="check-circle" />;
+            resultSymbol = <FontAwesomeIcon icon="circle-check" />;
             resultText = 'Saved';
         }
         else if (this.state.saveState === 'Error') {
-            resultSymbol = <FontAwesomeIcon icon="exclamation-circle" />;
+            resultSymbol = <FontAwesomeIcon icon="circle-exclamation" />;
             resultText = 'An error occurred and your comments were not saved';
         }
         else if (this.state.saveState === 'Saving') {

@@ -86,7 +86,7 @@ export default class GeneratedFileModal extends React.Component {
                     <div id="usa-da-generate-file-modal" className="usa-da-generate-file-modal">
                         <div className="usa-da-landing-modal-close usa-da-icon usa-da-icon-times">
                             <button onClick={this.props.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="xmark" />
                             </button>
                         </div>
                         <CrossFileGenerateModalContainer
