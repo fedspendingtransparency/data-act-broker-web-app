@@ -83,7 +83,7 @@ export default class Treemap extends React.Component {
 
     drawChart() {
         const hierarchy = d3.hierarchy(this.props.formattedData.data)
-            .sum(d => d.value)
+            .sum((d) => d.value)
             .sort((a, b) =>
                 // order by the parent component's pre-sorted array indices
                 b.index - a.index

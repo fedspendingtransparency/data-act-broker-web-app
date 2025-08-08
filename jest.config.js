@@ -1,5 +1,10 @@
 const ignorePatterns = [
     'data-tranparency-ui',
+    /** query-string */
+    'query-string',
+    'decode-uri-component',
+    'split-on-first',
+    'filter-obj',
     /** react-markdown 10.1.0 */
     'react-markdown',
     'devlop',
@@ -41,7 +46,7 @@ module.exports = {
         "<rootDir>/__mocks__/fileMock.js",
         "^(data-transparency-ui)$": "<rootDir>/node_modules/data-transparency-ui",
         "\\.(css|less|scss)$": "identity-obj-proxy",
-        d3: '<rootDir>/node_modules/d3/d3.min.js'
+        d3: '<rootDir>/node_modules/d3/dist/d3.min.js'
     },
     setupFiles: ["<rootDir>/tests/rejection.js"],
     setupFilesAfterEnv: ["<rootDir>/tests/setup.js", "jest-canvas-mock"],
