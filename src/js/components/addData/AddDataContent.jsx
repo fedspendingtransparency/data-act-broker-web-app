@@ -76,7 +76,7 @@ export default class AddDataContent extends React.Component {
                 <div className="container short">
                     <div className="alert alert-error text-left" role="alert">
                         <div className="usa-da-icon error-icon">
-                            <FontAwesomeIcon icon="exclamation-circle" />
+                            <FontAwesomeIcon icon="circle-exclamation" />
                         </div>
                         <div className="alert-text">
                             <div className="alert-header-text">Your upload has failed</div>
@@ -96,7 +96,7 @@ export default class AddDataContent extends React.Component {
                 <div className="container short">
                     <div className="alert alert-warning text-left" role="alert">
                         <div className="usa-da-icon usa-da-icon-file-upload">
-                            <FontAwesomeIcon icon="file-upload" />
+                            <FontAwesomeIcon icon="file-arrow-up" />
                         </div>
                         <div className="alert-text">
                             <div className="alert-header-text">Please stay on this page while files upload</div>

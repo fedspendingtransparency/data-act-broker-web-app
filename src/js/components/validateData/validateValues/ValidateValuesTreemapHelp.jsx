@@ -11,7 +11,7 @@ const propTypes = {
     description: PropTypes.string,
     detail: PropTypes.string,
     field: PropTypes.string,
-    title: PropTypes.string,
+    name: PropTypes.string,
     type: PropTypes.string
 };
 
@@ -21,7 +21,7 @@ const defaultProps = {
     count: 0,
     type: 'error',
     field: '',
-    title: ''
+    name: ''
 };
 
 export default class ValidateValuesTreemapHelp extends React.Component {
@@ -33,7 +33,7 @@ export default class ValidateValuesTreemapHelp extends React.Component {
         return (
             <div className="usa-da-treemap-help-wrap">
                 <div className="treemap-help-title">
-                    {this.props.title}
+                    {this.props.name}
                 </div>
                 <div className="treemap-help-description">
                     <b>Field:</b> {this.props.field}<br />

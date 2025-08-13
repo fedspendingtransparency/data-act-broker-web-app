@@ -22,7 +22,7 @@ const ErrorMessageOverlay = (props) => (
         <div className="results-table-message-container">
             <div className="results-table-error">
                 <div className="icon">
-                    <FontAwesomeIcon icon="exclamation-circle" />
+                    <FontAwesomeIcon icon="circle-exclamation" />
                 </div>
                 <div className="title">
                     {props.errorTitle}

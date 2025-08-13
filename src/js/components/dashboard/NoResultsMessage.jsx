@@ -16,7 +16,7 @@ const NoResultsMessage = (props) => (
         <div className="dashboard-message-flex">
             <div className="dashboard-message">
                 <div className="dashboard-message__icon dashboard-message__icon_alert">
-                    <FontAwesomeIcon icon="exclamation-circle" />
+                    <FontAwesomeIcon icon="circle-exclamation" />
                 </div>
                 <span className="dashboard-message__message">
                     {props.children}

@@ -97,7 +97,7 @@ export default class GenerateFileBox extends React.Component {
                                     onKeyDown={onKeyDownHandler}
                                     className="usa-da-download pull-right">
                                     <span className="usa-da-icon usa-da-download-report">
-                                        <FontAwesomeIcon icon="cloud-download-alt" />
+                                        <FontAwesomeIcon icon="cloud-arrow-down" />
                                     </span>Download File
                                 </div>
                             </div>
@@ -107,7 +107,7 @@ export default class GenerateFileBox extends React.Component {
 
                 <div className={`alert alert-error text-left${errorClass}`} role="alert">
                     <div className="usa-da-icon error-icon">
-                        <FontAwesomeIcon icon="exclamation-circle" />
+                        <FontAwesomeIcon icon="circle-exclamation" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">{this.props.error.header}</div>

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import d3 from 'd3';
+import * as d3 from 'd3';
 import _ from 'lodash';
 import tinycolor from 'tinycolor2';
 
@@ -82,19 +82,20 @@ export default class Treemap extends React.Component {
     }
 
     drawChart() {
-        const layout = d3.layout.treemap()
-            .children((d) => d)
-            .size([this.props.width, this.props.height])
+        const hierarchy = d3.hierarchy(this.props.formattedData.data)
+            .sum((d) => d.value)
             .sort((a, b) =>
                 // order by the parent component's pre-sorted array indices
                 b.index - a.index
-            )
-            .sticky(true);
+            );
+        const layout = d3.treemap()
+            .size([this.props.width, this.props.height])
+            .padding(1);
 
-        const treemap = layout(this.props.formattedData.data);
+        const treemap = layout(hierarchy);
 
         const baseColor = this.props.colors.base;
-        return treemap.map((node) => {
+        return treemap.leaves().map((node) => {
             const max = this.props.formattedData.max;
             const min = this.props.formattedData.min;
 
@@ -102,32 +103,32 @@ export default class Treemap extends React.Component {
             if (max !== min) {
                 // prevent divide by zero errors
                 tint = (40 / (this.props.formattedData.max - this.props.formattedData.min)) *
-                    (this.props.formattedData.max - node.value);
+                    (this.props.formattedData.max - node.data.value);
             }
 
             // determine if the cell is currently selected
             let active = false;
-            if (node.index === this.props.activeCell) {
+            if (node.data.index === this.props.activeCell) {
                 active = true;
             }
 
             const color = tinycolor(baseColor).lighten(tint).toString();
 
             return (<TreemapCell
-                key={`${node.description}-${node.index}`}
-                width={node.dx}
-                height={node.dy}
-                x={node.x}
-                y={node.y}
+                key={`${node.data.description}-${node.data.index}`}
+                width={node.x1 - node.x0}
+                height={node.y1 - node.y0}
+                x={node.x0}
+                y={node.y0}
                 cellColor={color}
                 colors={this.props.colors}
-                cellId={node.index}
+                cellId={node.data.index}
                 active={active}
-                title={node.title}
-                count={node.value}
-                field={node.field}
-                detail={node.detail}
-                description={node.description}
+                name={node.data.name}
+                count={node.data.value}
+                field={node.data.field}
+                detail={node.data.detail}
+                description={node.data.description}
                 clickedItem={this.props.clickedItem} />);
         });
     }

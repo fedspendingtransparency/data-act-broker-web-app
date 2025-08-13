@@ -231,14 +231,14 @@ export default class ValidateDataFileComponent extends React.Component {
         let icon = '';
         if (this.isReplacingFile()) {
             // user is attempting to replace a file
-            icon = <FontAwesomeIcon icon="cloud-upload-alt" />;
+            icon = <FontAwesomeIcon icon="cloud-arrow-up" />;
         }
         else if (this.isFileReady()) {
             if (this.props.item.file_status === 'complete') {
-                icon = <FontAwesomeIcon icon="check-circle" />;
+                icon = <FontAwesomeIcon icon="circle-check" />;
             }
             else {
-                icon = <FontAwesomeIcon icon="exclamation-circle" />;
+                icon = <FontAwesomeIcon icon="circle-exclamation" />;
             }
         }
         return icon;
@@ -452,7 +452,7 @@ export default class ValidateDataFileComponent extends React.Component {
                                         className="usa-da-icon"
                                         data-testid="validate-icon">
                                         {isFileValid ?
-                                            this.displayIcon() : <FontAwesomeIcon icon="exclamation-circle" />}
+                                            this.displayIcon() : <FontAwesomeIcon icon="circle-exclamation" />}
                                     </div>
                                 </div>
                                 {uploadProgress}

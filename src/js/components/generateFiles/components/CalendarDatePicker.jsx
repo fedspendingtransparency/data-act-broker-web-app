@@ -233,7 +233,7 @@ export default class CalendarDatePicker extends React.Component {
                         className="usa-da-icon picker-icon date"
                         aria-haspopup="true"
                         aria-label="date picker">
-                        <FontAwesomeIcon icon={['far', 'calendar-alt']} />
+                        <FontAwesomeIcon icon={['far', 'calendar-days']} />
                     </button>
                 </div>
                 <div

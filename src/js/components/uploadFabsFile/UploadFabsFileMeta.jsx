@@ -241,7 +241,7 @@ export default class UploadFabsFileMeta extends React.Component {
                 <div className="container short">
                     <div className="alert alert-warning text-left" role="alert">
                         <div className="usa-da-icon usa-da-icon-file-upload">
-                            <FontAwesomeIcon icon="file-upload" />
+                            <FontAwesomeIcon icon="file-arrow-up" />
                         </div>
                         <div className="alert-text">
                             <div className="alert-header-text">Please stay on this page while files upload</div>

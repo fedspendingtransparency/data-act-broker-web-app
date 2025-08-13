@@ -12,7 +12,7 @@ const propTypes = {
     clickedItem: PropTypes.func,
     colors: PropTypes.object,
     cellColor: PropTypes.string,
-    title: PropTypes.string,
+    name: PropTypes.string,
     height: PropTypes.number,
     width: PropTypes.number,
     x: PropTypes.number,
@@ -24,7 +24,7 @@ const defaultProps = {
     clickedItem: () => {},
     colors: {},
     cellColor: '',
-    title: 'Unspecified',
+    name: 'Unspecified',
     height: 0,
     width: 0,
     x: 0,
@@ -96,7 +96,7 @@ export default class TreemapCell extends React.Component {
                 onMouseOut={this.mouseOut}
                 onBlur={this.mouseOut}
                 onClick={this.clickEvent}>
-                <div className="treemap-rule">{this.props.title}</div>
+                <div className="treemap-rule">{this.props.name}</div>
             </div>
         );
     }

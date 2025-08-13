@@ -58,7 +58,7 @@ export default class UserButton extends React.Component {
             settingsButton = (
                 <li>
                     <button onClick={this.openSettings}>
-                        <FontAwesomeIcon icon="cog" />
+                        <FontAwesomeIcon icon="gear" />
                         Settings
                     </button>
                 </li>
@@ -77,7 +77,7 @@ export default class UserButton extends React.Component {
                     {settingsButton}
                     <li>
                         <button onClick={this.props.logout}>
-                            <FontAwesomeIcon icon="sign-out-alt" />
+                            <FontAwesomeIcon icon="right-from-bracket" />
                             Logout
                         </button>
                     </li>

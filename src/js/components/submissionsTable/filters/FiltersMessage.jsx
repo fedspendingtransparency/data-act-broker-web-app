@@ -18,7 +18,7 @@ const defaultProps = {
 const FiltersMessage = (props) => (
     <div className="table-heading__message">
         <div className="filters-message">
-            <FontAwesomeIcon icon="exclamation-circle" />
+            <FontAwesomeIcon icon="circle-exclamation" />
                 You have <span className="filters-message__count">{props.filterCount}</span> filters selected.
                 Click the submit button below to apply.
         </div>

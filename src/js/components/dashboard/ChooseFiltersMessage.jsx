@@ -15,7 +15,7 @@ const ChooseFiltersMessage = ({ children }) => (
     <div className="dashboard-message-flex">
         <div className="dashboard-message">
             <div className="dashboard-message__icon">
-                <FontAwesomeIcon icon="arrow-circle-left" />
+                <FontAwesomeIcon icon="circle-arrow-left" />
             </div>
             <span className="dashboard-message__message">
                 {children}

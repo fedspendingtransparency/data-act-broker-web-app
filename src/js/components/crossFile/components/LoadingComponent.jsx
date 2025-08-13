@@ -27,7 +27,7 @@ export default class LoadingComponent extends React.Component {
                 <div className="center-item">
                     <div className="circle">
                         <div className="usa-da-icon loading">
-                            <FontAwesomeIcon icon="search" />
+                            <FontAwesomeIcon icon="magnifying-glass" />
                         </div>
                     </div>
                 </div>

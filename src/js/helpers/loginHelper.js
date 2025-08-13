@@ -59,7 +59,7 @@ export const establishSession = (responseHeaders) => {
 
 export const performLogin = (username, password) => {
     // wipe out old session cookies to prevent session weirdness
-    Cookies.remove('session');
+    Cookies.remove('session', { path: '/' });
 
     const req = apiRequest({
         url: 'login/',
@@ -72,7 +72,7 @@ export const performLogin = (username, password) => {
 
 export const performCAIALogin = (code) => {
     // wipe out old session cookies to prevent session weirdness
-    Cookies.remove('session');
+    Cookies.remove('session', { path: '/' });
     // determine the service
     const redirectUri = kGlobalConstants.AUTH_CALLBACK;
 

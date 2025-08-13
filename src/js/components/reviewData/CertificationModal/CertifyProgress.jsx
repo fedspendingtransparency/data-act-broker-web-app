@@ -151,7 +151,7 @@ export default class CertifyProgress extends React.Component {
 
                 <div className={`alert alert-danger${hideError}`}>
                     <div className="usa-da-icon">
-                        <FontAwesomeIcon icon="exclamation-circle" />
+                        <FontAwesomeIcon icon="circle-exclamation" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">Publish Failed</div>

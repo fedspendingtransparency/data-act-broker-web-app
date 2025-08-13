@@ -61,7 +61,7 @@ export default class ErrorModal extends React.Component {
                                     className="close-button"
                                     onClick={this.cancel}
                                     aria-label="close-modal-button">
-                                    <FontAwesomeIcon icon="times" />
+                                    <FontAwesomeIcon icon="xmark" />
                                 </button>
                             </div> : ''}
                         {this.props.content}
