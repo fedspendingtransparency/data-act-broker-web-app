@@ -1,8 +1,7 @@
-#### July 29, 2025{section=technical}
+#### August 19, 2025{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Renamed various scripts and config names related to the SAM recipient loader that still reference the outdated DUNS.
-* Resolved a few minor issues with the frontend FABS reupload, revalidation, and publishing behavior.
-* Resolved a minor issue with the country code loader’s encoding to clean up values.
-* Temporarily disabled CodeClimate scans for the repository. A replacement is still being decided on and will be implemented soon.
+* Updated various underlying packages used by the frontend site.
+* Modified the USPS loader to use a new version of their API to pull and process files.
+* Modified the Program Activity and PARK loaders to have specialized exit codes to report on their statuses.
