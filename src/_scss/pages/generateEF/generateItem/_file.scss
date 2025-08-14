@@ -25,11 +25,11 @@
     font-size: rem(22);
     position: absolute;
     top: rem(10);
-    left: rem(6.5);
-    & .fa-exclamation-circle {
+    left: rem(4.5);
+    & .fa-circle-exclamation {
         color: $color-secondary;
     }
-    & .fa-check-circle {
+    & .fa-circle-check {
         color: $color-green-light;
     }
 }

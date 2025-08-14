@@ -3,14 +3,14 @@
         font-size: rem(21);
         position: absolute;
         top: rem(10);
-        left: rem(7);
-        & .fa-exclamation-circle {
+        left: rem(4.5);
+        & .fa-circle-exclamation {
             color: $color-secondary;
         }
-        & .fa-check-circle {
+        & .fa-circle-check {
             color: $color-green-light;
         }
-        & .fa-cloud-upload-alt {
+        & .fa-cloud-arrow-up {
             color: $color-gray-dark;
             position: relative;
             left: rem(-2);
@@ -18,7 +18,7 @@
     }
 
     .usa-da-warning-icon {
-        .fa-exclamation-circle {
+        .fa-circle-exclamation {
             color: $color-gold;
         }
     }

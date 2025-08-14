@@ -11,7 +11,7 @@ const NoResultsMessage = () => (
         <div className="results-table-message-container">
             <div className="results-table-no-results">
                 <div className="no-results-icon">
-                    <FontAwesomeIcon icon="search" />
+                    <FontAwesomeIcon icon="magnifying-glass" />
                 </div>
                 <div className="title">
                     No results found.

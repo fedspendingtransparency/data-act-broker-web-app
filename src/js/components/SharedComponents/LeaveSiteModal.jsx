@@ -39,13 +39,13 @@ export default class RevalidateDataModal extends React.Component {
                                 id="close-button"
                                 onClick={this.props.closeModal}
                                 aria-label="close-modal">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="xmark" />
                             </button>
                         </div>
 
                         <div className="usa-da-leave-site-modal-content">
                             <h2>
-                                <FontAwesomeIcon icon="exclamation-triangle" />
+                                <FontAwesomeIcon icon="triangle-exclamation" />
                                 You&apos;re leaving a Federal Government website.
                             </h2>
 

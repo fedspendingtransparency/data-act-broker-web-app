@@ -56,7 +56,7 @@ export default class DownloadFile extends React.Component {
                                     onClick={this.props.clickedDownload}
                                     className="usa-da-download file-download-btn">
                                     <span className="usa-da-icon usa-da-download-report">
-                                        <FontAwesomeIcon icon="cloud-download-alt" />
+                                        <FontAwesomeIcon icon="cloud-arrow-down" />
                                     </span>
                                     Download File
                                 </button>
@@ -67,7 +67,7 @@ export default class DownloadFile extends React.Component {
 
                 <div className={`alert alert-error text-left${errorClass}`} role="alert">
                     <div className="usa-da-icon error-icon">
-                        <FontAwesomeIcon icon="exclamation-circle" />
+                        <FontAwesomeIcon icon="circle-exclamation" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">{this.props.errorType}</div>

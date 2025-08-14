@@ -124,7 +124,7 @@ export default class ValidateDataErrorReport extends React.Component {
                 onKeyDown={onKeyDownHandler}
                 onClick={this.clickedReport}>
                 <span className="usa-da-icon usa-da-download-report">
-                    <FontAwesomeIcon icon="cloud-download-alt" />
+                    <FontAwesomeIcon icon="cloud-arrow-down" />
                 </span>{reportLinkText}
             </div>
         );

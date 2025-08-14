@@ -257,7 +257,7 @@ export default class HistoryTable extends React.Component {
             warning = (
                 <div className={`alert alert-${this.state.warning.type}`}>
                     <div className="usa-da-icon error-icon">
-                        <FontAwesomeIcon icon="exclamation-circle" />
+                        <FontAwesomeIcon icon="circle-exclamation" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">{this.state.warning.header}</div>
@@ -273,7 +273,7 @@ export default class HistoryTable extends React.Component {
                 <button
                     className="usa-da-download"
                     onClick={this.getSignedUrlZip.bind(this, this.state.active)}>
-                    <FontAwesomeIcon icon="cloud-download-alt" /> Download All Files (.zip)
+                    <FontAwesomeIcon icon="cloud-arrow-down" /> Download All Files (.zip)
                 </button>
             );
         }

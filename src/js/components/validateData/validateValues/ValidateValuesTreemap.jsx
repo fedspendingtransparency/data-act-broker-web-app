@@ -30,7 +30,7 @@ class ValidateValuesTreemap extends React.Component {
             selected: null,
             activeCell: -1,
             formattedData: {
-                data: [],
+                data: {},
                 max: 0,
                 min: 0
             },
@@ -72,12 +72,12 @@ class ValidateValuesTreemap extends React.Component {
         this.props.data.forEach((item) => {
             let detail = null;
 
-            let title = item.field_name;
+            let name = item.field_name;
             if (item.error_name === 'rule_failed') {
                 detail = item.rule_failed;
-                title = `Rule ${item.original_label}`;
+                name = `Rule ${item.original_label}`;
                 if (item.original_label === '') {
-                    title = 'Unknown Rule';
+                    name = 'Unknown Rule';
                 }
             }
 
@@ -92,17 +92,18 @@ class ValidateValuesTreemap extends React.Component {
             }
 
             data.push({
-                title,
+                name,
                 value: occurrences,
                 field: item.field_name,
                 description: item.error_description,
-                detail
+                detail,
+                type: 'leaf'
             });
         });
 
         // sort by descending value
         // perform sorting here and then let the D3 treemap deal with sorting by index key to prevent random reshuffles
-        const sortedData = _.orderBy(data, ['value', 'title'], 'desc');
+        const sortedData = _.orderBy(data, ['value', 'name'], 'desc');
         let i = 0;
         sortedData.forEach((item) => {
             const tmpItem = item;
@@ -117,7 +118,11 @@ class ValidateValuesTreemap extends React.Component {
 
         this.setState({
             formattedData: {
-                data: sortedData,
+                data: {
+                    type: 'node',
+                    name: this.props.type,
+                    children: sortedData
+                },
                 min: minCount,
                 max: maxCount
             },

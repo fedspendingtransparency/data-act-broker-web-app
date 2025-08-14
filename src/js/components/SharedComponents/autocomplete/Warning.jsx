@@ -22,7 +22,7 @@ export default class Warning extends React.Component {
         return (
             <div className="autocomplete-error" role="alert">
                 <div className="autocomplete-error__title">
-                    <FontAwesomeIcon icon="exclamation-circle" />
+                    <FontAwesomeIcon icon="cirlce-exclamation" />
                     <div className="autocomplete-error__heading">{this.props.header}</div>
                 </div>
                 <p className="autocomplete-error__message">{this.props.description}</p>

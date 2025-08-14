@@ -27,14 +27,14 @@ export default class BlockContent extends React.Component {
     render() {
         let firstBlock = (<LandingBlock
             type={this.props.type}
-            icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
+            icon={<FontAwesomeIcon icon="cloud-arrow-up" />}
             text="In order to upload and validate your agency's files, please request access in CAIA."
             buttonText="Request Access"
             url="https://iiq.fiscal.treasury.gov/identityiq/home.jsf"
             externalUrl />);
         let secondBlock = (<LandingBlock
             type={this.props.type}
-            icon={<FontAwesomeIcon icon={['far', 'save']} />}
+            icon={<FontAwesomeIcon icon={['far', 'floppy-disk']} />}
             text={"Did you start a submission but were unable to complete it? Want to see your certified " +
             "submissions? Continue here to the submission table."}
             buttonText="View Submission Table"
@@ -64,7 +64,7 @@ export default class BlockContent extends React.Component {
                 firstBlock = (
                     <LandingBlock
                         type={this.props.type}
-                        icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
+                        icon={<FontAwesomeIcon icon="cloud-arrow-up" />}
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
@@ -75,14 +75,14 @@ export default class BlockContent extends React.Component {
             }
             thirdBlock = (<LandingBlock
                 type={this.props.type}
-                icon={<FontAwesomeIcon icon="cloud-download-alt" />}
+                icon={<FontAwesomeIcon icon="cloud-arrow-down" />}
                 text="Generate your D1 and D2 award files without having to create a submission."
                 buttonText="Generate D Files"
                 url="/generateDetachedFiles" />);
             fourthBlock = (
                 <LandingBlock
                     type={this.props.type}
-                    icon={<FontAwesomeIcon icon="cloud-download-alt" />}
+                    icon={<FontAwesomeIcon icon="cloud-arrow-down" />}
                     text="Compare published Data Broker and GTAS data or generate File A outside of a submission."
                     buttonText="Generate Files"
                     url="/generateDetachedFYPFiles" />
@@ -94,7 +94,7 @@ export default class BlockContent extends React.Component {
                 firstBlock = (
                     <LandingBlock
                         type={this.props.type}
-                        icon={<FontAwesomeIcon icon="cloud-upload-alt" />}
+                        icon={<FontAwesomeIcon icon="cloud-arrow-up" />}
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
@@ -105,7 +105,7 @@ export default class BlockContent extends React.Component {
             }
             secondBlock = (<LandingBlock
                 type={this.props.type}
-                icon={<FontAwesomeIcon icon={['far', 'save']} />}
+                icon={<FontAwesomeIcon icon={['far', 'floppy-disk']} />}
                 text={"Did you start a submission but were unable to complete it? Want to see your previous " +
                     "submissions? Continue here to the submission table."}
                 buttonText="View Submission Table"

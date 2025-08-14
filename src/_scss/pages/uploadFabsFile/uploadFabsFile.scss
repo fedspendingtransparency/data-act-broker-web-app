@@ -75,10 +75,10 @@
 		    height: rem(15);
 		    position: relative;
 	    }
-	    .fa-check-circle {
+	    .fa-circle-check {
 	        color: $color-green-light;
 	    }
-		.fa-info-circle {
+		.fa-circle-info {
 	        color: $color-gray;
 	    }
 	}
@@ -159,7 +159,7 @@
                     font-size: rem(14);
                     line-height: rem(18);
                 }
-                .fa-exclamation-triangle {
+                .fa-triangle-exclamation {
                     font-size: rem(18);
                     color: $color-gold-dark;
                     float: right;

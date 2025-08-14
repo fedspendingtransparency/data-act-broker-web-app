@@ -54,7 +54,7 @@ export default class ReviewDataNarrativeTextfield extends React.Component {
         const warningMessage = this.state.validAscii ? null :
             (
                 <React.Fragment>
-                    <FontAwesomeIcon icon="exclamation-triangle" />
+                    <FontAwesomeIcon icon="triangle-exclamation" />
                     Your comment contains non-standard characters that may not display properly.
                 </React.Fragment>
             );

@@ -48,7 +48,7 @@ export default class FilterBar extends React.Component {
                     aria-label="Remove filter"
                     onClick={this.removeFilter}
                     className="filter-tag__close">
-                    <FontAwesomeIcon icon="times" />
+                    <FontAwesomeIcon icon="xmark" />
                 </button>
             </div>
         );

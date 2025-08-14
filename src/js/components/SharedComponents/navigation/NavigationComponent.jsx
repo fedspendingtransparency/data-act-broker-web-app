@@ -91,7 +91,7 @@ export class Navbar extends React.Component {
 
                 // unset the login state cookie
                 Cookies.remove('brokerLogin');
-                Cookies.remove('session');
+                Cookies.remove('session', { path: '/' });
             }
         });
     }
