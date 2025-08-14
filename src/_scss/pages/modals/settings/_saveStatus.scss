@@ -11,13 +11,13 @@
         }
         .save-status__error {
             @include dangerAlert;
-            border: solid 2px $alert-danger-border;
+            border: solid 2px $color-secondary-lightest;
             padding: rem(10);
             margin: 0;
         }
         .save-status__success {
             @include successAlert;
-            border: solid 2px $alert-success-border;
+            border: solid 2px $color-green-lightest;
             padding: rem(10);
             margin: 0;
         }

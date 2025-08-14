@@ -24,3 +24,24 @@ $font-light:		  200;
 $font-normal:         400;
 $font-semibold:       600;
 $font-bold:           700;
+
+html {
+    font-size: $em-base;
+}
+
+body {
+    font-size: $base-font-size;
+    margin: 0;
+    line-height: 1.428571429;
+    color: #333;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
