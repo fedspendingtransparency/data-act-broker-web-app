@@ -155,7 +155,7 @@ export default class ReviewDataNotifyModal extends React.Component {
                     <div id="usa-da-notify-modal" className="usa-da-notify-modal">
                         <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
                             <button onClick={this.props.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="xmark" />
                             </button>
                         </div>
 

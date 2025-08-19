@@ -86,7 +86,7 @@ export default class SettingsModal extends React.Component {
                             className="close-button"
                             onClick={this.props.closeModal}
                             aria-label="close-modal-button">
-                            <FontAwesomeIcon icon="times" />
+                            <FontAwesomeIcon icon="xmark" />
                         </button>
                         <div className="settings-modal__content">
                             <div className="settings-modal__sidebar">

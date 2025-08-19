@@ -38,7 +38,7 @@ export default class CorrectButtonFullOverlay extends React.Component {
                         onKeyDown={onKeyDownHandler}
                         onClick={this.props.buttonClicked}
                         aria-label="close">
-                        <FontAwesomeIcon icon="times" />
+                        <FontAwesomeIcon icon="xmark" />
                     </div>
                     <div className="buttonHolder">
                         <div className="col-md-12">

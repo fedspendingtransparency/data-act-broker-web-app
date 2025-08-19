@@ -30,7 +30,7 @@ const DashboardImpactsModal = (props) => (
                     className="close-button"
                     onClick={props.closeModal}
                     aria-label="close-modal-button">
-                    <FontAwesomeIcon icon="times" />
+                    <FontAwesomeIcon icon="xmark" />
                 </button>
                 <h4>Degree of Impact - <span className="capitalize">{props.level}</span></h4>
                 <hr />

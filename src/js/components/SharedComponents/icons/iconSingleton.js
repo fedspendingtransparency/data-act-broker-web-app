@@ -4,7 +4,7 @@
   */
 
 import Axios from 'axios';
-import xmldoc from 'xmldoc';
+import { XmlDocument } from 'xmldoc';
 
 require('../../../../graphics/icons.svg');
 const { v4: uuidv4 } = require('uuid');
@@ -34,7 +34,7 @@ class IconSingleton {
 
     parseSvg(rawSvg) {
         // downloaded raw SVG data, send it through an XML parser
-        const data = new xmldoc.XmlDocument(rawSvg);
+        const data = new XmlDocument(rawSvg);
 
         // iterate through each symbol and extract the symbol's content XML as a string and also its viewbox attribute
         data.childrenNamed('symbol').forEach((symbol) => {
