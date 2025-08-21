@@ -17,7 +17,8 @@
         }
         .save-status__success {
             @include successAlert;
-            border: solid 2px $color-green-lightest;
+            color: $color-green-light;
+            border: solid 2px #d6e9c6;
             padding: rem(10);
             margin: 0;
         }
