@@ -15,6 +15,10 @@ table {
     background-color: transparent;
     border-collapse: collapse;
     border-spacing: 0;
+
+    th {
+        text-align: left;
+    }
 }
 
 button, input, select, textarea {
@@ -29,6 +33,39 @@ button {
     text-transform: none;
     overflow: visible;
     margin: 0;
+}
+
+input[type=checkbox], input[type=radio] {
+    line-height: normal;
+    margin: rem(4) 0 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: rem(5);
+    font-weight: $font-bold;
+}
+
+mark {
+    background-color: #fcf8e3;
+    padding: rem(2);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-sizing: content-box;
+    height: 0;
+}
+
+img {
+    vertical-align: middle;
+    border: 0;
 }
 
 *, :after, :before {
@@ -72,42 +109,153 @@ button {
     }
 }
 
+.col-xs-1 {
+    width: 8.33%;
+    float: left;
+}
+
+.col-xs-4 {
+    width: 33.33%;
+    float: left;
+}
+
+.col-xs-6 {
+    width: 50%;
+    float: left;
+}
+
+.col-xs-8 {
+    width: 66.67%;
+    float: left;
+}
+
+.col-xs-11 {
+    width: 91.67%;
+    float: left;
+}
+
 .col-xs-12 {
     width: 100%;
     float: left;
 }
 
-.col-md-4 {
-    @media(min-width: $medium-screen) {
-        width: 33.33%;
-        float: left;
-    }
-}
-
-.col-md-6 {
-    width: 50%;
-    float: left;
-}
-
-.col-md-8 {
-    @media(min-width: $medium-screen) {
-        width: 66.67%;
-        float: left;
-    }
-}
-
-.col-md-12 {
-    @media(min-width: $medium-screen) {
+.col-sm-12 {
+    @media(min-width: $small-screen) {
         width: 100%;
         float: left;
     }
 }
 
-.col-xs-12, .col-md-4, .col-md-6, .col-md-8, .col-md-12 {
+@media(min-width: $medium-screen) {
+    .col-md-1 {
+        width: 8.33%;
+    }
+
+    .col-md-2 {
+        width: 16.67%;
+    }
+
+    .col-md-3 {
+        width: 25%;
+    }
+
+    .col-md-4 {
+        width: 33.33%;
+    }
+
+    .col-md-5 {
+        width: 41.67%;
+    }
+
+    .col-md-6 {
+        width: 50%;
+    }
+
+    .col-md-7 {
+        width: 58.33%;
+    }
+
+    .col-md-8 {
+        width: 66.67%;
+    }
+
+    .col-md-9 {
+        width: 75%;
+    }
+
+    .col-md-10 {
+        width: 83.33%;
+    }
+
+    .col-md-11 {
+        width: 91.67%;
+    }
+
+    .col-md-12 {
+        width: 100%;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10,
+    .col-md-11, .col-md-12 {
+        float: left;
+    }
+}
+
+.col-lg-8 {
+    @media(min-width: $large-screen) {
+        width: 66.67%;
+        float: left;
+    }
+}
+
+.col-lg-12 {
+    @media(min-width: $large-screen) {
+        width: 100%;
+        float: left;
+    }
+}
+
+.col-xs-1, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-11, .col-xs-12, .col-sm-12, .col-md-1, .col-md-2, .col-md-3,
+.col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-8,
+.col-lg-12 {
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
     position: relative;
+}
+
+.col-xs-offset-1 {
+    margin-left: 8.33%;
+}
+
+.col-md-offset-0 {
+    @media(min-width: $medium-screen) {
+        margin-left: 0;
+    }
+}
+
+.col-md-offset-1 {
+    @media(min-width: $medium-screen) {
+        margin-left: 8.33%;
+    }
+}
+
+.col-md-offset-2 {
+    @media(min-width: $medium-screen) {
+        margin-left: 16.67%;
+    }
+}
+
+.col-md-offset-4 {
+    @media(min-width: $medium-screen) {
+        margin-left: 33.33%;
+    }
+}
+
+.col-lg-offset-2 {
+    @media(min-width: $large-screen) {
+        margin-left: 16.67%;
+    }
 }
 
 .navbar-header {
@@ -166,12 +314,68 @@ button {
     }
 }
 
+.checkbox {
+    display: block;
+    margin-bottom: rem(10);
+    margin-top: rem(10);
+    position: relative;
+}
+
+.checkbox label, .radio label {
+    cursor: pointer;
+    font-weight: 400;
+    margin-bottom: 0;
+    min-height: rem(20);
+    padding-left: rem(20);
+}
+
+.checkbox input[type=checkbox] {
+    margin-left: rem(20);
+    position: absolute;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+
+    th, td {
+        border: 1px solid #ddd;
+    }
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    background-clip: padding-box;
+    background-color: $color-white;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    float: left;
+    list-style: none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    position: absolute;
+    text-align: left;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+}
+
 .hide{
 	display:none;
 }
 
 .text-center {
     text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .pull-right {
@@ -189,6 +393,12 @@ button {
     border: 0;
 }
 
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container-fluid {
     margin-left: auto;
     margin-right: auto;
@@ -199,4 +409,70 @@ button {
         content: " ";
         display: table;
     }
+}
+
+.btn {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.42;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding: rem(6) rem(12);
+
+    &:focus, &:hover {
+        text-decoration: none;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: rem(-2);
+    }
+}
+
+.btn-primary {
+    border-color: #2e6da4;
+    background-color: #337ab7;
+    color: $color-white;
+
+    &:hover {
+        border-color: #204d74;
+        background-color: #286090;
+    }
+}
+
+.btn-default {
+    background-color: $color-white;
+    border-color: #ccc;
+    color: $font-color;
+
+    &:hover {
+        border-color: #adadad;
+    }
+}
+
+.btn-danger {
+    color: $color-white;
+    border-color: #d43f3a;
+    background-color: #d9534f;
+
+    &:focus {
+        border-color: #761c19;
+        background-color: #c9302c;
+    }
+
+    &:hover {
+        border-color: #ac2925;
+        background-color: #c9302c;
+    }
+}
+
+.caret {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px dashed;
+    display: inline-block;
+    height: 0;
+    width: 0;
+    vertical-align: middle;
 }
