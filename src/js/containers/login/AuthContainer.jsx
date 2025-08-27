@@ -27,6 +27,7 @@ const AuthContainer = (props) => {
 
     useEffect(() => {
         if (runRedirect) {
+            navigate(location.pathname, { replace: true });
             setRunRedirect(false);
 
             let destination = '/landing';
@@ -108,7 +109,7 @@ const AuthContainer = (props) => {
             setError('');
             setRunRedirect(true);
         }
-        else {
+        else if (!runRedirect){
             // no ticket or code found, toss back to login page
             navigate('/login');
 
