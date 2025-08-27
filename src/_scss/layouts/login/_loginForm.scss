@@ -1,9 +1,9 @@
 // import the innput fields
-@import "./_inputField";
+@import "../../components/inputs/_container";
 // import the login button
-@import "./_loginButton";
+@import "../../components/buttons/_primary";
 // import the top banner
-@import "../../../layouts/login/_topBanner";
+@import "./_topBanner";
 
 
 @mixin loginForm {
@@ -51,11 +51,48 @@
     }
 
     .usa-da-input-container {
-        @include loginFormInputContainer;
+        @include inputContainer;
+
+        input {
+            width: 100%;
+            font-family: $font-sans;
+            font-size: 1.6rem;
+
+            padding-left: 55px;
+            height: 44px;
+            margin-top: 0;
+            margin-bottom: 0;
+            max-width: none;
+            &[name="password"] {
+                margin-bottom: 0;
+            }
+        }
+
+        .usa-da-input-with-icon {
+            padding-left: 2.5em;
+        }
+
+        .usa-da-icon {
+            font-size: rem(20);
+            position: absolute;
+            left: rem(10);
+            top: rem(9);
+            color: $color-gray-dark;
+        }
     }
     
     .usa-da-button {
-        @include loginFormButton;
+        @include primaryButton;
+
+        margin: 0;
+        @media screen and (max-width: $small-screen) {
+            width: 100%
+        }
+        &.disabled {
+            background-color: $color-gray-light;
+            color: $color-gray;
+            cursor: default;
+        }
     }
 
     // style site banners
