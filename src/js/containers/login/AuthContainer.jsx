@@ -28,6 +28,7 @@ const AuthContainer = (props) => {
     useEffect(() => {
         if (runRedirect) {
             setRunRedirect(false);
+            navigate(location.pathname, { replace: true });
 
             let destination = '/landing';
 
