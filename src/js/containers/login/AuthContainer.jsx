@@ -111,7 +111,7 @@ const AuthContainer = (props) => {
         }
         else {
             // no ticket or code found, toss back to login page
-            // navigate('/login');
+            navigate('/login');
 
             // remove any redirection cookies
             Cookies.remove('brokerRedirect');
