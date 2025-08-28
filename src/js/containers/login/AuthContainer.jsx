@@ -28,6 +28,7 @@ const AuthContainer = (props) => {
     useEffect(() => {
         if (runRedirect) {
             setRunRedirect(false);
+            console.log('navigating to auth');
             navigate(location.pathname, { replace: true });
 
             let destination = '/landing';
@@ -39,6 +40,7 @@ const AuthContainer = (props) => {
             }
 
             // perform the login
+            console.log('logging in with code ' + code);
             LoginHelper.performCAIALogin(code)
                 .then((loginRes) => {
                     LoginHelper.establishSession(loginRes.headers);
@@ -49,6 +51,7 @@ const AuthContainer = (props) => {
                         return Promise.reject('cookie');
                     }
     
+                    console.log('getting active user');
                     return LoginHelper.fetchActiveUser();
                 })
                 .then((data) => {
@@ -59,6 +62,7 @@ const AuthContainer = (props) => {
                     if (data.helpOnly) {
                         destination = '/help';
                     }
+                    console.log('navigating to ' + destination);
                     navigate(destination);
                 })
                 .catch((err) => {
@@ -100,9 +104,11 @@ const AuthContainer = (props) => {
 
         const caiaRegex = /code=([^&])+/g;
         const caiaRegexOutput = caiaRegex.exec(urlParams);
+        
         if (caiaRegexOutput) {
             // a CAIA code was found, process it
             const code = caiaRegexOutput[0].substring('code='.length);
+            console.log('new load with code ' + code);
 
             // save the code value in the component state
             setCode(code);
@@ -110,6 +116,8 @@ const AuthContainer = (props) => {
             setRunRedirect(true);
         }
         else {
+            console.log('new load without code');
+
             // no ticket or code found, toss back to login page
             navigate('/login');
 
