@@ -27,16 +27,15 @@ const AuthContainer = (props) => {
 
     useEffect(() => {
         if (runRedirect) {
-            navigate(location.pathname, { replace: true });
             setRunRedirect(false);
 
             let destination = '/landing';
-
             // check if a redirection cookie exists, if it exists, set that as the destination
             const cookieRedirect = Cookies.get('brokerRedirect');
             if (cookieRedirect) {
                 destination = cookieRedirect;
             }
+            Cookies.remove('brokerRedirect');
 
             // perform the login
             LoginHelper.performCAIALogin(code)
@@ -52,9 +51,6 @@ const AuthContainer = (props) => {
                     return LoginHelper.fetchActiveUser();
                 })
                 .then((data) => {
-                    // remove any redirection cookies
-                    Cookies.remove('brokerRedirect');
-
                     // success authorization from API, continue to destination
                     if (data.helpOnly) {
                         destination = '/help';
@@ -87,9 +83,6 @@ const AuthContainer = (props) => {
                     }
 
                     setError(message);
-
-                    // remove any redirection cookies
-                    Cookies.remove('brokerRedirect');
                 });
         }
     }, [runRedirect]);
@@ -109,7 +102,7 @@ const AuthContainer = (props) => {
             setError('');
             setRunRedirect(true);
         }
-        else if (!runRedirect){
+        else {
             // no ticket or code found, toss back to login page
             navigate('/login');
 
