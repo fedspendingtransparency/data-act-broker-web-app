@@ -29,7 +29,7 @@ const AuthContainer = (props) => {
         if (runRedirect) {
             setRunRedirect(false);
             console.log('navigating to auth');
-            // navigate(location.pathname, { replace: true });
+            navigate(location.pathname, { replace: true });
 
             let destination = '/landing';
 
