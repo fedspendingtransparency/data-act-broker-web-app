@@ -178,13 +178,13 @@ export default class DropdownTypeahead extends React.Component {
                 value: e.text.label
             }, () => {
                 this.getSelectedName();
+                if (this.props.clearAfterSelect) {
+                    e.target.value = '';
+                    this.setState({
+                        value: ''
+                    });
+                }
             });
-            if (this.props.clearAfterSelect) {
-                e.target.value = '';
-                this.setState({
-                    value: ''
-                });
-            }
             this.typeahead.close();
         });
 
