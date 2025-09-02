@@ -28,6 +28,13 @@
 		}
 	}
 
+	.alert-info {
+		@import "../../components/alerts/_alerts";
+		@include infoAlert;
+
+		margin: 0;
+	}
+
 	.validation-holder {
 		.alert-error {
 			@import "../../components/alerts/_alerts";
