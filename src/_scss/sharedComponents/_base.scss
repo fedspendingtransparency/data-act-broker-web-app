@@ -139,6 +139,10 @@ img {
     float: left;
 }
 
+.col-xs-offset-1 {
+    margin-left: 8.33%;
+}
+
 .col-sm-12 {
     @media(min-width: $small-screen) {
         width: 100%;
@@ -231,6 +235,12 @@ img {
     }
 }
 
+.col-lg-offset-2 {
+    @media(min-width: $large-screen) {
+        margin-left: 16.67%;
+    }
+}
+
 .col-xs-1, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-11, .col-xs-12, .col-sm-12, .col-md-1, .col-md-2, .col-md-3,
 .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-8,
 .col-lg-12 {
@@ -238,16 +248,6 @@ img {
     padding-left: rem(15);
     padding-right: rem(15);
     position: relative;
-}
-
-.col-xs-offset-1 {
-    margin-left: 8.33%;
-}
-
-.col-lg-offset-2 {
-    @media(min-width: $large-screen) {
-        margin-left: 16.67%;
-    }
 }
 
 .navbar-header {
