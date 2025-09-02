@@ -57,8 +57,8 @@ mark {
 hr {
     border: 0;
     border-top: 1px solid #eee;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: rem(20);
+    margin-top: rem(20);
     box-sizing: content-box;
     height: 0;
 }
@@ -77,8 +77,8 @@ img {
 .container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: rem(15);
+    padding-right: rem(15);
     &:before, &:after {
         content: " ";
         display: table;
@@ -87,19 +87,19 @@ img {
         clear: both;
     }
     @media(min-width: $small-screen) {
-        width: 750px;
+        width: rem(750);
     }
     @media(min-width: $medium-screen) {
-        width: 970px;
+        width: rem(970);
     }
     @media(min-width: $large-screen) {
-        width: 1170px;
+        width: rem(1170);
     }
 }
 
 .row {
-    margin-left: -15px;
-    margin-right: -15px;
+    margin-left: rem(-15);
+    margin-right: rem(-15);
     &:before, &:after {
         content: " ";
         display: table;
@@ -234,9 +234,9 @@ img {
 .col-xs-1, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-11, .col-xs-12, .col-sm-12, .col-md-1, .col-md-2, .col-md-3,
 .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-8,
 .col-lg-12 {
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
+    min-height: rem(1);
+    padding-left: rem(15);
+    padding-right: rem(15);
     position: relative;
 }
 
@@ -251,8 +251,8 @@ img {
 }
 
 .navbar-header {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: rem(15);
+    margin-right: rem(15);
 
     &:before, &:after {
         content: " ";
@@ -267,8 +267,8 @@ img {
 }
 
 .navbar-collapse {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: rem(15);
+    margin-right: rem(15);
 
     &:before, &:after {
         content: " ";
@@ -345,8 +345,8 @@ img {
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
     float: left;
     list-style: none;
-    margin: 2px 0 0;
-    min-width: 160px;
+    margin: rem(2) 0 0;
+    min-width: rem(160);
     position: absolute;
     text-align: left;
     top: 100%;
@@ -376,10 +376,10 @@ img {
 
 .sr-only {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    width: rem(1);
+    height: rem(1);
     padding: 0;
-    margin: -1px;
+    margin: rem(-1);
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
@@ -394,8 +394,8 @@ img {
 .container-fluid {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: rem(15);
+    padding-right: rem(15);
 
     &:before {
         content: " ";
@@ -405,7 +405,7 @@ img {
 
 .btn {
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: rem(4);
     display: inline-block;
     font-weight: 400;
     line-height: 1.42;
