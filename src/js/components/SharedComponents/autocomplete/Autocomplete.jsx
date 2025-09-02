@@ -288,7 +288,7 @@ export default class Autocomplete extends React.Component {
         const inputIcon = this.props.inFlight ?
             (
                 <div className="usa-da-autocomplete__input-icon">
-                    <FontAwesomeIcon icon="spinner" spin />
+                    <FontAwesomeIcon icon="spinner" className="spinner-icon" spin />
                 </div>
             ) : null;
 

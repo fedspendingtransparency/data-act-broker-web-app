@@ -42,7 +42,7 @@ export default class Footer extends React.Component {
                 <button
                     onClick={this.openModal}
                     aria-label="Broker GitHub">
-                    <FontAwesomeIcon icon={['fab', 'github']} />
+                    <FontAwesomeIcon icon={['fab', 'github']} className="github-icon" />
                 </button>
                 <div id="leaveSiteModalHolder">
                     <LeaveSiteModal

@@ -23,7 +23,7 @@ const CategoryButton = ({
         className={`category-button${active ? '' : ' category-button_filtered'}`}
         onClick={() => filterCategory(label)}
         disabled={disabled}>
-        <FontAwesomeIcon icon="circle" style={{ color }} />
+        <FontAwesomeIcon icon="circle" className="circle-icon" style={{ color }} />
         {` ${startCase(label)}`}
     </button>
 );

@@ -151,7 +151,7 @@ export default class FileWarning extends React.Component {
             <div className={`file-warning${hide}`}>
                 <div className="icon-wrap">
                     <div className="usa-da-icon">
-                        <FontAwesomeIcon icon="circle-info" />
+                        <FontAwesomeIcon icon="circle-info" className="info-circle-icon" />
                     </div>
                 </div>
                 <div className="warning-description">

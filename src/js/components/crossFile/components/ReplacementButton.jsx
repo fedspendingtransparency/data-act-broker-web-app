@@ -18,7 +18,7 @@ const defaultProps = {
 
 export default class ReplacementButton extends React.Component {
     render() {
-        let icon = <FontAwesomeIcon icon={['far', 'trash-can']} />;
+        let icon = <FontAwesomeIcon icon={['far', 'trash-can']} className="trash-icon" />;
         if (this.props.expanded) {
             icon = <FontAwesomeIcon icon="xmark" />;
         }

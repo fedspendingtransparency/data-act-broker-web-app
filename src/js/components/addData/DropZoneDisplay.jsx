@@ -22,12 +22,12 @@ export default class DropZoneDisplay extends React.Component {
                     switch (this.props.displayMode) {
                         case 'invalid': return (
                             <div className="text-center usa-da-icon fail">
-                                <FontAwesomeIcon icon="circle-exclamation" />
+                                <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
                             </div>
                         );
                         case 'ready': return (
                             <div className="text-center usa-da-icon">
-                                <FontAwesomeIcon icon="cloud-arrow-up" />
+                                <FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />
                             </div>
                         );
                         case 'uploading': return (
@@ -37,17 +37,17 @@ export default class DropZoneDisplay extends React.Component {
                         );
                         case 'failed': return (
                             <div className="text-center usa-da-icon fail">
-                                <FontAwesomeIcon icon="cloud-arrow-up" />
+                                <FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />
                             </div>
                         );
                         case 'prepare': return (
                             <div className="text-center usa-da-icon success">
-                                <FontAwesomeIcon icon="cloud-arrow-up" />
+                                <FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />
                             </div>
                         );
                         default: return (
                             <div className="text-center usa-da-icon">
-                                <FontAwesomeIcon icon="cloud-arrow-up" />
+                                <FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />
                             </div>
                         );
                     }

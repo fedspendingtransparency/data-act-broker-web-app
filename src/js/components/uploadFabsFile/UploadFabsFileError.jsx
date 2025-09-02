@@ -73,11 +73,11 @@ export default class UploadFabsFileError extends React.Component {
     }
 
     render() {
-        let icon = <FontAwesomeIcon icon="circle-exclamation" />;
+        let icon = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
         let className = 'error';
 
         if (this.props.type === 'success') {
-            icon = <FontAwesomeIcon icon="circle-check" />;
+            icon = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
             className = 'success';
         }
 

@@ -22,7 +22,7 @@ export default class TypeaheadWarning extends React.Component {
         return (
             <div className="typeahead-warning alert alert-error text-left" role="alert">
                 <div className="usa-da-icon error-icon">
-                    <FontAwesomeIcon icon="circle-exclamation" />
+                    <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
                 </div>
                 <div className="alert-text">
                     <div className="alert-header-text">{this.props.header}</div>

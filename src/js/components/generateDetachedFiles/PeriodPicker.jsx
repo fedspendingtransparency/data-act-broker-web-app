@@ -141,7 +141,7 @@ export default class PeriodPicker extends React.Component {
         });
 
         let visibleClass = 'period-picker__list_hidden';
-        let angleIcon = <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />;
+        let angleIcon = <FontAwesomeIcon icon="chevron-down" className="chevron-down-icon" alt="Toggle menu" />;
         if (this.state.expanded) {
             visibleClass = '';
             angleIcon = <FontAwesomeIcon icon="chevron-up" alt="Toggle menu" />;

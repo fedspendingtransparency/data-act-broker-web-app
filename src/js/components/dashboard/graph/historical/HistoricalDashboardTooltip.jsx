@@ -21,7 +21,8 @@ export default class HistoricalDashboardTooltip extends React.Component {
             const highlightCSS = warning.description === this.props.label ? 'highlighted' : '';
             return (
                 <tr key={warning.description} className={highlightCSS}>
-                    <td className={`text-left ${highlightCSS}`}><FontAwesomeIcon icon="circle" color={warning.color} />
+                    <td className={`text-left ${highlightCSS}`}>
+                        <FontAwesomeIcon icon="circle" className="circle-icon" color={warning.color} />
                         {warning.description}
                     </td>
                     <td className={highlightCSS}>{formatNumberWithPrecision(warning.value, 0)}</td>

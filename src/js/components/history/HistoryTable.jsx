@@ -257,7 +257,7 @@ export default class HistoryTable extends React.Component {
             warning = (
                 <div className={`alert alert-${this.state.warning.type}`}>
                     <div className="usa-da-icon error-icon">
-                        <FontAwesomeIcon icon="circle-exclamation" />
+                        <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">{this.state.warning.header}</div>

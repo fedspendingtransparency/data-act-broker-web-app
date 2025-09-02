@@ -120,7 +120,7 @@ export default class DateRangeField extends React.Component {
                             type={this.props.type}
                             startEndType="start" />
                         <div className={`usa-da-icon usa-da-form-icon date ${dateClass}`}>
-                            <FontAwesomeIcon icon={['far', 'calendar-days']} />
+                            <FontAwesomeIcon icon={['far', 'calendar-days']} className="calendar-icon" />
                         </div>
                     </div>
                 </div>

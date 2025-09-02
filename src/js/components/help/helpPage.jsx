@@ -91,7 +91,7 @@ export default class HelpPage extends React.Component {
                         onClick={this.scrollToTop}
                         aria-label="Back to top">
                         <div className="usa-da-icon">
-                            <FontAwesomeIcon icon="angle-up" size="lg" />
+                            <FontAwesomeIcon icon="angle-up" className="angle-up-icon" size="lg" />
                         </div>
                         <span className="hidden-label">Back to top</span>
                     </button>

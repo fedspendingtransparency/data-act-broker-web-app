@@ -111,7 +111,7 @@ export default class DeleteLink extends React.Component {
                     onClick={this.confirm}
                     className="trash-icon"
                     aria-label="Delete">
-                    <FontAwesomeIcon icon={['far', 'trash-can']} />
+                    <FontAwesomeIcon icon={['far', 'trash-can']} className="trash-icon" />
                 </div>);
             modal = (<DeleteModal
                 isOpen={this.state.active}
