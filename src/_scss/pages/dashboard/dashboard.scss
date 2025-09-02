@@ -3,6 +3,7 @@
     @import '../../components/tooltip/warningTooltip';
     @include contentLayout;
     .display-2 {
+        margin-top: rem(20);
         padding-top: rem(24);
     }
 

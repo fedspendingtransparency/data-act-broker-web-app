@@ -106,7 +106,7 @@ export default class RadioSection extends React.Component {
                             onBlur={this.closeTooltip}
                             onMouseLeave={this.closeTooltip}
                             onMouseEnter={this.showTooltip} >
-                            <FontAwesomeIcon icon="circle-info" />
+                            <FontAwesomeIcon icon="circle-info" className="info-circle-icon" />
                         </button>
                     </div>
                 </span>

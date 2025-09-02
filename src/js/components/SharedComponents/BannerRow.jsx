@@ -23,15 +23,17 @@ const defaultProps = {
 };
 
 const iconMapping = {
-    warning: 'triangle-exclamation',
-    info: 'circle-info',
-    error: 'circle-exclamation',
-    success: 'circle-check'
+    warning: {icon: 'triangle-exclamation', className: 'exclamation-triangle-icon'},
+    info: {icon: 'circle-info', className: 'info-circle-icon'},
+    error: {icon: 'circle-exclamation', className: 'exclamation-circle-icon'},
+    success: {icon: 'circle-check', className: 'check-circle-icon'}
 };
 
 export default class BannerRow extends React.Component {
     render() {
-        const messageIcon = <FontAwesomeIcon icon={iconMapping[this.props.type]} />;
+        const messageIcon = <FontAwesomeIcon
+            icon={iconMapping[this.props.type].icon}
+            className={iconMapping[this.props.type].className} />;
 
         return (
             <div className={`internal-banner ${this.props.type}-banner`}>

@@ -20,20 +20,21 @@ const RevertToCertified = ({
 }) => {
     let buttonText = [<FontAwesomeIcon icon="arrow-rotate-right" key="revert-icon" />, 'Revert'];
     if (loading) {
-        buttonText = ['Reverting', <FontAwesomeIcon icon="spinner" spin key="reverting-icon" />];
+        buttonText = ['Reverting',
+            <FontAwesomeIcon icon="spinner" className="spinner-icon" spin key="reverting-icon" />];
     }
     let alert = null;
     if (error) {
         alert = (
             <div className="revert-submission-alert revert-submission-alert_error" role="alert">
-                <FontAwesomeIcon icon="triangle-exclamation" /> Error: {error}
+                <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" /> Error: {error}
             </div>
         );
     }
     else if (message) {
         alert = (
             <div className="revert-submission-alert revert-submission-alert_success" role="alert">
-                <FontAwesomeIcon icon="circle-check" /> {message}
+                <FontAwesomeIcon icon="circle-check" className="check-circle-icon" /> {message}
             </div>
         );
     }

@@ -45,7 +45,7 @@ export default class RevalidateDataModal extends React.Component {
 
                         <div className="usa-da-leave-site-modal-content">
                             <h2>
-                                <FontAwesomeIcon icon="triangle-exclamation" />
+                                <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />
                                 You&apos;re leaving a Federal Government website.
                             </h2>
 

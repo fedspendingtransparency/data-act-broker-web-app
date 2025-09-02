@@ -152,15 +152,17 @@ export default class ReviewDataNarrative extends React.Component {
         if (commentsChanged) {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
-                    <FontAwesomeIcon icon="triangle-exclamation" /> There are unsaved comments
+                    <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" /> There are
+                    unsaved comments
                 </div>);
-            resultSymbol = <FontAwesomeIcon icon="triangle-exclamation" />;
+            resultSymbol = <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />;
             resultText = 'There are unsaved comments';
         }
         if (this.state.saveState === 'Error') {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
-                    <FontAwesomeIcon icon="circle-exclamation" /> An error occurred and your comments were not saved
+                    <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
+                    An error occurred and your comments were not saved
                 </div>);
         }
         if (this.state.commentsCollapsed) {
@@ -184,11 +186,11 @@ export default class ReviewDataNarrative extends React.Component {
         }
 
         if (this.state.saveState === 'Saved') {
-            resultSymbol = <FontAwesomeIcon icon="circle-check" />;
+            resultSymbol = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
             resultText = 'Saved';
         }
         else if (this.state.saveState === 'Error') {
-            resultSymbol = <FontAwesomeIcon icon="circle-exclamation" />;
+            resultSymbol = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
             resultText = 'An error occurred and your comments were not saved';
         }
         else if (this.state.saveState === 'Saving') {

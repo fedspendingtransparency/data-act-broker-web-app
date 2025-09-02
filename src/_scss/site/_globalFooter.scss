@@ -21,7 +21,7 @@
         color: $color-white;
     }
 
-    .fa-github {
+    .github-icon {
         @include flex(1 1 auto);
         font-size: rem(30);
         margin-bottom: rem(-5);
@@ -40,7 +40,7 @@
         font-size: $h2-font-size;
         font-weight: bold;
 
-        .fa-triangle-exclamation {
+        .exclamation-triangle-icon {
             color: $color-gold-light;
             margin-right: rem(10);
         }
