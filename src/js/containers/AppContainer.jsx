@@ -64,7 +64,7 @@ export default class AppContainer extends React.Component {
                         appReady: true
                     });
                 });
-        };
+        }
     }
 
     checkCookies() {
