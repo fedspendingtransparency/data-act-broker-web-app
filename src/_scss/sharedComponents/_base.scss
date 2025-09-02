@@ -220,24 +220,19 @@ img {
             margin-left: 33.33%;
     }
 }
-
-.col-lg-8 {
-    @media(min-width: $large-screen) {
-        width: 66.67%;
-        float: left;
+@media(min-width: $large-screen) {
+    .col-lg-8 {
+            width: 66.67%;
+            float: left;
     }
-}
 
-.col-lg-12 {
-    @media(min-width: $large-screen) {
-        width: 100%;
-        float: left;
+    .col-lg-12 {
+            width: 100%;
+            float: left;
     }
-}
 
-.col-lg-offset-2 {
-    @media(min-width: $large-screen) {
-        margin-left: 16.67%;
+    .col-lg-offset-2 {
+            margin-left: 16.67%;
     }
 }
 
