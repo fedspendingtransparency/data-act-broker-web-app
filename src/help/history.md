@@ -1,4 +1,9 @@
-#### July 29, 2025{section=changelog}
+#### August 19, 2025{section=changelog}
+In this release of the Broker, we:
+
+* Fixed a minor bug with the GTAS comparison report to include submissions that have been modified since publishing.
+
+#### July 29, 2025
 In this release of the Broker, we:
 
 * Updated various rule descriptions related to the GSDM 1.1 release.
