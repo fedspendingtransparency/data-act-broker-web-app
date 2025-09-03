@@ -475,3 +475,24 @@ img {
     width: 0;
     vertical-align: middle;
 }
+
+// tooltips
+.tooltip {
+    display: block;
+    position: absolute;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-break: auto;
+    text-align: start;
+    text-decoration: none;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    z-index: 1070;
+
+    &.left {
+        margin-left: rem(-3);
+    }
+}
