@@ -17,9 +17,9 @@ const defaultProps = {
 
 export default class ComparisonComponent extends React.Component {
     render() {
-        let icon = <FontAwesomeIcon icon="circle-exclamation" />;
+        let icon = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
         if (this.props.type === 'success') {
-            icon = <FontAwesomeIcon icon="circle-check" />;
+            icon = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
         }
 
         return (

@@ -45,23 +45,26 @@ export default class AppContainer extends React.Component {
 
         // cookie state is only used as a shorthand to determine if we should show the loading page
         // regardless, we still need to check the backend for the user session
-        fetchActiveUser()
-            .then(() => {
-                // logged in
-                this.setState({
-                    appReady: true
-                });
-            })
-            .catch(() => {
-                const action = sessionActions.setLoggedOut();
-                store.dispatch(action);
-                // unset the login state cookie
-                Cookies.remove('brokerLogin');
+        // also, don't check for active user while we're logging in
+        if (location.pathname !== '/auth'){
+            fetchActiveUser()
+                .then(() => {
+                    // logged in
+                    this.setState({
+                        appReady: true
+                    });
+                })
+                .catch(() => {
+                    const action = sessionActions.setLoggedOut();
+                    store.dispatch(action);
+                    // unset the login state cookie
+                    Cookies.remove('brokerLogin');
 
-                this.setState({
-                    appReady: true
+                    this.setState({
+                        appReady: true
+                    });
                 });
-            });
+        }
     }
 
     checkCookies() {

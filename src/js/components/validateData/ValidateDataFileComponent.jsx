@@ -231,14 +231,14 @@ export default class ValidateDataFileComponent extends React.Component {
         let icon = '';
         if (this.isReplacingFile()) {
             // user is attempting to replace a file
-            icon = <FontAwesomeIcon icon="cloud-arrow-up" />;
+            icon = <FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />;
         }
         else if (this.isFileReady()) {
             if (this.props.item.file_status === 'complete') {
-                icon = <FontAwesomeIcon icon="circle-check" />;
+                icon = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
             }
             else {
-                icon = <FontAwesomeIcon icon="circle-exclamation" />;
+                icon = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
             }
         }
         return icon;
@@ -337,7 +337,7 @@ export default class ValidateDataFileComponent extends React.Component {
 
         let chevronDirection = <FontAwesomeIcon icon="angle-down" />;
         if (this.state.showError) {
-            chevronDirection = <FontAwesomeIcon icon="angle-up" />;
+            chevronDirection = <FontAwesomeIcon icon="angle-up" className="angle-up-icon" />;
         }
 
         let footerStatus = '';
@@ -452,7 +452,10 @@ export default class ValidateDataFileComponent extends React.Component {
                                         className="usa-da-icon"
                                         data-testid="validate-icon">
                                         {isFileValid ?
-                                            this.displayIcon() : <FontAwesomeIcon icon="circle-exclamation" />}
+                                            this.displayIcon() : (
+                                                <FontAwesomeIcon
+                                                    icon="circle-exclamation"
+                                                    className="exclamation-circle-icon" />)}
                                     </div>
                                 </div>
                                 {uploadProgress}

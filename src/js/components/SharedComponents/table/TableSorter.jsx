@@ -55,7 +55,7 @@ export default class TableSorter extends React.Component {
                     onKeyDown={onKeyDownHandlerAsc}
                     onClick={this.sortAsc}
                     aria-label="Arrow Pointing Up">
-                    <FontAwesomeIcon icon="angle-up" />
+                    <FontAwesomeIcon icon="angle-up" className="angle-up-icon" />
                 </div>
                 <div
                     role="button"

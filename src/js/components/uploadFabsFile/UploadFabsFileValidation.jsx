@@ -384,14 +384,14 @@ const UploadFabsFileValidation = (props) => {
                     <div className="col-xs-12">
                         <div className="row">
                             <div className="col-xs-8 button-text-container text-right">
-                                <FontAwesomeIcon icon="circle-check" />
+                                <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />
                                     File Published: {fabsMeta.valid_rows} row(s) of data&nbsp;
                                     (excluding header) published at {parsedDate}
                                 <span
                                     className="tooltip-popover-container"
                                     role="contentinfo"
                                     aria-label="information">
-                                    <FontAwesomeIcon icon="circle-info" />
+                                    <FontAwesomeIcon icon="circle-info" className="info-circle-icon" />
                                     <span className="tooltip-popover above">
                                         <span>
                                                 The published file differs from the submitted file in four ways:
@@ -430,14 +430,14 @@ const UploadFabsFileValidation = (props) => {
                     <div className="col-xs-12">
                         <div className="row">
                             <div className="col-xs-8 button-text-container text-right">
-                                <FontAwesomeIcon icon="circle-check" />
+                                <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />
                                     File Published: {fabsMeta.valid_rows} row(s) of data&nbsp;
                                     (excluding header) published at {parsedDate}
                                 <span
                                     className="tooltip-popover-container"
                                     role="contentinfo"
                                     aria-label="information">
-                                    <FontAwesomeIcon icon="circle-info" />
+                                    <FontAwesomeIcon icon="circle-info" className="info-circle-icon" />
                                     <span className="tooltip-popover above">
                                         <span>
                                                 The published file differs from the submitted file in four ways:

@@ -64,7 +64,7 @@ export default class ReviewDataNarrativeCollapsed extends React.Component {
                         className="collapse-button"
                         onClick={this.props.toggleCommentBox}
                         aria-label="Toggle collapsed comment box state">
-                        Add comments <FontAwesomeIcon icon="chevron-down" />
+                        Add comments <FontAwesomeIcon icon="chevron-down" className="chevron-down-icon" />
                     </button>
                     <p className="collapsed-text">{displayText}{fileList}</p>
                 </div>

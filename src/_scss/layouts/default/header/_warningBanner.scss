@@ -4,8 +4,9 @@
 @mixin headerWarningBanner {	
     .usa-da-header-warning-banner {
         @include baseAlert;
-        @include alert-variant($alert-warning-bg, $alert-warning-border, black);
 
+        background-color: #fcf8e3;
+        border-color: $color-gold-lighter;
         margin: 0 !important;
         padding-left: rem(15);
         height: $warning-banner-height;

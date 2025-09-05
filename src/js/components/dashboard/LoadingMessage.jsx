@@ -11,7 +11,7 @@ const LoadingMessage = () => (
         <div className="dashboard-message-flex">
             <div className="dashboard-message">
                 <div className="dashboard-message__icon">
-                    <FontAwesomeIcon icon="spinner" spin />
+                    <FontAwesomeIcon icon="spinner" className="spinner-icon" spin />
                 </div>
                 <span className="dashboard-message__message">
                     Loading submissions
