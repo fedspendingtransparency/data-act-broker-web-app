@@ -8,7 +8,7 @@
         display: table-cell;
         vertical-align: middle;
         width: 100%;
-        @media (max-width: $screen-md-min) {
+        @media (max-width: $medium-screen) {
             display: block;
             width: 100%;
         }
@@ -16,7 +16,7 @@
     .usa-da-submission-item-title {
         display: table-cell;
         vertical-align: middle;
-        @media (max-width: $screen-md-min) {
+        @media (max-width: $medium-screen) {
             display: block;
             text-align: center;
             padding-bottom: 1.5em;

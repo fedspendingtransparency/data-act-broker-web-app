@@ -48,7 +48,7 @@ export default class ValidateValuesFileDetailBox extends React.Component {
         // toggle report button icon for open/close state
         let buttonIcon = <FontAwesomeIcon icon="angle-down" />;
         if (this.props.expandedReport) {
-            buttonIcon = <FontAwesomeIcon icon="angle-up" />;
+            buttonIcon = <FontAwesomeIcon icon="angle-up" className="angle-up-icon" />;
         }
 
         return (

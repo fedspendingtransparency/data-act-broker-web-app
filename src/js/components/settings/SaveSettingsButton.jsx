@@ -55,12 +55,13 @@ const SaveSettingsButton = ({ agencyCode, file }) => {
             <div className="save-status__message">
                 {errorMessage ? (
                     <div className=" save-status__error">
-                        <FontAwesomeIcon icon="triangle-exclamation" />{errorMessage}
+                        <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />
+                        {errorMessage}
                     </div>
                 ) : null}
                 {successMessage ? (
                     <div className="save-status__success">
-                        <FontAwesomeIcon icon="circle-check" />{successMessage}
+                        <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />{successMessage}
                     </div>
                 ) : null}
             </div>

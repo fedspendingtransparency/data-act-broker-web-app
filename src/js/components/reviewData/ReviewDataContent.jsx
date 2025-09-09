@@ -247,7 +247,7 @@ export default class ReviewDataContent extends React.Component {
                             <h5>File Details</h5>
                             <div className="usa-da-file-wrap">
                                 <div className="usa-da-icon usa-da-icon-check-circle">
-                                    <FontAwesomeIcon icon="circle-check" />
+                                    <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />
                                 </div>
                                 <div className="usa-da-submission-info">
                                     <div className="row">

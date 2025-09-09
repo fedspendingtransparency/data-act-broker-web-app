@@ -28,6 +28,13 @@
 		}
 	}
 
+	.alert-info {
+		@import "../../components/alerts/_alerts";
+		@include infoAlert;
+
+		margin: 0;
+	}
+
 	.validation-holder {
 		.alert-error {
 			@import "../../components/alerts/_alerts";
@@ -75,10 +82,10 @@
 		    height: rem(15);
 		    position: relative;
 	    }
-	    .fa-circle-check {
+	    .check-circle-icon {
 	        color: $color-green-light;
 	    }
-		.fa-circle-info {
+		.info-circle-icon {
 	        color: $color-gray;
 	    }
 	}
@@ -159,7 +166,7 @@
                     font-size: rem(14);
                     line-height: rem(18);
                 }
-                .fa-triangle-exclamation {
+                .exclamation-triangle-icon {
                     font-size: rem(18);
                     color: $color-gold-dark;
                     float: right;

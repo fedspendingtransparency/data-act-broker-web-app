@@ -27,7 +27,7 @@ export default class BlockContent extends React.Component {
     render() {
         let firstBlock = (<LandingBlock
             type={this.props.type}
-            icon={<FontAwesomeIcon icon="cloud-arrow-up" />}
+            icon={<FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />}
             text="In order to upload and validate your agency's files, please request access in CAIA."
             buttonText="Request Access"
             url="https://iiq.fiscal.treasury.gov/identityiq/home.jsf"
@@ -64,7 +64,7 @@ export default class BlockContent extends React.Component {
                 firstBlock = (
                     <LandingBlock
                         type={this.props.type}
-                        icon={<FontAwesomeIcon icon="cloud-arrow-up" />}
+                        icon={<FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />}
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"
@@ -94,7 +94,7 @@ export default class BlockContent extends React.Component {
                 firstBlock = (
                     <LandingBlock
                         type={this.props.type}
-                        icon={<FontAwesomeIcon icon="cloud-arrow-up" />}
+                        icon={<FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />}
                         text={"Ready to upload and validate your agency's files? Great, we'll be happy to walk you " +
                         "through the process."}
                         buttonText="Upload & Validate a New Submission"

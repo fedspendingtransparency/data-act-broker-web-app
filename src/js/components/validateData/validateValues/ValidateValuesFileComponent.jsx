@@ -229,17 +229,17 @@ export default class ValidateValuesFileComponent extends React.Component {
     }
 
     displayIcon() {
-        let icon = <FontAwesomeIcon icon="circle-check" />;
+        let icon = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
         if (this.isReplacingFile()) {
-            icon = <FontAwesomeIcon icon="cloud-arrow-up" />;
+            icon = <FontAwesomeIcon icon="cloud-arrow-up" className="cloud-upload-icon" />;
         }
         else if (this.state.hasErrors) {
-            icon = <FontAwesomeIcon icon="circle-exclamation" />;
+            icon = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
         }
         else if (this.state.hasWarnings) {
             icon = (
                 <div className="usa-da-warning-icon">
-                    <FontAwesomeIcon icon="circle-exclamation" />
+                    <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
                 </div>
             );
         }

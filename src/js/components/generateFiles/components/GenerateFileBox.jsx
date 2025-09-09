@@ -107,7 +107,7 @@ export default class GenerateFileBox extends React.Component {
 
                 <div className={`alert alert-error text-left${errorClass}`} role="alert">
                     <div className="usa-da-icon error-icon">
-                        <FontAwesomeIcon icon="circle-exclamation" />
+                        <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
                     </div>
                     <div className="alert-text">
                         <div className="alert-header-text">{this.props.error.header}</div>

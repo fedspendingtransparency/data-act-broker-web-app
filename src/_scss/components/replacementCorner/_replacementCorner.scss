@@ -19,11 +19,11 @@
             top: rem(9);
             color: $color-gray;
             &:hover {
-                color: $gray-dark;
+                color: $color-gray-dark;
             }
         }
 
-        .fa-trash-can {
+        .trash-icon {
             font-size: rem(17);
         }
     }
