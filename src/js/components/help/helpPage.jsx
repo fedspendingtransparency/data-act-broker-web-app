@@ -22,8 +22,7 @@ const propTypes = {
     helpOnly: PropTypes.bool,
     changelog: PropTypes.string,
     technical: PropTypes.string,
-    clSections: PropTypes.array,
-    tSections: PropTypes.array
+    latestRelease: PropTypes.string
 };
 
 const defaultProps = {
@@ -33,8 +32,7 @@ const defaultProps = {
     helpOnly: false,
     changelog: '',
     technical: '',
-    clSections: [],
-    tSections: []
+    latestRelease: ''
 };
 
 export default class HelpPage extends React.Component {
@@ -71,8 +69,7 @@ export default class HelpPage extends React.Component {
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
                                 <HelpSidebar
-                                    changeSections={this.props.clSections}
-                                    technicalSections={this.props.tSections}
+                                    latestRelease={this.props.latestRelease}
                                     helpOnly={this.props.helpOnly}
                                     type={this.props.type} />
                             </div>

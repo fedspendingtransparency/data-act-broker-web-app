@@ -7,47 +7,20 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 
-import HelpSidebarItem from './helpSidebarItem';
-
 const propTypes = {
-    changeSections: PropTypes.array,
-    technicalSections: PropTypes.array,
+    latestRelease: PropTypes.string,
     type: PropTypes.string,
     helpOnly: PropTypes.bool
 };
 
 const defaultProps = {
-    changeSections: [],
-    technicalSections: [],
+    latestRelease: '',
     type: '',
     helpOnly: false
 };
 
 export default class HelpSidebar extends React.Component {
     render() {
-        const clSectionList = this.props.changeSections.map((section) => (<HelpSidebarItem
-            key={section.name}
-            sectionName={section.name}
-            sectionId={section.link}
-            type={this.props.type} />));
-
-        const tSectionList = this.props.technicalSections.map((section) => (
-            <HelpSidebarItem
-                key={section.name}
-                sectionName={section.name}
-                sectionId={section.link}
-                type={this.props.type} />
-        ));
-
-        let membership = null;
-        if (this.props.helpOnly) {
-            membership = (
-                <li>
-                    <Link to="/help?section=agencyAccess">Request Agency Access</Link>
-                </li>
-            );
-        }
-
         const help = this.props.type === 'fabs' ? "/FABSHelp" : '/help';
         const history = this.props.type === 'fabs' ? "/#FABSHistory" : '/history';
         const technicalHistory = this.props.type === 'fabs' ? "/FABSTechnicalHistory" : '/technicalHistory';
@@ -75,26 +48,22 @@ export default class HelpSidebar extends React.Component {
         return (
             <div className="usa-da-help-sidebar">
                 {schedule}
-                <h6>What&rsquo;s New in This Release</h6>
+                <h6>Release Notes</h6>
                 <ul>
-                    {clSectionList}
+                    <li>
+                        <Link to={`${help}`}>
+                            Latest: {this.props.latestRelease}
+                        </Link>
+                    </li>
                     <li>
                         <Link to={history}>Release Notes Archive</Link>
                     </li>
-                </ul>
-                <h6>This Release&rsquo;s Technical Notes</h6>
-                <ul>
-                    {tSectionList}
                     <li>
                         <Link to={technicalHistory}>Technical Notes Archive</Link>
                     </li>
                 </ul>
                 <h6>Getting More Help</h6>
                 <ul>
-                    {membership}
-                    <li>
-                        <Link to={`${help}?section=membership`}>Contact the Service Desk</Link>
-                    </li>
                     <li>
                         <Link to={resources}>Resources - GSDM</Link>
                     </li>

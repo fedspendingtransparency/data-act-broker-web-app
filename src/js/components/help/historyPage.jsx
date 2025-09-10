@@ -18,8 +18,7 @@ const propTypes = {
     history: PropTypes.oneOf(['release', 'technical']),
     type: PropTypes.oneOf(['dabs', 'fabs']),
     helpOnly: PropTypes.bool,
-    clSections: PropTypes.array,
-    tSections: PropTypes.array,
+    latestRelease: PropTypes.string,
     technicalHistory: PropTypes.string,
     releaseHistory: PropTypes.string
 };
@@ -29,8 +28,7 @@ const defaultProps = {
     history: '',
     type: '',
     helpOnly: false,
-    clSections: [],
-    tSections: [],
+    latestRelease: '',
     technicalHistory: '',
     releaseHistory: ''
 };
@@ -68,8 +66,7 @@ export default class HistoryPage extends React.Component {
                         <div className="row usa-da-help-page">
                             <div className="col-md-4">
                                 <HelpSidebar
-                                    changeSections={this.props.clSections}
-                                    technicalSections={this.props.tSections}
+                                    latestRelease={this.props.latestRelease}
                                     type={this.props.type} />
                             </div>
                             <div className="col-md-8">
