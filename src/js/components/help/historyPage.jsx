@@ -28,7 +28,7 @@ const HistoryPage = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    }
+    };
 
     const activeTab = props.type === 'fabs' ? 'FABSHelp' : 'help';
     const color = props.type === 'fabs' ? 'teal' : 'dark';

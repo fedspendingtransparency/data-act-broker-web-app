@@ -28,7 +28,7 @@ const HelpPage = (props) => {
             top: 0,
             behavior: "smooth"
         });
-    }
+    };
 
     const help = props.type === 'fabs' ? 'FABShelp' : 'help';
     const color = props.type === 'fabs' ? 'teal' : 'dark';
