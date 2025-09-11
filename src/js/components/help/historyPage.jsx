@@ -3,7 +3,6 @@
  * Created by Emily Gullo 9/27/16
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -23,73 +22,61 @@ const propTypes = {
     releaseHistory: PropTypes.string
 };
 
-const defaultProps = {
-    session: {},
-    history: '',
-    type: '',
-    helpOnly: false,
-    latestRelease: '',
-    technicalHistory: '',
-    releaseHistory: ''
-};
-
-export default class HistoryPage extends React.Component {
-    scrollToTop() {
+const HistoryPage = (props) => {
+    const scrollToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
     }
 
-    render() {
-        const activeTab = this.props.type === 'fabs' ? 'FABSHelp' : 'help';
-        const color = this.props.type === 'fabs' ? 'teal' : 'dark';
-        const title = this.props.history === 'technical' ? 'Technical Notes Archive' : 'Release Notes Archive';
-        const history = this.props.history === 'technical' ? this.props.technicalHistory : this.props.releaseHistory;
-        return (
-            <div className="usa-da-help-style-page" name="top">
-                <div className="usa-da-page-content">
-                    <Navbar activeTab={activeTab} type={this.props.type} logoOnly={this.props.helpOnly} />
-                    <div className={`usa-da-content-${color} mb-60`}>
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
-                                        Help | Data Broker
-                                        <HelpNav selected="Help" type={this.props.type} session={this.props.session} />
-                                    </div>
+    const activeTab = props.type === 'fabs' ? 'FABSHelp' : 'help';
+    const color = props.type === 'fabs' ? 'teal' : 'dark';
+    const title = props.history === 'technical' ? 'Technical Notes Archive' : 'Release Notes Archive';
+    const history = props.history === 'technical' ? props.technicalHistory : props.releaseHistory;
+    return (
+        <div className="usa-da-help-style-page" name="top">
+            <div className="usa-da-page-content">
+                <Navbar activeTab={activeTab} type={props.type} logoOnly={props.helpOnly} />
+                <div className={`usa-da-content-${color} mb-60`}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 mt-40 mb-20">
+                                <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                    Help | Data Broker
+                                    <HelpNav selected="Help" type={props.type} session={props.session} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="container">
-                        <div className="row usa-da-help-page">
-                            <div className="col-md-4">
-                                <HelpSidebar
-                                    latestRelease={this.props.latestRelease}
-                                    type={this.props.type} />
-                            </div>
-                            <div className="col-md-8">
-                                <HistoryContent history={history} title={title} />
-                            </div>
+                </div>
+                <div className="container">
+                    <div className="row usa-da-help-page">
+                        <div className="col-md-4">
+                            <HelpSidebar
+                                latestRelease={props.latestRelease}
+                                type={props.type} />
+                        </div>
+                        <div className="col-md-8">
+                            <HistoryContent history={history} title={title} />
                         </div>
                     </div>
                 </div>
-                <Footer />
-                <div className="usa-da-help-top-button">
-                    <button
-                        onClick={this.scrollToTop}
-                        aria-label="Back to top">
-                        <div className="usa-da-icon">
-                            <FontAwesomeIcon icon="angle-up" className="angle-up-icon" size="lg" />
-                        </div>
-                        <span className="hidden-label">Back to top</span>
-                    </button>
-                </div>
             </div>
-        );
-    }
-}
+            <Footer />
+            <div className="usa-da-help-top-button">
+                <button
+                    onClick={scrollToTop}
+                    aria-label="Back to top">
+                    <div className="usa-da-icon">
+                        <FontAwesomeIcon icon="angle-up" className="angle-up-icon" size="lg" />
+                    </div>
+                    <span className="hidden-label">Back to top</span>
+                </button>
+            </div>
+        </div>
+    );
+};
 
 HistoryPage.propTypes = propTypes;
-HistoryPage.defaultProps = defaultProps;
+export default HistoryPage;
