@@ -99,7 +99,7 @@ const DashboardPage = () => {
     const activeTab = params.type && params.type.toLowerCase();
     if (!activeTab) {
         // Redirect /dashboard to Active
-        return <Navigate to="/dashboard/active" />;
+        return <Navigate to="/dashboard/active" replace={true} />;
     }
     else if (!(activeTab === 'historical' || activeTab === 'active')) {
         // Redirect invalid params to 'Page Not Found'

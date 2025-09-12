@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Navigate, useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 
 import * as SubmissionGuideHelper from 'helpers/submissionGuideHelper';
 import { routes } from 'dataMapping/dabs/submission';
@@ -15,8 +15,8 @@ const SubmissionContainer = () => {
     const [loading, setLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [redirectPath, setRedirectPath] = useState('');
     const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getOriginalStep();
@@ -32,9 +32,7 @@ const SubmissionContainer = () => {
                     setErrorMessage('This is a FABS ID. Please navigate to FABS.');
                 }
                 else {
-                    setHasError(false);
-                    setErrorMessage('');
-                    setRedirectPath(routes[originalStep - 1]);
+                    navigate(`/submission/${params.submissionID}/${routes[originalStep - 1]}`, { replace: true });
                 }
             })
             .catch((err) => {
@@ -43,10 +41,6 @@ const SubmissionContainer = () => {
                 setErrorMessage(err.response.data.message);
             });
     };
-
-    if (redirectPath) {
-        return <Navigate to={`/submission/${params.submissionID}/${redirectPath}`} />;
-    }
 
     return (
         <SubmissionPage
