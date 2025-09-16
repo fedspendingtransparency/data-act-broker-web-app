@@ -55,8 +55,7 @@ module.exports = defineConfig([
                 "aspects": [ "noHref", "invalidHref", "preferButton" ]
             }],
             // Restrict console use to only warnings and errors to aid in rapid debugging
-            "no-console": ["error", { "allow": ["warn", "error"] }]
-            ,
+            "no-console": ["error", { "allow": ["warn", "error"] }],
             // closing brackets should be aligned with the final prop (props.. />)
             "react/jsx-closing-bracket-location": [2, "after-props"],
             "react/no-unused-prop-types": [2],
