@@ -124,8 +124,7 @@ module.exports = defineConfig([
             "react/no-array-index-key": [1],
             // prevent no-unused-vars error on for loop variables
             "no-unused-vars": [1],
-            // the next 2 stop "no-unused-vars" from missing the React imports/vars
-            "react/jsx-uses-react": "warn",
+            // stops "no-unused-vars" from missing the React imports/vars
             "react/jsx-uses-vars": "warn"
         }
     }
