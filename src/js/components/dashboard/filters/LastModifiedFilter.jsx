@@ -3,9 +3,9 @@
  * Created by Lizzie Salita 2/7/20
  */
 
-import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { useState, useRef, useEffect } from 'react';
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 

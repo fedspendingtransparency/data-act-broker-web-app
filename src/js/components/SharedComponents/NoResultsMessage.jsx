@@ -3,7 +3,6 @@
   * Copied from USASpending by Jonathan Hill 03/19/19
   **/
 
-import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NoResultsMessage = () => (

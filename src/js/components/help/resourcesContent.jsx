@@ -73,9 +73,9 @@ export default class ResourcesContent extends React.Component {
                                 The GSDM Practices & Procedures
                             </a>
                             &nbsp;contains agency best practices and special scenarios on how to submit, validate, and
-                            understand the submission process to the Data Broker. This includes corrections and deletions,
-                            validation rule source data, user management, technical procedures for formatting submission
-                            files, etc.
+                            understand the submission process to the Data Broker. This includes corrections and
+                            deletions, validation rule source data, user management, technical procedures for formatting
+                            submission files, etc.
                         </li>
                     </ul>
                 </div>

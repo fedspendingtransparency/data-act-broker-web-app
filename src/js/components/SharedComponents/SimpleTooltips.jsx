@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ExpirationTooltip = () => (
     <div className="tooltip-content-wrapper">
         <h2>Test Submissions Expire</h2>
