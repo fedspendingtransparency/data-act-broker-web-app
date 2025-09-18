@@ -145,7 +145,8 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     render() {
-        const commentsChanged = !UtilHelper.trimmedObjectEquality(this.state.initialNarrative, this.state.currentNarrative);
+        const commentsChanged = !UtilHelper.trimmedObjectEquality(this.state.initialNarrative,
+            this.state.currentNarrative);
         let unsavedCommentsMessage = null;
         let resultSymbol = null;
         let resultText = null;

@@ -3,7 +3,6 @@
  * Created by Alisa Burdeyny 5/1/2025
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

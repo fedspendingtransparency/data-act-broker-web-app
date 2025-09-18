@@ -3,7 +3,6 @@
  * Created by Daniel Boos 4/1/2020
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 

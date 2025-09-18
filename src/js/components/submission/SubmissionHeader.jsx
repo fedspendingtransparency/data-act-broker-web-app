@@ -3,7 +3,6 @@
 * Created by Lizzie Salita 2/20/20
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 

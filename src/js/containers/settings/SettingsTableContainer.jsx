@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 4/23/20
  */
 
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { updateSavedSettings, updateImpact, updateStagedSettings } from 'redux/actions/settingsActions';

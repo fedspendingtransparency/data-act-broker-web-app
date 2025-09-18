@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 3/10/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

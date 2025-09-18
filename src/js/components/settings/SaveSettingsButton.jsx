@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 5/1/20
  */
 
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

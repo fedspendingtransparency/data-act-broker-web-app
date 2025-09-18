@@ -55,8 +55,7 @@ module.exports = defineConfig([
                 "aspects": [ "noHref", "invalidHref", "preferButton" ]
             }],
             // Restrict console use to only warnings and errors to aid in rapid debugging
-            "no-console": ["error", { "allow": ["warn", "error"] }]
-            ,
+            "no-console": ["error", { "allow": ["warn", "error"] }],
             // closing brackets should be aligned with the final prop (props.. />)
             "react/jsx-closing-bracket-location": [2, "after-props"],
             "react/no-unused-prop-types": [2],
@@ -124,8 +123,7 @@ module.exports = defineConfig([
             "react/no-array-index-key": [1],
             // prevent no-unused-vars error on for loop variables
             "no-unused-vars": [1],
-            // the next 2 stop "no-unused-vars" from missing the React imports/vars
-            "react/jsx-uses-react": "warn",
+            // stops "no-unused-vars" from missing the React imports/vars
             "react/jsx-uses-vars": "warn"
         }
     }

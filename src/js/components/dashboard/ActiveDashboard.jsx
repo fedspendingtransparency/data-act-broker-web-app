@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 3/10/20
  */
 
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
