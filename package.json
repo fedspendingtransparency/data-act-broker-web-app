@@ -98,6 +98,7 @@
     "accounting": "^0.4.1",
     "awesomplete": "^1.1.7",
     "axios": "^1.12.2",
+    "bourbon": "^4.3.4",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "clean-webpack-plugin": "^4.0.0",
