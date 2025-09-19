@@ -1,6 +1,8 @@
 // import vendor libraries
-@import "lib/bourbon/_bourbon";
+// stopping the deprecation warnings about rem(). We know.
+$output-bourbon-deprecation-warnings: false !default;
 @import '~data-transparency-ui/dist/data-transparency-ui.css';
+@import 'bourbon/app/assets/stylesheets/_bourbon';
 
 // import shared abstract items
 @import "abstract/variables";
