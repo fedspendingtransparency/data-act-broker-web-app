@@ -32,8 +32,7 @@ class HelpPageContainer extends React.Component {
         this.state = {
             changelog: '',
             technical: '',
-            clSections: [],
-            tSections: [],
+            latestRelease: '',
             technicalHistory: '',
             releaseHistory: ''
         };
@@ -47,7 +46,7 @@ class HelpPageContainer extends React.Component {
     loadChangelog() {
         const output = {
             body: '',
-            sections: [],
+            latestRelease: '',
             history: '',
             historySections: []
         };
@@ -56,7 +55,7 @@ class HelpPageContainer extends React.Component {
             .then((res) => {
                 const data = HelpHelper.parseMarkdown(res.data);
                 output.body = data.body;
-                output.sections = data.sections;
+                output.latestRelease = data.sections[0].name;
                 return HelpHelper.loadHistory();
             })
             .then((res) => {
@@ -65,7 +64,7 @@ class HelpPageContainer extends React.Component {
                 output.historySections = data.sections;
                 this.setState({
                     changelog: output.body,
-                    clSections: output.sections,
+                    latestRelease: output.latestRelease,
                     releaseHistory: output.history
                 });
             })
@@ -77,7 +76,6 @@ class HelpPageContainer extends React.Component {
     loadTechnical() {
         const output = {
             body: '',
-            sections: [],
             history: '',
             historySections: []
         };
@@ -86,7 +84,6 @@ class HelpPageContainer extends React.Component {
             .then((res) => {
                 const data = HelpHelper.parseMarkdown(res.data);
                 output.body = data.body;
-                output.sections = data.sections;
                 return HelpHelper.loadTechnicalHistory();
             })
             .then((res) => {
@@ -96,7 +93,6 @@ class HelpPageContainer extends React.Component {
     
                 this.setState({
                     technical: output.body,
-                    tSections: output.sections,
                     technicalHistory: output.history
                 });
             })
