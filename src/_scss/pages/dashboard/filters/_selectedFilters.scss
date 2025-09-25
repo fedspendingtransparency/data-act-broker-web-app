@@ -37,7 +37,6 @@
             color: $color-gray;
         }
         &:hover {
-            background: lighten($color-cool-blue-lightest, 10%);
             border: 1px solid $color-cool-blue-lighter;
             cursor: pointer;
             @include transition(all 0.25s $ease-in-out-sine);

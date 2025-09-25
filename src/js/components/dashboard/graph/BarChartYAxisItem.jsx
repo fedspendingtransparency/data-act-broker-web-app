@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 11/18/19
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
