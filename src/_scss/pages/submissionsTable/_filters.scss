@@ -27,7 +27,7 @@
         @include flex(0 0 auto);
         padding-right: rem(8);
         @import './_textFilter';
-        // REPLACE RESPONSIVE WITH BOOTSTRAP IN THE FUTURE
+        // CENTRALIZE RESPONSIVE IN THE FUTURE
         /* Small Devices, Tablets */
         @media (min-width : 768px) and (max-width : 991px) {
             input {

@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 3/10/20
  */
 
-import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LoadingMessage = () => (

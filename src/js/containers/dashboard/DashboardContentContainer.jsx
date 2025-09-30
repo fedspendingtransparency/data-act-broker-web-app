@@ -3,7 +3,6 @@
  * Created by Alisa Burdeyny 11/7/19
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ChooseFiltersMessage from 'components/dashboard/ChooseFiltersMessage';

@@ -3,7 +3,6 @@
  * Created by Daniel Boos 11/13/19
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

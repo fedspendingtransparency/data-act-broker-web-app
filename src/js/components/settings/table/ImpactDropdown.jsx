@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 4/27/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 import { Picker } from 'data-transparency-ui';

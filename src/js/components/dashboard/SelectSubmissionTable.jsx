@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 3/18/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Pagination } from 'data-transparency-ui';
