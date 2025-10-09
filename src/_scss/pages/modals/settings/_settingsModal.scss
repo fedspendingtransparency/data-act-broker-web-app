@@ -71,6 +71,24 @@
                         padding-bottom: rem(12);
                     }
                 }
+                .settings-table__impact-dropdown {
+                    height: auto;
+
+                    .filter__dropdown-button {
+                        border: 0;
+                        margin: 0;
+                    }
+                    .filter__dropdown-button-text {
+                        color: $font-color;
+                        padding-right: rem(10);
+                    }
+                    .filter__dropdown-chevron {
+                        svg {
+                            color: #555; 
+                            margin-top: rem(4);
+                        }
+                    }
+                }
                 .settings-table__rule {
                     padding-left: rem(10);
                 }
