@@ -15,12 +15,15 @@ import ReviewDataNarrativeCollapsed from './ReviewDataNarrativeCollapsed';
 const propTypes = {
     submissionID: PropTypes.string,
     loadData: PropTypes.func,
-    publishStatus: PropTypes.string
+    publishStatus: PropTypes.string,
+    saveState: PropTypes.string,
+    updateSaving: PropTypes.func
 };
 
 const defaultProps = {
     submissionID: '',
-    publishStatus: ''
+    publishStatus: '',
+    saveState: ''
 };
 
 const blockedStatuses = ['reverting', 'publishing'];
@@ -50,7 +53,6 @@ export default class ReviewDataNarrative extends React.Component {
                 E: '',
                 F: ''
             },
-            saveState: '',
             errorMessage: '',
             commentsCollapsed: true
         };
@@ -88,22 +90,23 @@ export default class ReviewDataNarrative extends React.Component {
     }
 
     saveNarrative() {
-        this.setState({ saveState: 'Saving' });
+        this.props.updateSaving('Saving');
         const tempNarrative = Object.assign({}, this.state.currentNarrative);
         tempNarrative.submission_id = this.props.submissionID;
 
         ReviewHelper.saveNarrative(tempNarrative)
             .then(() => {
                 this.setState({
-                    saveState: 'Saved',
                     errorMessage: ''
-                }, () => this.props.loadData());
+                }, () => {
+                    this.props.updateSaving('Saved')
+                    this.props.loadData()
+                });
             })
             .catch(() => {
                 this.setState({
-                    saveState: 'Error',
                     errorMessage: ''
-                });
+                }, () => this.props.updateSaving('Error'));
             });
     }
 
@@ -115,17 +118,15 @@ export default class ReviewDataNarrative extends React.Component {
             .catch((error) => {
                 console.error(error);
                 this.setState({
-                    saveState: 'Error',
                     errorMessage: `: ${error.response.data.message}`
-                });
+                }, () => this.props.updateSaving('Error'));
             });
     }
 
     updateState(props) {
         this.setState({
             initialNarrative: props.narrative,
-            currentNarrative: props.narrative,
-            saveState: ''
+            currentNarrative: props.narrative
         });
     }
 
@@ -159,7 +160,7 @@ export default class ReviewDataNarrative extends React.Component {
             resultSymbol = <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />;
             resultText = 'There are unsaved comments';
         }
-        if (this.state.saveState === 'Error') {
+        if (this.props.saveState === 'Error') {
             unsavedCommentsMessage = (
                 <div className="col-md-6 unsaved-comments">
                     <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
@@ -186,15 +187,15 @@ export default class ReviewDataNarrative extends React.Component {
             downloadButton = null;
         }
 
-        if (this.state.saveState === 'Saved') {
+        if (this.props.saveState === 'Saved') {
             resultSymbol = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
             resultText = 'Saved';
         }
-        else if (this.state.saveState === 'Error') {
+        else if (this.props.saveState === 'Error') {
             resultSymbol = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
             resultText = 'An error occurred and your comments were not saved';
         }
-        else if (this.state.saveState === 'Saving') {
+        else if (this.props.saveState === 'Saving') {
             resultText = 'Saving...';
         }
         return (
