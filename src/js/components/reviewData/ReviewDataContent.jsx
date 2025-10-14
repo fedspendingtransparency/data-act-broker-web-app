@@ -43,7 +43,8 @@ export default class ReviewDataContent extends React.Component {
         this.state = {
             openNotify: false,
             openCertify: false,
-            type: 'both'
+            type: 'both',
+            commentSaveState: ''
         };
 
         this.openNotifyModal = this.openNotifyModal.bind(this);
@@ -52,6 +53,7 @@ export default class ReviewDataContent extends React.Component {
         this.openPublishAndCertifyModal = this.openPublishAndCertifyModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.updateCommentSaving = this.updateCommentSaving.bind(this);
     }
 
     openNotifyModal() {
@@ -110,6 +112,10 @@ export default class ReviewDataContent extends React.Component {
             return currentWindow;
         }
         return false;
+    }
+
+    updateCommentSaving(newSavingState) {
+        this.setState({ commentSaveState: newSavingState });
     }
 
     render() {
@@ -193,6 +199,7 @@ export default class ReviewDataContent extends React.Component {
             }
         }
 
+        // submission status based blocking
         const blockedStatuses = ['reverting', 'publishing'];
         if (blockedStatuses.indexOf(this.props.submission.publishStatus) > -1) {
             publishButtonAction = null;
@@ -200,6 +207,17 @@ export default class ReviewDataContent extends React.Component {
             notifyButtonAction = null;
             publishButtonText = `Cannot publish while ${this.props.submission.publishStatus}`;
             certifyButtonText = `Cannot certify while ${this.props.submission.publishStatus}`;
+            publishButtonClass = ' btn-disabled';
+            certifyButtonClass = ' btn-disabled';
+        }
+
+        // comment saving based blocking
+        if (this.state.commentSaveState == 'Saving') {
+            publishButtonAction = null;
+            certifyButtonAction = null;
+            notifyButtonAction = null;
+            publishButtonText = `Cannot publish while saving comments`;
+            certifyButtonText = `Cannot certify while saving comments`;
             publishButtonClass = ' btn-disabled';
             certifyButtonClass = ' btn-disabled';
         }
@@ -280,7 +298,9 @@ export default class ReviewDataContent extends React.Component {
                         narrative={this.props.data.file_narrative}
                         submissionID={this.props.submissionID}
                         loadData={this.props.loadData}
-                        publishStatus={this.props.submission.publishStatus} />
+                        publishStatus={this.props.submission.publishStatus}
+                        saveState={this.state.commentSaveState}
+                        updateSaving={this.updateCommentSaving} />
                     <div className="row comment-note">
                         <div className="col-md-6">
                             <b>Note:</b> After a submission is published all of the associated comments will be made
@@ -303,7 +323,9 @@ export default class ReviewDataContent extends React.Component {
                     <div className="row submission-button-holder">
                         <div className="col-md-6 revert-revalidate-buttons">
                             <RevertToCertifiedContainer loadData={this.props.loadData} />
-                            <RevalidateContainer publishStatus={this.props.submission.publishStatus} />
+                            <RevalidateContainer
+                                publishStatus={this.props.submission.publishStatus}
+                                disabled={this.state.commentSaveState === 'Saving'} />
                         </div>
                         <div className="col-md-6 publish-certify-buttons">
                             {publishCertifyButtons}
