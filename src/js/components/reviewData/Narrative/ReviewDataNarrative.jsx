@@ -99,8 +99,8 @@ export default class ReviewDataNarrative extends React.Component {
                 this.setState({
                     errorMessage: ''
                 }, () => {
-                    this.props.updateSaving('Saved')
-                    this.props.loadData()
+                    this.props.updateSaving('Saved');
+                    this.props.loadData();
                 });
             })
             .catch(() => {
