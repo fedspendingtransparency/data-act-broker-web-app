@@ -71,6 +71,60 @@
                         padding-bottom: rem(12);
                     }
                 }
+                .settings-table__impact-dropdown {
+                    height: auto;
+
+                    .filter__dropdown-button-list-container {
+                        @include display(flex);
+                        @include align-self(flex-end);
+                        @include flex(0 1 auto);
+                        width: 100%;
+
+                        .filter__dropdown-button {
+                            border: 0;
+                            margin: 0;
+                            width: 100%;
+                        }
+
+                        .filter__dropdown-button-text {
+                            @include display(flex);
+                            @include flex(1 1 auto);
+                            color: $font-color;
+                            padding-right: rem(10);
+                        }
+
+                        .filter__dropdown-chevron {
+                            @include flex(0 0 rem(2));
+
+                            svg {
+                                color: #555; 
+                                margin-top: rem(4);
+                            }
+                        }
+
+                        .filter__dropdown-list {
+                            width: auto;
+                            top: rem(30);
+                            left: 0;
+
+                            .filter__dropdown-list-item {
+                                margin: 0;
+
+                            &.active {
+                                background-color: $color-white;
+
+                                &:hover {
+                                    background-color: #f5f6f7;
+                                }
+                            }
+
+                                .filter__dropdown-item {
+                                    padding: rem(10) rem(15);
+                                }
+                            }
+                        }
+                    }
+                }
                 .settings-table__rule {
                     padding-left: rem(10);
                 }
