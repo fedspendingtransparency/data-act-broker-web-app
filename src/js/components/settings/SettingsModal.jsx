@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Picker } from 'data-transparency-ui';
+import { NewPicker } from 'data-transparency-ui';
 
 import { errorLevels, validationRules } from 'dataMapping/dashboard/fileLabels';
 import SettingsAgencySelectContainer from 'containers/settings/SettingsAgencySelectContainer';
@@ -105,13 +105,13 @@ export default class SettingsModal extends React.Component {
                                     </div>
                                     <div className="validation-rule-select">
                                         <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
-                                        <Picker
+                                        <NewPicker
+                                            enabled
+                                            classname="validation-rule-picker-dropdown"
                                             id="validation-rules-picker"
                                             options={ruleList}
                                             selectedOption={this.state.selectedRule.label}
-                                            sortFn={() => 0}
-                                            isFixedWidth
-                                            backgroundColor="#FFFFFF" />
+                                            sortFn={() => 0} />
                                     </div>
                                 </div>
                                 <div className="tabs">
