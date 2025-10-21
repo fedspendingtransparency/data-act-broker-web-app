@@ -5,7 +5,7 @@
 
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
-import { Picker } from 'data-transparency-ui';
+import { NewPicker } from 'data-transparency-ui';
 
 const propTypes = {
     rule: PropTypes.string.isRequired,
@@ -28,12 +28,13 @@ const ImpactDropdown = ({ rule, selectedOption, updateImpact }) => {
         }
     ));
     return (
-        <Picker
+        <NewPicker
+            enabled
+            classname="settings-table__impact-dropdown"
             id={`impact-${rule}-picker`}
             options={impactOptions}
             selectedOption={selectedOption}
-            sortFn={() => 0}
-            backgroundColor="transparent" />
+            sortFn={() => 0} />
     );
 };
 
