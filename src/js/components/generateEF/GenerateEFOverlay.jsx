@@ -3,7 +3,6 @@
   * Created by Kevin Li 8/24/16
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from '../SharedComponents/icons/Icons';
 import CommonOverlay from '../SharedComponents/overlays/CommonOverlay';
@@ -22,22 +21,14 @@ const propTypes = {
     publishStatus: PropTypes.string
 };
 
-const defaultProps = {
-    generateFiles: null,
-    session: null,
-    hasErrors: false,
-    isReady: false,
-    agency_name: '',
-    publishStatus: ''
-};
-
-export default class GenerateEFOverlay extends React.Component {
-    clickedGenerate(e) {
+const GenerateEFOverlay = ({
+    generateFiles = null, session = null, hasErrors = false, isReady = false, agency_name = '', ...props
+}) => {
+    const clickedGenerate = (e) => {
         e.preventDefault();
-        this.props.generateFiles();
+        generateFiles();
     }
 
-    render() {
         let buttonClass = '-disabled';
         let buttonDisabled = true;
         let nextClass = '-disabled';
@@ -49,7 +40,7 @@ export default class GenerateEFOverlay extends React.Component {
         let icon = <LoadingBauble />;
         let iconClass = 'overlay-animation';
 
-        if (this.props.isReady && !this.props.hasErrors) {
+        if (isReady && !hasErrors) {
             header = 'Files E and F have been successfully generated.';
             detail = 'Click Next to review and publish your submission.';
 
@@ -61,7 +52,7 @@ export default class GenerateEFOverlay extends React.Component {
             icon = <Icons.CheckCircle />;
             iconClass = 'usa-da-successGreen';
         }
-        else if (this.props.isReady && this.props.hasErrors) {
+        else if (isReady && hasErrors) {
             header = 'Errors occurred while generating Files E and F.';
             detail = 'Refer to the error messages above for more details.';
 
@@ -75,8 +66,8 @@ export default class GenerateEFOverlay extends React.Component {
         }
 
         const blockedStatuses = ['reverting', 'publishing'];
-        if (!PermissionsHelper.checkAgencyPermissions(this.props.session, this.props.agency_name)
-            || blockedStatuses.indexOf(this.props.publishStatus) > -1) {
+        if (!PermissionsHelper.checkAgencyPermissions(session, agency_name)
+            || blockedStatuses.indexOf(props.publishStatus) > -1) {
             buttonClass = '-disabled';
             buttonDisabled = true;
         }
@@ -91,19 +82,18 @@ export default class GenerateEFOverlay extends React.Component {
                     <button
                         className={`usa-da-button${buttonClass}`}
                         disabled={buttonDisabled}
-                        onClick={this.clickedGenerate.bind(this)}>
+                        onClick={clickedGenerate}>
                         Regenerate Files
                     </button>
                     <NextButton
                         disabled={nextDisabled}
                         nextButtonClass={nextClass}
-                        submissionID={this.props.submissionID}
+                        submissionID={props.submissionID}
                         step="reviewData" />
                 </div>
             </CommonOverlay>
         );
-    }
-}
+};
 
 GenerateEFOverlay.propTypes = propTypes;
-GenerateEFOverlay.defaultProps = defaultProps;
+export default GenerateEFOverlay;

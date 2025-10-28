@@ -22,7 +22,7 @@ const GenerateEFItem = ({
         e.preventDefault();
         const download = window.open(props[type.toLowerCase()].url, '_target');
         download.opener = null;
-    }
+    };
 
     let hideError = ' hide';
     let hideDownload = ' hide';
