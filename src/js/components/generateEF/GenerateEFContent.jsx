@@ -6,7 +6,7 @@
 import React from 'react';
 
 import GenerateEFOverlay from './GenerateEFOverlay';
-import GenerateEFItem from './generateItem/GenerateEFItem';
+import GenerateEFItem from './GenerateEFItem';
 
 export default class GenerateEFContent extends React.Component {
     render() {
