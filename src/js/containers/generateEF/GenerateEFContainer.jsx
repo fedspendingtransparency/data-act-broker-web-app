@@ -50,7 +50,7 @@ const GenerateEFContainer = ({submission = {}, submissionID = '', ...props}) => 
 
     // We only parse state after files E and F have been updated, just checking for file F for simplicity
     useEffect(() => {
-        parseState()
+        parseState();
     }, [fileF]);
 
     const updateAgencyName = () => {
@@ -67,7 +67,7 @@ const GenerateEFContainer = ({submission = {}, submissionID = '', ...props}) => 
                     props.errorFromStep(error.response.data.message);
                 });
         }
-    }
+    };
 
     const handleResponse = (allResponses) => {
         if (isUnmounted) {
@@ -99,7 +99,7 @@ const GenerateEFContainer = ({submission = {}, submissionID = '', ...props}) => 
         }
         setFileE(newState['e']);
         setFileF(newState['f']);
-    }
+    };
 
     const generateFiles = () => {
         Promise.allSettled([
@@ -108,7 +108,7 @@ const GenerateEFContainer = ({submission = {}, submissionID = '', ...props}) => 
         ]).then((allResponses) => {
             handleResponse(allResponses);
         });
-    }
+    };
 
     const checkFileStatus = () => {
         Promise.allSettled([
@@ -117,7 +117,7 @@ const GenerateEFContainer = ({submission = {}, submissionID = '', ...props}) => 
         ]).then((allResponses) => {
             handleResponse(allResponses);
         });
-    }
+    };
 
     const parseState = () => {
         const files = [fileE, fileF];
@@ -151,7 +151,7 @@ const GenerateEFContainer = ({submission = {}, submissionID = '', ...props}) => 
                 checkFileStatus();
             }, timerDuration * 1000);
         }
-    }
+    };
 
     let content = (<GenerateEFContent
         submissionID={submissionID}
