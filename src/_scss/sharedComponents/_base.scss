@@ -214,30 +214,34 @@ img {
     }
 
     .col-md-offset-1 {
-            margin-left: 8.33%;
+        margin-left: 8.33%;
     }
 
     .col-md-offset-2 {
-            margin-left: 16.67%;
+        margin-left: 16.67%;
+    }
+
+    .col-md-offset-3 {
+        margin-left: 25%;
     }
 
     .col-md-offset-4 {
-            margin-left: 33.33%;
+        margin-left: 33.33%;
     }
 }
 @media(min-width: $large-screen) {
     .col-lg-8 {
-            width: 66.67%;
-            float: left;
+        width: 66.67%;
+        float: left;
     }
 
     .col-lg-12 {
-            width: 100%;
-            float: left;
+        width: 100%;
+        float: left;
     }
 
     .col-lg-offset-2 {
-            margin-left: 16.67%;
+        margin-left: 16.67%;
     }
 }
 
@@ -355,7 +359,7 @@ img {
 }
 
 .hide{
-	display:none;
+    display:none;
 }
 
 .text-center {
