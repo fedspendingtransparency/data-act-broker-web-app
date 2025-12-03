@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/17/16
 */
 
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,24 +21,12 @@ const propTypes = {
     location: PropTypes.object
 };
 
-const defaultProps = {
-    location: {}
-};
+const LoginContainer = ({location = {}, ...props}) => {
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-class LoginContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false,
-            errorMessage: ''
-        };
-    }
-
-    performLogin(username, password) {
-        this.setState({
-            loading: true
-        });
+    const performLogin = (username, password) => {
+        setLoading(true);
 
         LoginHelper.performLogin(username, password)
             .then((loginRes) => {
@@ -46,7 +34,7 @@ class LoginContainer extends React.Component {
 
                 if (!Cookies.get('session')) {
                     // couldn't set cookie, fail this request and notify the user
-                    this.props.setLoginState('failed');
+                    props.setLoginState('failed');
                     return Promise.reject('cookie');
                 }
 
@@ -55,11 +43,11 @@ class LoginContainer extends React.Component {
             .catch((err) => {
                 // if the endpoint that failed was the login
                 if (err.request?.responseURL.includes('login')) {
-                    this.props.setLoginState('failed');
+                    props.setLoginState('failed');
                 }
                 // if the endpoint that failed was the active user check
                 if (err.request?.responseURL.includes('active_user')) {
-                    this.props.setLoggedOut();
+                    props.setLoggedOut();
                 }
 
                 // unset the login state cookie
@@ -67,45 +55,38 @@ class LoginContainer extends React.Component {
 
                 // if there was a cookie issue, we have to specify it, otherwise just show the error
                 if (err === "cookie") {
-                    this.props.setLoginState('failed');
-                    this.setState({
-                        loading: false,
-                        errorMessage: 'Your browser does not support cookies, which Data Broker requires ' +
-                            'to function correctly. Try changing your browser settings to enable cookies or use a ' +
-                            'different browser.'
-                    });
+                    props.setLoginState('failed');
+                    setLoading(false);
+                    setErrorMessage('Your browser does not support cookies, which Data Broker requires to function ' +
+                        'correctly. Try changing your browser settings to enable cookies or use a different browser.'
+                    );
                 }
                 else {
-                    this.setState({
-                        loading: false,
-                        errorMessage: err.response.data.message
-                    });
+                    setLoading(false);
+                    setLoading(err.response.data.message);
                 }
             });
     }
 
-    render() {
-        let login = <LoginCaia {...this.props} />;
+    let login = <LoginCaia {...props} />;
 
-        if (kGlobalConstants.LOCAL) {
-            login = (<LoginPanel
-                {...this.props}
-                performLogin={this.performLogin.bind(this)}
-                loading={this.state.loading}
-                errorMessage={this.state.errorMessage} />);
-        }
-
-        return (
-            <div className="login-right usa-da-login-container">
-                <Banner type="login" />
-                {login}
-            </div>
-        );
+    if (kGlobalConstants.LOCAL) {
+        login = (<LoginPanel
+            {...props}
+            performLogin={performLogin}
+            loading={loading}
+            errorMessage={errorMessage} />);
     }
-}
+
+    return (
+        <div className="login-right usa-da-login-container">
+            <Banner type="login" />
+            {login}
+        </div>
+    );
+};
 
 LoginContainer.propTypes = propTypes;
-LoginContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),
