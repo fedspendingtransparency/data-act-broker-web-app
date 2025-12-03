@@ -21,7 +21,7 @@ const propTypes = {
     location: PropTypes.object
 };
 
-const LoginContainer = ({location = {}, ...props}) => {
+const LoginContainer = (props) => {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -66,7 +66,7 @@ const LoginContainer = ({location = {}, ...props}) => {
                     setLoading(err.response.data.message);
                 }
             });
-    }
+    };
 
     let login = <LoginCaia {...props} />;
 

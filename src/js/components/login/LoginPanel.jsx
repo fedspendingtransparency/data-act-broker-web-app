@@ -3,7 +3,7 @@
 * Created by Kyle Fox 2/19/16
 */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Username from './Username';
 import Password from './Password';
@@ -23,15 +23,15 @@ const LoginPanel = ({performLogin = null, session = null, errorMessage = '', loa
 
     const loginClicked = () => {
         performLogin(username, password);
-    }
+    };
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
-    }
+    };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-    }
+    };
 
     let errorMessageComponent = null;
 

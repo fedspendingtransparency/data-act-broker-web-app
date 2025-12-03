@@ -5,7 +5,6 @@
 
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import Cookies from 'js-cookie';
 import { kGlobalConstants } from '../../GlobalConstants';
 import { getRedirectPath } from '../../helpers/loginHelper';
@@ -46,7 +45,7 @@ const LoginCaia = ({location = null}) => {
         else {
             setLoginRedirect('');
         }
-    }
+    };
 
     const handleClick = (e) => {
         if (e.keyCode === '13' || !e.keyCode) {
@@ -58,7 +57,7 @@ const LoginCaia = ({location = null}) => {
                 + `&client_id=${encodeURIComponent(kGlobalConstants.CAIA_CLIENT)}`;
             window.location.assign(url);
         }
-    }
+    };
 
     return (
         <div className="row">
