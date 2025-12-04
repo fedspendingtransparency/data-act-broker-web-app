@@ -58,21 +58,15 @@ export default class RawFilesPage extends React.Component {
             });
     }
 
-    itemAction(level, id, label, fileType) {
+    itemAction(level, id, label) {
         if (level === 'download') {
-            if (fileType !== 'comments') {
-                HelpHelper.downloadPublishedFile(id)
-                    .then((res) => {
-                        window.open(res.data.url);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-            else {
-                const urlType = kGlobalConstants.PROD ? '' : '-nonprod';
-                window.open(`https://files${urlType}.usaspending.gov/agency_submissions/${label}`);
-            }
+            HelpHelper.downloadPublishedFile(id)
+                .then((res) => {
+                    window.open(res.data.url);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
         else {
             const tmpState = Object.assign({}, this.state);
