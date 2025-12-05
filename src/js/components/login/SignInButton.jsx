@@ -6,7 +6,6 @@
 * Pass this function through props, calling it onClick
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -15,28 +14,22 @@ const propTypes = {
     disabled: PropTypes.bool
 };
 
-const defaultProps = {
-    disabled: false
+const SignInButton = ({disabled = false, ...props}) => {
+    let disabledCSS = '';
+    if (disabled) {
+        disabledCSS = ' usa-da-btn-disabled';
+    }
+    return (
+        <button
+            className={`usa-da-button btn-primary btn-lg pull-right${disabledCSS}`}
+            disabled={disabled}
+            type="submit"
+            onClick={props.onClick}
+            data-testid="signin">
+            {props.buttonText}
+        </button>
+    );
 };
 
-export default class SignInButton extends React.Component {
-    render() {
-        let disabled = '';
-        if (this.props.disabled) {
-            disabled = ' usa-da-btn-disabled';
-        }
-        return (
-            <button
-                className={`usa-da-button btn-primary btn-lg pull-right${disabled}`}
-                disabled={this.props.disabled}
-                type="submit"
-                onClick={this.props.onClick}
-                data-testid="signin">
-                {this.props.buttonText}
-            </button>
-        );
-    }
-}
-
 SignInButton.propTypes = propTypes;
-SignInButton.defaultProps = defaultProps;
+export default SignInButton;
