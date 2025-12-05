@@ -12,7 +12,6 @@ import Banner from 'components/SharedComponents/Banner';
 import Footer from 'components/SharedComponents/FooterComponent';
 import RawFilesContent from 'components/help/RawFilesContent';
 import HelpNav from './helpNav';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     session: PropTypes.object,
