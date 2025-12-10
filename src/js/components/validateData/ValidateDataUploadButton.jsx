@@ -13,13 +13,6 @@ const propTypes = {
     additionalClasses: PropTypes.string
 };
 
-const defaultProps = {
-    onDrop: () => {},
-    optional: false,
-    text: 'Upload Corrected File',
-    additionalClasses: ' btn-danger-outline'
-};
-
 const ValidateDataUploadButton = ({
     onDrop = () => {}, optional = false, text = 'Upload Corrected File', additionalClasses = ' btn-danger-outline'
 }) => {

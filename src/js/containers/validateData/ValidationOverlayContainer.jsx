@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/29/16
 */
 
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,79 +22,62 @@ const propTypes = {
     resetProgress: PropTypes.func
 };
 
-const defaultProps = {
-    submission: {},
-    resetProgress: () => {}
-};
+const ValidationOverlayContainer = ({ submission = {}, resetProgress = () => {}, ...props }) => {
+    const [notAllowed, setNotAllowed] = useState(false);
+    const [uploadApiCallError, setUploadApiCallError] = useState('');
 
-class ValidationOverlayContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            notAllowed: false,
-            uploadApiCallError: ''
-        };
-    }
-
-    uploadFiles() {
-        this.props.resetProgress();
-        UploadHelper.performDabsCorrectedUpload(this.props.submission)
+    const uploadFiles = () => {
+        resetProgress();
+        UploadHelper.performDabsCorrectedUpload(submission)
             .then(() => {
-                UploadHelper.prepareFileValidationStates(this.props.submission.files);
-                this.props.setSubmissionState('prepare');
+                UploadHelper.prepareFileValidationStates(submission.files);
+                props.setSubmissionState('prepare');
             })
             .catch((err) => {
-                this.props.setSubmissionState('failed');
+                props.setSubmissionState('failed');
                 if (err.status === 403) {
-                    this.setState({
-                        notAllowed: true
-                    });
+                    setNotAllowed(true);
                 }
-                this.setState({
-                    uploadApiCallError: err.response.data.message
-                });
+                setUploadApiCallError(err.response.data.message);
             });
-    }
+    };
 
-
-    render() {
-        // check if the critical error files are selected for re-upload
-        const fileKeys = Object.keys(this.props.submission.files);
-        const requiredKeys = [];
-        for (const key in this.props.submission.validation) {
-            if (Object.prototype.hasOwnProperty.call(this.props.submission.validation, key)) {
-                const value = this.props.submission.validation[key];
-                // checking if error_data even exists because of the file upload props reset
-                if (value.error_data && value.error_data.length > 0) {
-                    requiredKeys.push(key);
-                }
+    // check if the critical error files are selected for re-upload
+    const fileKeys = Object.keys(submission.files);
+    const requiredKeys = [];
+    for (const key in submission.validation) {
+        if (Object.prototype.hasOwnProperty.call(submission.validation, key)) {
+            const value = submission.validation[key];
+            // checking if error_data even exists because of the file upload props reset
+            if (value.error_data && value.error_data.length > 0) {
+                requiredKeys.push(key);
             }
         }
-
-        let allowUpload = false;
-        const missingKeys = [];
-        requiredKeys.forEach((key) => {
-            if (_.indexOf(fileKeys, key) === -1) {
-                missingKeys.push(key);
-            }
-        });
-        if (missingKeys.length === 0) {
-            allowUpload = true;
-        }
-
-        return (
-            <ValidationOverlay
-                {...this.props}
-                uploadFiles={this.uploadFiles.bind(this)}
-                uploadApiCallError={this.state.uploadApiCallError}
-                allowUpload={allowUpload}
-                notAllowed={this.state.notAllowed} />
-        );
     }
-}
+
+    let allowUpload = false;
+    const missingKeys = [];
+    requiredKeys.forEach((key) => {
+        if (_.indexOf(fileKeys, key) === -1) {
+            missingKeys.push(key);
+        }
+    });
+    if (missingKeys.length === 0) {
+        allowUpload = true;
+    }
+
+    return (
+        <ValidationOverlay
+            {...props}
+            submission={submission}
+            uploadFiles={uploadFiles}
+            uploadApiCallError={uploadApiCallError}
+            allowUpload={allowUpload}
+            notAllowed={notAllowed} />
+    );
+};
 
 ValidationOverlayContainer.propTypes = propTypes;
-ValidationOverlayContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ submission: state.submission }),

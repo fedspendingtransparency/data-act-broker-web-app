@@ -3,7 +3,7 @@
 * Created by Kevin Li 3/29/16
 */
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -26,169 +26,153 @@ const propTypes = {
     errorFromStep: PropTypes.func
 };
 
-const defaultProps = {
-    resetSubmission: () => {},
-    setSubmissionState: () => {},
-    setValidation: () => {},
-    submission: {},
-    submissionID: ''
-};
+const ValidateDataContainer = ({
+    resetSubmission = () => {},
+    setSubmissionState = () => {},
+    setValidation = () => {},
+    submission = {},
+    submissionID = '',
+    ...props
+}) => {
+    const timerDuration = 10;
+    const singleFileValidations = ['appropriations', 'program_activity', 'award_financial'];
+    const [finishedPageLoad, setFinishedPageLoad] = useState(false);
+    const [validationFailed, setValidationFailed] = useState(false);
+    const [validationFinished, setValidationFinished] = useState(false);
+    const [notYours, setNotYours] = useState(false);
+    const [serverError, setServerError] = useState(null);
+    const [agencyName, setAgencyName] = useState(null);
+    const [stateReset, setStateReset] = useState(false);
+    const [checkFinishedUpdated, setCheckFinishedUpdated] = useState(false);
+    const [fileValidationsDone, setFileValidationsDone] = useState([false, false, false]);
+    const [stateFileStatuses, setStateFileStatuses] = useState({});
+    const [stateProgressMeta, setStateProgressMeta] = useState({
+        appropriations: { progress: 0, name: '' },
+        program_activity: { progress: 0, name: '' },
+        award_financial: { progress: 0, name: '' }
+    });
+    const [isUnmounted, setIsUnMounted] = useState(false);
 
-let statusTimer;
-const timerDuration = 10;
+    useEffect(() => {
+        setIsUnMounted(false);
+        updateAgencyName(submissionID);
+        validateSubmission();
 
-const singleFileValidations = ['appropriations', 'program_activity', 'award_financial'];
-
-export class ValidateDataContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            finishedPageLoad: false,
-            validationFailed: false,
-            validationFinished: false,
-            notYours: false,
-            serverError: null,
-            agencyName: null,
-            fileValidationsDone: [false, false, false],
-            progressMeta: {
-                appropriations: { progress: 0, name: '' },
-                program_activity: { progress: 0, name: '' },
-                award_financial: { progress: 0, name: '' }
-            }
+        return () => {
+            setIsUnMounted(true);
         };
+    }, []);
 
-        this.isUnmounted = false;
-        this.resetProgress = this.resetProgress.bind(this);
-    }
+    useEffect(() => {
+        updateAgencyName(submissionID);
 
+        // restart the process if the submission ID changes
+        resetSubmission();
+        reset();
+    }, [submissionID]);
 
-    componentDidMount() {
-        this.isUnmounted = false;
-        this.setAgencyName(this.props);
-        this.validateSubmission();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.submissionID !== prevProps.submissionID) {
-            this.setAgencyName(this.props);
+    // check if the submission state changed, indicating a re-upload
+    useEffect(() => {
+        if (submission.state === "prepare") {
+            clearValidationState();
         }
-        // check if the submission state changed, indicating a re-upload
-        if (prevProps.submission.state !== this.props.submission.state) {
-            if (this.props.submission.state === "prepare") {
-                this.clearValidationState();
-            }
-        }
+    }, [submission.state]);
 
-        // additionally, restart the process if the submission ID changes
-        if (prevProps.submissionID !== this.props.submissionID) {
-            this.props.resetSubmission();
-            this.reset();
+    useEffect(() => {
+        if (stateReset) {
+            setStateReset(false);
+            validateSubmission();
         }
-    }
+    }, [stateReset]);
 
-    componentWillUnmount() {
-        // remove any timers
-        this.isUnmounted = true;
-        if (statusTimer) {
-            clearTimeout(statusTimer);
-            statusTimer = null;
+    useEffect(() => {
+        if (checkFinishedUpdated) {
+            setCheckFinishedUpdated(false);
+            checkFinished();
         }
-    }
+    }, [checkFinishedUpdated]);
 
-    setAgencyName(givenProps) {
-        if (givenProps.submissionID !== null) {
-            ReviewHelper.fetchSubmissionMetadata(givenProps.submissionID)
+    const updateAgencyName = (subID) => {
+        if (subID !== null) {
+            ReviewHelper.fetchSubmissionMetadata(subID)
                 .then((res) => {
-                    if (!this.isUnmounted) {
-                        this.props.setSubmissionPublishStatus(res.data.publish_status);
-                        this.setState({ agencyName: res.data.agency_name });
+                    if (!isUnmounted) {
+                        props.setSubmissionPublishStatus(res.data.publish_status);
+                        setAgencyName(res.data.agency_name);
                     }
                 })
                 .catch((error) => {
                     console.error(error);
-                    this.props.errorFromStep(error.response.data.message);
+                    props.errorFromStep(error.response.data.message);
                 });
         }
-    }
+    };
 
-    clearValidationState() {
-        this.setState({
-            validationFinished: false,
-            validationFailed: false,
-            fileValidationsDone: [false, false, false],
-            progressMeta: {
-                appropriations: { progress: 0, name: '' },
-                program_activity: { progress: 0, name: '' },
-                award_financial: { progress: 0, name: '' }
-            }
-        }, () => {
-            this.validateSubmission();
+    const clearValidationState = () => {
+        setValidationFinished(false);
+        setValidationFailed(false);
+        setFileValidationsDone([false, false, false]);
+        setStateProgressMeta({
+            appropriations: { progress: 0, name: '' },
+            program_activity: { progress: 0, name: '' },
+            award_financial: { progress: 0, name: '' }
         });
-    }
+        setStateReset(true);
+    };
 
-    reset() {
-        this.setState({
-            finishedPageLoad: false,
-            validationFailed: false,
-            validationFinished: false,
-            notYours: false,
-            serverError: null,
-            fileValidationsDone: [false, false, false],
-            progressMeta: {
-                appropriations: { progress: 0, name: '' },
-                program_activity: { progress: 0, name: '' },
-                award_financial: { progress: 0, name: '' }
-            }
-        }, () => {
-            this.validateSubmission();
+    const reset = () => {
+        setValidationFinished(false);
+        setValidationFailed(false);
+        setFinishedPageLoad(false);
+        setNotYours(false);
+        setServerError(null);
+        setFileValidationsDone([false, false, false]);
+        setStateProgressMeta({
+            appropriations: { progress: 0, name: '' },
+            program_activity: { progress: 0, name: '' },
+            award_financial: { progress: 0, name: '' }
         });
-    }
+        setStateReset(true);
+    };
 
-    resetProgress() {
-        const progressMeta = this.state.progressMeta;
-        for (const fileType in this.props.submission.files) {
-            if (Object.prototype.hasOwnProperty.call(this.props.submission.files, fileType)) {
-                progressMeta[fileType] = { progress: 0, name: this.props.submission.files[fileType].file.name };
+    const resetProgress = () => {
+        const progressMeta = stateProgressMeta;
+        for (const fileType in submission.files) {
+            if (Object.prototype.hasOwnProperty.call(submission.files, fileType)) {
+                progressMeta[fileType] = { progress: 0, name: submission.files[fileType].file.name };
             }
         }
-        this.setState({ progressMeta });
-    }
+        setStateProgressMeta(progressMeta);
+    };
 
-    checkFinished(fileStatuses, data, progressMeta) {
+    const checkFinished = () => {
         let hasFailed = false;
         // if any file status is false, that means we need to check again because we aren't done
-        if (fileStatuses.includes(false)) {
-            this.setState({
-                progressMeta
-            });
-            statusTimer = setTimeout(() => {
-                this.validateSubmission();
+        if (fileValidationsDone.includes(false)) {
+            window.setTimeout(() => {
+                validateSubmission();
             }, timerDuration * 1000);
         }
         else {
             // if any of the statuses are "failed" then the submission has failed for some reason
             singleFileValidations.forEach((fileType) => {
-                if (data[fileType].status === 'failed') {
+                if (stateFileStatuses[fileType].status === 'failed') {
                     hasFailed = true;
                 }
             });
-            this.setState({
-                validationFinished: true,
-                validationFailed: hasFailed,
-                progressMeta
-            });
+            setValidationFinished(true);
+            setValidationFailed(hasFailed);
         }
-    }
+    };
 
-    validateSubmission() {
-        if (this.props.submissionID === "") {
+    const validateSubmission = () => {
+        if (submissionID === "") {
             return;
         }
         const startTime = new Date().getTime();
-        ReviewHelper.fetchStatus(this.props.submissionID)
+        ReviewHelper.fetchStatus(submissionID)
             .then((res) => {
-                if (this.isUnmounted) {
+                if (isUnmounted) {
                     // the component has been unmounted, so don't bother with updating the state
                     // (it doesn't exist anymore anyway)
                     return;
@@ -196,19 +180,19 @@ export class ValidateDataContainer extends React.Component {
                 const endTime = new Date().getTime();
                 const duration = endTime - startTime;
                 // log the API call duration
-                this.props.setApiMeta({
+                props.setApiMeta({
                     time: duration
                 });
 
                 const data = res.data;
 
-                // this.setState({ finishedPageLoad: true });
-                this.props.setSubmissionState('review');
+                // setFinishedPageLoad(true);
+                setSubmissionState('review');
 
                 // see if there are any validations still running.
                 let fileStatusChanged = false;
-                const fileStatuses = this.state.fileValidationsDone.slice();
-                const progress = this.state.progressMeta;
+                const fileStatuses = fileValidationsDone.slice();
+                const progress = stateProgressMeta;
                 for (let i = 0; i < singleFileValidations.length; i++) {
                     const currFile = data[singleFileValidations[i]];
                     // if a file wasn't done last time this check ran but is this time, the status has "changed"
@@ -222,7 +206,7 @@ export class ValidateDataContainer extends React.Component {
 
                 // if there were any changes, we want to get all the new job statuses
                 if (fileStatusChanged) {
-                    ReviewHelper.fetchSubmissionData(this.props.submissionID)
+                    ReviewHelper.fetchSubmissionData(submissionID)
                         .then((response) => {
                             const fileStates = ReviewHelper.getFileStates(response.data);
                             // sometimes the delay between checking status and getting the jobs gives the jobs time
@@ -236,70 +220,66 @@ export class ValidateDataContainer extends React.Component {
                                     };
                                 }
                             }
-                            this.props.setValidation(fileStates);
-                            this.setState({
-                                fileValidationsDone: fileStatuses,
-                                finishedPageLoad: true
-                            }, () => {
-                                this.checkFinished(fileStatuses, data, progress);
-                            });
+                            setValidation(fileStates);
+                            setFileValidationsDone(fileStatuses);
+                            setFinishedPageLoad(true);
+                            setStateProgressMeta(progress);
+                            setStateFileStatuses(data);
+                            setCheckFinishedUpdated(true);
                         });
                 }
                 else {
-                    this.checkFinished(fileStatuses, data, progress);
+                    setFileValidationsDone(fileStatuses);
+                    setStateProgressMeta(progress);
+                    setStateFileStatuses(data);
+                    setCheckFinishedUpdated(true);
                 }
             })
             .catch((err) => {
                 if (err.reason === 400) {
-                    this.setState({
-                        notYours: true
-                    });
+                    setNotYours(true);
                 }
                 else if (err.detail !== '') {
-                    this.setState({
-                        serverError: err.detail
-                    });
+                    setServerError(err.detail);
                 }
                 else {
-                    statusTimer = setTimeout(() => {
-                        this.validateSubmission();
+                    window.setTimeout(() => {
+                        validateSubmission();
                     }, timerDuration * 1000);
                 }
             });
+    };
+
+    let validationContent = (<ValidationContent
+        {...props}
+        hasFinished={validationFinished}
+        hasFailed={validationFailed}
+        submission={submission}
+        submissionID={submissionID}
+        agencyName={agencyName}
+        progressMeta={stateProgressMeta}
+        resetProgress={resetProgress} />);
+
+    if (!finishedPageLoad) {
+        validationContent = <ValidateLoadingScreen />;
+    }
+    if (notYours) {
+        validationContent = (<ValidateNotYours message={"You cannot view or modify this submission because you " +
+                                                        "are not the original submitter."} />);
+    }
+    if (serverError) {
+        validationContent = (<ValidateNotYours message={"This is not a valid submission. Check your validation " +
+                                                        "URL and try again."} />);
     }
 
-    render() {
-        let validationContent = (<ValidationContent
-            {...this.props}
-            hasFinished={this.state.validationFinished}
-            hasFailed={this.state.validationFailed}
-            submissionID={this.props.submissionID}
-            agencyName={this.state.agencyName}
-            progressMeta={this.state.progressMeta}
-            resetProgress={this.resetProgress} />);
-
-        if (!this.state.finishedPageLoad) {
-            validationContent = <ValidateLoadingScreen />;
-        }
-        if (this.state.notYours) {
-            validationContent = (<ValidateNotYours message={"You cannot view or modify this submission because you " +
-                                                            "are not the original submitter."} />);
-        }
-        if (this.state.serverError) {
-            validationContent = (<ValidateNotYours message={"This is not a valid submission. Check your validation " +
-                                                            "URL and try again."} />);
-        }
-
-        return (
-            <div className="validate-data-page">
-                {validationContent}
-            </div>
-        );
-    }
-}
+    return (
+        <div className="validate-data-page">
+            {validationContent}
+        </div>
+    );
+};
 
 ValidateDataContainer.propTypes = propTypes;
-ValidateDataContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
