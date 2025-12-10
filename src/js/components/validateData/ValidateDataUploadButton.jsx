@@ -3,7 +3,6 @@
   * Created by Kevin Li 4/1/2016
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 
@@ -21,33 +20,33 @@ const defaultProps = {
     additionalClasses: ' btn-danger-outline'
 };
 
-export default class ValidateDataUploadButton extends React.Component {
-    addedFile(files) {
-        this.props.onDrop(files[0]);
+const ValidateDataUploadButton = ({
+    onDrop = () => {}, optional = false, text = 'Upload Corrected File', additionalClasses = ' btn-danger-outline'
+}) => {
+    const addedFile = (files) => {
+        onDrop(files[0]);
+    };
+
+    let optionalUpload = '';
+    if (optional) {
+        optionalUpload = ' btn-optional';
     }
 
-    render() {
-        let optionalUpload = '';
-        if (this.props.optional) {
-            optionalUpload = ' btn-optional';
-        }
-
-        return (
-            <Dropzone onDrop={this.addedFile.bind(this)}>
-                {({getRootProps, getInputProps}) => (
-                    <section>
-                        <div {...getRootProps({
-                            className: `usa-da-button btn-full${optionalUpload}${this.props.additionalClasses}`
-                        })}>
-                            <input {...getInputProps({multiple: false})} />
-                            {this.props.text}
-                        </div>
-                    </section>
-                )}
-            </Dropzone>
-        );
-    }
-}
+    return (
+        <Dropzone onDrop={addedFile}>
+            {({getRootProps, getInputProps}) => (
+                <section>
+                    <div {...getRootProps({
+                        className: `usa-da-button btn-full${optionalUpload}${additionalClasses}`
+                    })}>
+                        <input {...getInputProps({multiple: false})} />
+                        {text}
+                    </div>
+                </section>
+            )}
+        </Dropzone>
+    );
+};
 
 ValidateDataUploadButton.propTypes = propTypes;
-ValidateDataUploadButton.defaultProps = defaultProps;
+export default ValidateDataUploadButton;
