@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import tinycolor from 'tinycolor2';
 import { createOnKeyDownHandler } from '../../../helpers/util';
@@ -20,87 +20,73 @@ const propTypes = {
     active: PropTypes.bool
 };
 
-const defaultProps = {
-    clickedItem: () => {},
-    colors: {},
-    cellColor: '',
-    name: 'Unspecified',
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-    active: false
+const TreemapCell = ({
+    clickedItem = () => {},
+    colors = {},
+    cellColor = '',
+    name = 'Unspecified',
+    height = 0,
+    width = 0,
+    x = 0,
+    y = 0,
+    active = false,
+    ...props
+}) => {
+    const [hover, setHover] = useState(false);
+
+    const mouseOver = () => {
+        setHover(true);
+    };
+
+    const mouseOut = () => {
+        setHover(false);
+    };
+
+    const clickEvent = () => {
+        clickedItem({
+            name: name,
+            ...props
+        });
+    };
+
+    const onKeyDownHandler = createOnKeyDownHandler(clickEvent);
+    const style = {
+        top: y,
+        left: x,
+        height: height,
+        width: width,
+        color: colors.text,
+        backgroundColor: cellColor,
+        border: '1px solid #fff'
+    };
+
+    if (hover) {
+        style.backgroundColor = tinycolor(cellColor).lighten().desaturate().toString();
+        style.border = '1px solid #323a45';
+    }
+    if (active) {
+        style.color = colors.activeText;
+        style.backgroundColor = colors.active;
+        style.border = `1px solid ${colors.activeBorder}`;
+    }
+
+    return (
+        <div
+            role="button"
+            tabIndex={0}
+            className="usa-da-treemap-cell"
+            style={style}
+            onKeyUp={mouseOut}
+            onKeyDown={onKeyDownHandler}
+            onMouseOver={mouseOver}
+            onFocus={mouseOver}
+            onMouseOut={mouseOut}
+            onBlur={mouseOut}
+            onClick={clickEvent}>
+            <div className="treemap-rule">{name}</div>
+        </div>
+    );
 };
 
-export default class TreemapCell extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            hover: false
-        };
-        this.clickEvent = this.clickEvent.bind(this);
-        this.mouseOut = this.mouseOut.bind(this);
-        this.mouseOver = this.mouseOver.bind(this);
-    }
-
-    mouseOver() {
-        this.setState({
-            hover: true
-        });
-    }
-
-    mouseOut() {
-        this.setState({
-            hover: false
-        });
-    }
-
-    clickEvent() {
-        this.props.clickedItem(this.props);
-    }
-
-    render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.clickEvent);
-        const style = {
-            top: this.props.y,
-            left: this.props.x,
-            height: this.props.height,
-            width: this.props.width,
-            color: this.props.colors.text,
-            backgroundColor: this.props.cellColor,
-            border: '1px solid #fff'
-        };
-
-        if (this.state.hover) {
-            style.backgroundColor = tinycolor(this.props.cellColor).lighten().desaturate().toString();
-            style.border = '1px solid #323a45';
-        }
-        if (this.props.active) {
-            style.color = this.props.colors.activeText;
-            style.backgroundColor = this.props.colors.active;
-            style.border = `1px solid ${this.props.colors.activeBorder}`;
-        }
-
-        return (
-            <div
-                role="button"
-                tabIndex={0}
-                className="usa-da-treemap-cell"
-                style={style}
-                onKeyUp={this.mouseOut}
-                onKeyDown={onKeyDownHandler}
-                onKeyPress={this.mouseOver}
-                onMouseOver={this.mouseOver}
-                onFocus={this.mouseOver}
-                onMouseOut={this.mouseOut}
-                onBlur={this.mouseOut}
-                onClick={this.clickEvent}>
-                <div className="treemap-rule">{this.props.name}</div>
-            </div>
-        );
-    }
-}
-
 TreemapCell.propTypes = propTypes;
-TreemapCell.defaultProps = defaultProps;
+export default TreemapCell;
