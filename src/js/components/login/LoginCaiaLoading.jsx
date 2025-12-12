@@ -26,8 +26,8 @@ const LoginCaiaLoading = ({errorMessage = ''}) => {
 
     return (
         <div>
-            <div className="row">
-                <div className={`col-md-12 login-loading${hideLoading}`}>
+            <div className={`row${hideLoading}`}>
+                <div className="col-md-12 login-loading">
                     <div className="loading-animation">
                         <LoadingBauble />
                     </div>
