@@ -5,7 +5,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import _, { throttle } from 'lodash';
 import Treemap from '../treemap/Treemap';
 import TreemapHelp from './ValidateValuesTreemapHelp';
 import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder';
@@ -29,11 +29,17 @@ const ValidateValuesTreemap = ({ colors = {}, data = [], type = '' }) => {
     // const throttledResize = useRef(throttle(() => handleWindowResize(), 50));
 
     useEffect(() => {
-        window.addEventListener("resize", handleWindowResize);
+        const handleResize = throttle(() => {
+            if (treemapRef !== undefined && treemapRef.current !== undefined) {
+                setTreemapWidth(treemapRef.current.clientWidth * 0.75);
+            }
+        }, 50);
+
+        window.addEventListener("resize", handleResize);
         formatData();
 
         return () => {
-            window.removeEventListener("resize", handleWindowResize);
+            window.removeEventListener("resize", handleResize);
         };
     }, []);
 
