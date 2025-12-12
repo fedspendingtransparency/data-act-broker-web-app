@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/4/2016
  */
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,62 +25,56 @@ const propTypes = {
     publishStatus: PropTypes.string
 };
 
-const defaultProps = {
-    colors: {},
-    data: {},
-    dataKey: 'error_data',
-    fileType: '',
-    name: '',
-    reportType: '',
-    submissionId: '',
-    publishStatus: ''
-};
+const ValidateValuesErrorReport = ({
+    colors = {},
+    data = {},
+    dataKey = 'error_data',
+    fileType = '',
+    name = '',
+    reportType = '',
+    submissionId = '',
+    publishStatus = ''
+}) => {
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [sortField, setSortField] = useState(0);
+    const [table, setTable] = useState(null);
+    const [signedUrl, setSignedUrl] = useState('');
+    const [signInProgress, setSignInProgress] = useState(false);
+    const tableClasses = ['colA', 'colB', 'colC'];
 
-export default class ValidateValuesErrorReport extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        createTable();
+    }, []);
 
-        this.state = {
-            sortDirection: 'asc',
-            sortField: 0,
-            headerClasses: ['colA', 'colB', 'colC'],
-            cellClasses: ['colA', 'colB', 'colC'],
-            table: null,
-            signedUrl: '',
-            signInProgress: false
-        };
-        this.clickedReport = this.clickedReport.bind(this);
-        this.sortTable = this.sortTable.bind(this);
-        this.createTable = this.createTable.bind(this);
-    }
+    useEffect(() => {
+        createTable();
+    }, [data, dataKey, sortDirection, sortField]);
 
-
-    componentDidMount() {
-        this.createTable();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.data, this.props.data) || prevProps.dataKey !== this.props.dataKey) {
-            this.createTable();
+    useEffect(() => {
+        if (signedUrl) {
+            openReport();
         }
-    }
+    }, [signedUrl]);
 
-    createTable() {
+    useEffect(() => {
+        if (signInProgress) {
+            signReport();
+        }
+    }, [signInProgress]);
+
+    const createTable = () => {
         // retrieve the data for the appropriate key, parse it, and save table component into state
-        const data = this.props.data[this.props.dataKey];
-        this.setState({
-            table: this.processData(data)
-        });
-    }
+        setTable(processData(data[dataKey]));
+    };
 
-    processData(data) {
+    const processData = (values) => {
         let table = '';
 
-        const headers = ['Field Name', this.props.name, 'Occurrences'];
+        const headers = ['Field Name', name, 'Occurrences'];
         const unsortableHeaders = [0];
 
         const rows = [];
-        data.forEach((item) => {
+        values.forEach((item) => {
             let description = item.error_description;
             if (item.error_name === 'rule_failed') {
                 description = `Rule ${item.original_label}: ${item.rule_failed}`;
@@ -92,131 +86,115 @@ export default class ValidateValuesErrorReport extends React.Component {
         });
 
         // sort the data
-        const sortedRows = this.sortData(rows);
+        const sortedRows = sortData(rows);
         table = (<ScrollableTable
             headers={headers}
             data={sortedRows}
-            onSort={this.sortTable}
-            cellClasses={this.state.cellClasses}
-            headerClasses={this.state.headerClasses}
+            onSort={sortTable}
+            cellClasses={tableClasses}
+            headerClasses={tableClasses}
             unsortable={unsortableHeaders} />);
         return table;
-    }
+    };
 
-    sortData(data) {
+    const sortData = (values) => {
         // sort the data based on the selected column (defaults to the first one)
-        let output = _.clone(data);
-        output = _.sortBy(data, (col) => col[this.state.sortField]);
+        let output = _.clone(values);
+        output = _.sortBy(values, (col) => col[sortField]);
 
         // lodash sorts by ascending, so if we want descending, reverse the array
-        if (this.state.sortDirection === 'desc') {
+        if (sortDirection === 'desc') {
             output = _.reverse(output);
         }
 
         return output;
-    }
+    };
 
-    sortTable(direction, column) {
-        if (direction !== this.state.sortDirection || column !== this.state.sortField) {
-            this.setState({
-                sortDirection: direction,
-                sortField: column
-            }, this.createTable);
+    const sortTable = (direction, column) => {
+        if (direction !== sortDirection || column !== sortField) {
+            setSortDirection(direction);
+            setSortField(column);
         }
-    }
+    };
 
-    openReport() {
-        window.location = this.state.signedUrl;
-    }
+    const openReport = () => {
+        window.location = signedUrl;
+    };
 
-    signReport() {
-        ReviewHelper.submissionReport(this.props.submissionId, this.props.reportType === 'warning', this.props.fileType)
+    const signReport = () => {
+        ReviewHelper.submissionReport(submissionId, reportType === 'warning', fileType)
             .then((res) => {
-                this.setState({
-                    signInProgress: false,
-                    signedUrl: res.data.url
-                }, () => {
-                    this.openReport();
-                });
+                setSignInProgress(false);
+                setSignedUrl(res.data.url);
             })
             .catch((err) => {
-                this.setState({
-                    signInProgress: false
-                });
+                setSignInProgress(false);
                 console.error(err);
             });
-    }
+    };
 
-    clickedReport() {
-        // check if the link is already signed
-        if (this.state.signInProgress) {
-            // sign is in progress, do nothing
-
-        }
-        else if (this.state.signedUrl !== '') {
+    const clickedReport = () => {
+        // if it's not already signing the link, check whether it's already signed
+        if (!signInProgress) {
+            if (signedUrl !== '') {
             // it is signed, open immediately
-            this.openReport();
+                openReport();
+            }
+            else {
+                // not signed yet, sign
+                setSignInProgress(true);
+            }
         }
-        else {
-            // not signed yet, sign
-            this.setState({
-                signInProgress: true
-            }, () => {
-                this.signReport();
-            });
-        }
+    };
+
+    const onKeyDownHandler = createOnKeyDownHandler(clickedReport);
+    let reportLinkText = `Download ${name}s Report`;
+    if (signInProgress) {
+        reportLinkText = `Preparing ${name}s Report...`;
     }
 
-    render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport);
-        let reportLinkText = `Download ${this.props.name}s Report`;
-        if (this.state.signInProgress) {
-            reportLinkText = `Preparing ${this.props.name}s Report...`;
-        }
+    let downloadLink = (
+        <div
+            role="button"
+            tabIndex={0}
+            className="usa-da-download pull-right"
+            onKeyDown={onKeyDownHandler}
+            onClick={clickedReport}>
+            <span className="usa-da-icon usa-da-download-report">
+                <FontAwesomeIcon icon="cloud-arrow-down" />
+            </span>
+            {reportLinkText}
+        </div>
+    );
+    const blockedStatuses = ['reverting', 'publishing'];
+    if (blockedStatuses.indexOf(publishStatus) > -1) {
+        downloadLink = null;
+    }
 
-        let downloadLink = (
-            <div
-                role="button"
-                tabIndex={0}
-                className="usa-da-download pull-right"
-                onKeyDown={onKeyDownHandler}
-                onClick={this.clickedReport}>
-                <span className="usa-da-icon usa-da-download-report">
-                    <FontAwesomeIcon icon="cloud-arrow-down" />
-                </span>
-                {reportLinkText}
-            </div>
-        );
-        const blockedStatuses = ['reverting', 'publishing'];
-        if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
-            downloadLink = null;
-        }
-
-        return (
-            <div className="row usa-da-validate-item-bottom-section">
-                <div className="usa-da-validate-error-report">
-                    <div className="row center-block">
-                        <div className="col-md-9">
-                            <h6>{this.props.name}s</h6>
-                        </div>
-                        <div className="col-md-3">
-                            {downloadLink}
-                        </div>
-                        <div className="col-md-12">
-                            {this.state.table}
-                            <div className="mt-20">
-                                <ValidateValuesTreemap
-                                    data={this.props.data[this.props.dataKey]}
-                                    type="error"
-                                    colors={this.props.colors} />
-                            </div>
+    return (
+        <div className="row usa-da-validate-item-bottom-section">
+            <div className="usa-da-validate-error-report">
+                <div className="row center-block">
+                    <div className="col-md-9">
+                        <h6>{name}s</h6>
+                    </div>
+                    <div className="col-md-3">
+                        {downloadLink}
+                    </div>
+                    <div className="col-md-12">
+                        {table}
+                        <div className="mt-20">
+                            <ValidateValuesTreemap
+                                data={data[dataKey]}
+                                type="error"
+                                colors={colors} />
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 ValidateValuesErrorReport.propTypes = propTypes;
-ValidateValuesErrorReport.defaultProps = defaultProps;
+export default ValidateValuesErrorReport;

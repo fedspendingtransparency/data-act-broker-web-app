@@ -3,9 +3,9 @@
   * Created by Kevin Li 4/11/2016
   */
 
-import React from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import _, { throttle } from 'lodash';
+import _ from 'lodash';
 import Treemap from '../treemap/Treemap';
 import TreemapHelp from './ValidateValuesTreemapHelp';
 import TreemapHelpPlaceholder from './ValidateValuesTreemapHelpPlaceholder';
@@ -16,60 +16,44 @@ const propTypes = {
     type: PropTypes.string
 };
 
-const defaultProps = {
-    colors: {},
-    data: [],
-    type: ''
-};
+const ValidateValuesTreemap = ({ colors = {}, data = [], type = '' }) => {
+    const [selected, setSelected] = useState(null);
+    const [activeCell, setActiveCell] = useState(-1);
+    const [treemapWidth, setTreemapWidth] = useState(100);
+    const [formattedData, setFormattedData] = useState({
+        data: {},
+        max: 0,
+        min: 0
+    });
+    const treemapRef = useRef();
+    // const throttledResize = useRef(throttle(() => handleWindowResize(), 50));
 
-class ValidateValuesTreemap extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowResize);
+        formatData();
 
-        this.state = {
-            selected: null,
-            activeCell: -1,
-            formattedData: {
-                data: {},
-                max: 0,
-                min: 0
-            },
-            treemapWidth: 100
+        return () => {
+            window.removeEventListener("resize", handleWindowResize);
         };
+    }, []);
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-    }
+    useEffect(() => {
+        formatData();
+    }, [data]);
 
-    componentDidMount() {
-        window.addEventListener("resize", this.handleWindowResize);
-        this.formatData();
-    }
-    
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.handleWindowResize);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.data, this.props.data)) {
-            this.formatData();
+    const handleWindowResize = () => {
+        if (treemapRef !== undefined && treemapRef.current !== undefined) {
+            setTreemapWidth(treemapRef.current.clientWidth * 0.75);
         }
-    }
+    };
 
-    handleWindowResize() {
-        if (this.treemapWrapper !== undefined) {
-            this.setState({
-                treemapWidth: this.treemapWrapper.clientWidth * 0.75
-            });
-        }
-    }
-
-    formatData() {
-        const data = [];
+    const formatData = () => {
+        const tmpData = [];
 
         let maxCount = null;
         let minCount = null;
 
-        this.props.data.forEach((item) => {
+        data.forEach((item) => {
             let detail = null;
 
             let name = item.field_name;
@@ -91,7 +75,7 @@ class ValidateValuesTreemap extends React.Component {
                 minCount = occurrences;
             }
 
-            data.push({
+            tmpData.push({
                 name,
                 value: occurrences,
                 field: item.field_name,
@@ -103,73 +87,63 @@ class ValidateValuesTreemap extends React.Component {
 
         // sort by descending value
         // perform sorting here and then let the D3 treemap deal with sorting by index key to prevent random reshuffles
-        const sortedData = _.orderBy(data, ['value', 'name'], 'desc');
+        const sortedData = _.orderBy(tmpData, ['value', 'name'], 'desc');
         let i = 0;
         sortedData.forEach((item) => {
             const tmpItem = item;
             tmpItem.index = i;
             i += 1;
         });
-
-        let treemapWidth = 100;
-        if (this.treemapWrapper !== undefined) {
-            treemapWidth = this.treemapWrapper.clientWidth * 0.75;
+        let tmpTreemapWidth = 100;
+        if (treemapRef !== undefined && treemapRef.current !== undefined) {
+            tmpTreemapWidth = treemapRef.current.clientWidth * 0.75;
         }
 
-        this.setState({
-            formattedData: {
-                data: {
-                    type: 'node',
-                    name: this.props.type,
-                    children: sortedData
-                },
-                min: minCount,
-                max: maxCount
+        setTreemapWidth(tmpTreemapWidth);
+        setFormattedData({
+            data: {
+                type: 'node',
+                name: type,
+                children: sortedData
             },
-            treemapWidth
+            min: minCount,
+            max: maxCount
         });
+    };
+
+    const clickedItem = (item) => {
+        setSelected(item);
+        setActiveCell(item.cellId);
+    };
+
+    let help = <TreemapHelpPlaceholder type={type} />;
+    if (selected) {
+        help = (<TreemapHelp
+            {...selected}
+            type={type} />);
     }
 
-    clickedItem(item) {
-        this.setState({
-            selected: item,
-            activeCell: item.cellId
-        });
-    }
-
-    render() {
-        let help = <TreemapHelpPlaceholder type={this.props.type} />;
-        if (this.state.selected) {
-            help = (<TreemapHelp
-                {...this.state.selected}
-                type={this.props.type} />);
-        }
-
-        return (
-            <div
-                className="treemap-wrapper"
-                ref={(div) => {
-                    this.treemapWrapper = div;
-                }}>
-                <div className="row">
-                    <div className="col-md-9">
-                        <Treemap
-                            formattedData={this.state.formattedData}
-                            width={this.state.treemapWidth}
-                            clickedItem={this.clickedItem.bind(this)}
-                            colors={this.props.colors}
-                            activeCell={this.state.activeCell} />
-                    </div>
-                    <div className="col-md-3">
-                        {help}
-                    </div>
+    return (
+        <div
+            className="treemap-wrapper"
+            ref={treemapRef}>
+            <div className="row">
+                <div className="col-md-9">
+                    <Treemap
+                        formattedData={formattedData}
+                        width={treemapWidth}
+                        clickedItem={clickedItem}
+                        colors={colors}
+                        activeCell={activeCell} />
+                </div>
+                <div className="col-md-3">
+                    {help}
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 ValidateValuesTreemap.propTypes = propTypes;
-ValidateValuesTreemap.defaultProps = defaultProps;
 
 export default ValidateValuesTreemap;

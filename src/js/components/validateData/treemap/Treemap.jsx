@@ -33,7 +33,6 @@ const Treemap = ({
     }
 }) => {
     const [chartState, setChartState] = useState(null);
-    const formattedDataString = JSON.stringify(formattedData);
 
     useEffect(() => {
         setChart();
@@ -41,7 +40,7 @@ const Treemap = ({
 
     useEffect(() => {
         setChart();
-    }, [formattedDataString, activeCell, width]);
+    }, [formattedData, activeCell, width]);
 
     const setChart = () => {
         setChartState(drawChart());
