@@ -3,7 +3,6 @@
   * Created by Kevin Li 4/6/2016
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -20,43 +19,35 @@ const propTypes = {
     type: PropTypes.object
 };
 
-const defaultProps = {
-    updateItem: () => {},
-    setUploadItem: () => {},
-    removeUploadItem: () => {},
-    data: {},
-    type: {}
-};
-
-class ValidateValuesFileContainer extends React.Component {
-    selectedFile(file) {
-        this.props.setUploadItem({
-            name: this.props.type.requestName,
+const ValidateValuesFileContainer = ({
+    updateItem = () => {}, setUploadItem = () => {}, removeUploadItem = () => {}, data = {}, type = {}, ...props
+}) => {
+    const selectedFile = (file) => {
+        setUploadItem({
+            name: type.requestName,
             state: 'ready',
             file
         });
-        if (this.props.updateItem) {
-            this.props.updateItem(file);
+        if (updateItem) {
+            updateItem(file);
         }
-    }
+    };
 
-    removeFile() {
-        this.props.removeUploadItem({ name: this.props.type.requestName });
-    }
+    const removeFile = () => {
+        removeUploadItem({ name: type.requestName });
+    };
 
-    render() {
-        return (
-            <ValidateValuesFileComponent
-                {...this.props}
-                item={this.props.data[this.props.type.requestName]}
-                onFileChange={this.selectedFile.bind(this)}
-                removeFile={this.removeFile.bind(this)} />
-        );
-    }
-}
+    return (
+        <ValidateValuesFileComponent
+            {...props}
+            type={type}
+            item={data[type.requestName]}
+            onFileChange={selectedFile}
+            removeFile={removeFile} />
+    );
+};
 
 ValidateValuesFileContainer.propTypes = propTypes;
-ValidateValuesFileContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
