@@ -3,7 +3,7 @@
  * Created by Mike Bray 3/28/16
  */
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,140 +18,122 @@ const propTypes = {
     type: PropTypes.string
 };
 
-const defaultProps = {
-    data: [],
-    submissionId: '',
-    publishStatus: '',
-    type: ''
-};
+const ValidateDataErrorReport = ({ data = [], submissionId = '', publishStatus = '', type = '' }) => {
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [signedUrl, setSignedUrl] = useState('');
+    const [signInProgress, setSignInProgress] = useState(false);
 
-export default class ValidateDataErrorReport extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            sortDirection: 'asc',
-            signedUrl: '',
-            signInProgress: false
-        };
-        this.clickedReport = this.clickedReport.bind(this);
-    }
-
-    sortTable(direction) {
-        if (direction !== this.state.sortDirection) {
-            this.setState({
-                sortDirection: direction
-            });
+    useEffect(() => {
+        if (signedUrl) {
+            openReport();
         }
-    }
+    }, [signedUrl]);
 
-    openReport() {
-        window.location = this.state.signedUrl;
-    }
+    useEffect(() => {
+        if (signInProgress) {
+            signReport();
+        }
+    }, [signInProgress]);
 
-    signReport() {
-        ReviewHelper.submissionReport(this.props.submissionId, false, this.props.type)
+    const sortTable = (direction) => {
+        if (direction !== sortDirection) {
+            setSortDirection(direction);
+        }
+    };
+
+    const openReport = () => {
+        window.location = signedUrl;
+    };
+
+    const signReport = () => {
+        ReviewHelper.submissionReport(submissionId, false, type)
             .then((res) => {
-                this.setState({
-                    signInProgress: false,
-                    signedUrl: res.data.url
-                }, () => {
-                    this.openReport();
-                });
+                setSignInProgress(false);
+                setSignedUrl(res.data.url);
             })
             .catch((err) => {
-                this.setState({
-                    signInProgress: false
-                });
+                setSignInProgress(false);
                 console.error(err);
             });
-    }
+    };
 
-    clickedReport() {
-        // check if the link is already signed
-        if (this.state.signInProgress) {
-            // sign is in progress, do nothing
-
-        }
-        else if (this.state.signedUrl !== '') {
+    const clickedReport = () => {
+        // if it's not already signing the link, check whether it's already signed
+        if (!signInProgress) {
+            if (signedUrl !== '') {
             // it is signed, open immediately
-            this.openReport();
+                openReport();
+            }
+            else {
+                // not signed yet, sign
+                setSignInProgress(true);
+            }
         }
-        else {
-            // not signed yet, sign
-            this.setState({
-                signInProgress: true
-            }, () => {
-                this.signReport();
+    };
+
+    const onKeyDownHandler = createOnKeyDownHandler(clickedReport);
+    let tables = '';
+
+    if (data.length > 0) {
+        tables = data.map((errorData, index) => {
+            let rowData = errorData.data;
+            if (sortDirection !== 'asc') {
+                // reverse the array
+                rowData = _.reverse(_.clone(errorData.data));
+            }
+
+            const rows = [];
+            rowData.forEach((row) => {
+                rows.push([row]);
             });
-        }
+            return (<ScrollableTable
+                headers={[errorData.header]}
+                data={rows}
+                key={index}
+                onSort={sortTable} />);
+        });
     }
 
-    render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.clickedReport);
-        let tables = '';
+    let reportLinkText = 'Download Error Report';
+    if (signInProgress) {
+        reportLinkText = 'Preparing Error Report...';
+    }
 
-        if (this.props.data.length > 0) {
-            tables = this.props.data.map((errorData, index) => {
-                let rowData = errorData.data;
-                if (this.state.sortDirection !== 'asc') {
-                    // reverse the array
-                    rowData = _.reverse(_.clone(errorData.data));
-                }
+    let downloadLink = (
+        <div
+            role="button"
+            tabIndex={0}
+            className="usa-da-download pull-right"
+            onKeyDown={onKeyDownHandler}
+            onClick={clickedReport}>
+            <span className="usa-da-icon usa-da-download-report">
+                <FontAwesomeIcon icon="cloud-arrow-down" />
+            </span>{reportLinkText}
+        </div>
+    );
+    const blockedStatuses = ['reverting', 'publishing'];
+    if (blockedStatuses.indexOf(publishStatus) > -1) {
+        downloadLink = null;
+    }
 
-                const rows = [];
-                rowData.forEach((row) => {
-                    rows.push([row]);
-                });
-                return (<ScrollableTable
-                    headers={[errorData.header]}
-                    data={rows}
-                    key={index}
-                    onSort={this.sortTable.bind(this)} />);
-            });
-        }
-
-        let reportLinkText = 'Download Error Report';
-        if (this.state.signInProgress) {
-            reportLinkText = 'Preparing Error Report...';
-        }
-
-        let downloadLink = (
-            <div
-                role="button"
-                tabIndex={0}
-                className="usa-da-download pull-right"
-                onKeyDown={onKeyDownHandler}
-                onClick={this.clickedReport}>
-                <span className="usa-da-icon usa-da-download-report">
-                    <FontAwesomeIcon icon="cloud-arrow-down" />
-                </span>{reportLinkText}
-            </div>
-        );
-        const blockedStatuses = ['reverting', 'publishing'];
-        if (blockedStatuses.indexOf(this.props.publishStatus) > -1) {
-            downloadLink = null;
-        }
-
-        return (
-            <div className="row usa-da-validate-item-bottom-section">
-                <div className="usa-da-validate-error-report">
-                    <div className="row center-block">
-                        <div className="col-md-9">
-                            <h6>Header Error Report</h6>
-                        </div>
-                        <div className="col-md-3 mr-0">
-                            {downloadLink}
-                        </div>
-                        <div className="col-md-12">
-                            {tables}
-                        </div>
+    return (
+        <div className="row usa-da-validate-item-bottom-section">
+            <div className="usa-da-validate-error-report">
+                <div className="row center-block">
+                    <div className="col-md-9">
+                        <h6>Header Error Report</h6>
+                    </div>
+                    <div className="col-md-3 mr-0">
+                        {downloadLink}
+                    </div>
+                    <div className="col-md-12">
+                        {tables}
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 ValidateDataErrorReport.propTypes = propTypes;
-ValidateDataErrorReport.defaultProps = defaultProps;
+export default ValidateDataErrorReport;

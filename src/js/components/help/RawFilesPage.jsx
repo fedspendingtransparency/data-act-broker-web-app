@@ -12,7 +12,6 @@ import Banner from 'components/SharedComponents/Banner';
 import Footer from 'components/SharedComponents/FooterComponent';
 import RawFilesContent from 'components/help/RawFilesContent';
 import HelpNav from './helpNav';
-import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     session: PropTypes.object,
@@ -58,21 +57,15 @@ export default class RawFilesPage extends React.Component {
             });
     }
 
-    itemAction(level, id, label, fileType) {
+    itemAction(level, id, label) {
         if (level === 'download') {
-            if (fileType !== 'comments') {
-                HelpHelper.downloadPublishedFile(id)
-                    .then((res) => {
-                        window.open(res.data.url);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-            else {
-                const urlType = kGlobalConstants.PROD ? '' : '-nonprod';
-                window.open(`https://files${urlType}.usaspending.gov/agency_submissions/${label}`);
-            }
+            HelpHelper.downloadPublishedFile(id)
+                .then((res) => {
+                    window.open(res.data.url);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
         else {
             const tmpState = Object.assign({}, this.state);
