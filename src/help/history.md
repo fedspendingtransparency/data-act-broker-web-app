@@ -1,4 +1,10 @@
-#### October 21, 2025{section=changelog}
+#### November 12, 2025{section=changelog}
+In this release of the Broker, we:
+
+* Updated various aspects of the Broker to handle alphanumeric characters in assistance listing numbers to align with the Grants Data Standards update. Note, no assistance listing numbers have been processed yet with the format change. Only FABS36 (which checks the assistance listing format) has been changed from a fatal error to a warning until the GSDM v1.2 Draft Annual Release can be finalized.
+* Resolved a minor frontend bug on the initial DABS upload page.
+
+#### October 21, 2025
 In this release of the Broker, we:
 
 * Started pulling in several data elements (`genericBoolean`) into the Broker FPDS data via the FPDS loader.
