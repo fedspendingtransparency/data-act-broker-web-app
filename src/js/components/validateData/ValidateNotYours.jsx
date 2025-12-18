@@ -3,26 +3,19 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
     message: PropTypes.string
 };
 
-const defaultProps = {
-    message: ''
+const ValidateNotYours = ({message = ''}) => {
+    return (
+        <div className="alert alert-danger text-center" role="alert">
+            {message}
+        </div>
+    );
 };
 
-export default class ValidateNotYours extends React.Component {
-    render() {
-        return (
-            <div className="alert alert-danger text-center" role="alert">
-                {this.props.message}
-            </div>
-        );
-    }
-}
-
 ValidateNotYours.propTypes = propTypes;
-ValidateNotYours.defaultProps = defaultProps;
+export default ValidateNotYours;

@@ -148,6 +148,13 @@ img {
     margin-left: 8.33%;
 }
 
+.col-sm-6 {
+    @media(min-width: $small-screen) {
+        width: 50%;
+        float: left;
+    }
+}
+
 .col-sm-12 {
     @media(min-width: $small-screen) {
         width: 100%;
@@ -245,9 +252,9 @@ img {
     }
 }
 
-.col-xs-1, .col-xs-3, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-11, .col-xs-12, .col-sm-12, .col-md-1, .col-md-2,
-.col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
-.col-lg-8, .col-lg-12 {
+.col-xs-1, .col-xs-3, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-11, .col-xs-12, .col-sm-6, .col-sm-12, .col-md-1,
+.col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11,
+.col-md-12, .col-lg-8, .col-lg-12 {
     min-height: rem(1);
     padding-left: rem(15);
     padding-right: rem(15);
