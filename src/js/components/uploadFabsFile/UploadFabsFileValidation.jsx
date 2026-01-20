@@ -92,7 +92,7 @@ const UploadFabsFileValidation = (props) => {
     useEffect(() => {
         if (runRevalidate) {
             setRunRevalidate(false);
-            ReviewHelper.revalidateSubmission(params.submissionID, true)
+            ReviewHelper.revalidateSubmission(params.submissionID)
                 .then(() => {
                     checkFileStatus(params.submissionID);
                 })
