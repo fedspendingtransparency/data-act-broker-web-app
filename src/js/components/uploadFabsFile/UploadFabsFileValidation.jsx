@@ -3,6 +3,7 @@
  * Created by Minahm Kim
  */
 
+import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { useState, useEffect, useRef } from 'react';

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import Banner from 'components/SharedComponents/Banner';
@@ -28,65 +27,49 @@ const propTypes = {
     reverting: PropTypes.bool
 };
 
-const defaultProps = {
-    error: false,
-    errorMessage: '',
-    loading: true,
-    submissionInfo: {},
-    currentStep: 0,
-    reverting: false
-};
-
-export default class SubmissionPage extends React.Component {
-    render() {
-        const {
-            loading,
-            error,
-            errorMessage,
-            submissionID,
-            currentStep,
-            submissionInfo
-        } = this.props;
+const SubmissionPage = ({
+    error = false, errorMessage = '', loading = true, submissionInfo = {}, currentStep = 0, reverting = false, ...props
+}) => {
         let content;
         switch (currentStep) {
             case 1:
                 content = (
                     <ValidateDataContainer
-                        submissionID={submissionID}
-                        errorFromStep={this.props.errorFromStep} />
+                        submissionID={props.submissionID}
+                        errorFromStep={props.errorFromStep} />
                 );
                 break;
             case 2:
                 content = (
                     <GenerateFilesContainer
-                        submissionID={submissionID}
-                        errorFromStep={this.props.errorFromStep} />
+                        submissionID={props.submissionID}
+                        errorFromStep={props.errorFromStep} />
                 );
                 break;
             case 3:
                 content = (
                     <CrossFileContentContainer
-                        submissionID={submissionID}
-                        errorFromStep={this.props.errorFromStep}
+                        submissionID={props.submissionID}
+                        errorFromStep={props.errorFromStep}
                         publishStatus={submissionInfo.publish_status} />
                 );
                 break;
             case 4:
-                content = <GenerateEFContainer submissionID={submissionID} errorFromStep={this.props.errorFromStep} />;
+                content = <GenerateEFContainer submissionID={props.submissionID} errorFromStep={props.errorFromStep} />;
                 break;
             case 5:
                 content = (<ReviewDataContainer
-                    submissionID={submissionID}
-                    errorFromStep={this.props.errorFromStep}
+                    submissionID={props.submissionID}
+                    errorFromStep={props.errorFromStep}
                     testSubmission={submissionInfo.test_submission} />);
                 break;
             default:
                 content = null;
         }
         const subStatusBanner = (<SubmissionWarningBanner
-            submissionInfo={this.props.submissionInfo}
-            revertSubmission={this.props.revertSubmission}
-            reverting={this.props.reverting} />);
+            submissionInfo={submissionInfo}
+            revertSubmission={props.revertSubmission}
+            reverting={reverting} />);
         return (
             <div className="usa-da-submission-page">
                 <Navbar activeTab="submissionGuide" type="dabs" />
@@ -98,7 +81,7 @@ export default class SubmissionPage extends React.Component {
                             <div className="row">
                                 <Progress
                                     currentStep={currentStep}
-                                    id={submissionID} />
+                                    id={props.submissionID} />
                             </div>
                         </div>
                     </div>
@@ -109,8 +92,8 @@ export default class SubmissionPage extends React.Component {
                 </main>
             </div>
         );
-    }
-}
+};
 
 SubmissionPage.propTypes = propTypes;
-SubmissionPage.defaultProps = defaultProps;
+
+export default SubmissionPage;
