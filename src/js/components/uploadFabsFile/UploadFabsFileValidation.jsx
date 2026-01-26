@@ -37,14 +37,9 @@ const propTypes = {
     submission: PropTypes.object
 };
 
-const defaultProps = {
-    setSubmissionState: () => {},
-    item: {},
-    session: {},
-    submission: {}
-};
-
-const UploadFabsFileValidation = (props) => {
+const UploadFabsFileValidation = ({
+    setSubmissionState = () => {}, item = {}, session = {}, submission = {}, ...props
+}) => {
     const timerDuration = 5;
     const [agency, setAgency] = useState('');
     const [jobResults, setJobResults] = useState({ fabs: {} });
@@ -111,9 +106,9 @@ const UploadFabsFileValidation = (props) => {
     useEffect(() => {
         if (runPublish) {
             setRunPublish(false);
-            UploadHelper.submitFabs({ submission_id: props.submission.id })
+            UploadHelper.submitFabs({ submission_id: submission.id })
                 .then(() => {
-                    checkFile(props.submission.id);
+                    checkFile(submission.id);
                 })
                 .catch((error) => {
                     if (error.status === 500) {
@@ -136,14 +131,14 @@ const UploadFabsFileValidation = (props) => {
 
     useEffect(() => {
         if (signInProgress) {
-            GenerateFilesHelper.getFabsMeta(props.submission.id)
+            GenerateFilesHelper.getFabsMeta(submission.id)
                 .then((result) => {
                     setSignedUrl(result.data.published_file);
                     setSignInProgress(false);
                 })
                 .catch(() => {
                     setError(1);
-                    setErrorMessage(`Invalid File Type Selected ${props.item.file_type}`);
+                    setErrorMessage(`Invalid File Type Selected ${item.file_type}`);
                     setSignInProgress(false);
                 });
         }
@@ -277,17 +272,17 @@ const UploadFabsFileValidation = (props) => {
     // 1: Submission is already published
     // 2: Fetching file metadata failed
     // 3: File already has been submitted in another submission
-    const uploadFile = (item) => {
+    const uploadFile = (fileItem) => {
         if (isUnmounted) {
             return;
         }
 
         // upload specified file
-        props.setSubmissionState('uploading');
-        const submission = props.submission;
-        submission.meta.testSubmission = '';
-        submission.files.fabs = {};
-        submission.files.fabs.file = item;
+        setSubmissionState('uploading');
+        const tmpSubmission = submission;
+        tmpSubmission.meta.testSubmission = '';
+        tmpSubmission.files.fabs = {};
+        tmpSubmission.files.fabs.file = fileItem;
 
         // reset file and job status
         const currentResults = jobResults;
@@ -296,16 +291,16 @@ const UploadFabsFileValidation = (props) => {
         setJobResults(currentResults);
         setProgressMeta({ progress: 0, name: '' });
 
-        UploadHelper.performFabsFileCorrectedUpload(submission)
+        UploadHelper.performFabsFileCorrectedUpload(tmpSubmission)
             .then((res) => {
-                props.setSubmissionState('prepare');
+                setSubmissionState('prepare');
                 setValidationFinished(false);
                 setTimeout(() => {
                     checkFileStatus(res.data.submission_id);
                 }, 2000);
             })
             .catch((err) => {
-                props.setSubmissionState('failed');
+                setSubmissionState('failed');
                 setValidationFinished(false);
                 setError(4);
                 setErrorMessage(err.response.data === undefined ? err.message : err.response.data.message);
@@ -476,7 +471,7 @@ const UploadFabsFileValidation = (props) => {
                 );
             }
         }
-        else if (PermissionsHelper.checkFabsPublishPermissions(props.session)) {
+        else if (PermissionsHelper.checkFabsPublishPermissions(session)) {
             const disabled = status !== "finished";
             const disabledClass = disabled ? ' us-da-disabled-button' : '';
             // User has permissions to publish this unpublished submission
@@ -578,7 +573,6 @@ const UploadFabsFileValidation = (props) => {
 };
 
 UploadFabsFileValidation.propTypes = propTypes;
-UploadFabsFileValidation.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ session: state.session }),
