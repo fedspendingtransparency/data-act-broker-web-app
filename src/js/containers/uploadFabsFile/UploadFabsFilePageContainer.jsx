@@ -3,7 +3,6 @@
 * Created by Mike Hess
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -19,13 +18,11 @@ const propTypes = {
     submission: PropTypes.object
 };
 
-class UploadFabsFilePageContainer extends React.Component {
-    render() {
-        return (
-            <UploadFabsFilePage {...this.props} />
-        );
-    }
-}
+const UploadFabsFilePageContainer = (props) => {
+    return (
+        <UploadFabsFilePage {...props} />
+    );
+};
 
 UploadFabsFilePageContainer.propTypes = propTypes;
 
