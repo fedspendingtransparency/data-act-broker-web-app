@@ -15,10 +15,6 @@ const propTypes = {
     submissionID: PropTypes.string.isRequired
 };
 
-const defaultProps = {
-    label: 'Next'
-};
-
 const NextButton = ({
     disabled, nextButtonClass, step, label='Next', submissionID
 }) => (
@@ -38,6 +34,5 @@ const NextButton = ({
 );
 
 NextButton.propTypes = propTypes;
-NextButton.defaultProps = defaultProps;
 
 export default NextButton;
