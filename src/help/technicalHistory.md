@@ -1,4 +1,10 @@
-#### December 18, 2025{section=technical}
+#### January 13, 2026{section=technical}
+
+In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
+
+* No additional technical release notes.
+
+#### December 18, 2025
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
