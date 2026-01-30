@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { kGlobalConstants } from '../../GlobalConstants';
 
 const propTypes = {
     type: PropTypes.string
@@ -16,6 +17,7 @@ const defaultProps = {
 
 export default class ResourcesContent extends React.Component {
     render() {
+        const fileLoc = kGlobalConstants.PROD ? 'files' : 'files-nonprod';
         return (
             <div className="usa-da-help-content">
                 <div className="resources-page">
@@ -76,6 +78,17 @@ export default class ResourcesContent extends React.Component {
                             understand the submission process to the Data Broker. This includes corrections and
                             deletions, validation rule source data, user management, technical procedures for formatting
                             submission files, etc.
+                        </li>
+                        <li>
+                            <a
+                                href={`https://${fileLoc}.usaspending.gov/reference_data/` +
+                                    `GSDM Warning and Errors Report Specification v1.2.xlsx`}
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                Warning & Error Report Specification (WERS)
+                            </a>
+                            &nbsp;captures the structure used in the Warning and Error Reports from the Data Broker and
+                            provides description and example values for the header columns.
                         </li>
                     </ul>
                 </div>

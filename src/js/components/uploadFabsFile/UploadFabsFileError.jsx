@@ -2,8 +2,8 @@
 * UploadFabsFileError.jsx
 * Created by Minahm Kim
 */
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
@@ -13,44 +13,31 @@ const propTypes = {
     errorCode: PropTypes.number
 };
 
-const defaultProps = {
-    error: {},
-    message: '',
-    type: '',
-    errorCode: 0
-};
+const UploadFabsFileError = ({error = {}, message = '', type = '', errorCode = 0}) => {
+    const [currentHeader, setCurrentHeader] = useState('');
+    const [currentMessage, setCurrentMessage] = useState('');
 
-export default class UploadFabsFileError extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        loadContent();
+    }, []);
 
-        this.state = {
-            header: '',
-            message: ''
-        };
-    }
-
-    componentDidMount() {
-        this.loadContent();
-    }
-
-    loadContent() {
+    const loadContent = () => {
         let header = '';
-        let message = '';
+        let tmpMessage = '';
 
-        if (this.props.type === 'success') {
+        if (type === 'success') {
             header = 'Your submission has been successfully published';
         }
-        else if (this.props.error.header || this.props.error.description) {
-            header = this.props.error.header;
-            message = this.props.error.description;
+        else if (error.header || error.description) {
+            header = error.header;
+            tmpMessage = error.description;
         }
-        else if (this.props.message) {
+        else if (message) {
             header = 'Upload Error';
-            message = this.props.message;
+            tmpMessage = message;
         }
         else {
-            switch (this.props.errorCode) {
+            switch (errorCode) {
                 case 1:
                     header = 'This submission has already been published';
                     break;
@@ -66,33 +53,29 @@ export default class UploadFabsFileError extends React.Component {
             }
         }
 
-        this.setState({
-            header,
-            message
-        });
+        setCurrentHeader(header);
+        setCurrentMessage(tmpMessage);
+    };
+
+    let icon = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
+    let className = 'error';
+
+    if (type === 'success') {
+        icon = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
+        className = 'success';
     }
 
-    render() {
-        let icon = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
-        let className = 'error';
-
-        if (this.props.type === 'success') {
-            icon = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
-            className = 'success';
-        }
-
-        return (
-            <div className={`alert alert-${className} text-left`} role="alert">
-                <div className="usa-da-icon error-icon">
-                    {icon}
-                </div>
-                <div className="alert-text">
-                    <div className="alert-header-text">{this.state.header}</div>
-                    <p>{this.state.message}</p>
-                </div>
-            </div>);
-    }
-}
+    return (
+        <div className={`alert alert-${className} text-left`} role="alert">
+            <div className="usa-da-icon error-icon">
+                {icon}
+            </div>
+            <div className="alert-text">
+                <div className="alert-header-text">{currentHeader}</div>
+                <p>{currentMessage}</p>
+            </div>
+        </div>);
+};
 
 UploadFabsFileError.propTypes = propTypes;
-UploadFabsFileError.defaultProps = defaultProps;
+export default UploadFabsFileError;

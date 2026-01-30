@@ -12,21 +12,15 @@ const propTypes = {
     reporting_period: PropTypes.string
 };
 
-const defaultProps = {
-    last_updated: '',
-    agency_name: '',
-    reporting_period: ''
-};
-
-const SubmissionHeader = (props) => {
-    const formattedTime = moment.utc(props.last_updated).local().format('MM/DD/YYYY h:mm a');
-    const submissionContext = props.last_updated || props.agency_name || props.reporting_period ? (
+const SubmissionHeader = ({last_updated='', agency_name='', reporting_period=''}) => {
+    const formattedTime = moment.utc(last_updated).local().format('MM/DD/YYYY h:mm a');
+    const submissionContext = last_updated || agency_name || reporting_period ? (
         <div className="last-updated">
             Last Saved: {formattedTime}
             <br />
-            {props.agency_name}
+            {agency_name}
             <br />
-            Reporting Period (FY): {props.reporting_period}
+            Reporting Period (FY): {reporting_period}
         </div>
     ) : null;
 
@@ -49,5 +43,4 @@ const SubmissionHeader = (props) => {
 };
 
 SubmissionHeader.propTypes = propTypes;
-SubmissionHeader.defaultProps = defaultProps;
 export default SubmissionHeader;
