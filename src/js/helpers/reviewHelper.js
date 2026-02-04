@@ -293,13 +293,12 @@ export const deleteSubmission = (submissionId) => {
     return req.promise;
 };
 
-export const revalidateSubmission = (submissionId, isFabs = false) => {
+export const revalidateSubmission = (submissionId) => {
     const req = apiRequest({
         url: 'restart_validation/',
         method: 'post',
         data: {
-            'submission_id': submissionId,
-            'is_fabs': isFabs
+            'submission_id': submissionId
         }
     });
 
