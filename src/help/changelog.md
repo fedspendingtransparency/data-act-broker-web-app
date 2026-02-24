@@ -1,5 +1,4 @@
-#### February 2, 2026{section=changelog}
+#### February 24, 2026{section=changelog}
 In this release of the Broker, we:
 
-* Updated B28 to apply to File C in addition to File B. In addition to B28 for File B, we updated the exception logic to only apply for zero-dollar rows with PARKs 0 or 0000.
-* Added the GSDM Warning & Error Report Specification (WERS) to the Help Resources page to help parse the Warning and Error reports.
+* Added support for new assistance types (F001-F010). Note that the currently existing assistance types (02-11) will still be supported until FY27.
