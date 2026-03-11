@@ -1,4 +1,4 @@
-#### February 24, 2026{section=changelog}
+#### March 17, 2026{section=changelog}
 In this release of the Broker, we:
 
-* Added support for new assistance types (F001-F010). Note that the currently existing assistance types (02-11) will still be supported until FY27.
+* Updated GTAS Comparison Report to include 0000 and 9999 BOC values.
