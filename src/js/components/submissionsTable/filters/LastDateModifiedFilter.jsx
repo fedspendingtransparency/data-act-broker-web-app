@@ -3,7 +3,6 @@
  * Created by Kwadwo Opoku-Debrah 8/25/18
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import LastDateModifiedContainer from 'containers/submissionsTable/LastDateModifiedContainer';
@@ -15,25 +14,12 @@ const propTypes = {
     minDateLastModified: PropTypes.string
 };
 
-const defaultProps = {
-    updateFilterList: null,
-    type: '',
-    table: '',
-    minDateLastModified: ''
-};
-
-export default class LastDateModifiedFilter extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.lastDateModifiedSelect = this.lastDateModifiedSelect.bind(this);
-    }
-
-    lastDateModifiedSelect(lastDateModified) {
+const LastDateModifiedFilter = ({updateFilterList = null, type = '', table = '', minDateLastModified = ''}) => {
+    const lastDateModifiedSelect = (lastDateModified) => {
         if (lastDateModified) {
             const startDate = lastDateModified.startDate;
             const endDate = lastDateModified.endDate;
-            this.props.updateFilterList(
+            updateFilterList(
                 'lastDateModified',
                 {
                     startDate,
@@ -41,23 +27,21 @@ export default class LastDateModifiedFilter extends React.Component {
                 }
             );
         }
-    }
+    };
 
-    render() {
-        return (
-            <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
-                <div className="">
-                    <LastDateModifiedContainer
-                        type={this.props.type}
-                        table={this.props.table}
-                        placeholder="Last Date Modified"
-                        onSelect={this.lastDateModifiedSelect}
-                        minDateLastModified={this.props.minDateLastModified} />
-                </div>
+    return (
+        <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
+            <div className="">
+                <LastDateModifiedContainer
+                    type={type}
+                    table={table}
+                    placeholder="Last Date Modified"
+                    onSelect={lastDateModifiedSelect}
+                    minDateLastModified={minDateLastModified} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 LastDateModifiedFilter.propTypes = propTypes;
-LastDateModifiedFilter.defaultProps = defaultProps;
+export default LastDateModifiedFilter;

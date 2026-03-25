@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 8/10/18
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -24,69 +23,59 @@ const propTypes = {
     minDateLastModified: PropTypes.string
 };
 
-const defaultProps = {
-    toggleFilter: null,
-    stagedFilters: {},
-    appliedFilters: {},
-    table: '',
-    type: '',
-    minDateLastModified: ''
+const SubmissionsTableFilters = ({
+    toggleFilter = null,
+    stagedFilters = {},
+    appliedFilters = {},
+    table = '',
+    type = '',
+    minDateLastModified = ''
+}) => {
+    const updateFilterList = (filter, value) => {
+        toggleFilter(table, filter, value);
+    };
+
+    let submissionTypeFilter = null;
+    // test submissions only exist in the active tables so we only need that filter there
+    if (table === 'active') {
+        submissionTypeFilter = <SubmissionTypeFilter updateFilterList={updateFilterList} />;
+    }
+    return (
+        <div className="dashboard-filters">
+            <div className="dashboard-filters__label">
+                <span className="usa-da-icon filter-icon">
+                    <FontAwesomeIcon icon="filter" />
+                </span>
+                Filter by:
+            </div>
+            <AgencyFilter
+                type={type}
+                table={table}
+                updateFilterList={updateFilterList} />
+            <FileNameFilter
+                table={table}
+                updateFilterList={updateFilterList} />
+            <SubmissionIdFilter
+                table={table}
+                updateFilterList={updateFilterList} />
+            {submissionTypeFilter}
+            <CreatedByFilter
+                type={type}
+                table={table}
+                updateFilterList={updateFilterList} />
+            <LastDateModifiedFilter
+                type={type}
+                table={table}
+                updateFilterList={updateFilterList}
+                minDateLastModified={minDateLastModified} />
+            <FilterSubmitContainer
+                stagedFilters={stagedFilters}
+                appliedFilters={appliedFilters}
+                type={type}
+                table={table} />
+        </div>
+    );
 };
 
-export default class SubmissionsTableFilters extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.updateFilterList = this.updateFilterList.bind(this);
-    }
-
-    updateFilterList(filter, value) {
-        this.props.toggleFilter(this.props.table, filter, value);
-    }
-
-    render() {
-        let submissionTypeFilter = null;
-        // test submissions only exist in the active tables so we only need that filter there
-        if (this.props.table === 'active') {
-            submissionTypeFilter = <SubmissionTypeFilter updateFilterList={this.updateFilterList} />;
-        }
-        return (
-            <div className="dashboard-filters">
-                <div className="dashboard-filters__label">
-                    <span className="usa-da-icon filter-icon">
-                        <FontAwesomeIcon icon="filter" />
-                    </span>
-                    Filter by:
-                </div>
-                <AgencyFilter
-                    type={this.props.type}
-                    table={this.props.table}
-                    updateFilterList={this.updateFilterList} />
-                <FileNameFilter
-                    table={this.props.table}
-                    updateFilterList={this.updateFilterList} />
-                <SubmissionIdFilter
-                    table={this.props.table}
-                    updateFilterList={this.updateFilterList} />
-                {submissionTypeFilter}
-                <CreatedByFilter
-                    type={this.props.type}
-                    table={this.props.table}
-                    updateFilterList={this.updateFilterList} />
-                <LastDateModifiedFilter
-                    type={this.props.type}
-                    table={this.props.table}
-                    updateFilterList={this.updateFilterList}
-                    minDateLastModified={this.props.minDateLastModified} />
-                <FilterSubmitContainer
-                    stagedFilters={this.props.stagedFilters}
-                    appliedFilters={this.props.appliedFilters}
-                    type={this.props.type}
-                    table={this.props.table} />
-            </div>
-        );
-    }
-}
-
 SubmissionsTableFilters.propTypes = propTypes;
-SubmissionsTableFilters.defaultProps = defaultProps;
+export default SubmissionsTableFilters;
