@@ -3,7 +3,6 @@
   * Created by Kevin Li 10/21/16
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import SubmissionsTableContainer from 'containers/submissionsTable/SubmissionsTableContainer';
 import Navbar from 'components/SharedComponents/navigation/NavigationComponent';
@@ -14,16 +13,15 @@ const propTypes = {
     type: PropTypes.oneOf(['dabs', 'fabs'])
 };
 
-export default class SubmissionsTablePage extends React.Component {
-    render() {
-        const isFabs = this.props.type === 'fabs';
+const SubmissionsTablePage = (props) => {
+        const isFabs = props.type === 'fabs';
         const color = isFabs ? 'teal' : 'dark';
         const header = isFabs ? 'FABS Submission Table' : 'DABS Submission Table';
         const activeTab = isFabs ? 'FABSsubmissionTable' : 'submissionTable';
         return (
             <div>
                 <div className="usa-da-site_wrap usa-da-submissions-table-page">
-                    <Navbar activeTab={activeTab} type={this.props.type} />
+                    <Navbar activeTab={activeTab} type={props.type} />
                     <div className={`usa-da-content-${color}`}>
                         <div className="container">
                             <div className="row usa-da-page-title">
@@ -35,13 +33,13 @@ export default class SubmissionsTablePage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <Banner type={this.props.type} />
-                    <SubmissionsTableContainer type={this.props.type} />
+                    <Banner type={props.type} />
+                    <SubmissionsTableContainer type={props.type} />
                 </div>
                 <Footer />
             </div>
         );
-    }
 }
 
-SubmissionsTablePage.propTypes = propTypes;
+SubmissionsTablePage.propTypes = propTypes
+export default SubmissionsTablePage;
