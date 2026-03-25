@@ -22,7 +22,7 @@ const HistoryLink = (props) => {
             </Link>
         </div>
     );
-}
+};
 
-HistoryLink.propTypes = propTypes
+HistoryLink.propTypes = propTypes;
 export default HistoryLink;

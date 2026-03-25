@@ -15,7 +15,7 @@ const SubmissionTypeContainer = ({updateFilterList = () => {}}) => {
     return (
         <SubmissionTypeFilterDropdown onSelect={updateFilterList} />
     );
-}
+};
 
 SubmissionTypeContainer.propTypes = propTypes;
 export default SubmissionTypeContainer;

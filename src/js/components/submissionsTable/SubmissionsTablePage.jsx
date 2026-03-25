@@ -14,32 +14,32 @@ const propTypes = {
 };
 
 const SubmissionsTablePage = (props) => {
-        const isFabs = props.type === 'fabs';
-        const color = isFabs ? 'teal' : 'dark';
-        const header = isFabs ? 'FABS Submission Table' : 'DABS Submission Table';
-        const activeTab = isFabs ? 'FABSsubmissionTable' : 'submissionTable';
-        return (
-            <div>
-                <div className="usa-da-site_wrap usa-da-submissions-table-page">
-                    <Navbar activeTab={activeTab} type={props.type} />
-                    <div className={`usa-da-content-${color}`}>
-                        <div className="container">
-                            <div className="row usa-da-page-title">
-                                <div className="col-md-12 mt-40 mb-20">
-                                    <div className="display-2" data-contentstart="start" tabIndex={-1}>
-                                        {header}
-                                    </div>
+    const isFabs = props.type === 'fabs';
+    const color = isFabs ? 'teal' : 'dark';
+    const header = isFabs ? 'FABS Submission Table' : 'DABS Submission Table';
+    const activeTab = isFabs ? 'FABSsubmissionTable' : 'submissionTable';
+    return (
+        <div>
+            <div className="usa-da-site_wrap usa-da-submissions-table-page">
+                <Navbar activeTab={activeTab} type={props.type} />
+                <div className={`usa-da-content-${color}`}>
+                    <div className="container">
+                        <div className="row usa-da-page-title">
+                            <div className="col-md-12 mt-40 mb-20">
+                                <div className="display-2" data-contentstart="start" tabIndex={-1}>
+                                    {header}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <Banner type={props.type} />
-                    <SubmissionsTableContainer type={props.type} />
                 </div>
-                <Footer />
+                <Banner type={props.type} />
+                <SubmissionsTableContainer type={props.type} />
             </div>
-        );
-}
+            <Footer />
+        </div>
+    );
+};
 
-SubmissionsTablePage.propTypes = propTypes
+SubmissionsTablePage.propTypes = propTypes;
 export default SubmissionsTablePage;
