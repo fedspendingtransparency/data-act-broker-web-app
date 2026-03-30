@@ -3,7 +3,6 @@
  * Created by Kwadwo Opoku-Debrah 9/30/18
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -25,35 +24,30 @@ const propTypes = {
     minDateLastModified: PropTypes.string
 };
 
-const defaultProps = {
-    setLastDateModifiedList: () => {},
-    lastDateModifiedList: {},
-    detached: true,
-    selectedFilters: [],
-    table: '',
-    type: '',
-    placeholder: '',
-    onSelect: () => {},
-    minDateLastModified: ''
+const LastDateModifiedContainer = ({
+    setLastDateModifiedList = '',
+    lastDateModifiedList = {},
+    detached = true,
+    selectedFilters = [],
+    table = '',
+    type = '',
+    placeholder = '',
+    onSelect = () => {},
+    minDateLastModified = ''
+}) => {
+    // Safari Does not accept our date returned
+    const minDate = moment(minDateLastModified, 'YYYY-MM-DDTHH:mm:ss.SSSSSS').toDate();
+    const finalPayload = {
+        minDate,
+        maxDate: new Date()
+    };
+
+    return (
+        <CalendarDateRangePicker minmaxDates={finalPayload} onSelect={onSelect} />
+    );
 };
 
-class LastDateModifiedContainer extends React.Component {
-    render() {
-        // Safari Does not accept our date returned
-        const minDate = moment(this.props.minDateLastModified, 'YYYY-MM-DDTHH:mm:ss.SSSSSS').toDate();
-        const finalPayload = {
-            minDate,
-            maxDate: new Date()
-        };
-
-        return (
-            <CalendarDateRangePicker minmaxDates={finalPayload} {...this.props} />
-        );
-    }
-}
-
 LastDateModifiedContainer.propTypes = propTypes;
-LastDateModifiedContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

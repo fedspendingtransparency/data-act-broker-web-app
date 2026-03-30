@@ -3,8 +3,8 @@
   * Created by Kevin Li 10/21/16
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -30,137 +30,151 @@ const propTypes = {
     resetAppliedFilters: PropTypes.func
 };
 
-const defaultProps = {
-    type: 'dabs',
-    toggleDashboardFilter: null,
-    updateDashboardObjectFilter: null,
-    updateDashboardStringFilter: null,
-    stagedFilters: {},
-    appliedFilters: {},
-    resetDashboardFilters: null,
-    resetAppliedFilters: null
-};
+const SubmissionsTableContainer = ({
+    type = 'dabs',
+    toggleDashboardFilter = null,
+    updateDashboardObjectFilter = null,
+    updateDashboardStringFilter = null,
+    stagedFilters = {},
+    appliedFilters = {},
+    resetDashboardFilters = null,
+    resetAppliedFilters = null,
+    ...props
+}) => {
+    const [activeLoading, setActiveLoading] = useState(true);
+    const [publishedLoading, setPublishedLoading] = useState(true);
+    const [activeError, setActiveError] = useState('');
+    const [publishedError, setPublishedError] = useState('');
+    const [activeTotal, setActiveTotal] = useState(0);
+    const [publishedTotal, setPublishedTotal] = useState(0);
+    const [activeSubmissions, setActiveSubmissions] = useState([]);
+    const [publishedSubmissions, setPublishedSubmissions] = useState([]);
+    const [activeMinDateLastModified, setActiveMinDateLastModified] = useState('');
+    const [publishedMinDateLastModified, setPublishedMinDateLastModified] = useState('');
 
-export class SubmissionsTableContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-
-        this.state = {
-            activeLoading: true,
-            publishedLoading: true,
-            activeError: '',
-            publishedError: '',
-            activeTotal: 0,
-            publishedTotal: 0,
-            activeSubmissions: [],
-            publishedSubmissions: [],
-            activeMinDateLastModified: '',
-            publishedMinDateLastModified: ''
+    useEffect(() => {
+        return () => {
+            resetDashboardFilters({
+                dashboard: type
+            });
+            resetAppliedFilters({
+                dashboard: type
+            });
         };
+    }, []);
 
-        this.loadTableData = this.loadTableData.bind(this);
-    }
+    useEffect(() => {
+        loadTableData();
+    }, [type]);
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.type !== this.props.type) {
-            this.loadTableData();
-        }
-    }
-
-    componentWillUnmount() {
-        this.props.resetDashboardFilters({
-            dashboard: this.props.type
-        });
-        this.props.resetAppliedFilters({
-            dashboard: this.props.type
-        });
-    }
-
-    loadTableData(page = 1, published = false, category = 'modified', order = 'desc', appliedFilters) {
+    const loadTableData = (page = 1, published = false, category = 'modified', order = 'desc', currAppliedFilters) => {
     /**
         Sortable fields: Valid values for category
         'modified','reporting_start','status','agency','submitted_by'
         */
-        let tableName = 'active';
-        if (published) {
-            tableName = 'published';
-        }
-
         // Generate the filter params
         const filters = {};
 
-        if (appliedFilters) {
-            if (appliedFilters.submissionIds && appliedFilters.submissionIds.length > 0) {
-                filters.submission_ids = appliedFilters.submissionIds;
+        if (currAppliedFilters) {
+            if (currAppliedFilters.submissionIds && currAppliedFilters.submissionIds.length > 0) {
+                filters.submission_ids = currAppliedFilters.submissionIds;
             }
-            if (appliedFilters.fileNames && appliedFilters.fileNames.length > 0) {
-                filters.file_names = appliedFilters.fileNames;
+            if (currAppliedFilters.fileNames && currAppliedFilters.fileNames.length > 0) {
+                filters.file_names = currAppliedFilters.fileNames;
             }
-            if (appliedFilters.agencies && appliedFilters.agencies.length > 0) {
-                filters.agency_codes = appliedFilters.agencies.map((agency) => agency.code);
-            }
-
-            if (appliedFilters.createdBy && appliedFilters.createdBy.length > 0) {
-                filters.user_ids = appliedFilters.createdBy.map((createdByNames) => createdByNames.userId);
+            if (currAppliedFilters.agencies && currAppliedFilters.agencies.length > 0) {
+                filters.agency_codes = currAppliedFilters.agencies.map((agency) => agency.code);
             }
 
-            if (appliedFilters.lastDateModified && appliedFilters.lastDateModified.endDate) {
+            if (currAppliedFilters.createdBy && currAppliedFilters.createdBy.length > 0) {
+                filters.user_ids = currAppliedFilters.createdBy.map((createdByNames) => createdByNames.userId);
+            }
+
+            if (currAppliedFilters.lastDateModified && currAppliedFilters.lastDateModified.endDate) {
                 filters.last_modified_range = {
-                    start_date: appliedFilters.lastDateModified.startDate,
-                    end_date: appliedFilters.lastDateModified.endDate
+                    start_date: currAppliedFilters.lastDateModified.startDate,
+                    end_date: currAppliedFilters.lastDateModified.endDate
                 };
             }
 
-            if (appliedFilters.submissionType && appliedFilters.submissionType !== '') {
-                filters.submission_type = appliedFilters.submissionType;
+            if (currAppliedFilters.submissionType && currAppliedFilters.submissionType !== '') {
+                filters.submission_type = currAppliedFilters.submissionType;
             }
         }
 
-        this.setState({
-            [`${tableName}Loading`]: true,
-            [`${tableName}Error`]: '',
-            [`${tableName}Submissions`]: []
-        });
+        if (published) {
+            setPublishedLoading(true);
+            setPublishedError('');
+            setPublishedSubmissions([]);
+        }
+        else {
+            setActiveLoading(true);
+            setActiveError('');
+            setActiveSubmissions([]);
+        }
 
-        SubmissionListHelper.loadSubmissionList(page, 10, published, category, order,
-            this.props.type === 'fabs', filters)
+        SubmissionListHelper.loadSubmissionList(page, 10, published, category, order, type === 'fabs', filters)
             .then((res) => {
                 const data = {
                     submissions: SubmissionListHelper.parseRecentActivity(res.data.submissions),
                     total: res.data.total,
                     min_last_modified: res.data.min_last_modified
                 };
-                this.setState({
-                    [`${tableName}Total`]: data.total,
-                    [`${tableName}Submissions`]: data.submissions,
-                    [`${tableName}Loading`]: false,
-                    [`${tableName}MinDateLastModified`]: data.min_last_modified
-                });
+                if (published) {
+                    setPublishedTotal(data.total);
+                    setPublishedSubmissions(data.submissions);
+                    setPublishedLoading(false);
+                    setPublishedMinDateLastModified(data.min_last_modified);
+                }
+                else {
+                    setActiveTotal(data.total);
+                    setActiveSubmissions(data.submissions);
+                    setActiveLoading(false);
+                    setActiveMinDateLastModified(data.min_last_modified);
+                }
             })
             .catch((error) => {
-                this.setState({
-                    [`${tableName}Total`]: 0,
-                    [`${tableName}Submissions`]: [],
-                    [`${tableName}Loading`]: false,
-                    [`${tableName}Error`]: error.message,
-                    [`${tableName}MinDateLastModified`]: ''
-                });
+                if (published) {
+                    setPublishedTotal(0);
+                    setPublishedSubmissions([]);
+                    setPublishedLoading(false);
+                    setPublishedMinDateLastModified('');
+                    setPublishedError(error.message);
+                }
+                else {
+                    setActiveTotal(0);
+                    setActiveSubmissions([]);
+                    setActiveLoading(false);
+                    setActiveMinDateLastModified('');
+                    setActiveError(error.message);
+                }
             });
-    }
+    };
 
-    render() {
-        return (
-            <SubmissionsTableContent
-                {...this.state}
-                {...this.props}
-                loadTableData={this.loadTableData} />
-        );
-    }
-}
+    return (
+        <SubmissionsTableContent
+            loadTableData={loadTableData}
+            activeSubmissions={activeSubmissions}
+            publishedSubmissions={publishedSubmissions}
+            type={type}
+            activeTotal={activeTotal}
+            publishedTotal={publishedTotal}
+            activeLoading={activeLoading}
+            publishedLoading={publishedLoading}
+            activeError={activeError}
+            publishedError={publishedError}
+            toggleDashboardFilter={toggleDashboardFilter}
+            updateDashboardObjectFilter={updateDashboardObjectFilter}
+            updateDashboardStringFilter={updateDashboardStringFilter}
+            activeMinDateLastModified={activeMinDateLastModified}
+            publishedMinDateLastModified={publishedMinDateLastModified}
+            stagedFilters={stagedFilters}
+            appliedFilters={appliedFilters}
+            {...props} />
+    );
+};
 
 SubmissionsTableContainer.propTypes = propTypes;
-SubmissionsTableContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
