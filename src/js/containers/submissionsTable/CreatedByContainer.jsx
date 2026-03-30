@@ -19,7 +19,6 @@ import DropdownTypeahead from '../../components/SharedComponents/DropdownTypeahe
 const propTypes = {
     setCreatedByList: PropTypes.func,
     createdByList: PropTypes.object,
-    detached: PropTypes.bool,
     selectedFilters: PropTypes.object,
     type: PropTypes.string,
     table: PropTypes.string,
@@ -30,7 +29,6 @@ const propTypes = {
 const CreatedByContainer = ({
     setCreatedByList = () => {},
     createdByList = {},
-    detached = true,
     selectedFilters = [],
     table = '',
     type = '',
@@ -68,7 +66,7 @@ const CreatedByContainer = ({
             errorHeader="Unknown Name"
             duplicateHeader="Duplicate Name"
             errorDescription="You must select an name from the list that is provided as you type."
-            placehodler={placeholder}
+            placeholder={placeholder}
             values={finalValues}
             keyValue="name"
             internalValue={['user_id']}

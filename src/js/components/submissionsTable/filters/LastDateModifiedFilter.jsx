@@ -9,12 +9,10 @@ import LastDateModifiedContainer from 'containers/submissionsTable/LastDateModif
 
 const propTypes = {
     updateFilterList: PropTypes.func,
-    type: PropTypes.string,
-    table: PropTypes.string,
     minDateLastModified: PropTypes.string
 };
 
-const LastDateModifiedFilter = ({updateFilterList = null, type = '', table = '', minDateLastModified = ''}) => {
+const LastDateModifiedFilter = ({updateFilterList = null, minDateLastModified = ''}) => {
     const lastDateModifiedSelect = (lastDateModified) => {
         if (lastDateModified) {
             const startDate = lastDateModified.startDate;
@@ -33,9 +31,6 @@ const LastDateModifiedFilter = ({updateFilterList = null, type = '', table = '',
         <div className="dashboard-filters__filter dashboard-filters__filter_typeahead">
             <div className="">
                 <LastDateModifiedContainer
-                    type={type}
-                    table={table}
-                    placeholder="Last Date Modified"
                     onSelect={lastDateModifiedSelect}
                     minDateLastModified={minDateLastModified} />
             </div>

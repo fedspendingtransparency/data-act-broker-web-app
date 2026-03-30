@@ -64,8 +64,6 @@ const SubmissionsTableFilters = ({
                 table={table}
                 updateFilterList={updateFilterList} />
             <LastDateModifiedFilter
-                type={type}
-                table={table}
                 updateFilterList={updateFilterList}
                 minDateLastModified={minDateLastModified} />
             <FilterSubmitContainer
