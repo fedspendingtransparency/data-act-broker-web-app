@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 8/14/18
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import TagItem from './TagItem';
 
@@ -17,66 +16,56 @@ const propTypes = {
     applied: PropTypes.bool
 };
 
-const defaultProps = {
-    filters: [],
-    toggleDashboardFilter: null,
-    updateDashboardObjectFilter: null,
-    updateDashboardStringFilter: null,
-    type: '',
-    table: '',
-    applied: false
-};
-
-export default class FilterBar extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.toggleFilter = this.toggleFilter.bind(this);
-    }
-
-    toggleFilter(filter, value) {
+const FilterBar = ({
+    filters = [],
+    toggleDashboardFilter = null,
+    updateDashboardObjectFilter = null,
+    updateDashboardStringFilter = null,
+    type = '',
+    table = '',
+    applied = false
+}) => {
+    const toggleFilter = (filter, value) => {
         if (filter === 'lastDateModified') {
-            this.props.updateDashboardObjectFilter({
-                dashboard: this.props.type,
-                table: this.props.table,
+            updateDashboardObjectFilter({
+                dashboard: type,
+                table: table,
                 filter,
                 value
             });
         }
         else if (filter === 'submissionType') {
-            this.props.updateDashboardStringFilter({
-                dashboard: this.props.type,
-                table: this.props.table,
+            updateDashboardStringFilter({
+                dashboard: type,
+                table: table,
                 filter,
                 value
             });
         }
         else {
-            this.props.toggleDashboardFilter({
-                dashboard: this.props.type,
-                table: this.props.table,
+            toggleDashboardFilter({
+                dashboard: type,
+                table: table,
                 filter,
                 value
             });
         }
-    }
+    };
 
-    render() {
-        const tags = this.props.filters.map((filter) => (
-            <TagItem
-                key={filter.name}
-                {...filter}
-                applied={this.props.applied}
-                toggleFilter={this.toggleFilter} />
-        ));
+    const tags = filters.map((filter) => (
+        <TagItem
+            key={filter.name}
+            {...filter}
+            applied={applied}
+            toggleFilter={toggleFilter} />
+    ));
 
-        return (
-            <div className="filter-bar">
-                {tags}
-            </div>
-        );
-    }
-}
+    return (
+        <div className="filter-bar">
+            {tags}
+        </div>
+    );
+};
 
 FilterBar.propTypes = propTypes;
-FilterBar.defaultProps = defaultProps;
+export default FilterBar;

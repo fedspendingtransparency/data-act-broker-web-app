@@ -3,74 +3,57 @@
  * Created by Lizzie Salita 8/22/18
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 const propTypes = {
     updateFilterList: PropTypes.func,
     table: PropTypes.oneOf(['active', 'published'])
 };
 
-const defaultProps = {
-    updateFilterList: null
-};
+const FileNameFilter = ({updateFilterList = null, ...props}) => {
+    const [value, setValue] = useState('');
 
-export default class FileNameFilter extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ''
-        };
-        this.changedInput = this.changedInput.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    const changedInput = (e) => {
+        setValue(e.target.value);
+    };
 
-    changedInput(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (this.state.value) {
+        if (value) {
             // prevent submitting an empty string
-            this.props.updateFilterList('fileNames', this.state.value);
+            updateFilterList('fileNames', value);
         }
 
         // clear the value
-        this.setState({
-            value: ''
-        });
-    }
+        setValue('');
+    };
 
-    render() {
-        return (
-            <div className="dashboard-filters__filter">
-                <form
-                    className="text-filter"
-                    onSubmit={this.handleSubmit}>
-                    <input
-                        id={`${this.props.table}-file-name`}
-                        type="text"
-                        className="text-filter__input"
-                        placeholder="File Name"
-                        value={this.state.value}
-                        onChange={this.changedInput} />
-                    <button
-                        className="text-filter__button"
-                        onClick={this.handleSubmit}
-                        disabled={!this.state.value}
-                        title="Add"
-                        aria-label="Filter by File Name">
-                        Add
-                    </button>
-                </form>
-            </div>
-        );
-    }
-}
+    return (
+        <div className="dashboard-filters__filter">
+            <form
+                className="text-filter"
+                onSubmit={handleSubmit}>
+                <input
+                    id={`${props.table}-file-name`}
+                    type="text"
+                    className="text-filter__input"
+                    placeholder="File Name"
+                    value={value}
+                    onChange={changedInput} />
+                <button
+                    className="text-filter__button"
+                    onClick={handleSubmit}
+                    disabled={!value}
+                    title="Add"
+                    aria-label="Filter by File Name">
+                    Add
+                </button>
+            </form>
+        </div>
+    );
+};
 
 FileNameFilter.propTypes = propTypes;
-FileNameFilter.defaultProps = defaultProps;
+export default FileNameFilter;

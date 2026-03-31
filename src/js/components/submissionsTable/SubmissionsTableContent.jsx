@@ -3,8 +3,8 @@
   * Created by Kevin Li 10/27/16
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import FilterBarContainer from 'containers/submissionsTable/FilterBarContainer';
 import SubmissionsTable from './SubmissionsTable';
 import SubmissionsTableFilters from './SubmissionsTableFilters';
@@ -31,186 +31,159 @@ const propTypes = {
     appliedFilters: PropTypes.object
 };
 
-const defaultProps = {
-    loadTableData: null,
-    session: null,
-    activeSubmissions: [],
-    publishedSubmissions: [],
-    type: '',
-    activeTotal: 0,
-    publishedTotal: 0,
-    activeLoading: false,
-    publishedLoading: false,
-    activeError: '',
-    publishedError: '',
-    toggleDashboardFilter: null,
-    updateDashboardObjectFilter: null,
-    updateDashboardStringFilter: null,
-    activeMinDateLastModified: '',
-    publishedMinDateLastModified: '',
-    stagedFilters: {},
-    appliedFilters: {}
-};
+const SubmissionsTableContent = ({
+    loadTableData = null,
+    session = null,
+    activeSubmissions = [],
+    publishedSubmissions = [],
+    type = '',
+    activeTotal = 0,
+    publishedTotal = 0,
+    activeLoading = false,
+    publishedLoading = false,
+    activeError = '',
+    publishedError = '',
+    toggleDashboardFilter = null,
+    updateDashboardObjectFilter = null,
+    updateDashboardStringFilter = null,
+    activeMinDateLastModified = '',
+    publishedMinDateLastModified = '',
+    stagedFilters = {},
+    appliedFilters = {}
+}) => {
+    const [filterCounts, setFilterCounts] = useState({
+        dabs: {
+            active: 0,
+            published: 0
+        },
+        fabs: {
+            active: 0,
+            published: 0
+        }
+    });
 
-export default class SubmissionsTableContent extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activePage: 1,
-            publishedPage: 1,
-            filterCounts: {
-                dabs: {
-                    active: 0,
-                    published: 0
-                },
-                fabs: {
-                    active: 0,
-                    published: 0
-                }
-            }
-        };
-
-        this.toggleFilter = this.toggleFilter.bind(this);
-        this.updateFilterCount = this.updateFilterCount.bind(this);
-        this.generateMessage = this.generateMessage.bind(this);
-    }
-
-    toggleFilter(table, filter, value) {
+    const toggleFilter = (table, filter, value) => {
         if (filter === 'lastDateModified') {
-            this.props.updateDashboardObjectFilter({
-                dashboard: this.props.type,
+            updateDashboardObjectFilter({
+                dashboard: type,
                 table,
                 filter,
                 value
             });
         }
         else if (filter === 'submissionType') {
-            this.props.updateDashboardStringFilter({
-                dashboard: this.props.type,
+            updateDashboardStringFilter({
+                dashboard: type,
                 table,
                 filter,
                 value
             });
         }
         else {
-            this.props.toggleDashboardFilter({
-                dashboard: this.props.type,
+            toggleDashboardFilter({
+                dashboard: type,
                 table,
                 filter,
                 value
             });
         }
-    }
+    };
 
     /**
      * Use the top filter bar container's internal filter parsing to track the current number of
      * filters applied
      */
 
-    updateFilterCount(count, type, tableType) {
-        const dashboard = Object.assign({}, this.state.filterCounts[type], {
+    const updateFilterCount = (count, subType, tableType) => {
+        const dashboard = Object.assign({}, filterCounts[subType], {
             [tableType]: count
         });
 
-        const filterCounts = Object.assign({}, this.state.filterCounts, {
-            [type]: dashboard
+        const tmpFilterCounts = Object.assign({}, filterCounts, {
+            [subType]: dashboard
         });
 
-        this.setState({
-            filterCounts
-        });
-    }
+        setFilterCounts(tmpFilterCounts);
+    };
 
-    generateMessage(count) {
+    const generateMessage = (count) => {
         if (count > 0) {
-            return (
-                <FiltersMessage
-                    filterCount={count} />
-            );
+            return <FiltersMessage filterCount={count} />;
         }
         return null;
-    }
+    };
 
-    render() {
-        const stagedFilters = this.props.stagedFilters[this.props.type];
-        const appliedFilters = this.props.appliedFilters[this.props.type];
+    const activeMessage = generateMessage(filterCounts[type].active);
+    const secondMessage = generateMessage(filterCounts[type].published);
 
-        const activeMessage = this.generateMessage(this.state.filterCounts[this.props.type].active);
-        const secondMessage = this.generateMessage(this.state.filterCounts[this.props.type].published);
-
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="table-heading">
-                            <h2 className="table-heading__title">Active Submissions</h2>
-                            {activeMessage}
-                        </div>
-                        <SubmissionsTableFilters
-                            toggleFilter={this.toggleFilter}
-                            stagedFilters={stagedFilters.active}
-                            appliedFilters={appliedFilters.active}
-                            minDateLastModified={this.props.activeMinDateLastModified}
-                            type={this.props.type}
-                            table="active" />
-                        <FilterBarContainer
-                            type={this.props.type}
-                            table="active"
-                            stagedFilters={stagedFilters.active}
-                            appliedFilters={appliedFilters.active}
-                            updateFilterCount={this.updateFilterCount} />
-                        <SubmissionsTable
-                            isLoading={this.props.activeLoading}
-                            errorMessage={this.props.activeError}
-                            isPublished={false}
-                            loadTableData={this.props.loadTableData}
-                            appliedFilters={appliedFilters.active}
-                            total={this.props.activeTotal}
-                            data={this.props.activeSubmissions}
-                            page={this.state.activePage}
-                            session={this.props.session}
-                            type={this.props.type} />
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="table-heading">
+                        <h2 className="table-heading__title">Active Submissions</h2>
+                        {activeMessage}
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="table-heading">
-                            <h2 className="table-heading__title">
-                                {this.props.type === 'fabs' ?
-                                    'Published Submissions' : 'Published and Certified Submissions'}
-                            </h2>
-                            {secondMessage}
-                        </div>
-                        <SubmissionsTableFilters
-                            toggleFilter={this.toggleFilter}
-                            stagedFilters={stagedFilters.published}
-                            appliedFilters={appliedFilters.published}
-                            minDateLastModified={this.props.publishedMinDateLastModified}
-                            table="published"
-                            type={this.props.type} />
-                        <FilterBarContainer
-                            type={this.props.type}
-                            table="published"
-                            stagedFilters={stagedFilters.published}
-                            appliedFilters={appliedFilters.published}
-                            updateFilterCount={this.updateFilterCount} />
-                        <SubmissionsTable
-                            isLoading={this.props.publishedLoading}
-                            errorMessage={this.props.publishedError}
-                            loadTableData={this.props.loadTableData}
-                            appliedFilters={appliedFilters.published}
-                            total={this.props.publishedTotal}
-                            data={this.props.publishedSubmissions}
-                            page={this.state.publishedPage}
-                            session={this.props.session}
-                            type={this.props.type} />
-                    </div>
+                    <SubmissionsTableFilters
+                        toggleFilter={toggleFilter}
+                        stagedFilters={stagedFilters[type].active}
+                        appliedFilters={appliedFilters[type].active}
+                        minDateLastModified={activeMinDateLastModified}
+                        type={type}
+                        table="active" />
+                    <FilterBarContainer
+                        type={type}
+                        table="active"
+                        stagedFilters={stagedFilters[type].active}
+                        appliedFilters={appliedFilters[type].active}
+                        updateFilterCount={updateFilterCount} />
+                    <SubmissionsTable
+                        isLoading={activeLoading}
+                        errorMessage={activeError}
+                        isPublished={false}
+                        loadTableData={loadTableData}
+                        appliedFilters={appliedFilters[type].active}
+                        total={activeTotal}
+                        data={activeSubmissions}
+                        session={session}
+                        type={type} />
                 </div>
             </div>
-        );
-    }
-}
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="table-heading">
+                        <h2 className="table-heading__title">
+                            {type === 'fabs' ? 'Published Submissions' : 'Published and Certified Submissions'}
+                        </h2>
+                        {secondMessage}
+                    </div>
+                    <SubmissionsTableFilters
+                        toggleFilter={toggleFilter}
+                        stagedFilters={stagedFilters[type].published}
+                        appliedFilters={appliedFilters[type].published}
+                        minDateLastModified={publishedMinDateLastModified}
+                        table="published"
+                        type={type} />
+                    <FilterBarContainer
+                        type={type}
+                        table="published"
+                        stagedFilters={stagedFilters[type].published}
+                        appliedFilters={appliedFilters[type].published}
+                        updateFilterCount={updateFilterCount} />
+                    <SubmissionsTable
+                        isLoading={publishedLoading}
+                        errorMessage={publishedError}
+                        loadTableData={loadTableData}
+                        appliedFilters={appliedFilters[type].published}
+                        total={publishedTotal}
+                        data={publishedSubmissions}
+                        session={session}
+                        type={type} />
+                </div>
+            </div>
+        </div>
+    );
+};
 
 SubmissionsTableContent.propTypes = propTypes;
-SubmissionsTableContent.defaultProps = defaultProps;
+export default SubmissionsTableContent;
