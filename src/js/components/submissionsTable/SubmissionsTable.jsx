@@ -3,10 +3,9 @@
 * Created by Kevin Li 10/28/16
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import cx from 'classnames';
-import _ from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 
 import ErrorMessageOverlay from 'components/SharedComponents/ErrorMessageOverlay';
@@ -34,69 +33,51 @@ const propTypes = {
     errorMessage: PropTypes.string
 };
 
-const defaultProps = {
-    data: [],
-    isLoading: true,
-    isPublished: true,
-    loadTableData: null,
-    appliedFilters: {},
-    session: null,
-    type: '',
-    total: 0,
-    errorMessage: ''
-};
+const SubmissionsTable = ({
+    data = [],
+    isLoading = true,
+    isPublished = true,
+    loadTableData = null,
+    appliedFilters = {},
+    session = null,
+    type = '',
+    total = 0,
+    errorMessage = ''
+}) => {
+    const [parsedData, setParsedData] = useState([]);
+    const [cellClasses, setCellClasses] = useState([]);
+    const [headerClasses, setHeaderClasses] = useState([]);
+    const [rowClasses, setRowClasses] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [account, setAccount] = useState(null);
+    const [deleteIndex, setDeleteIndex] = useState(-1);
+    const [sortColumn, setSortColumn] = useState(null);
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [noResults, setNoResults] = useState(false);
 
-export default class SubmissionsTable extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        reload();
+        loadAccount();
+    }, []);
 
-        this.state = {
-            parsedData: [],
-            cellClasses: [],
-            headerClasses: [],
-            rowClasses: [],
-            currentPage: 1,
-            totalPages: 1,
-            account: null,
-            deleteIndex: -1,
-            sortColumn: null,
-            sortDirection: 'desc',
-            user: true
-        };
+    useEffect(() => {
+        changePage(1);
+        reload();
+    }, [appliedFilters]);
 
-        this.reload = this.reload.bind(this);
-        this.sortTable = this.sortTable.bind(this);
-        this.deleteWarning = this.deleteWarning.bind(this);
-        this.changePage = this.changePage.bind(this);
-    }
+    useEffect(() => {
+        buildRow();
+    }, [data, deleteIndex]);
 
-    componentDidMount() {
-        this.props.loadTableData(
-            this.state.currentPage, this.props.isPublished, this.getCategory(),
-            this.state.sortDirection, this.props.type === 'fabs', this.props.appliedFilters
-        );
-        this.loadUser();
-    }
+    useEffect(() => {
+        // re-display the data
+        reload();
+    }, [type, sortColumn, sortDirection, currentPage]);
 
-    componentDidUpdate(prevProps) {
-        if (this.props.type !== prevProps.type) {
-            this.reload();
-        }
-
-        if (!_.isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
-            // reset to page 1
-            this.changePage(1);
-        }
-
-        if (!_.isEqual(prevProps.data, this.props.data)) {
-            this.buildRow();
-        }
-    }
-
-    getHeaders() {
+    const getHeaders = () => {
         let headers = [];
-        if (this.props.isPublished) {
-            if (this.props.type === 'fabs') {
+        if (isPublished) {
+            if (type === 'fabs') {
                 headers = [
                     'Submission ID',
                     'Agency: Filename',
@@ -118,39 +99,38 @@ export default class SubmissionsTable extends React.Component {
             }
         }
         else {
-            let dateName = '';
             let canDelete = false;
-            let agency = '';
-            let view = 'View';
-            if (this.props.type === 'fabs') {
-                dateName = 'Action Date Range';
-                canDelete = PermissionsHelper.checkFabsPermissions(this.props.session);
-                agency = 'Agency:Filename';
-                view = 'Submission ID';
+            if (type === 'fabs') {
+                canDelete = PermissionsHelper.checkFabsPermissions(session);
+                headers = [
+                    'Submission ID',
+                    'Agency:Filename',
+                    'Action Date Range'
+                ];
             }
             else {
-                dateName = 'Reporting Period (CY)';
-                canDelete = PermissionsHelper.checkPermissions(this.props.session);
-                agency = 'Agency';
+                canDelete = PermissionsHelper.checkPermissions(session);
+                headers = [
+                    'View',
+                    'Agency',
+                    'Reporting Period (CY)'
+                ];
             }
-            headers = [
-                view,
-                agency,
-                dateName,
+            headers = headers.concat([
                 'Created By',
                 'Last Modified',
                 'Status'
-            ];
+            ]);
             if (canDelete) {
                 headers = headers.concat('Delete');
             }
         }
         return headers;
-    }
+    };
 
-    getCategory() {
-        if (this.props.isPublished) {
-            switch (this.state.sortColumn) {
+    const getCategory = () => {
+        if (isPublished) {
+            switch (sortColumn) {
                 case 0:
                     return 'reporting_start';
                 case 1:
@@ -165,7 +145,7 @@ export default class SubmissionsTable extends React.Component {
                     return 'modified';
             }
         }
-        switch (this.state.sortColumn) {
+        switch (sortColumn) {
             case 1:
                 return 'agency';
             case 2:
@@ -175,72 +155,70 @@ export default class SubmissionsTable extends React.Component {
             default:
                 return 'modified';
         }
-    }
+    };
 
-    getAgency(item) {
+    const getAgency = (item) => {
         let agency = item.agency;
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             agency += `:\n${item.files[0].split('/').pop().replace(/^[0-9]*_/, '')}`;
         }
         return agency;
-    }
+    };
 
-    buildRow() {
+    const buildRow = () => {
     // iterate through the recent activity
         const output = [];
-        const rowClasses = [];
+        const tmpRowClasses = [];
         const allCellClasses = [];
-        const agencySize = this.props.type === 'fabs' ? '20' : '17_5';
-        const progressSize = this.props.type === 'fabs' ? '15' : '20';
-        const viewSize = this.props.type === 'fabs' ? '15' : '10';
-        const modifiedSize = this.props.type === 'fabs' ? '12_5' : '15';
+        const agencySize = type === 'fabs' ? '20' : '17_5';
+        const progressSize = type === 'fabs' ? '15' : '20';
+        const viewSize = type === 'fabs' ? '15' : '10';
+        const modifiedSize = type === 'fabs' ? '12_5' : '15';
         let baseCellClasses = ['row-12_5 text-center', `row-${agencySize} text-left`, 'row-15 white-space', 'row-12_5',
             `row-${modifiedSize}`, `row-${progressSize} progress-cell`, 'row-7_5 text-center'];
 
-        if (this.props.isPublished) {
+        if (isPublished) {
             baseCellClasses = [`row-${viewSize} text-center`, 'row-20', 'row-12_5', 'row-10', 'row-20 progress-cell',
                 'row-15 text-center'];
-            if (this.props.type === 'fabs') {
+            if (type === 'fabs') {
                 baseCellClasses = ['row-10 text-center', 'row-25', 'row-10', 'row-15 white-space', 'row-10',
                     'row-10 text-center'];
             }
         }
-        const headerClasses = [...baseCellClasses];
-        if (!this.props.isPublished && this.props.type !== 'fabs') {
+        const tmpHeaderClasses = [...baseCellClasses];
+        if (!isPublished && type !== 'fabs') {
             baseCellClasses[0] = 'row-12_5 text-left';
         }
 
         // iterate through each item returned from the API
-        this.props.data.forEach((item, index) => {
+        data.forEach((item, index) => {
             // break the object out into an array for the table component
-            const row = this.formatRow(item, index);
+            const row = formatRow(item, index);
 
             const rowClass = item.test_submission ? 'test-submission-row' : '';
 
-            rowClasses.push(rowClass);
+            tmpRowClasses.push(rowClass);
             allCellClasses.push(baseCellClasses);
             output.push(row);
         });
 
-        let noResults = false;
-        if (this.props.data.length === 0) {
-            noResults = true;
+        let tmpNoResults = false;
+        if (data.length === 0) {
+            tmpNoResults = true;
         }
 
-        this.setState({
-            parsedData: output,
-            cellClasses: allCellClasses,
-            rowClasses,
-            headerClasses,
-            noResults
-        });
-    }
+        setParsedData(output);
+        setCellClasses(allCellClasses);
+        setRowClasses(tmpRowClasses);
+        setHeaderClasses(tmpHeaderClasses);
+        setNoResults(tmpNoResults);
+    };
 
 
-    formatRow(item, index) {
+    const formatRow = (item, index) => {
         let start = 'Start: ';
         let end = '\nEnd: ';
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             start = 'Earliest: ';
             end = '\nLatest: ';
         }
@@ -251,32 +229,32 @@ export default class SubmissionsTable extends React.Component {
 
         const userName = Object.prototype.hasOwnProperty.call(item, 'user') ? item.user.name : '--';
 
-        const deleteConfirm = this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
+        const deleteConfirm = deleteIndex !== -1 && index === deleteIndex;
 
         let link = (<SubmissionLink
             submissionId={item.submission_id}
-            type={this.props.type}
+            type={type}
             testSubmission={item.test_submission} />);
 
-        if (this.props.isPublished) {
+        if (isPublished) {
             link = (<SubmissionLink
                 submissionId={item.submission_id}
                 value={reportingDateString}
-                type={this.props.type} />);
+                type={type} />);
         }
 
         let row = [];
-        if (this.props.isPublished) {
+        if (isPublished) {
             // Published Submissions table
             row = [
                 link,
-                this.getAgency(item),
+                getAgency(item),
                 userName
             ];
 
             const lastPubOrCert = item.last_pub_or_cert !== '' ? UtilHelper.convertToLocalDate(item.last_pub_or_cert) :
                 item.last_pub_or_cert;
-            if (this.props.type === 'fabs') {
+            if (type === 'fabs') {
                 row = row.concat([
                     reportingDateString,
                     item.publishing_user,
@@ -288,7 +266,7 @@ export default class SubmissionsTable extends React.Component {
                     UtilHelper.convertToLocalDate(item.last_modified),
                     <Status.SubmissionStatus
                         status={item.rowStatus}
-                        published={this.props.isPublished}
+                        published={isPublished}
                         certified={item.certified} />,
                     <span>
                         {item.publishing_user}<br />
@@ -302,7 +280,7 @@ export default class SubmissionsTable extends React.Component {
             // Active Submissions table
             row = [
                 link,
-                this.getAgency(item),
+                getAgency(item),
                 reportingDateString,
                 userName,
                 <LastModifiedCell expirationDate={item.expiration_date} lastModified={item.last_modified} />,
@@ -311,13 +289,13 @@ export default class SubmissionsTable extends React.Component {
 
             let deleteCol = false;
             let canDelete = false;
-            if (this.props.type === 'fabs') {
-                deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
-                canDelete = PermissionsHelper.checkFabsAgencyPermissions(this.props.session, item.agency);
+            if (type === 'fabs') {
+                deleteCol = PermissionsHelper.checkFabsPermissions(session);
+                canDelete = PermissionsHelper.checkFabsAgencyPermissions(session, item.agency);
             }
             else {
-                deleteCol = PermissionsHelper.checkPermissions(this.props.session);
-                canDelete = PermissionsHelper.checkAgencyPermissions(this.props.session, item.agency);
+                deleteCol = PermissionsHelper.checkPermissions(session);
+                canDelete = PermissionsHelper.checkAgencyPermissions(session, item.agency);
             }
 
             if (deleteCol) {
@@ -325,11 +303,11 @@ export default class SubmissionsTable extends React.Component {
                     row.push(<DeleteLink
                         submissionId={item.submission_id}
                         index={index}
-                        warning={this.deleteWarning}
+                        warning={deleteWarning}
                         confirm={deleteConfirm}
-                        reload={this.reload}
+                        reload={reload}
                         item={item}
-                        account={this.state.account} />);
+                        account={account} />);
                 }
                 else {
                     row.push('N/A');
@@ -337,116 +315,88 @@ export default class SubmissionsTable extends React.Component {
             }
         }
         return row;
-    }
+    };
 
-    sortTable(direction, column) {
+    const sortTable = (direction, column) => {
     // the table sorting changed
-        this.setState({
-            sortDirection: direction,
-            sortColumn: column
-        }, () => {
-            // re-display the data
-            this.props.loadTableData(
-                this.state.currentPage, this.props.isPublished, this.getCategory(),
-                this.state.sortDirection, this.props.appliedFilters
-            );
-            this.buildRow();
-        });
-    }
+        setSortDirection(direction);
+        setSortColumn(column);
+    };
 
-    changePage(newPage) {
-        this.setState({
-            currentPage: newPage
-        }, () => {
-            this.props.loadTableData(
-                this.state.currentPage, this.props.isPublished, this.getCategory(),
-                this.state.sortDirection, this.props.appliedFilters
-            );
-        });
-    }
+    const changePage = (newPage) => {
+        setCurrentPage(newPage);
+    };
 
-    reload() {
-        this.props.loadTableData(
-            this.state.currentPage, this.props.isPublished, this.getCategory(),
-            this.state.sortDirection, this.props.appliedFilters
-        );
-        this.buildRow();
-    }
+    const reload = () => {
+        loadTableData(currentPage, isPublished, getCategory(), sortDirection, appliedFilters);
+    };
 
-    loadUser() {
+    const loadAccount = () => {
         // Leaving this as a function in case the user changes and we want to update it
-        this.setState({
-            account: this.props.session.user
-        });
+        setAccount(session.user);
+    };
+
+    const deleteWarning = (index) => {
+        setDeleteIndex(index);
+    };
+
+    const id = `pagination-${isPublished ? 'published' : 'active'}`;
+    const paginator = (
+        <Pagination
+            currentPage={currentPage}
+            totalItems={total}
+            changePage={changePage}
+            pageSize={10}
+            goToPage
+            id={id} />);
+
+    const tableHeaderClasses = cx({
+        'submission-table-content': true,
+        loading: isLoading || noResults || errorMessage
+    });
+
+    const headers = getHeaders();
+    // cannot be added to the const because if a user is read only then delete will not be created
+    let unsortable = [0, 2, 5, 6];
+    if (isPublished && type === 'fabs') {
+        unsortable = [0, 3, 4];
+    }
+    else if (isPublished) {
+        unsortable = [4];
     }
 
-    deleteWarning(index) {
-        this.setState({
-            deleteIndex: index
-        }, () => {
-            this.buildRow();
-        });
+    let tableMessage = null;
+    if (isLoading) {
+        tableMessage = <LoadingMessage />;
+    }
+    else if (errorMessage) {
+        tableMessage = <ErrorMessageOverlay errorMessage={errorMessage} />;
+    }
+    else if (noResults) {
+        tableMessage = <NoResultsMessage />;
     }
 
-    render() {
-        const id = `pagination-${this.props.isPublished ? 'published' : 'active'}`;
-        const paginator = (
-            <Pagination
-                currentPage={this.state.currentPage}
-                totalItems={this.props.total}
-                changePage={this.changePage}
-                pageSize={10}
-                goToPage
-                id={id} />);
-
-        const tableHeaderClasses = cx({
-            'submission-table-content': true,
-            loading: this.props.isLoading || this.state.noResults || this.props.errorMessage
-        });
-
-        const headers = this.getHeaders();
-        // cannot be added to the const because if a user is read only then delete will not be created
-        let unsortable = [0, 2, 5, 6];
-        if (this.props.isPublished && this.props.type === 'fabs') {
-            unsortable = [0, 3, 4];
-        }
-        else if (this.props.isPublished) {
-            unsortable = [4];
-        }
-
-        let tableMessage = null;
-        if (this.props.isLoading) {
-            tableMessage = <LoadingMessage />;
-        }
-        else if (this.props.errorMessage) {
-            tableMessage = <ErrorMessageOverlay errorMessage={this.props.errorMessage} />;
-        }
-        else if (this.state.noResults) {
-            tableMessage = <NoResultsMessage />;
-        }
-
-        return (
-            <div className="usa-da-submission-list">
-                <div className={tableHeaderClasses}>
-                    <FormattedTable
-                        headers={headers}
-                        data={this.state.parsedData}
-                        cellClasses={this.state.cellClasses}
-                        unsortable={unsortable}
-                        headerClasses={this.state.headerClasses}
-                        rowClasses={this.state.rowClasses}
-                        onSort={this.sortTable} />
-                </div>
-                <div className="text-center">
-                    {tableMessage}
-                </div>
-                <div className="paginator-wrap">
-                    {paginator}
-                </div>
+    return (
+        <div className="usa-da-submission-list">
+            <div className={tableHeaderClasses}>
+                <FormattedTable
+                    headers={headers}
+                    data={parsedData}
+                    cellClasses={cellClasses}
+                    unsortable={unsortable}
+                    headerClasses={headerClasses}
+                    rowClasses={rowClasses}
+                    onSort={sortTable} />
             </div>
-        );
-    }
-}
+            <div className="text-center">
+                {tableMessage}
+            </div>
+            <div className="paginator-wrap">
+                {paginator}
+            </div>
+        </div>
+    );
+};
 
 SubmissionsTable.propTypes = propTypes;
-SubmissionsTable.defaultProps = defaultProps;
+export default SubmissionsTable;

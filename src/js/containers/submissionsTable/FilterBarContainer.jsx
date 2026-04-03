@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 8/16/18
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -24,198 +24,168 @@ const propTypes = {
     updateFilterCount: PropTypes.func
 };
 
-const defaultProps = {
-    stagedFilters: {},
-    appliedFilters: {},
-    toggleDashboardFilter: null,
-    updateDashboardObjectFilter: null,
-    updateDashboardStringFilter: null,
-    type: '',
-    table: '',
-    updateFilterCount: null
-};
+const FilterBarContainer = ({
+    stagedFilters = {},
+    appliedFilters = {},
+    toggleDashboardFilter = null,
+    updateDashboardObjectFilter = null,
+    updateDashboardStringFilter = null,
+    type = '',
+    table = '',
+    updateFilterCount = null
+}) => {
+    const [filters, setFilters] = useState([]);
+    const [filterCount, setFilterCount] = useState(0);
+    const [applied, setApplied] = useState(false);
 
-export class FilterBarContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        prepareFilters(appliedFilters, true);
+    }, [appliedFilters]);
 
-        this.state = {
-            filters: [],
-            filterCount: 0,
-            applied: false
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.appliedFilters, this.props.appliedFilters)) {
-            // new filters have been applied
-            this.prepareFilters(this.props.appliedFilters, true);
+    useEffect(() => {
+        // staged filters changed
+        if (!isEqual(stagedFilters, appliedFilters)) {
+            prepareFilters(stagedFilters, false);
         }
-        else if (!isEqual(prevProps.stagedFilters, this.props.stagedFilters)) {
-            // staged filters changed
-            if (!isEqual(this.props.stagedFilters, this.props.appliedFilters)) {
-                this.prepareFilters(this.props.stagedFilters, false);
-            }
-            else {
-                // staged filters match the applied filters
-                this.prepareFilters(this.props.appliedFilters, true);
-            }
+        else {
+            // staged filters already match the applied filters
+            prepareFilters(appliedFilters, true);
         }
-    }
+    }, [stagedFilters]);
 
-    prepareFilters(props, applied) {
-        const type = this.props.type;
-        const table = this.props.table;
+    useEffect(() => {
+        updateFilterCount(filterCount, type, table);
+    }, [filterCount]);
 
-        let filters = [];
+    const prepareFilters = (newFilters, isApplied) => {
+        let tmpFilters = [];
 
         // prepare the file name filters
-        const fileNameFilters = this.prepareFileNames(props);
+        const fileNameFilters = prepareFileNames(newFilters);
         if (fileNameFilters) {
-            filters = filters.concat(fileNameFilters);
+            tmpFilters = tmpFilters.concat(fileNameFilters);
         }
 
         // prepare the submission id filters
-        const submissionIdFilters = this.prepareSubmissionIds(props);
+        const submissionIdFilters = prepareSubmissionIds(newFilters);
         if (submissionIdFilters) {
-            filters = filters.concat(submissionIdFilters);
+            tmpFilters = tmpFilters.concat(submissionIdFilters);
         }
 
         // prepare the agency filters
-        const agencyFilters = this.prepareAgencies(props);
+        const agencyFilters = prepareAgencies(newFilters);
         if (agencyFilters) {
-            filters = filters.concat(agencyFilters);
+            tmpFilters = tmpFilters.concat(agencyFilters);
         }
 
         // prepare the submissionType filter
-        const submissionTypeFilters = this.prepareSubmissionType(props);
+        const submissionTypeFilters = prepareSubmissionType(newFilters);
         if (submissionTypeFilters) {
-            filters = filters.concat(submissionTypeFilters);
+            tmpFilters = tmpFilters.concat(submissionTypeFilters);
         }
 
         // prepare the createdBy filters
-        const createdByFilters = this.prepareCreatedBy(props);
+        const createdByFilters = prepareCreatedBy(newFilters);
         if (createdByFilters) {
-            filters = filters.concat(createdByFilters);
+            tmpFilters = tmpFilters.concat(createdByFilters);
         }
 
         // prepare the lastDateModified filters
-        const lastDateModifiedFilters = this.prepareLastDateModified(props);
+        const lastDateModifiedFilters = prepareLastDateModified(newFilters);
         if (lastDateModifiedFilters) {
-            filters = filters.concat(lastDateModifiedFilters);
+            tmpFilters = tmpFilters.concat(lastDateModifiedFilters);
         }
 
-        this.setState({
-            filters,
-            applied,
-            filterCount: applied ? 0 : filters.length
-        }, () => {
-            this.props.updateFilterCount(this.state.filterCount, type, table);
-        });
-    }
+        setFilters(tmpFilters);
+        setApplied(isApplied);
+        setFilterCount(isApplied ? 0 : tmpFilters.length);
+    };
 
-    prepareFileNames(props) {
-        if (props.fileNames.length > 0) {
-            return props.fileNames.map((name) => ({
+    const prepareFileNames = (newFileNames) => {
+        if (newFileNames.fileNames.length > 0) {
+            return newFileNames.fileNames.map((name) => ({
                 name,
                 value: name,
                 group: 'fileNames'
             }));
         }
         return null;
-    }
+    };
 
-    prepareSubmissionIds(props) {
-        if (props.submissionIds.length > 0) {
-            return props.submissionIds.map((id) => ({
+    const prepareSubmissionIds = (newSubIds) => {
+        if (newSubIds.submissionIds.length > 0) {
+            return newSubIds.submissionIds.map((id) => ({
                 name: id,
                 value: id,
                 group: 'submissionIds'
             }));
         }
         return null;
-    }
+    };
 
-    prepareAgencies(props) {
-        if (props.agencies.length > 0) {
-            return props.agencies.map((agency) => ({
+    const prepareAgencies = (newAgencies) => {
+        if (newAgencies.agencies.length > 0) {
+            return newAgencies.agencies.map((agency) => ({
                 name: agency.name,
                 value: agency,
                 group: 'agencies'
             }));
         }
         return null;
-    }
+    };
 
-    prepareSubmissionType(props) {
-        if (props.submissionType && props.submissionType !== '') {
-            const subType = `${props.submissionType.charAt(0).toUpperCase()}${props.submissionType.slice(1)}`;
+    const prepareSubmissionType = (newSubType) => {
+        if (newSubType.submissionType && newSubType.submissionType !== '') {
+            const subType = `${newSubType.submissionType.charAt(0).toUpperCase()}${newSubType.submissionType.slice(1)}`;
             return {
                 name: `${subType} Submissions`,
-                value: props.submissionType,
+                value: newSubType.submissionType,
                 group: 'submissionType'
             };
         }
         return null;
-    }
+    };
 
-    prepareCreatedBy(props) {
-        if (props.createdBy.length > 0) {
-            return props.createdBy.map((createdBylist) => ({
+    const prepareCreatedBy = (newCreatedBy) => {
+        if (newCreatedBy.createdBy.length > 0) {
+            return newCreatedBy.createdBy.map((createdBylist) => ({
                 name: createdBylist.name,
                 value: createdBylist,
                 group: 'createdBy'
             }));
         }
         return null;
-    }
+    };
 
-    prepareLastDateModified(props) {
-        if (props.lastDateModified.endDate) {
+    const prepareLastDateModified = (newModDate) => {
+        if (newModDate.lastDateModified.endDate) {
             return {
-                name: `${props.lastDateModified.startDate} - ${props.lastDateModified.endDate}`,
-                value: props.lastDateModified,
+                name: `${newModDate.lastDateModified.startDate} - ${newModDate.lastDateModified.endDate}`,
+                value: newModDate.lastDateModified,
                 group: 'lastDateModified'
             };
         }
         return null;
+    };
+
+    let output = null;
+    if (filters.length > 0) {
+        output = (
+            <FilterBar
+                applied={applied}
+                filters={filters}
+                type={type}
+                table={table}
+                toggleDashboardFilter={toggleDashboardFilter}
+                updateDashboardObjectFilter={updateDashboardObjectFilter}
+                updateDashboardStringFilter={updateDashboardStringFilter} />
+        );
     }
 
-    // Determine the current number of filters that have been applied
-    determineFilterCount(filters) {
-        let filterCount = 0;
-        filters.forEach((filter) => {
-            if (typeof filter === 'string') {
-                filterCount += 1;
-            }
-            else if (filter instanceof Array) {
-                filterCount += filter.values.length;
-            }
-            else {
-                filterCount += Object.keys(filter).length;
-            }
-        });
-
-        return filterCount;
-    }
-
-    render() {
-        let output = null;
-        if (this.state.filters.length > 0) {
-            output = (
-                <FilterBar
-                    {...this.props}
-                    applied={this.state.applied}
-                    filters={this.state.filters} />
-            );
-        }
-
-        return output;
-    }
-}
+    return output;
+};
 
 FilterBarContainer.propTypes = propTypes;
-FilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
     () => ({}),
