@@ -4,8 +4,8 @@
  */
 
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -19,7 +19,6 @@ import DropdownTypeahead from '../../components/SharedComponents/DropdownTypeahe
 const propTypes = {
     setCreatedByList: PropTypes.func,
     createdByList: PropTypes.object,
-    detached: PropTypes.bool,
     selectedFilters: PropTypes.object,
     type: PropTypes.string,
     table: PropTypes.string,
@@ -27,63 +26,58 @@ const propTypes = {
     onSelect: PropTypes.func
 };
 
-const defaultProps = {
-    setCreatedByList: () => {},
-    createdByList: {},
-    detached: true,
-    selectedFilters: [],
-    table: '',
-    type: '',
-    placeholder: '',
-    onSelect: () => {}
-};
+const CreatedByContainer = ({
+    setCreatedByList = () => {},
+    createdByList = {},
+    selectedFilters = [],
+    table = '',
+    type = '',
+    placeholder = '',
+    onSelect = () => {}
+}) => {
+    useEffect(() => {
+        loadData();
+    }, []);
 
-class CreatedByContainer extends React.Component {
-    componentDidMount() {
-        this.loadData();
-    }
-
-    loadData() {
-        createdByHelper.fetchCreatedBy(this.props.type)
+    const loadData = () => {
+        createdByHelper.fetchCreatedBy(type)
             .then((res) => {
-                this.props.setCreatedByList(res.data.users);
+                setCreatedByList(res.data.users);
             })
             .catch((err) => {
                 console.error(err);
             });
-    }
+    };
 
-    dataFormatter(item) {
+    const dataFormatter = (item) => {
         return {
             label: item.name,
             value: item.user_id
         };
-    }
+    };
 
-    render() {
-        const values = this.props.createdByList.createdBy;
+    const values = createdByList.createdBy;
 
-        // Dedupe data
-        const finalValues = values.length > 0 ? _.uniqBy(values, 'user_id') : [];
-        return (
-            <DropdownTypeahead
-                {...this.props}
-                errorHeader="Unknown Name"
-                duplicateHeader="Duplicate Name"
-                errorDescription="You must select an name from the list that is provided as you type."
-                values={finalValues}
-                keyValue="name"
-                internalValue={['user_id']}
-                formatter={this.dataFormatter}
-                prioritySort={false}
-                bubbledRemovedFilterValue={this.props.selectedFilters[this.props.type][this.props.table].createdBy}
-                clearAfterSelect />
-        );
-    }
-}
+    // Dedupe data
+    const finalValues = values.length > 0 ? _.uniqBy(values, 'user_id') : [];
+    return (
+        <DropdownTypeahead
+            onSelect={onSelect}
+            errorHeader="Unknown Name"
+            duplicateHeader="Duplicate Name"
+            errorDescription="You must select an name from the list that is provided as you type."
+            placeholder={placeholder}
+            values={finalValues}
+            keyValue="name"
+            internalValue={['user_id']}
+            formatter={dataFormatter}
+            prioritySort={false}
+            bubbledRemovedFilterValue={selectedFilters[type][table].createdBy}
+            clearAfterSelect />
+    );
+};
 
 CreatedByContainer.propTypes = propTypes;
-CreatedByContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
