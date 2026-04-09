@@ -3,8 +3,8 @@
  * Created by Alisa Burdeyny 04/10/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Modal from 'react-aria-modal';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,126 +21,104 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const defaultProps = {
-    isOpen: false
-};
+const SettingsModal = ({isOpen = false, ...props}) => {
+    const [errorLevel, setErrorLevel] = useState('error');
+    const [agency, setAgency] = useState({
+        code: '',
+        name: ''
+    });
+    const [selectedRule, setSelectedRule] = useState({
+        value: 'A',
+        label: 'File A'
+    });
 
-export default class SettingsModal extends React.Component {
-    constructor(props) {
-        super(props);
+    const updateErrorLevel = (newErrorLevel) => {
+        setErrorLevel(newErrorLevel);
+    };
 
-        this.state = {
-            agency: {
-                code: '',
-                name: ''
-            },
-            selectedRule: {
-                value: 'A',
-                label: 'File A'
-            },
-            errorLevel: 'error'
-        };
+    const updateAgency = (newAgency) => {
+        setAgency(newAgency);
+    };
 
-        this.updateAgency = this.updateAgency.bind(this);
-        this.updateRule = this.updateRule.bind(this);
-        this.setErrorLevel = this.setErrorLevel.bind(this);
-    }
+    const updateRule = (newRule) => {
+        setSelectedRule(newRule);
+    };
 
-    setErrorLevel(errorLevel) {
-        this.setState({
-            errorLevel
-        });
-    }
-
-    updateAgency(agency) {
-        this.setState({
-            agency
-        });
-    }
-
-    updateRule(rule) {
-        this.setState({
-            selectedRule: rule
-        });
-    }
-
-    render() {
-        const ruleList = validationRules.map((rule) =>
-            ({
-                value: rule.value,
-                name: rule.label,
-                onClick: () => this.updateRule(rule)
-            }));
-        return (
-            <Modal
-                mounted={this.props.isOpen}
-                onExit={this.props.closeModal}
-                verticallyCenter
-                underlayClickExits
-                initialFocus="#close-button"
-                titleId="settings-modal">
-                <div className="usa-da-modal-page">
-                    <div id="settings-modal" className="settings-modal">
-                        <button
-                            id="close-button"
-                            className="close-button"
-                            onClick={this.props.closeModal}
-                            aria-label="close-modal-button">
-                            <FontAwesomeIcon icon="xmark" />
-                        </button>
-                        <div className="settings-modal__content">
-                            <div className="settings-modal__sidebar">
-                                <h1>Settings</h1>
-                                <h2><FontAwesomeIcon icon="filter" /> Agency</h2>
-                                <SettingsAgencySelectContainer
-                                    updateAgency={this.updateAgency}
-                                    selectedAgency={this.state.agency} />
-                            </div>
-                            <div className="settings-modal__main">
-                                <h2>Rule Settings</h2>
-                                <div className="rule-settings-top">
-                                    <div className="description">
-                                        Change the Significance and Impact settings to alter the weight of your
-                                        agency&apos;s respective rules in the Active Dashboard chart.
-                                    </div>
-                                    <div className="validation-rule-select">
-                                        <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
-                                        <NewPicker
-                                            enabled
-                                            classname="validation-rule-picker-dropdown"
-                                            id="validation-rules-picker"
-                                            options={ruleList}
-                                            selectedOption={this.state.selectedRule.label}
-                                            sortFn={() => 0} />
-                                    </div>
+    const ruleList = validationRules.map((rule) =>
+        ({
+            value: rule.value,
+            name: rule.label,
+            onClick: () => updateRule(rule)
+        }));
+    return (
+        <Modal
+            mounted={isOpen}
+            onExit={props.closeModal}
+            verticallyCenter
+            underlayClickExits
+            initialFocus="#close-button"
+            titleId="settings-modal">
+            <div className="usa-da-modal-page">
+                <div id="settings-modal" className="settings-modal">
+                    <button
+                        id="close-button"
+                        className="close-button"
+                        onClick={props.closeModal}
+                        aria-label="close-modal-button">
+                        <FontAwesomeIcon icon="xmark" />
+                    </button>
+                    <div className="settings-modal__content">
+                        <div className="settings-modal__sidebar">
+                            <h1>Settings</h1>
+                            <h2><FontAwesomeIcon icon="filter" /> Agency</h2>
+                            <SettingsAgencySelectContainer
+                                updateAgency={updateAgency}
+                                selectedAgency={agency} />
+                        </div>
+                        <div className="settings-modal__main">
+                            <h2>Rule Settings</h2>
+                            <div className="rule-settings-top">
+                                <div className="description">
+                                    Change the Significance and Impact settings to alter the weight of your
+                                    agency&apos;s respective rules in the Active Dashboard chart.
                                 </div>
-                                <div className="tabs">
-                                    <div className="tabs__content">
-                                        {errorLevels.map((level) => (
-                                            <TabItem
-                                                key={level}
-                                                id={level}
-                                                label={`${startCase(level)}s`}
-                                                onClick={this.setErrorLevel}
-                                                active={this.state.errorLevel === level} />
-                                        ))}
-                                    </div>
+                                <div className="validation-rule-select">
+                                    <h2><FontAwesomeIcon icon="filter" /> Validation Rules</h2>
+                                    <NewPicker
+                                        enabled
+                                        classname="validation-rule-picker-dropdown"
+                                        id="validation-rules-picker"
+                                        options={ruleList}
+                                        selectedOption={selectedRule.label}
+                                        sortFn={() => 0} />
                                 </div>
-                                <SettingsTableContainer
-                                    agencyCode={this.state.agency.code}
-                                    file={this.state.selectedRule.value}
-                                    errorLevel={this.state.errorLevel} />
-                                <SaveSettingsButton
-                                    agencyCode={this.state.agency.code}
-                                    file={this.state.selectedRule.value} />
                             </div>
+                            <div className="tabs">
+                                <div className="tabs__content">
+                                    {errorLevels.map((level) => (
+                                        <TabItem
+                                            key={level}
+                                            id={level}
+                                            label={`${startCase(level)}s`}
+                                            onClick={updateErrorLevel}
+                                            active={errorLevel === level} />
+                                    ))}
+                                </div>
+                            </div>
+                            <SettingsTableContainer
+                                agencyCode={agency.code}
+                                file={selectedRule.value}
+                                errorLevel={errorLevel} />
+                            <SaveSettingsButton
+                                agencyCode={agency.code}
+                                file={selectedRule.value} />
                         </div>
                     </div>
                 </div>
-            </Modal>
-        );
-    }
-}
+            </div>
+        </Modal>
+    );
+};
 
-SettingsModal.defaultProps = defaultProps;
 SettingsModal.propTypes = propTypes;
+export default SettingsModal;
