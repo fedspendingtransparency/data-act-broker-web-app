@@ -3,10 +3,9 @@
  * Created by Lizzie Salita 3/16/20
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
 
 import { revertToCertified } from 'helpers/reviewHelper';
 import RevertToCertified from 'components/reviewData/RevertToCertified';
@@ -16,64 +15,52 @@ const propTypes = {
     loadData: PropTypes.func
 };
 
-export class RevertToCertifiedContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const RevertToCertifiedContainer = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
 
-        this.state = {
-            loading: false,
-            error: '',
-            message: ''
-        };
+    useEffect(() => {
+        reset();
+    }, [props.submission.id]);
 
-        this.revert = this.revert.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.submission.id, this.props.submission.id)) {
-            this.reset();
+    useEffect(() => {
+        if (message !== '') {
+            props.loadData();
         }
-    }
+    }, [message]);
 
-    reset() {
-        this.setState({
-            loading: false,
-            error: '',
-            message: ''
-        });
-    }
+    const reset = () => {
+        setLoading(false);
+        setError('');
+        setMessage('');
+    };
 
-    revert() {
-        this.setState({
-            loading: true,
-            error: '',
-            message: ''
-        });
-        revertToCertified(this.props.submission.id)
+    const revert = () => {
+        setLoading(true);
+        setError('');
+        setMessage('');
+        revertToCertified(props.submission.id)
             .then((data) => {
-                this.setState({
-                    loading: false,
-                    message: data.message
-                }, () => this.props.loadData());
+                setLoading(false);
+                setMessage(data.message);
             })
-            .catch((error) => {
-                console.error(error);
-                this.setState({
-                    loading: false,
-                    error: error.message
-                });
+            .catch((err) => {
+                console.error(err);
+                setLoading(false);
+                setError(err.message);
             });
     }
 
-    render() {
-        return (
-            <RevertToCertified
-                {...this.state}
-                revert={this.revert}
-                disabled={this.props.submission.publishStatus !== 'updated' || this.state.loading} />
-        );
-    }
-}
+    return (
+        <RevertToCertified
+            loading={loading}
+            error={error}
+            message={message}
+            revert={revert}
+            disabled={props.submission.publishStatus !== 'updated' || loading} />
+    );
+};
 
 RevertToCertifiedContainer.propTypes = propTypes;
 
