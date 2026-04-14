@@ -50,7 +50,7 @@ const RevertToCertifiedContainer = (props) => {
                 setLoading(false);
                 setError(err.message);
             });
-    }
+    };
 
     return (
         <RevertToCertified

@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CertifyDisclaimer from 'components/reviewData/CertificationModal/CertifyDisclaimer';
 import PublishDisclaimer from 'components/reviewData/CertificationModal/PublishDisclaimer';
 import CertifyButtons from 'components/reviewData/CertificationModal/CertifyButtons';
-import CertifyProgress from './CertifyProgress';
 import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
@@ -38,7 +37,6 @@ export default class ReviewDataCertifyModal extends React.Component {
 
         this.state = {
             certified: false,
-            showProgress: false,
             publishComplete: false,
             closeable: true,
             errorMessage: "",
@@ -101,7 +99,6 @@ export default class ReviewDataCertifyModal extends React.Component {
 
         // reset the modal if closed
         this.setState({
-            showProgress: false,
             certified: false,
             publishComplete: false,
             errorMessage: ''
@@ -132,13 +129,6 @@ export default class ReviewDataCertifyModal extends React.Component {
             certified={this.state.certified}
             clickedCertifyButton={this.clickedCertifyButton}
             clickedCertifyCheckbox={this.clickedCertifyCheckbox} />);
-
-        if (this.state.showProgress) {
-            action = (<CertifyProgress
-                {...this.props.session}
-                finished={this.state.publishComplete}
-                closeModal={this.closeModal} />);
-        }
 
         let hideClose = "";
         if (!this.state.closeable) {
