@@ -12,9 +12,13 @@ const propTypes = {
 };
 
 const ReviewDataSelectedUser = ({deselectUser = null, user = null}) => {
+    const deselectClicked = () => {
+        deselectUser(user.id);
+    };
+
     return (
         <div className="usa-da-review-data-user-row">
-            <button className="usa-da-icon usa-da-icon-times-circle" onClick={deselectUser} alt="Remove">
+            <button className="usa-da-icon usa-da-icon-times-circle" onClick={deselectClicked} alt="Remove">
                 <FontAwesomeIcon icon="circle-xmark" />
             </button>
             <span>

@@ -3,8 +3,8 @@
   * Created by Kevin Li 9/6/16
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import Modal from 'react-aria-modal';
 import { Navigate } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,169 +22,141 @@ const propTypes = {
     type: PropTypes.oneOf(['publish', 'certify', 'both'])
 };
 
-const defaultProps = {
-    closeModal: null,
-    session: null,
-    submissionID: '',
-    warnings: 0,
-    isOpen: false,
-    type: 'both'
-};
+const ReviewDataCertifyModal = ({
+    closeModal = null, session = null, submissionID = '', warnings = 0, isOpen = false, type = 'both'
+}) => {
+    const [certified, setCertified] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [goToSubmissionTable, setGoToSubmissionTable] = useState(false);
+    const [triggerClose, setTriggerClose] = useState(false);
 
-export default class ReviewDataCertifyModal extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        if (triggerClose) {
+            setTriggerClose(false);
+            closeModal();
+        }
+    }, [triggerClose]);
 
-        this.state = {
-            certified: false,
-            publishComplete: false,
-            closeable: true,
-            errorMessage: "",
-            loading: false,
-            goToSubmissionTable: false
-        };
-        this.closeModal = this.closeModal.bind(this);
-        this.clickedCertifyButton = this.clickedCertifyButton.bind(this);
-        this.clickedCertifyCheckbox = this.clickedCertifyCheckbox.bind(this);
-    }
+    const clickedCertifyCheckbox = () => {
+        setCertified(!certified);
+    };
 
-    clickedCertifyCheckbox() {
-        this.setState({
-            certified: !this.state.certified
-        });
-    }
-
-    clickedCertifyButton(e) {
+    const clickedCertifyButton = (e) => {
         e.preventDefault();
-        this.setState({ loading: true });
+        setLoading(true);
 
-        ReviewHelper.publishCertifyDABSSubmission(this.props.submissionID, this.props.type)
+        ReviewHelper.publishCertifyDABSSubmission(submissionID, type)
             .then(() => {
-                this.setState({ loading: false });
-                this.closeModal();
+                setLoading(false);
+                exitModal();
                 // Redirect to submission dashboard after successful certification
-                this.setState({
-                    goToSubmissionTable: true
-                });
+                setGoToSubmissionTable(true);
             })
             .catch((err) => {
-                let processType = this.props.type;
-                if (this.props.type === 'both') {
+                let processType = type;
+                if (type === 'both') {
                     processType = 'certify';
                 }
-                let errorMessage = `An error occurred while attempting to ${processType} the submission. ` +
+                let tmpErrorMessage = `An error occurred while attempting to ${processType} the submission. ` +
                     `Please contact your administrator for assistance`;
                 if (err.status === 400 || err.status === 403) {
-                    errorMessage = err.response.data.message;
+                    tmpErrorMessage = err.response.data.message;
                     if (err.response.data.submissionId) {
-                        errorMessage = (
+                        tmpErrorMessage = (
                             <div>
-                                {errorMessage}
+                                {tmpErrorMessage}
                             </div>);
                     }
                 }
 
-                this.setState({ errorMessage, loading: false });
+                setErrorMessage(tmpErrorMessage);
+                setLoading(false);
             });
-    }
+    };
 
-    closeModal(e) {
+    const exitModal = (e) => {
         if (e) {
             e.preventDefault();
         }
 
-        if (!this.state.closeable) {
-            return;
-        }
-
         // reset the modal if closed
-        this.setState({
-            certified: false,
-            publishComplete: false,
-            errorMessage: ''
-        }, () => {
-            this.props.closeModal();
-        });
+        setCertified(false);
+        setErrorMessage('');
+        setTriggerClose(true);
+    };
+
+    if (goToSubmissionTable) {
+        return <Navigate to="/submissionTable" />;
+    }
+    let message = null;
+    if (warnings > 0) {
+        let warning = " warning";
+        if (warnings !== 1) {
+            warning = " warnings";
+        }
+        message = (
+            <h6>
+                This submission contains <span className="variable-field">{warnings + warning}</span>.
+            </h6>);
     }
 
-    render() {
-        if (this.state.goToSubmissionTable) {
-            return <Navigate to="/submissionTable" />;
-        }
-        let message = null;
-        if (this.props.warnings > 0) {
-            let warning = " warning";
-            if (this.props.warnings !== 1) {
-                warning = " warnings";
-            }
-            message = (
-                <h6>
-                    This submission contains <span className="variable-field">{this.props.warnings + warning}</span>.
-                </h6>);
-        }
+    let error = '';
+    if (errorMessage) {
+        error = <div className="alert alert-danger text-center" role="alert">{errorMessage}</div>;
+    }
 
-        let action = (<CertifyButtons
-            {...this.props}
-            loading={this.state.loading}
-            certified={this.state.certified}
-            clickedCertifyButton={this.clickedCertifyButton}
-            clickedCertifyCheckbox={this.clickedCertifyCheckbox} />);
+    let disclaimer = <CertifyDisclaimer />;
+    if (type === 'publish') {
+        disclaimer = <PublishDisclaimer />;
+    }
 
-        let hideClose = "";
-        if (!this.state.closeable) {
-            hideClose = " hide";
-        }
+    return (
+        <Modal
+            mounted={isOpen}
+            onExit={exitModal}
+            underlayClickExits={true}
+            verticallyCenter
+            initialFocus="#certify-check"
+            titleId="usa-da-certify-modal">
+            <div className="usa-da-modal-page">
+                <div id="usa-da-certify-modal" className="usa-da-certify-modal">
+                    <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times`}>
+                        <button onClick={exitModal} aria-label="close">
+                            <FontAwesomeIcon icon="xmark" />
+                        </button>
+                    </div>
 
-        let error = '';
-        if (this.state.errorMessage) {
-            error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
-        }
-
-        let disclaimer = <CertifyDisclaimer />;
-        if (this.props.type === 'publish') {
-            disclaimer = <PublishDisclaimer />;
-        }
-
-        return (
-            <Modal
-                mounted={this.props.isOpen}
-                onExit={this.closeModal}
-                underlayClickExits={this.state.closeable}
-                verticallyCenter
-                initialFocus="#certify-check"
-                titleId="usa-da-certify-modal">
-                <div className="usa-da-modal-page">
-                    <div id="usa-da-certify-modal" className="usa-da-certify-modal">
-                        <div className={`usa-da-certify-modal-close usa-da-icon usa-da-icon-times${hideClose}`}>
-                            <button onClick={this.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="xmark" />
-                            </button>
-                        </div>
-
-                        <div className="usa-da-certify-modal-content">
-                            <div className="row">
-                                <div className="col-md-12 title-field">
-                                    <h6>
-                                        Are you sure you want to&nbsp;
-                                        {this.props.type === 'both' ? 'certify' : this.props.type} your data?
-                                    </h6>
-                                    {message}
-                                </div>
+                    <div className="usa-da-certify-modal-content">
+                        <div className="row">
+                            <div className="col-md-12 title-field">
+                                <h6>
+                                    Are you sure you want to&nbsp;
+                                    {type === 'both' ? 'certify' : type} your data?
+                                </h6>
+                                {message}
                             </div>
-                            <div className="row">
-                                <div className="col-md-12">
-                                    {disclaimer}
-                                </div>
-                            </div>
-                            {action}
-                            {error}
                         </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                {disclaimer}
+                            </div>
+                        </div>
+                        <CertifyButtons
+                            closeModal={exitModal}
+                            session={session}
+                            type={type}
+                            loading={loading}
+                            certified={certified}
+                            clickedCertifyButton={clickedCertifyButton}
+                            clickedCertifyCheckbox={clickedCertifyCheckbox} />
+                        {error}
                     </div>
                 </div>
-            </Modal>
-        );
-    }
-}
+            </div>
+        </Modal>
+    );
+};
 
 ReviewDataCertifyModal.propTypes = propTypes;
-ReviewDataCertifyModal.defaultProps = defaultProps;
+export default ReviewDataCertifyModal;

@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as ReviewHelper from 'helpers/reviewHelper';
 import * as UtilHelper from 'helpers/util';
@@ -20,267 +20,234 @@ const propTypes = {
     updateSaving: PropTypes.func
 };
 
-const defaultProps = {
-    submissionID: '',
-    publishStatus: '',
-    saveState: ''
-};
+const ReviewDataNarrative = ({submissionID = '', publishStatus = '', saveState = '', ...props}) => {
+    const blockedStatuses = ['reverting', 'publishing'];
 
-const blockedStatuses = ['reverting', 'publishing'];
+    const [initialNarrative, setInitialNarrative] = useState(props.narrative);
+    const [currentNarrative, setCurrentNarrative] = useState(props.narrative);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [commentsCollapsed, setCommentsCollapsed] = useState(true);
+    const [savingState, setSavingState] = useState('');
+    const [commentsChanged, setCommentsChanged] = useState(false);
 
-export default class ReviewDataNarrative extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            initialNarrative: {
-                submission_comment: '',
-                A: '',
-                B: '',
-                C: '',
-                D1: '',
-                D2: '',
-                E: '',
-                F: ''
-            },
-            currentNarrative: {
-                submission_comment: '',
-                A: '',
-                B: '',
-                C: '',
-                D1: '',
-                D2: '',
-                E: '',
-                F: ''
-            },
-            errorMessage: '',
-            commentsCollapsed: true
-        };
-
-        this.downloadCommentsFile = this.downloadCommentsFile.bind(this);
-        this.textChanged = this.textChanged.bind(this);
-        this.saveNarrative = this.saveNarrative.bind(this);
-        this.undoChanges = this.undoChanges.bind(this);
-        this.toggleCommentBox = this.toggleCommentBox.bind(this);
-        this.preventExit = this.preventExit.bind(this);
-    }
-
-    componentDidMount() {
-        window.addEventListener("beforeunload", this.preventExit);
-        this.updateState(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps, this.props)) {
-            this.updateState(this.props);
+    useEffect(() => {
+        if (commentsChanged) {
+            window.addEventListener("beforeunload", preventExit);
         }
-    }
+        return () => {
+            window.removeEventListener("beforeunload", preventExit);
+        };
+    }, [commentsChanged]);
 
-    componentWillUnmount() {
-        window.removeEventListener("beforeunload", this.preventExit);
-    }
+    useEffect(() => {
+        setInitialNarrative(props.narrative);
+        setCurrentNarrative(props.narrative);
+        setCommentsChanged(false);
+    }, [props.narrative]);
 
-    preventExit(e) {
+    useEffect(() => {
+        if (savingState) {
+            props.updateSaving(savingState);
+
+            if (savingState === 'Saved') {
+                props.loadData();
+            }
+            setSavingState('');
+        }
+    }, [savingState]);
+
+    const preventExit = (e) => {
         // for this function we want to disable the consistent-return rule because we only want it to return
         // when this condition is met. Otherwise it prevents the user from leaving the page at the wrong time
-        if (!UtilHelper.trimmedObjectEquality(this.state.initialNarrative, this.state.currentNarrative)) {
-            e.returnValue = 'You have unsaved comments.';
-            return 'You have unsaved comments.';
-        }
-    }
+        e.preventDefault();
+        e.returnValue = 'You have unsaved comments.';
+        return 'You have unsaved comments.';
+    };
 
-    saveNarrative() {
-        this.props.updateSaving('Saving');
-        const tempNarrative = Object.assign({}, this.state.currentNarrative);
-        tempNarrative.submission_id = this.props.submissionID;
+    const saveNarrative = () => {
+        props.updateSaving('Saving');
+        const tempNarrative = Object.assign({}, currentNarrative);
+        tempNarrative.submission_id = submissionID;
 
         ReviewHelper.saveNarrative(tempNarrative)
             .then(() => {
-                this.setState({
-                    errorMessage: ''
-                }, () => {
-                    this.props.updateSaving('Saved');
-                    this.props.loadData();
-                });
+                setErrorMessage('');
+                setSavingState('Saved');
             })
             .catch(() => {
-                this.setState({
-                    errorMessage: ''
-                }, () => this.props.updateSaving('Error'));
+                setErrorMessage('');
+                setSavingState('Error');
             });
-    }
+    };
 
-    downloadCommentsFile() {
-        ReviewHelper.fetchCommentsFile(this.props.submissionID)
+    const downloadCommentsFile = () => {
+        ReviewHelper.fetchCommentsFile(submissionID)
             .then((result) => {
                 window.open(result.data.url);
             })
             .catch((error) => {
                 console.error(error);
-                this.setState({
-                    errorMessage: `: ${error.response.data.message}`
-                }, () => this.props.updateSaving('Error'));
+                setErrorMessage(`: ${error.response.data.message}`);
+                setSavingState('Error');
             });
-    }
+    };
 
-    updateState(props) {
-        this.setState({
-            initialNarrative: props.narrative,
-            currentNarrative: props.narrative
-        });
-    }
+    const undoChanges = () => {
+        const originalStatus = Object.assign({}, initialNarrative);
+        setCurrentNarrative(originalStatus);
+        setCommentsChanged(false);
+    };
 
-    undoChanges() {
-        const originalStatus = Object.assign({}, this.state.initialNarrative);
-        this.setState({ currentNarrative: originalStatus });
-    }
-
-    textChanged(newContent, fileType) {
-        const newNarrative = Object.assign({}, this.state.currentNarrative);
+    const textChanged = (newContent, fileType) => {
+        const newNarrative = Object.assign({}, currentNarrative);
         newNarrative[fileType] = newContent;
-        this.setState({ currentNarrative: newNarrative });
+        setCurrentNarrative(newNarrative);
+        if (!UtilHelper.trimmedObjectEquality(initialNarrative, newNarrative) && !commentsChanged) {
+            // if comments weren't different before and now don't match
+            setCommentsChanged(true);
+        }
+        else if (UtilHelper.trimmedObjectEquality(initialNarrative, newNarrative) && commentsChanged) {
+            // if comments were already changed but now they match again
+            setCommentsChanged(false);
+        }
+    };
+
+    const toggleCommentBox = () => {
+        setCommentsCollapsed(!commentsCollapsed);
+    };
+
+    let unsavedCommentsMessage = null;
+    let resultSymbol = null;
+    let resultText = null;
+    if (commentsChanged) {
+        unsavedCommentsMessage = (
+            <div className="col-md-6 unsaved-comments">
+                <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" /> There are
+                unsaved comments
+            </div>);
+        resultSymbol = <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />;
+        resultText = 'There are unsaved comments';
     }
-
-    toggleCommentBox() {
-        this.setState({ commentsCollapsed: !this.state.commentsCollapsed });
+    if (saveState === 'Error') {
+        unsavedCommentsMessage = (
+            <div className="col-md-6 unsaved-comments">
+                <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
+                An error occurred and your comments were not saved
+            </div>);
     }
-
-    render() {
-        const commentsChanged = !UtilHelper.trimmedObjectEquality(this.state.initialNarrative,
-            this.state.currentNarrative);
-        let unsavedCommentsMessage = null;
-        let resultSymbol = null;
-        let resultText = null;
-        if (commentsChanged) {
-            unsavedCommentsMessage = (
-                <div className="col-md-6 unsaved-comments">
-                    <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" /> There are
-                    unsaved comments
-                </div>);
-            resultSymbol = <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />;
-            resultText = 'There are unsaved comments';
-        }
-        if (this.props.saveState === 'Error') {
-            unsavedCommentsMessage = (
-                <div className="col-md-6 unsaved-comments">
-                    <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />
-                    An error occurred and your comments were not saved
-                </div>);
-        }
-        if (this.state.commentsCollapsed) {
-            return (
-                <ReviewDataNarrativeCollapsed
-                    toggleCommentBox={this.toggleCommentBox}
-                    initialNarrative={this.state.initialNarrative}
-                    unsavedCommentsMessage={unsavedCommentsMessage} />
-            );
-        }
-        const hasSavedComments = Object.values(this.state.initialNarrative).some((x) => x !== '');
-        let downloadButton = (
-            <button
-                className="usa-da-download"
-                onClick={this.downloadCommentsFile}>
-                <FontAwesomeIcon icon="cloud-arrow-down" /> Download Comments for All Files (.csv)
-            </button>
-        );
-        if (blockedStatuses.indexOf(this.props.publishStatus) > -1 || !hasSavedComments) {
-            downloadButton = null;
-        }
-
-        if (this.props.saveState === 'Saved') {
-            resultSymbol = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
-            resultText = 'Saved';
-        }
-        else if (this.props.saveState === 'Error') {
-            resultSymbol = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
-            resultText = 'An error occurred and your comments were not saved';
-        }
-        else if (this.props.saveState === 'Saving') {
-            resultText = 'Saving...';
-        }
+    if (commentsCollapsed) {
         return (
-            <React.Fragment>
-                <div className="row comments-header">
-                    <div className="col-md-6">
-                        <h5>Agency Comments <span className="not-bold">(optional)</span></h5>
-                    </div>
-                    {unsavedCommentsMessage}
-                </div>
-                <div className="narrative-wrapper">
-                    <button
-                        className="collapse-button"
-                        onClick={this.toggleCommentBox}
-                        aria-label="Toggle collapsed comment box state">
-                        <FontAwesomeIcon icon="chevron-up" />
-                    </button>
-                    <h4>Submission Comment</h4>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.submission_comment}
-                        textChanged={this.textChanged}
-                        fileType="submission_comment" />
-                    <h4 className="extra-padding">File Comments</h4>
-                    <h5>File A</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.A}
-                        textChanged={this.textChanged}
-                        fileType="A" />
-                    <h5>File B</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.B}
-                        textChanged={this.textChanged}
-                        fileType="B" />
-                    <h5>File C</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.C}
-                        textChanged={this.textChanged}
-                        fileType="C" />
-                    <h5>File D1</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.D1}
-                        textChanged={this.textChanged}
-                        fileType="D1" />
-                    <h5>File D2</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.D2}
-                        textChanged={this.textChanged}
-                        fileType="D2" />
-                    <h5>File E</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.E}
-                        textChanged={this.textChanged}
-                        fileType="E" />
-                    <h5>File F</h5>
-                    <ReviewDataNarrativeTextfield
-                        currentContent={this.state.currentNarrative.F}
-                        textChanged={this.textChanged}
-                        fileType="F" />
-                    <div className="row comment-buttons">
-                        <div className="col-md-4">
-                            {downloadButton}
-                        </div>
-                        <div className="col-md-8 save-buttons">
-                            <p className="save-state">
-                                {resultSymbol}{resultText}{this.state.errorMessage}
-                            </p>
-                            <button
-                                onClick={this.undoChanges}
-                                className="usa-da-button btn-transparent"
-                                disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1 || !commentsChanged}>
-                                Cancel
-                            </button>
-                            <button
-                                onClick={this.saveNarrative}
-                                className="usa-da-button btn-primary"
-                                disabled={blockedStatuses.indexOf(this.props.publishStatus) > -1 || !commentsChanged}>
-                                Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </React.Fragment>
+            <ReviewDataNarrativeCollapsed
+                toggleCommentBox={toggleCommentBox}
+                initialNarrative={initialNarrative}
+                unsavedCommentsMessage={unsavedCommentsMessage} />
         );
     }
-}
+    const hasSavedComments = Object.values(initialNarrative).some((x) => x !== '');
+    let downloadButton = (
+        <button
+            className="usa-da-download"
+            onClick={downloadCommentsFile}>
+            <FontAwesomeIcon icon="cloud-arrow-down" /> Download Comments for All Files (.csv)
+        </button>
+    );
+    if (blockedStatuses.indexOf(publishStatus) > -1 || !hasSavedComments) {
+        downloadButton = null;
+    }
+
+    if (saveState === 'Saved') {
+        resultSymbol = <FontAwesomeIcon icon="circle-check" className="check-circle-icon" />;
+        resultText = 'Saved';
+    }
+    else if (saveState === 'Error') {
+        resultSymbol = <FontAwesomeIcon icon="circle-exclamation" className="exclamation-circle-icon" />;
+        resultText = 'An error occurred and your comments were not saved';
+    }
+    else if (saveState === 'Saving') {
+        resultText = 'Saving...';
+    }
+    return (
+        <React.Fragment>
+            <div className="row comments-header">
+                <div className="col-md-6">
+                    <h5>Agency Comments <span className="not-bold">(optional)</span></h5>
+                </div>
+                {unsavedCommentsMessage}
+            </div>
+            <div className="narrative-wrapper">
+                <button
+                    className="collapse-button"
+                    onClick={toggleCommentBox}
+                    aria-label="Toggle collapsed comment box state">
+                    <FontAwesomeIcon icon="chevron-up" />
+                </button>
+                <h4>Submission Comment</h4>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.submission_comment}
+                    textChanged={textChanged}
+                    fileType="submission_comment" />
+                <h4 className="extra-padding">File Comments</h4>
+                <h5>File A</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.A}
+                    textChanged={textChanged}
+                    fileType="A" />
+                <h5>File B</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.B}
+                    textChanged={textChanged}
+                    fileType="B" />
+                <h5>File C</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.C}
+                    textChanged={textChanged}
+                    fileType="C" />
+                <h5>File D1</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.D1}
+                    textChanged={textChanged}
+                    fileType="D1" />
+                <h5>File D2</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.D2}
+                    textChanged={textChanged}
+                    fileType="D2" />
+                <h5>File E</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.E}
+                    textChanged={textChanged}
+                    fileType="E" />
+                <h5>File F</h5>
+                <ReviewDataNarrativeTextfield
+                    currentContent={currentNarrative.F}
+                    textChanged={textChanged}
+                    fileType="F" />
+                <div className="row comment-buttons">
+                    <div className="col-md-4">
+                        {downloadButton}
+                    </div>
+                    <div className="col-md-8 save-buttons">
+                        <p className="save-state">
+                            {resultSymbol}{resultText}{errorMessage}
+                        </p>
+                        <button
+                            onClick={undoChanges}
+                            className="usa-da-button btn-transparent"
+                            disabled={blockedStatuses.indexOf(publishStatus) > -1 || !commentsChanged}>
+                            Cancel
+                        </button>
+                        <button
+                            onClick={saveNarrative}
+                            className="usa-da-button btn-primary"
+                            disabled={blockedStatuses.indexOf(publishStatus) > -1 || !commentsChanged}>
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </React.Fragment>
+    );
+};
 
 ReviewDataNarrative.propTypes = propTypes;
-ReviewDataNarrative.defaultProps = defaultProps;
+export default ReviewDataNarrative;
