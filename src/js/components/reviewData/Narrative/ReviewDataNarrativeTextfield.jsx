@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,65 +14,44 @@ const propTypes = {
     fileType: PropTypes.string
 };
 
-const defaultProps = {
-    textChanged: null,
-    currentContent: '',
-    fileType: ''
-};
-
 const asciiRegex = /^[ -~\t\n\r]+$/;
 
-export default class ReviewDataNarrativeTextfield extends React.Component {
-    constructor(props) {
-        super(props);
+const ReviewDataNarrativeTextfield = ({textChanged = null, currentContent = '', fileType = ''}) => {
+    const [validAscii, setValidAscii] = useState(asciiRegex.test(currentContent) || currentContent === '');
 
-        this.state = {
-            validAscii: asciiRegex.test(this.props.currentContent) || this.props.currentContent === ''
-        };
+    useEffect(() => {
+        validateAscii();
+    }, [currentContent]);
 
-        this.textChanged = this.textChanged.bind(this);
-        this.validateAscii = this.validateAscii.bind(this);
-    }
+    const validateAscii = () => {
+        setValidAscii(asciiRegex.test(currentContent) || currentContent === '');
+    };
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.currentContent !== this.props.currentContent) {
-            this.validateAscii();
-        }
-    }
+    const textUpdated = (e) => {
+        textChanged(e.target.value, fileType);
+    };
 
-    validateAscii() {
-        this.setState({
-            validAscii: asciiRegex.test(this.props.currentContent) || this.props.currentContent === ''
-        });
-    }
-
-    textChanged(e) {
-        this.props.textChanged(e.target.value, this.props.fileType);
-    }
-
-    render() {
-        const placeholderType = this.props.fileType === 'submission_comment' ? 'submission' : 'file';
-        const warningMessage = this.state.validAscii ? null :
-            (
-                <React.Fragment>
-                    <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />
-                    Your comment contains non-standard characters that may not display properly.
-                </React.Fragment>
-            );
-        return (
-            <div className="narrative-box">
-                <textarea
-                    rows="1"
-                    id={`submission-review-narrative-${this.props.fileType}`}
-                    value={this.props.currentContent}
-                    onChange={this.textChanged.bind(this)}
-                    placeholder={`Enter a comment to describe this ${placeholderType}...`}
-                    className={this.state.validAscii ? '' : 'invalid-ascii'} />
-                {warningMessage}
-            </div>
+    const placeholderType = fileType === 'submission_comment' ? 'submission' : 'file';
+    const warningMessage = validAscii ? null :
+        (
+            <React.Fragment>
+                <FontAwesomeIcon icon="triangle-exclamation" className="exclamation-triangle-icon" />
+                Your comment contains non-standard characters that may not display properly.
+            </React.Fragment>
         );
-    }
-}
+    return (
+        <div className="narrative-box">
+            <textarea
+                rows="1"
+                id={`submission-review-narrative-${fileType}`}
+                value={currentContent}
+                onChange={textUpdated}
+                placeholder={`Enter a comment to describe this ${placeholderType}...`}
+                className={validAscii ? '' : 'invalid-ascii'} />
+            {warningMessage}
+        </div>
+    );
+};
 
 ReviewDataNarrativeTextfield.propTypes = propTypes;
-ReviewDataNarrativeTextfield.defaultProps = defaultProps;
+export default ReviewDataNarrativeTextfield;

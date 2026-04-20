@@ -3,7 +3,6 @@
  * Created by Mike Bray 4/5/16
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -11,21 +10,14 @@ const propTypes = {
     label: PropTypes.string
 };
 
-const defaultProps = {
-    data: '',
-    label: ''
+const ReviewDataContentRow = ({data = '', label = ''}) => {
+    return (
+        <div className="row">
+            <div className="col-xs-4">{label}</div>
+            <div className="col-xs-8 data">{data}</div>
+        </div>
+    );
 };
 
-export default class ReviewDataContentRow extends React.Component {
-    render() {
-        return (
-            <div className="row">
-                <div className="col-xs-4">{this.props.label}</div>
-                <div className="col-xs-8 data">{this.props.data}</div>
-            </div>
-        );
-    }
-}
-
 ReviewDataContentRow.propTypes = propTypes;
-ReviewDataContentRow.defaultProps = defaultProps;
+export default ReviewDataContentRow;
