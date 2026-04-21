@@ -3,8 +3,8 @@
   * Created by Minahm Kim 02/09/17
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DeleteModal from './DeleteModal';
@@ -19,117 +19,89 @@ const propTypes = {
     confirm: PropTypes.bool
 };
 
-const defaultProps = {
-    reload: null,
-    warning: null,
-    account: null,
-    item: null,
-    submissionId: null,
-    confirm: false
-};
+const DeleteLink = ({
+    reload = null,
+    warning = null,
+    account = null,
+    item = null,
+    submissionId = null,
+    confirm = false
+}) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [deletable, setDeletable] = useState(false);
 
-export default class DeleteLink extends React.Component {
-    constructor(props) {
-        super(props);
-        this.load = false;
+    useEffect(() => {
+        canDelete();
+    }, []);
 
-        this.state = {
-            active: false,
-            delete: false
-        };
-        this.confirm = this.confirm.bind(this);
-        this.reset = this.reset.bind(this);
-        this.delete = this.delete.bind(this);
-    }
+    useEffect(() => {
+        canDelete();
+    }, [account, item, submissionId]);
 
-    componentDidMount() {
-        this.didUnmount = false;
-        this.canDelete();
-    }
+    const openModal = () => {
+        setModalOpen(true);
+    };
 
-    componentDidUpdate() {
-        if (!this.load) {
-            this.canDelete();
-        }
-    }
-
-    componentWillUnmount() {
-        this.didUnmount = true;
-    }
-
-    confirm() {
-        this.setState({
-            active: true
-        });
-    }
-
-    canDelete() {
-        if (!this.props.account) {
+    const canDelete = () => {
+        if (!account) {
             return;
         }
-        this.load = true;
 
-        let deletable = (this.props.account.website_admin || !this.props.account.helpOnly);
+        let tmpDeletable = (account.website_admin || !account.helpOnly);
 
-        if (!deletable) {
-            this.props.account.affiliations.forEach((aff) => {
-                if (aff.agency_name === this.props.item.agency && (aff.permission === "writer" ||
+        if (!tmpDeletable) {
+            account.affiliations.forEach((aff) => {
+                if (aff.agency_name === item.agency && (aff.permission === "writer" ||
                     aff.permission === 'submitter')) {
-                    deletable = true;
+                    tmpDeletable = true;
                 }
             });
         }
 
-        this.setState({
-            delete: deletable,
-            active: this.props.confirm
-        });
+        setDeletable(tmpDeletable);
+        setModalOpen(confirm);
+    };
+
+    const deleteSub = () => {
+        reload();
+    };
+
+    const reset = () => {
+        warning(-1);
+        setModalOpen(false);
+    };
+
+    let button = 'N/A';
+    let modal = null;
+    const onKeyDownHandler = createOnKeyDownHandler(openModal);
+
+    if (deletable) {
+        button = (
+            <div
+                role="button"
+                tabIndex={0}
+                onKeyDown={onKeyDownHandler}
+                onClick={openModal}
+                className="trash-icon"
+                aria-label="Delete">
+                <FontAwesomeIcon icon={['far', 'trash-can']} className="trash-icon" />
+            </div>);
+        modal = (<DeleteModal
+            isOpen={modalOpen}
+            closeModal={reset}
+            deleteSub={deleteSub}
+            id={submissionId} />);
     }
 
-    delete() {
-        this.props.reload();
-    }
-
-    reset() {
-        this.props.warning(-1);
-        this.setState({
-            active: false
-        });
-    }
-
-    render() {
-        let button = 'N/A';
-        let modal = null;
-        const onKeyDownHandler = createOnKeyDownHandler(this.confirm);
-
-        if (this.state.delete) {
-            button = (
-                <div
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={onKeyDownHandler}
-                    onClick={this.confirm}
-                    className="trash-icon"
-                    aria-label="Delete">
-                    <FontAwesomeIcon icon={['far', 'trash-can']} className="trash-icon" />
-                </div>);
-            modal = (<DeleteModal
-                isOpen={this.state.active}
-                closeModal={this.reset}
-                delete={this.delete}
-                id={this.props.submissionId} />);
-        }
-
-        return (
-            <div>
-                <div className="usa-da-recent-activity-link" >
-                    {button}
-                </div>
-                {modal}
+    return (
+        <div>
+            <div className="usa-da-recent-activity-link" >
+                {button}
             </div>
-        );
-    }
-}
+            {modal}
+        </div>
+    );
+};
 
 DeleteLink.propTypes = propTypes;
-DeleteLink.defaultProps = defaultProps;
+export default DeleteLink;

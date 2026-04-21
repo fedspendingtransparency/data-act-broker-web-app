@@ -3,8 +3,8 @@
   * Created by Minahm Kim 03/10/17
   */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -12,116 +12,94 @@ import * as ReviewHelper from '../../../helpers/reviewHelper';
 
 const propTypes = {
     closeModal: PropTypes.func,
-    delete: PropTypes.func,
+    deleteSub: PropTypes.func,
     id: PropTypes.number,
     isOpen: PropTypes.bool
 };
 
-const defaultProps = {
-    closeModal: () => {},
-    delete: () => {},
-    id: null,
-    isOpen: false
-};
+const DeleteModal = ({closeModal = () => {}, deleteSub = () => {}, id = null, isOpen = false}) => {
+    const [errorMessage, setErrorMessage] = useState('');
+    const [disable, setDisable] = useState(false);
+    const [exiting, setExiting] = useState(false);
 
-export default class DeleteModal extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        if (exiting) {
+            setExiting(false);
+            closeModal();
+        }
+    }, [exiting]);
 
-        this.state = {
-            errorMessage: "",
-            disable: false
-        };
-
-        this.closeModal = this.closeModal.bind(this);
-    }
-
-    clickedDeleteButton() {
-        this.setState({ disable: true });
-        ReviewHelper.deleteSubmission(this.props.id)
+    const clickedDeleteButton = () => {
+        setDisable(true);
+        ReviewHelper.deleteSubmission(id)
             .then((res) => {
                 if (res.data.message === 'Success') {
-                    this.props.delete();
-
-                    // reset the modal if closed
-                    this.setState({
-                        errorMessage: '',
-                        disable: false
-                    }, () => {
-                        this.props.closeModal();
-                    });
+                    deleteSub();
+                    exitModal();
                 }
             })
             .catch((error) => {
-                let errorMessage = "An error occurred while attempting to delete the submission. Please contact " +
+                let tmpErrorMessage = "An error occurred while attempting to delete the submission. Please contact " +
                     "your administrator for assistance.";
                 if (error.response.data.message && error.response.data.message !== "") {
-                    errorMessage = error.response.data.message;
+                    tmpErrorMessage = error.response.data.message;
                 }
-                this.setState({ errorMessage });
+                setErrorMessage(tmpErrorMessage);
             });
-    }
+    };
 
-    closeModal(e) {
+    const exitModal = (e) => {
         if (e) {
             e.preventDefault();
         }
 
         // reset the modal if closed
-        this.setState({
-            errorMessage: '',
-            disable: false
-        }, () => {
-            this.props.closeModal();
-        });
+        setErrorMessage('');
+        setDisable(false);
+        setExiting(true);
+    };
+
+    let error = '';
+    if (errorMessage) {
+        error = <div className="alert alert-danger text-center" role="alert">{errorMessage}</div>;
     }
 
-    render() {
-        let error = '';
-        if (this.state.errorMessage) {
-            error = <div className="alert alert-danger text-center" role="alert">{this.state.errorMessage}</div>;
-        }
+    return (
+        <Modal
+            mounted={isOpen}
+            onExit={exitModal}
+            underlayClickExits
+            verticallyCenter
+            initialFocus="#delete-button"
+            titleId="usa-da-certify-modal">
+            <div className="usa-da-modal-page">
+                <div id="usa-da-certify-modal" className="usa-da-certify-modal">
+                    <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
+                        <button onClick={exitModal} aria-label="close">
+                            <FontAwesomeIcon icon="xmark" />
+                        </button>
+                    </div>
 
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
-
-        return (
-            <Modal
-                mounted={this.props.isOpen}
-                onExit={this.closeModal}
-                underlayClickExits={trueProps}
-                verticallyCenter={trueProps}
-                initialFocus="#delete-button"
-                titleId="usa-da-certify-modal">
-                <div className="usa-da-modal-page">
-                    <div id="usa-da-certify-modal" className="usa-da-certify-modal">
-                        <div className="usa-da-certify-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="xmark" />
-                            </button>
-                        </div>
-
-                        <div className="usa-da-certify-modal-content delete-modal-content">
-                            Warning: This will delete the submission from the system for your entire agency.
-                            It will not be recoverable once deleted. Are you sure you want to proceed?
-                        </div>
-                        {error}
-                        <div className="pull-right">
-                            <br />
-                            <button
-                                id="delete-button"
-                                className="btn btn-danger delete-button"
-                                onClick={this.clickedDeleteButton.bind(this)}
-                                disabled={this.state.disable}>Delete
-                            </button>
-                            <button className="btn btn-default" onClick={this.closeModal}>Cancel</button>
-                        </div>
+                    <div className="usa-da-certify-modal-content delete-modal-content">
+                        Warning: This will delete the submission from the system for your entire agency.
+                        It will not be recoverable once deleted. Are you sure you want to proceed?
+                    </div>
+                    {error}
+                    <div className="pull-right">
+                        <br />
+                        <button
+                            id="delete-button"
+                            className="btn btn-danger delete-button"
+                            onClick={clickedDeleteButton}
+                            disabled={disable}>Delete
+                        </button>
+                        <button className="btn btn-default" onClick={exitModal}>Cancel</button>
                     </div>
                 </div>
-            </Modal>
-        );
-    }
-}
+            </div>
+        </Modal>
+    );
+};
 
 DeleteModal.propTypes = propTypes;
-DeleteModal.defaultProps = defaultProps;
+export default DeleteModal;

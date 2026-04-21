@@ -3,7 +3,6 @@
 * Created by Katie Rose 12/7/15
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../SharedComponents/navigation/NavigationComponent';
 import LandingContentContainer from '../../containers/landing/LandingContentContainer';
@@ -13,29 +12,23 @@ const propTypes = {
     type: PropTypes.oneOf(['home', 'fabs', 'dabs'])
 };
 
-const defaultProps = {
-    type: 'home'
-};
+const LandingPage = ({type = 'home'}) => {
+    const activeTab = type === 'fabs' ? 'FABSlanding' : 'landing';
 
-export default class LandingPage extends React.Component {
-    render() {
-        const activeTab = this.props.type === 'fabs' ? 'FABSlanding' : 'landing';
-
-        return (
-            <div>
-                <div className="usa-da-site_wrap">
-                    <div className="usa-da-landing-page">
-                        <div className="usa-da-page-content">
-                            <Navbar activeTab={activeTab} type={this.props.type} />
-                            <LandingContentContainer type={this.props.type} />
-                        </div>
+    return (
+        <div>
+            <div className="usa-da-site_wrap">
+                <div className="usa-da-landing-page">
+                    <div className="usa-da-page-content">
+                        <Navbar activeTab={activeTab} type={type} />
+                        <LandingContentContainer type={type} />
                     </div>
                 </div>
-                <Footer />
             </div>
-        );
-    }
-}
+            <Footer />
+        </div>
+    );
+};
 
 LandingPage.propTypes = propTypes;
-LandingPage.defaultProps = defaultProps;
+export default LandingPage;

@@ -2,8 +2,7 @@
   * SubmissionStatus.jsx
   * Created by Kevin Li 5/16/16
   */
-
-import React from 'react';
+ 
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -25,22 +24,12 @@ export const StatusTypes = {
     CERTIFIED: 9
 };
 
-const defaultProps = {
-    status: StatusTypes.UNKNOWN,
-    published: false,
-    certified: false
-};
+export const SubmissionStatus = ({status = StatusTypes.UNKNOWN, published = false, certified = false}) => {
+    const statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors',
+        'Validated (Without Errors)', 'Published', 'Validation Server Error', 'Validated (With Warnings)',
+        'Updated', 'Certified'];
 
-export class SubmissionStatus extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.statusStrings = ['Unknown', 'Started', 'Validation In Progress', 'Has Errors',
-            'Validated (Without Errors)', 'Published', 'Validation Server Error', 'Validated (With Warnings)',
-            'Updated', 'Certified'];
-    }
-
-    progressBar(value) {
+    const progressBar = (value) => {
         const colors = ['pending', 'pending', 'pending', 'pending'];
         const readyStatuses = [StatusTypes.VALIDATED, StatusTypes.VALIDATEDWARNINGS, StatusTypes.UPDATED,
             StatusTypes.PUBLISHED];
@@ -72,33 +61,30 @@ export class SubmissionStatus extends React.Component {
         }
 
         return colors;
+    };
+
+    const colors = progressBar(status);
+    let label = statusStrings[status];
+    if (status !== StatusTypes.PUBLISHED && published && !certified) {
+        label += '\n(Needs Republishing)';
+    }
+    else if (status !== StatusTypes.CERTIFIED && published && certified) {
+        label += '\n(Needs Recertification)';
     }
 
-    render() {
-        const colors = this.progressBar(this.props.status);
-        let label = this.statusStrings[this.props.status];
-        if (this.props.status !== StatusTypes.PUBLISHED && this.props.published && !this.props.certified) {
-            label += '\n(Needs Republishing)';
-        }
-        else if (this.props.status !== StatusTypes.CERTIFIED && this.props.published && this.props.certified) {
-            label += '\n(Needs Recertification)';
-        }
-
-        return (
-            <div className="usa-da-table-submission-status">
-                <div className="usa-da-status-label">
-                    {label}
-                </div>
-                <div className="usa-da-submission-progress-bars">
-                    <div className={`step ${colors[0]}`} />
-                    <div className={`step ${colors[1]}`} />
-                    <div className={`step ${colors[2]}`} />
-                    <div className={`step ${colors[3]}`} />
-                </div>
+    return (
+        <div className="usa-da-table-submission-status">
+            <div className="usa-da-status-label">
+                {label}
             </div>
-        );
-    }
-}
+            <div className="usa-da-submission-progress-bars">
+                <div className={`step ${colors[0]}`} />
+                <div className={`step ${colors[1]}`} />
+                <div className={`step ${colors[2]}`} />
+                <div className={`step ${colors[3]}`} />
+            </div>
+        </div>
+    );
+};
 
 SubmissionStatus.propTypes = propTypes;
-SubmissionStatus.defaultProps = defaultProps;
