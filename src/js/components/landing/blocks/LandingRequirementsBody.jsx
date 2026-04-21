@@ -4,35 +4,12 @@
  */
 
 import PropTypes from 'prop-types';
-import Moment from 'moment';
 
 const propTypes = {
-    window: PropTypes.array,
     type: PropTypes.string
 };
 
-const LandingRequirementsBody = ({window = [], type = ''}) => {
-    const windowBlocked = () => {
-        if (!window) {
-            return false;
-        }
-        for (let i = 0; i < window.length; i++) {
-            if (window[i].notice_block) {
-                return window[i];
-            }
-        }
-        return false;
-    };
-
-    let windowWarning = null;
-    const windowBlock = windowBlocked();
-    if (windowBlock) {
-        windowWarning = (
-            <strong>
-                {`Note: You cannot certify until ${Moment(windowBlock.end_date).format('dddd, MMMM D, YYYY')}`}
-            </strong>
-        );
-    }
+const LandingRequirementsBody = ({type = ''}) => {
     let header = "You'll need the following files in order to complete your submission";
     let body = (
         <div>
@@ -100,7 +77,6 @@ const LandingRequirementsBody = ({window = [], type = ''}) => {
         <div className="usa-da-landing-modal-content">
             <h4>{header}</h4>
             {body}
-            {windowWarning}
         </div>
     );
 };

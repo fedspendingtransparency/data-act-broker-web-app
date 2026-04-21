@@ -3,8 +3,8 @@
  * Created by Kevin Li 5/16/16
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import _ from 'lodash';
 import * as SubmissionListHelper from 'helpers/submissionListHelper';
 import * as PermissionsHelper from 'helpers/permissionsHelper';
@@ -19,62 +19,55 @@ const propTypes = {
     type: PropTypes.string
 };
 
-const defaultProps = {
-    session: {},
-    type: ''
-};
+const RecentActivityTable = ({session = {}, type = ''}) => {
+    const [cachedResponse, setCachedResponse] = useState([]);
+    const [data, setData] = useState([]);
+    const [cellClasses, setCellClasses] = useState([]);
+    const [headerClasses, setHeaderClasses] = useState([]);
+    const [rowClasses, setRowClasses] = useState([]);
+    const [message, setMessage] = useState('Loading recent activity...');
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [sortColumn, setSortColumn] = useState(4);
+    const [deleteIndex, setDeleteIndex] = useState(-1);
+    const [isUnmounted, setIsUnmounted] = useState(false);
 
-export default class RecentActivityTable extends React.Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        reload();
+        setIsUnmounted(false);
 
-        this.didUnmount = false;
-
-        this.state = {
-            cachedResponse: [],
-            data: [],
-            cellClasses: [],
-            headerClasses: [],
-            rowClasses: [],
-            message: 'Loading recent activity...',
-            sortDirection: 'desc',
-            sortColumn: 4,
-            account: null,
-            user: true
+        return () => {
+            setIsUnmounted(true);
         };
-    }
+    }, []);
 
-    componentDidMount() {
-        this.loadActivity();
-        this.loadUser();
-        this.didUnmount = false;
-    }
+    useEffect(() => {
+        reload();
+    }, [type]);
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.type !== this.props.type) {
-            this.loadActivity(this.props.type);
-            this.loadUser();
+    useEffect(() => {
+        if (deleteIndex !== -1) {
+            buildRow();
         }
-    }
+    }, [deleteIndex]);
 
-    componentWillUnmount() {
-        this.didUnmount = true;
-    }
+    useEffect(() => {
+        buildRow();
+    }, [cachedResponse, sortColumn, sortDirection]);
 
-    getAgency(item) {
+    const getAgency = (item) => {
         let agency = item.agency;
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             agency += `:\n${item.files[0]
                 .split('/')
                 .pop()
                 .replace(/^[0-9]*_/, '')}`;
         }
         return agency;
-    }
+    };
 
-    getHeaders() {
+    const getHeaders = () => {
         let headers = [];
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             headers = [
                 'Submission ID',
                 'Agency: Filename',
@@ -82,7 +75,7 @@ export default class RecentActivityTable extends React.Component {
                 'Created By',
                 'Last Modified'
             ];
-            if (PermissionsHelper.checkFabsPermissions(this.props.session)) {
+            if (PermissionsHelper.checkFabsPermissions(session)) {
                 headers.push('Delete');
             }
         }
@@ -95,69 +88,45 @@ export default class RecentActivityTable extends React.Component {
                 'Last Modified',
                 'Status'
             ];
-            if (PermissionsHelper.checkPermissions(this.props.session)) {
+            if (PermissionsHelper.checkPermissions(session)) {
                 headers.push('Delete');
             }
         }
         return headers;
-    }
+    };
 
-    deleteWarning(index) {
-        this.setState(
-            {
-                deleteIndex: index
-            },
-            () => {
-                this.buildRow();
-            }
-        );
-    }
+    const deleteWarning = (index) => {
+        setDeleteIndex(index);
+    };
 
-    reload() {
-        this.loadActivity();
-        this.buildRow();
-    }
+    const reload = () => {
+        setDeleteIndex(-1);
+        loadActivity();
+    };
 
-    loadUser() {
-        // Leaving this as a function in case the user changes and we want to update it
-        this.setState({
-            account: this.props.session.user
-        });
-    }
-
-    loadActivity(type = this.props.type) {
+    const loadActivity = () => {
         SubmissionListHelper.loadRecentActivity(type)
             .then((res) => {
-                if (this.didUnmount) {
+                if (isUnmounted) {
                     return;
                 }
                 // save the response for sorting later
-                this.setState(
-                    {
-                        cachedResponse: SubmissionListHelper.parseRecentActivity(res.data.submissions)
-                    },
-                    () => {
-                        // show the response once the data is in place
-                        this.buildRow();
-                    }
-                );
+                setCachedResponse(SubmissionListHelper.parseRecentActivity(res.data.submissions));
             })
             .catch((err) => {
-                if (this.didUnmount) {
+                if (isUnmounted) {
                     return;
                 }
-                this.setState({
-                    message: 'An error occurred while loading recent activity.'
-                });
+                setMessage('An error occurred while loading recent activity.');
                 console.error(err);
             });
-    }
+    };
 
-    buildRow() {
+    const buildRow = () => {
         // iterate through the recent activity
         const output = [];
         const allCellClasses = [];
-        const rowClasses = [];
+        const allRowClasses = [];
 
         let baseCellClasses = [
             'row-12_5',
@@ -168,7 +137,7 @@ export default class RecentActivityTable extends React.Component {
             'row-20 progress-cell',
             'row-7_5 text-center'
         ];
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             baseCellClasses = [
                 'row-10 text-center',
                 'row-35',
@@ -178,8 +147,8 @@ export default class RecentActivityTable extends React.Component {
                 'row-10 text-center'
             ];
         }
-        const headerClasses = [...baseCellClasses];
-        headerClasses[headerClasses.length - 1] = headerClasses[headerClasses.length - 1].split(' ')[0];
+        const allHeaderClasses = [...baseCellClasses];
+        allHeaderClasses[allHeaderClasses.length - 1] = allHeaderClasses[allHeaderClasses.length - 1].split(' ')[0];
 
         // sort the array by object key
         const orderKeys = [
@@ -189,43 +158,41 @@ export default class RecentActivityTable extends React.Component {
             'sortableDate'
         ];
         // When sorting the FABS recent activity table, we need two values to sort by the agency/filename column
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             orderKeys[0] = ['sortableAgency', 'sortableFileName'];
         }
         const data = _.orderBy(
-            this.state.cachedResponse,
-            orderKeys[this.state.sortColumn - 1],
-            this.state.sortDirection
+            cachedResponse,
+            orderKeys[sortColumn - 1],
+            sortDirection
         );
 
         // iterate through each item returned from the API
         data.forEach((item, index) => {
             // break the object out into an array for the table component
-            const row = this.formatRow(item, index);
+            const row = formatRow(item, index);
 
             const rowClass = item.test_submission ? 'test-submission-row' : '';
 
-            rowClasses.push(rowClass);
+            allRowClasses.push(rowClass);
             allCellClasses.push(baseCellClasses);
             output.push(row);
         });
 
-        this.setState({
-            data: output,
-            cellClasses: allCellClasses,
-            headerClasses,
-            rowClasses,
-            message: data.length === 0 ? 'No recent activity' : ''
-        });
-    }
+        setData(output);
+        setCellClasses(allCellClasses);
+        setHeaderClasses(allHeaderClasses);
+        setRowClasses(allRowClasses);
+        setMessage(data.length === 0 ? 'No recent activity' : '');
+    };
 
-    formatRow(rowData, index) {
+    const formatRow = (rowData, index) => {
         const link = (<SubmissionLink
             submissionId={rowData.submission_id}
-            type={this.props.type}
+            type={type}
             testSubmission={rowData.test_submission} />);
         let reportingDateString = `Start: ${rowData.reporting_start_date}\nEnd: ${rowData.reporting_end_date}`;
-        if (this.props.type === 'fabs') {
+        if (type === 'fabs') {
             reportingDateString = `Earliest: ${rowData.reporting_start_date}\nLatest: ${rowData.reporting_end_date}`;
         }
 
@@ -239,7 +206,7 @@ export default class RecentActivityTable extends React.Component {
 
         const row = [
             link,
-            this.getAgency(rowData),
+            getAgency(rowData),
             reportingDateString,
             userName,
             <LastModifiedCell expirationDate={rowData.expiration_date} lastModified={rowData.last_modified} />
@@ -249,10 +216,10 @@ export default class RecentActivityTable extends React.Component {
         const certfied = rowData.certified;
         let deleteCol = false;
         let canDelete = false;
-        if (this.props.type === 'fabs') {
-            deleteCol = PermissionsHelper.checkFabsPermissions(this.props.session);
+        if (type === 'fabs') {
+            deleteCol = PermissionsHelper.checkFabsPermissions(session);
             canDelete = PermissionsHelper.checkFabsAgencyPermissions(
-                this.props.session,
+                session,
                 rowData.agency
             );
         }
@@ -261,26 +228,22 @@ export default class RecentActivityTable extends React.Component {
                 <Status.SubmissionStatus status={rowData.rowStatus} published={!unpublished} certified={certfied} />
             );
 
-            deleteCol = PermissionsHelper.checkPermissions(this.props.session);
-            canDelete = PermissionsHelper.checkAgencyPermissions(
-                this.props.session,
-                rowData.agency
-            );
+            deleteCol = PermissionsHelper.checkPermissions(session);
+            canDelete = PermissionsHelper.checkAgencyPermissions(session, rowData.agency);
         }
 
         if (deleteCol) {
             if (canDelete && unpublished) {
-                const deleteConfirm =
-                    this.state.deleteIndex !== -1 && index === this.state.deleteIndex;
+                const deleteConfirm = deleteIndex !== -1 && index === deleteIndex;
                 row.push(
                     <DeleteLink
                         submissionId={rowData.submission_id}
                         index={index}
-                        warning={this.deleteWarning.bind(this)}
+                        warning={deleteWarning}
                         confirm={deleteConfirm}
-                        reload={this.reload.bind(this)}
+                        reload={reload}
                         item={rowData}
-                        account={this.state.account} />
+                        account={session.user} />
                 );
             }
             else {
@@ -288,43 +251,33 @@ export default class RecentActivityTable extends React.Component {
             }
         }
         return row;
-    }
+    };
 
-    sortTable(direction, column) {
+    const sortTable = (direction, column) => {
         // the table sorting changed
         let dir = direction;
         // When sorting by agency/filename in FABS, we need two directions
-        if (this.props.type === 'fabs' && column === 1) {
+        if (type === 'fabs' && column === 1) {
             dir = [direction, direction];
         }
-        this.setState(
-            {
-                sortDirection: dir,
-                sortColumn: column
-            },
-            () => {
-                // re-display the data
-                this.buildRow();
-            }
-        );
-    }
+        setSortDirection(dir);
+        setSortColumn(column);
+    };
 
-    render() {
-        return (
-            <div className="usa-da-recent-activity">
-                <FormattedTable
-                    headers={this.getHeaders()}
-                    data={this.state.data}
-                    cellClasses={this.state.cellClasses}
-                    headerClasses={this.state.headerClasses}
-                    rowClasses={this.state.rowClasses}
-                    unsortable={[0, 2, 5, 6]}
-                    onSort={this.sortTable.bind(this)} />
-                <div className="text-center">{this.state.message}</div>
-            </div>
-        );
-    }
-}
+    return (
+        <div className="usa-da-recent-activity">
+            <FormattedTable
+                headers={getHeaders()}
+                data={data}
+                cellClasses={cellClasses}
+                headerClasses={headerClasses}
+                rowClasses={rowClasses}
+                unsortable={[0, 2, 5, 6]}
+                onSort={sortTable} />
+            <div className="text-center">{message}</div>
+        </div>
+    );
+};
 
 RecentActivityTable.propTypes = propTypes;
-RecentActivityTable.defaultProps = defaultProps;
+export default RecentActivityTable;
