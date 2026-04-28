@@ -1,4 +1,10 @@
-#### March 17, 2026{section=changelog}
+#### April 7, 2026{section=changelog}
+In this release of the Broker, we:
+
+* Updated A30.2 to ignore accounts in File B with no activity.
+* Fixed IIQ links on the Broker Permissions documentation.
+
+#### March 17, 2026
 In this release of the Broker, we:
 
 * Updated GTAS Comparison Report to include 0000 and 9999 BOC values.

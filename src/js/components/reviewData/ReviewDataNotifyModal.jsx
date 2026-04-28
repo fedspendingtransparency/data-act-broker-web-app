@@ -3,8 +3,8 @@
  * Created by Mike Bray 6/5/16
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useRef, useEffect } from 'react';
 import Modal from 'react-aria-modal';
 import _ from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,172 +22,152 @@ const propTypes = {
     submittingAgency: PropTypes.string
 };
 
-const defaultProps = {
-    isOpen: false,
-    closeModal: () => {},
-    submissionID: '',
-    fromUser: '',
-    submittingAgency: ''
-};
+const ReviewDataNotifyModal = ({
+    isOpen = false, closeModal = () => {}, submissionID = '', fromUser = '', submittingAgency = ''
+}) => {
+    const [users, setUsers] = useState(null);
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
-export default class ReviewDataNotifyModal extends React.Component {
-    constructor(props) {
-        super(props);
+    const typeaheadRef = useRef();
 
-        this.state = {
-            users: null,
-            selectedUsers: []
-        };
+    useEffect(() => {
+        loadUsers();
+    }, []);
 
-        this.selectUser = this.selectUser.bind(this);
-    }
-
-    componentDidMount() {
-        this.loadUsers();
-    }
-
-    loadUsers() {
+    const loadUsers = () => {
         ReviewHelper.listUsers()
             .then((res) => {
                 const tmpData = res.data.users;
                 for (let i = 0; i < tmpData.length; i++) {
                     tmpData[i].displayName = `${tmpData[i].name} | ${tmpData[i].email}`;
                 }
-                this.setState({ users: tmpData });
+                setUsers(tmpData);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }
+    };
 
-    userFormatter(item) {
+    const userFormatter = (item) => {
         return {
             label: item.displayName,
             value: item.id
         };
-    }
+    };
 
-    selectUser(id, isValid) {
+    const selectUser = (id, isValid) => {
         if (isValid) {
-            const selectedUser = _.find(this.state.users, (user) => user.id === id);
-            const updatedSelectedUsers = this.state.selectedUsers.slice();
+            const selectedUser = _.find(users, (user) => user.id === id);
+            const updatedSelectedUsers = selectedUsers.slice();
 
             if (updatedSelectedUsers.length === 0 || updatedSelectedUsers[updatedSelectedUsers.length - 1].id !== id) {
                 updatedSelectedUsers.push(selectedUser);
-                this.setState({ selectedUsers: updatedSelectedUsers });
+                const updatedUsers = _.remove(users, (user) => user.id !== id);
 
-                const updatedUsers = _.remove(this.state.users, (user) => user.id !== id);
-                this.setState({ users: updatedUsers });
-
-                this.typeahead.setState({ value: "" });
+                setSelectedUsers(updatedSelectedUsers);
+                setUsers(updatedUsers);
             }
         }
-    }
+    };
 
-    deselectUser(userId) {
+    const deselectUser = (userId) => {
         if (userId) {
-            const deselectedUser = _.find(this.state.selectedUsers, (user) => user.id === userId);
-            const users = this.state.users.slice();
+            const deselectedUser = _.find(selectedUsers, (user) => user.id === userId);
+            const tmpUsers = users.slice();
 
-            if (users.length === 0 || users[users.length - 1].id !== userId) {
-                users.push(deselectedUser);
-                this.setState({ users });
+            if (tmpUsers.length === 0 || users[users.length - 1].id !== userId) {
+                tmpUsers.push(deselectedUser);
+                const updatedSelectedUsers = _.remove(selectedUsers, (user) => user.id !== userId);
 
-                const updatedSelectedUsers = _.remove(this.state.selectedUsers, (user) => user.id !== userId);
-                this.setState({ selectedUsers: updatedSelectedUsers });
+                setUsers(tmpUsers);
+                setSelectedUsers(updatedSelectedUsers);
             }
         }
-    }
+    };
 
-    generateMailToLink() {
-        const toEmails = (this.state.selectedUsers.map((user) => user.email)).join(', ');
+    const generateMailToLink = () => {
+        const toEmails = (selectedUsers.map((user) => user.email)).join(', ');
         const subject = 'Data Broker - Submission Ready for Review';
-        const revUser = this.props.fromUser.toUpperCase();
-        const revAgecny = this.props.submittingAgency.toUpperCase();
-        const revLink = `https://broker.usaspending.gov/submission/${this.props.submissionID}/reviewData`;
+        const revUser = fromUser.toUpperCase();
+        const revAgency = submittingAgency.toUpperCase();
+        const revLink = `https://broker.usaspending.gov/submission/${submissionID}/reviewData`;
         const body = [
-            `${revUser} has shared a Data Broker submission with you from ${revAgecny}. `,
+            `${revUser} has shared a Data Broker submission with you from ${revAgency}. `,
             `Follow this link (${revLink}) to review their submission. `,
             `For questions or comments, please visit the Service Desk at https://servicedesk.usaspending.gov/ `,
             `or e-mail DATAPMO@fiscal.treasury.gov.`
         ].join('');
         return `mailto:${toEmails}?subject=${subject}&body=${body}`;
+    };
+
+    const selectedUsersList = [];
+    if (selectedUsers && selectedUsers.length > 0) {
+        for (const user of selectedUsers) {
+            selectedUsersList.push(<ReviewDataSelectedUser
+                key={user.id}
+                user={user}
+                deselectUser={deselectUser} />);
+        }
     }
 
-    render() {
-        const selectedUsers = [];
-        if (this.state.selectedUsers && this.state.selectedUsers.length > 0) {
-            for (const user of this.state.selectedUsers) {
-                selectedUsers.push(<ReviewDataSelectedUser
-                    key={user.id}
-                    user={user}
-                    deselectUser={this.deselectUser.bind(this, user.id)} />);
-            }
-        }
+    let autoCompleteItems = null;
+    if (users && users.length > 0) {
+        autoCompleteItems = (<Typeahead
+            ref={typeaheadRef}
+            placeholder="Name or email address of the person to certify this submission"
+            keyValue="displayName"
+            internalValue={["id"]}
+            values={users}
+            formatter={userFormatter}
+            onSelect={selectUser}
+            errorHeader="Unknown User"
+            errorDescription="You must select a user from the list that is provided as you type."
+            clearAfterSelect />);
+    }
 
-        let autoCompleteItems = null;
-        if (this.state.users && this.state.users.length > 0) {
-            autoCompleteItems = (<Typeahead
-                ref={(c) => {
-                    this.typeahead = c;
-                }}
-                placeholder="Name or email address of the person to certify this submission"
-                keyValue="displayName"
-                internalValue={["id"]}
-                values={this.state.users}
-                formatter={this.userFormatter}
-                onSelect={this.selectUser}
-                errorHeader="Unknown User"
-                errorDescription="You must select a user from the list that is provided as you type." />);
-        }
+    return (
+        <Modal
+            mounted={isOpen}
+            onExit={closeModal}
+            underlayClickExists={false}
+            verticallyCenter
+            titleId="usa-da-notify-modal">
+            <div className="usa-da-modal-page">
+                <div id="usa-da-notify-modal" className="usa-da-notify-modal">
+                    <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
+                        <button onClick={closeModal} aria-label="close">
+                            <FontAwesomeIcon icon="xmark" />
+                        </button>
+                    </div>
 
-        // adding this because the linter doesn't like when we just pass true
-        const trueProps = true;
+                    <div className="usa-da-notify-modal-content">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h6>Notify another user that the submission is ready for review</h6>
 
-        return (
-            <Modal
-                mounted={this.props.isOpen}
-                onExit={this.props.closeModal}
-                underlayClickExists={false}
-                verticallyCenter={trueProps}
-                titleId="usa-da-notify-modal">
-                <div className="usa-da-modal-page">
-                    <div id="usa-da-notify-modal" className="usa-da-notify-modal">
-                        <div className="usa-da-notify-modal-close usa-da-icon usa-da-icon-times">
-                            <button onClick={this.props.closeModal} aria-label="close">
-                                <FontAwesomeIcon icon="xmark" />
-                            </button>
-                        </div>
+                                <div className="usa-da-selected-users-holder">
+                                    {selectedUsersList}
+                                </div>
 
-                        <div className="usa-da-notify-modal-content">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h6>Notify another user that the submission is ready for review</h6>
-
-                                    <div className="usa-da-selected-users-holder">
-                                        {selectedUsers}
-                                    </div>
-
-                                    <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
-                                        {autoCompleteItems}
-                                    </div>
+                                <div className="usa-da-autocomplete-holder typeahead-holder mb-30">
+                                    {autoCompleteItems}
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-md-12 mb-10">
-                                    <a
-                                        href={this.generateMailToLink()}
-                                        className="usa-da-button btn-primary pull-right">Send Notification
-                                    </a>
-                                </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12 mb-10">
+                                <a
+                                    href={generateMailToLink()}
+                                    className="usa-da-button btn-primary pull-right">Send Notification
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </Modal>
-        );
-    }
-}
+            </div>
+        </Modal>
+    );
+};
 
 ReviewDataNotifyModal.propTypes = propTypes;
-ReviewDataNotifyModal.defaultProps = defaultProps;
+export default ReviewDataNotifyModal;
