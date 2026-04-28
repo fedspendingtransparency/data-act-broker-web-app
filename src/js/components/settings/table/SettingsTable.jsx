@@ -17,14 +17,10 @@ const propTypes = {
     updateOrder: PropTypes.func
 };
 
-const defaultProps = {
-    results: []
-};
-
-const SettingsTable = (props) => {
+const SettingsTable = ({results = [], ...props}) => {
 
     const columns = ['significance', 'impact', 'description'];
-    const [sortedItems, setSortedItems] = useState(listLabels(props.results));
+    const [sortedItems, setSortedItems] = useState(listLabels(results));
 
     function handleDragEnd({ active, over }) {
         // dropped outside list or in its old location
@@ -34,7 +30,7 @@ const SettingsTable = (props) => {
 
         const activeIndex = active.data.current.sortable.index;
         const overIndex = over.data.current?.sortable.index || 0;
-        const items = reorder(props.results, activeIndex, overIndex);
+        const items = reorder(results, activeIndex, overIndex);
         props.updateOrder(items);
         setSortedItems(listLabels(items));
     }
@@ -54,7 +50,7 @@ const SettingsTable = (props) => {
                         </tr>
                     </thead>
                     <tbody className="broker-table__body">
-                        {props.results.map((row, index) => (
+                        {results.map((row, index) => (
                             <SettingsRow
                                 key={row.label}
                                 row={row}
@@ -68,7 +64,5 @@ const SettingsTable = (props) => {
     );
 };
 
-SettingsTable.defaultProps = defaultProps;
 SettingsTable.propTypes = propTypes;
-
 export default SettingsTable;

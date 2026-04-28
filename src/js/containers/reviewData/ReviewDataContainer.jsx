@@ -3,8 +3,8 @@
  * Created by Mike Bray 6/8/16
  */
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
@@ -20,66 +20,56 @@ const propTypes = {
     setInfo: PropTypes.func
 };
 
-class ReviewDataContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const ReviewDataContainer = (props) => {
+    const [data, setData] = useState({
+        jobs: null,
+        cgac_code: null,
+        frec_code: null,
+        agency_name: '--',
+        reporting_period: null,
+        number_of_rows: null,
+        number_of_warnings: null,
+        total_size: null,
+        created_on: null,
+        ready: false,
+        publish_status: 'unpublished',
+        certified: false,
+        certification_deadline: '',
+        total_obligations: null,
+        total_assistance_obligations: null,
+        total_procurement_obligations: null,
+        file_narrative: {}
+    });
 
-        this.state = {
-            jobs: null,
-            cgac_code: null,
-            frec_code: null,
-            agency_name: '--',
-            reporting_period: null,
-            number_of_rows: null,
-            number_of_warnings: null,
-            total_size: null,
-            created_on: null,
-            ready: false,
-            publish_status: 'unpublished',
-            certified: false,
-            certification_deadline: '',
-            total_obligations: null,
-            total_assistance_obligations: null,
-            total_procurement_obligations: null,
-            file_narrative: {}
-        };
+    useEffect(() => {
+        loadData();
+    }, []);
 
-        this.loadData = this.loadData.bind(this);
-    }
+    useEffect(() => {
+        loadData();
+    }, [props.submissionID]);
 
-    componentDidMount() {
-        this.loadData();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.submissionID !== prevProps.submissionID) {
-            // URL submission ID changed, reload
-            this.loadData();
-        }
-    }
-
-    loadData() {
+    const loadData = () => {
         let submissionData = {};
-        const { submissionID } = this.props;
-        ReviewHelper.fetchSubmissionMetadata(submissionID)
+        ReviewHelper.fetchSubmissionMetadata(props.submissionID)
             .then((res) => {
                 // Update meta data (submission.info) in redux
-                this.props.setSubmissionPublishStatus(res.data.publish_status);
-                this.props.setInfo(res.data);
+                props.setSubmissionPublishStatus(res.data.publish_status);
+                props.setInfo(res.data);
                 submissionData = res.data;
 
-                return ReviewHelper.fetchSubmissionNarrative(submissionID);
+                return ReviewHelper.fetchSubmissionNarrative(props.submissionID);
             })
             .then((narrRes) => {
                 submissionData.file_narrative = narrRes.data;
-                return ReviewHelper.fetchObligations(submissionID);
+                return ReviewHelper.fetchObligations(props.submissionID);
             })
             .then((obRes) => {
                 submissionData.total_obligations = obRes.data.total_obligations;
                 submissionData.total_assistance_obligations = obRes.data.total_assistance_obligations;
                 submissionData.total_procurement_obligations = obRes.data.total_procurement_obligations;
                 const createdDate = moment.utc(submissionData.created_on).local().format('MM/DD/YYYY');
-                this.setState({
+                setData({
                     jobs: submissionData.jobs,
                     cgac_code: submissionData.cgac_code,
                     frec_code: submissionData.frec_code,
@@ -103,16 +93,14 @@ class ReviewDataContainer extends React.Component {
             })
             .catch((error) => {
                 console.error(error);
-                this.props.errorFromStep(error.response.data.message);
+                props.errorFromStep(error.response.data.message);
             });
-    }
+    };
 
-    render() {
-        return (
-            <ReviewDataPage {...this.props} data={this.state} loadData={this.loadData} />
-        );
-    }
-}
+    return (
+        <ReviewDataPage {...props} data={data} loadData={loadData} />
+    );
+};
 
 ReviewDataContainer.propTypes = propTypes;
 
