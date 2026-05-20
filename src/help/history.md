@@ -1,4 +1,9 @@
-#### April 7, 2026{section=changelog}
+#### April 28, 2026{section=changelog}
+In this release of the Broker, we:
+
+* No major updates included in this release.
+
+#### April 7, 2026
 In this release of the Broker, we:
 
 * Updated A30.2 to ignore accounts in File B with no activity.
