@@ -94,8 +94,7 @@ const ReviewDataNotifyModal = ({
         const body = [
             `${revUser} has shared a Data Broker submission with you from ${revAgency}. `,
             `Follow this link (${revLink}) to review their submission. `,
-            `For questions or comments, please visit the Service Desk at https://servicedesk.usaspending.gov/ `,
-            `or e-mail DATAPMO@fiscal.treasury.gov.`
+            `For questions, please contact the USAspending Service Desk at usaspending.help@fiscal.treasury.gov.`
         ].join('');
         return `mailto:${toEmails}?subject=${subject}&body=${body}`;
     };
