@@ -89,7 +89,6 @@ export default class Typeahead extends React.Component {
             item: function (text, input) {
                 // Awesomplete expects it wrapped in a li
                 var li = document.createElement("li");
-                console.log('SANITIZING');
                 
                 var cleanHtml = DOMPurify.sanitize(text.label);
                 li.innerHTML = cleanHtml;
