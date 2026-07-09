@@ -159,7 +159,7 @@ export default class DropdownTypeahead extends React.Component {
             
                 return li;
             }
-        }
+        };
         if (this.props.prioritySort) {
             awesomepleteSettings['sort'] = {
                 sort: (a, b) => {
@@ -170,7 +170,7 @@ export default class DropdownTypeahead extends React.Component {
                         return -1;
                     }
                     return 0;
-                },
+                }
             };
         }
         this.typeahead = new Awesomplete(target, awesomepleteSettings);
