@@ -39,7 +39,8 @@ export const fetchActiveUser = () => {
 export const establishSession = (responseHeaders) => {
     const cookieOpts = {
         expires: 7,
-        path: '/'
+        path: '/',
+        secure: true
     };
 
     // lowercase all the headers
