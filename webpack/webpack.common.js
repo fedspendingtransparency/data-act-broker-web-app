@@ -24,7 +24,7 @@ module.exports = {
         splitChunks: { chunks: 'all' },
         moduleIds: 'deterministic' // so that file hashes don't change unexpectedly
     },
-    devtool: "source-map",
+    devtool: "eval-cheap-source-map",
     module: {
         rules: [
             {
