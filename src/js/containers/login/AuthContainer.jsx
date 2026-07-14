@@ -98,11 +98,26 @@ const AuthContainer = (props) => {
         // extract the ticket string from the URL
         const urlParams = location.search;
 
-        const caiaRegex = /code=([^&])+/g;
-        const caiaRegexOutput = caiaRegex.exec(urlParams);
+        // Check for code and state
+        const caiaRegex = /^\?code=([^&]+)&state=([^%]+)$/g;
+        const caiaRegexOutput = urlParams.match(caiaRegex);
+
         if (caiaRegexOutput) {
-            // a CAIA code was found, process it
-            const code = caiaRegexOutput[0].substring('code='.length);
+            // a CAIA code and state found, process it
+            const code = caiaRegexOutput[0];
+            const state = caiaRegexOutput[1];
+
+            // Confirm it matches the state for this client
+            const originalState = sessionStorage.getItem('oauth_state');
+            sessionStorage.removeItem('oauth_state');
+            if (!state || state !== originalState) {
+                setError('CSRF validation failed: State parameter mismatch.');
+                
+                // remove any redirection cookies
+                Cookies.remove('brokerRedirect');
+
+                return;
+            }
 
             // save the code value in the component state
             setCode(code);
@@ -110,7 +125,7 @@ const AuthContainer = (props) => {
             setRunRedirect(true);
         }
         else {
-            // no ticket or code found, toss back to login page
+            // no code or state found, toss back to login page
             navigate('/login');
 
             // remove any redirection cookies

@@ -49,12 +49,19 @@ const LoginCaia = ({location = null}) => {
 
     const handleClick = (e) => {
         if (e.keyCode === '13' || !e.keyCode) {
+            // Generate unique state and temporarily save to verify upon redirecting back
+            const array = new Uint32Array(4);
+            window.crypto.getRandomValues(array);
+            const state = Array.from(array, dec => dec.toString(16).padStart(8, '0')).join('');
+            sessionStorage.setItem('oauth_state', state)
+
             const scope = "openid email profile address phone";
             const url = `${kGlobalConstants.CAIA_ROOT}/as/authorization.oauth2?`
                 + `response_type=code`
                 + `&scope=${scope}`
                 + `&redirect_uri=${encodeURIComponent(kGlobalConstants.AUTH_CALLBACK)}`
-                + `&client_id=${encodeURIComponent(kGlobalConstants.CAIA_CLIENT)}`;
+                + `&client_id=${encodeURIComponent(kGlobalConstants.CAIA_CLIENT)}`
+                + `&state=${state}`;
             window.location.assign(url);
         }
     };
