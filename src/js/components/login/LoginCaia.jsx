@@ -52,8 +52,8 @@ const LoginCaia = ({location = null}) => {
             // Generate unique state and temporarily save to verify upon redirecting back
             const array = new Uint32Array(4);
             window.crypto.getRandomValues(array);
-            const state = Array.from(array, dec => dec.toString(16).padStart(8, '0')).join('');
-            sessionStorage.setItem('oauth_state', state)
+            const state = Array.from(array, (dec) => dec.toString(16).padStart(8, '0')).join('');
+            sessionStorage.setItem('oauth_state', state);
 
             const scope = "openid email profile address phone";
             const url = `${kGlobalConstants.CAIA_ROOT}/as/authorization.oauth2?`
