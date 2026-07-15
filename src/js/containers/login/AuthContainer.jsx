@@ -110,6 +110,9 @@ const AuthContainer = (props) => {
             // Confirm it matches the state for this client
             const originalState = sessionStorage.getItem('oauth_state');
             sessionStorage.removeItem('oauth_state');
+            console.log(code);
+            console.log(state);
+            console.log(originalState);
             if (!state || state !== originalState) {
                 setError('CSRF validation failed: State parameter mismatch.');
                 
