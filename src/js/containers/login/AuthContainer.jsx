@@ -99,20 +99,17 @@ const AuthContainer = (props) => {
         const urlParams = location.search;
 
         // Check for code and state
-        const caiaRegex = /^\?code=([^&]+)&state=([^%]+)$/g;
+        const caiaRegex = /^\?code=([^&]+)&state=([^%]+)$/;
         const caiaRegexOutput = urlParams.match(caiaRegex);
 
         if (caiaRegexOutput) {
             // a CAIA code and state found, process it
-            const code = caiaRegexOutput[0];
-            const state = caiaRegexOutput[1];
+            const code = caiaRegexOutput[1];
+            const state = caiaRegexOutput[2];
 
             // Confirm it matches the state for this client
             const originalState = sessionStorage.getItem('oauth_state');
             sessionStorage.removeItem('oauth_state');
-            console.log(code);
-            console.log(state);
-            console.log(originalState);
             if (!state || state !== originalState) {
                 setError('CSRF validation failed: State parameter mismatch.');
                 
