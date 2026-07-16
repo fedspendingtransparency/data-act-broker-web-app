@@ -1,6 +1,16 @@
-#### June 30, 2026{section=technical}
+#### July 21, 2026{section=technical}
 
 In this release, here is a list of technical changes that may require infrastructure or database updates, or represents additional functionality.
 
-* Slightly modified the `/v1/upload_dabs_files/` endpoint to prevent potential issues.
-* Implemented a script to pull contract data from SAM’s Contract API, in preparation for the FPDS Atom feed sunsetting. Note this has not been and will not be run to pull in contract data until a comprehensive data quality analysis has been performed beforehand.
+* Continued cleanup of the upcoming SAM Contract API loader to replace the FPDS loader.
+* Bumped versions of various frontend libraries for security.
+* Added additional verification for redirect URI for login.
+* Reworked the underlying postgres calls for CSV generation.
+* Included various sanitization checks via the API.
+* Sanitized the typeahead values on the frontend.
+* Added extra checks for certain functionalities to be run locally.
+* Properly managed the API’s debug mode for proper logging and API exceptions.
+* Added secure flag for session cookie.
+* Set max limits for several endpoints for performance.
+* Added additional check for `/v1/check_detached_generation_status` to accept only detached job ids.
+* Updated webpack’s devtool for the production environment.
