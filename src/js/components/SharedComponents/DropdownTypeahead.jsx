@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Awesomplete from 'awesomplete';
+import DOMPurify from 'dompurify';
 import { keyCodes } from 'dataMapping/keyMappings';
 import DropdownTypeaheadCheckbox from './DropdownTypeaheadCheckbox';
 
@@ -148,8 +149,19 @@ export default class DropdownTypeahead extends React.Component {
 
     mountAwesomeplete() {
         const target = this.awesomplete;
+        const awesomepleteSettings = {
+            item: function (text, input) {
+                // Awesomplete expects it wrapped in a li
+                var li = document.createElement("li");
+                
+                var cleanHtml = DOMPurify.sanitize(text.label);
+                li.innerHTML = cleanHtml;
+            
+                return li;
+            }
+        };
         if (this.props.prioritySort) {
-            this.typeahead = new Awesomplete(target, {
+            awesomepleteSettings['sort'] = {
                 sort: (a, b) => {
                     if (a.value.priority > b.value.priority) {
                         return 1;
@@ -159,11 +171,9 @@ export default class DropdownTypeahead extends React.Component {
                     }
                     return 0;
                 }
-            });
+            };
         }
-        else {
-            this.typeahead = new Awesomplete(target);
-        }
+        this.typeahead = new Awesomplete(target, awesomepleteSettings);
         this.typeahead.autoFirst = true;
 
         if (this.props.formatter) {

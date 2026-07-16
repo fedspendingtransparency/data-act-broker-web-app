@@ -28,10 +28,6 @@ const HelpContent = (props) => {
                 and the page where you encountered it. The Service Desk Team will email you if more information
                 or clarification is needed.
             </p>
-            <p>
-                If you need assistance using Data Broker, please email&nbsp;
-                <a href="mailto:DATAPMO@fiscal.treasury.gov">DATAPMO@fiscal.treasury.gov</a>.
-            </p>
         </div>
     );
 };
