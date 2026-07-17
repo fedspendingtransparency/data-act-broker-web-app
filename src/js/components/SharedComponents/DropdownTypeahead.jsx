@@ -161,16 +161,14 @@ export default class DropdownTypeahead extends React.Component {
             }
         };
         if (this.props.prioritySort) {
-            awesomepleteSettings['sort'] = {
-                sort: (a, b) => {
-                    if (a.value.priority > b.value.priority) {
-                        return 1;
-                    }
-                    if (a.value.priority < b.value.priority) {
-                        return -1;
-                    }
-                    return 0;
+            awesomepleteSettings.sort = (a, b) => {
+                if (a.value.priority > b.value.priority) {
+                    return 1;
                 }
+                if (a.value.priority < b.value.priority) {
+                    return -1;
+                }
+                return 0;
             };
         }
         this.typeahead = new Awesomplete(target, awesomepleteSettings);
