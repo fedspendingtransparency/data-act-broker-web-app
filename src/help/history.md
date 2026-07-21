@@ -1,4 +1,9 @@
-#### May 19, 2026{section=changelog}
+#### June 30, 2026{section=changelog}
+In this release of the Broker, we:
+
+* Corrected the links in the API Submission Guide. For API users, the “/v1/” prefix for endpoints Is not accurate.
+
+#### May 19, 2026
 In this release of the Broker, we:
 
 * Added the following columns to D1 per GSDM 1.2.1:

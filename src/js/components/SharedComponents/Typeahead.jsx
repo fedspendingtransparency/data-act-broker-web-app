@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Awesomplete from 'awesomplete';
+import DOMPurify from 'dompurify';
 import { keyCodes } from 'dataMapping/keyMappings';
 
 import TypeaheadWarning from './TypeaheadWarning';
@@ -84,22 +85,29 @@ export default class Typeahead extends React.Component {
 
     mountAwesomeplete() {
         const target = this.awesomplete;
+        const awesomepleteSettings = {
+            item: function (text, input) {
+                // Awesomplete expects it wrapped in a li
+                var li = document.createElement("li");
+                
+                var cleanHtml = DOMPurify.sanitize(text.label);
+                li.innerHTML = cleanHtml;
+            
+                return li;
+            }
+        };
         if (this.props.prioritySort) {
-            this.typeahead = new Awesomplete(target, {
-                sort: (a, b) => {
-                    if (a.value.priority > b.value.priority) {
-                        return 1;
-                    }
-                    if (a.value.priority < b.value.priority) {
-                        return -1;
-                    }
-                    return 0;
+            awesomepleteSettings.sort = (a, b) => {
+                if (a.value.priority > b.value.priority) {
+                    return 1;
                 }
-            });
+                if (a.value.priority < b.value.priority) {
+                    return -1;
+                }
+                return 0;
+            };
         }
-        else {
-            this.typeahead = new Awesomplete(target);
-        }
+        this.typeahead = new Awesomplete(target, awesomepleteSettings);
         this.typeahead.autoFirst = true;
 
         if (this.props.formatter) {
