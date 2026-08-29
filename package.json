@@ -78,7 +78,7 @@
     "storybook": "^9.1.19",
     "terser-webpack-plugin": "^5.3.14",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.6",
+    "webpack-dev-server": "^6.0.0",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
@@ -135,7 +135,7 @@
     "stream": "^0.0.3",
     "svg4everybody": "^2.0.3",
     "tinycolor2": "^1.6.0",
-    "uuid": "^11.1.0",
+    "uuid": "^14.0.1",
     "webpack": "^5.108.4",
     "xmldoc": "^2.0.2"
   },
