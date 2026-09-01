@@ -1,4 +1,9 @@
-#### July 21, 2026{section=changelog}
+#### August 11, 2026{section=changelog}
+In this release of the Broker, we:
+
+* No major updates.
+
+#### July 21, 2026
 In this release of the Broker, we:
 
 * Updated all email references to the service desk for accuracy.
