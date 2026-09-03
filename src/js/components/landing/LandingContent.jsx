@@ -5,6 +5,7 @@
 
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { Link } from 'react-router';
 import RecentActivityTable from './recentActivity/RecentActivityTable';
 import LandingRequirementsModal from './blocks/LandingRequirementsModal';
 import BlockContent from './BlockContent';
@@ -79,7 +80,7 @@ const LandingContent = ({session = { user: { agency_name: "Your Agency" }}, ...p
                 </p>
                 <p>
                     Details on how to format your data, including required and optional fields, can be found
-                    in the <a href="/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                    in the <Link to="/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</Link>.
                 </p>
             </div>);
     }
@@ -94,7 +95,7 @@ const LandingContent = ({session = { user: { agency_name: "Your Agency" }}, ...p
                 </p>
                 <p>
                     Details on how to format your data, including required and optional fields, can be found
-                    in the <a href="/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                    in the <Link to="/help" target="_blank" rel="noopener noreferrer" >Help section</Link>.
                 </p>
             </div>);
     }
@@ -105,7 +106,7 @@ const LandingContent = ({session = { user: { agency_name: "Your Agency" }}, ...p
                 <p>
                     Details on how to format your data against the latest version of the Governmentwide Spending
                     Data Model (GSDM) can be found on
-                    the <a href="/help" target="_blank" rel="noopener noreferrer" >Help section</a>.
+                    the <Link to="/help" target="_blank" rel="noopener noreferrer" >Help section</Link>.
                 </p>
             </div>);
     }
