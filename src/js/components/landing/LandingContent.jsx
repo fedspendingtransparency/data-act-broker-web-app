@@ -80,7 +80,7 @@ const LandingContent = ({session = { user: { agency_name: "Your Agency" }}, ...p
                 </p>
                 <p>
                     Details on how to format your data, including required and optional fields, can be found
-                    in the <Link to="/FABSHelp" rel="noopener noreferrer" >Help section</Link>.
+                    in the <Link to="/FABSHelp" target="_blank" rel="noopener noreferrer" >Help section</Link>.
                 </p>
             </div>);
     }
@@ -95,7 +95,7 @@ const LandingContent = ({session = { user: { agency_name: "Your Agency" }}, ...p
                 </p>
                 <p>
                     Details on how to format your data, including required and optional fields, can be found
-                    in the <Link to="/help" rel="noopener noreferrer" >Help section</Link>.
+                    in the <Link to="/help" target="_blank" rel="noopener noreferrer" >Help section</Link>.
                 </p>
             </div>);
     }
@@ -106,7 +106,7 @@ const LandingContent = ({session = { user: { agency_name: "Your Agency" }}, ...p
                 <p>
                     Details on how to format your data against the latest version of the Governmentwide Spending
                     Data Model (GSDM) can be found on
-                    the <Link to="/help" rel="noopener noreferrer" >Help section</Link>.
+                    the <Link to="/help" target="_blank" rel="noopener noreferrer" >Help section</Link>.
                 </p>
             </div>);
     }
