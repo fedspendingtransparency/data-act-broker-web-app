@@ -1,4 +1,9 @@
-#### September 1, 2026{section=changelog}
+#### September 22, 2026{section=changelog}
+In this release of the Broker, we:
+
+* No major updates included in this release.
+
+#### September 1, 2026
 In this release of the Broker, we:
 
 * Updated the FY 2026-11 DABS submission window due to Broker maintenance. The period will be extended to 10/1/2026.
