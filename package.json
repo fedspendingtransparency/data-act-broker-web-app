@@ -116,7 +116,7 @@
     "js-cookie": "^3.0.5",
     "lodash": "^4.18.1",
     "mini-css-extract-plugin": "^2.9.3",
-    "moment": "^2.29.4",
+    "moment": "^2.31.0",
     "node-gyp": "^11.3.0",
     "prop-types": "^15.8.1",
     "query-string": "^9.2.2",
