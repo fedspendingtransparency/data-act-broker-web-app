@@ -26,18 +26,18 @@ const HelpSidebar = (props) => {
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            href={"https://tfx.treasury.gov/system/files/2025-04/" +
-                                    "fy25-dabs-reporting-window-schedule.xlsx"}>
-                        Fiscal Year 2025 DABS Reporting Schedule
+                            href={"https://tfx.treasury.gov/system/files/2025-09/" +
+                                "fy26-dabs-reporting-window-schedule.xlsx"}>
+                        Fiscal Year 2026 DABS Reporting Schedule
                         </a>
                     </li>
                     <li>
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            href={"https://tfx.treasury.gov/system/files/2025-09/" +
-                                "fy26-dabs-reporting-window-schedule.xlsx"}>
-                        Fiscal Year 2026 DABS Reporting Schedule
+                            href={"https://tfx.treasury.gov/system/files/2026-08/" +
+                                "fy27-dabs-reporting-window-schedule.xlsx"}>
+                        Fiscal Year 2027 DABS Reporting Schedule
                         </a>
                     </li>
                 </ul>
