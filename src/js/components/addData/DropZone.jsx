@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+import DOMPurify from 'dompurify';
 
 import DropZoneDisplay from './DropZoneDisplay';
 
@@ -40,31 +41,32 @@ export default class DropZone extends React.Component {
         if (Object.prototype.hasOwnProperty.call(this.props.submission.files, this.props.requestName)) {
             const submission = this.props.submission;
             const submissionItem = this.props.submission.files[this.props.requestName];
+            const sanitizedFileName = DOMPurify.sanitize(submissionItem.file.name);
             dropped = ' dropped';
 
             isFileValid = validUploadFileChecker(submissionItem);
 
             if (submissionItem.state === 'ready' && isFileValid) {
-                dropzoneString = `**${submissionItem.file.name}** file selected`;
+                dropzoneString = `**${sanitizedFileName}** file selected`;
             }
             else if (submissionItem.state === 'ready' && !isFileValid) {
-                dropzoneString = `**${submissionItem.file.name}** must be CSV or TXT format`;
+                dropzoneString = `**${sanitizedFileName}** must be CSV or TXT format`;
             }
 
             if (submission.state === 'prepare') {
-                dropzoneString = `**${submissionItem.file.name}** was uploaded successfully`;
+                dropzoneString = `**${sanitizedFileName}** was uploaded successfully`;
             }
 
             if (submission.state === 'failed' && isFileValid) {
-                dropzoneString = `**${submissionItem.file.name}** is the correct file type,
+                dropzoneString = `**${sanitizedFileName}** is the correct file type,
                 but the submission upload has failed`;
             }
             else if (submissionItem.state === 'failed' && !isFileValid) {
-                dropzoneString = `**${submissionItem.file.name}** must be CSV or TXT format`;
+                dropzoneString = `**${sanitizedFileName}** must be CSV or TXT format`;
             }
 
             if (submission.state === 'uploading') {
-                dropzoneString = `**${submissionItem.file.name}**`;
+                dropzoneString = `**${sanitizedFileName}**`;
             }
         }
 
