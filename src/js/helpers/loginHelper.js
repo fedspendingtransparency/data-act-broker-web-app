@@ -40,7 +40,8 @@ export const establishSession = (responseHeaders) => {
     const cookieOpts = {
         expires: 7,
         path: '/',
-        secure: true
+        secure: true,
+        sameSite: 'strict'
     };
 
     // lowercase all the headers
@@ -54,12 +55,13 @@ export const establishSession = (responseHeaders) => {
     // check to see if we received a session header
     if (Object.prototype.hasOwnProperty.call(headers, 'x-session-id')) {
         // we did, save it in a cookie
-        Cookies.set('session', headers['x-session-id'], cookieOpts);
+        Cookies.set('__Host-session', headers['x-session-id'], cookieOpts);
     }
 };
 
 export const performLogin = (username, password) => {
     // wipe out old session cookies to prevent session weirdness
+    Cookies.remove('__Host-session', { path: '/', secure: true });
     Cookies.remove('session', { path: '/' });
 
     const req = apiRequest({
@@ -73,6 +75,7 @@ export const performLogin = (username, password) => {
 
 export const performCAIALogin = (code) => {
     // wipe out old session cookies to prevent session weirdness
+    Cookies.remove('__Host-session', { path: '/', secure: true });
     Cookies.remove('session', { path: '/' });
     // determine the service
     const redirectUri = kGlobalConstants.AUTH_CALLBACK;
