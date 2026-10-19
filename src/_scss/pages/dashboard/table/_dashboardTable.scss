@@ -2,6 +2,12 @@
     overflow-x: scroll;
     margin-bottom: rem(21);
 
+    .usa-dt-pagination__limit-selector__wrapper {
+        label {
+            margin-right: rem(5);
+        }
+    }
+
     .results-table-content {
         .title, .description, .loading-message {
             font-size: rem(25);
