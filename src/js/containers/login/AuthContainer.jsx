@@ -43,7 +43,7 @@ const AuthContainer = (props) => {
                 .then((loginRes) => {
                     LoginHelper.establishSession(loginRes.headers);
                     
-                    if (!Cookies.get('session')) {
+                    if (!Cookies.get('__Host-session')) {
                         // couldn't set cookie, fail this request and notify the user
                         props.setLoginState('failed');
                         return Promise.reject('cookie');

@@ -91,6 +91,7 @@ export class Navbar extends React.Component {
 
                 // unset the login state cookie
                 Cookies.remove('brokerLogin');
+                Cookies.remove('__Host-session', { path: '/', secure: true });
                 Cookies.remove('session', { path: '/' });
             }
         });

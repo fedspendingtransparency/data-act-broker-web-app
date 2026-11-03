@@ -10,7 +10,7 @@ import { kGlobalConstants } from '../GlobalConstants';
 
 // eslint-disable-next-line import/prefer-default-export
 export const apiRequest = (axiosParams = {}) => {
-    const defaultHeaders = { 'X-Session-ID': Cookies.get('session') };
+    const defaultHeaders = { 'X-Session-ID': Cookies.get('__Host-session') };
     const cancelToken = CancelToken.source();
     const defaultParams = {
         baseURL: kGlobalConstants.API,

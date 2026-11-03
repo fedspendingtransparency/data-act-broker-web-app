@@ -1,5 +1,7 @@
 const ignorePatterns = [
-    'data-tranparency-ui',
+    /** data-transparency-ui */
+    'data-transparency-ui',
+    'lodash-es',
     /** query-string */
     'query-string',
     'decode-uri-component',

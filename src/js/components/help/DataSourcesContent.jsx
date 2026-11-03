@@ -182,6 +182,29 @@ export default class DataSourcesContent extends React.Component {
                         updatedAt={this.props.updateDates.congressional_district} />
 
                     <DataSourcesItem
+                        title="Contract"
+                        uses="DABS D1 file and USAspending"
+                        description="All transactions for IDV and Contract Awards."
+                        source={
+                            <p>
+                                The daily SAM Contract update/delete feeds, which contain updates made during the
+                                previous day in SAM. Specific entries can be searched for on their website at&nbsp;
+                                <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/">
+                                    https://sam.gov/
+                                </a>
+                                . More information about the SAM Contract feed is available online:&nbsp;
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://open.gsa.gov/api/contract-awards/">
+                                    https://open.gsa.gov/api/contract-awards/
+                                </a>
+                                . Data is not available for download on this page, but the data can be found on
+                                USAspending or in D1 file generation elsewhere on the Broker.
+                            </p>}
+                        updatedAt={this.props.updateDates.fpds} />
+
+                    <DataSourcesItem
                         title="Country Code"
                         uses="FABS validations and derivations"
                         description={"All current countries as recognized under the GENC standard along with their" +
@@ -281,29 +304,6 @@ export default class DataSourcesContent extends React.Component {
                                 for download.
                             </p>}
                         updatedAt={this.props.updateDates.executive_compensation} />
-
-                    <DataSourcesItem
-                        title="Federal Procurement Data System (FPDS)"
-                        uses="DABS D1 file and USAspending"
-                        description="All transactions for IDV and Contract Awards."
-                        source={
-                            <p>
-                                The daily FPDS update/delete ATOM feeds, which contain updates made during the
-                                previous day in FPDS. Specific entries can be searched for on their website at&nbsp;
-                                <a target="_blank" rel="noopener noreferrer" href="https://fpds.gov">
-                                    https://fpds.gov
-                                </a>
-                                . More information about the ATOM feed is available online:&nbsp;
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href="https://www.fpds.gov/fpdsng_cms/index.php/en/worksite.html">
-                                    https://www.fpds.gov/fpdsng_cms/index.php/en/worksite.html
-                                </a>
-                                . Data is not available for download on this page, but the data can be found on
-                                USAspending or in D1 file generation elsewhere on Data Broker.
-                            </p>}
-                        updatedAt={this.props.updateDates.fpds} />
 
                     <DataSourcesItem
                         title="Funding Opportunity Number"
