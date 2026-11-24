@@ -82,7 +82,7 @@ export default class ResourcesContent extends React.Component {
                         <li>
                             <a
                                 href={`https://${fileLoc}.usaspending.gov/reference_data/` +
-                                    `GSDM Warning and Errors Report Specification v1.2.xlsx`}
+                                    `GSDM Warning and Errors Report Specification v1.3.xlsx`}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 Warning & Error Report Specification (WERS)
